@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region ¹ÚÈ¯ÀÇ
 public class Node : IHeapItem<Node>
 {
     public bool walkable;
@@ -52,3 +53,4 @@ public class Node : IHeapItem<Node>
         return -compare;
     }
 }
+#endregion

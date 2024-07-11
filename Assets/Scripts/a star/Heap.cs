@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region ¹ÚÈ¯ÀÇ
 public class Heap<T> where T : IHeapItem<T>
 {
     T[] items;
@@ -128,3 +129,4 @@ public interface IHeapItem<T> : IComparable<T>
         set;
     }
 }
+#endregion

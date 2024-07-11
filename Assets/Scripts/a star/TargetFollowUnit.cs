@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region ¹ÚÈ¯ÀÇ
 public class TargetFollowUnit : MonoBehaviour
 {
     public Transform target;
@@ -68,3 +69,4 @@ public class TargetFollowUnit : MonoBehaviour
         }
     }
 }
+#endregion

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region ¹ÚÈ¯ÀÇ
 public class PathRequestManager : MonoBehaviour
 {
     Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
@@ -58,3 +59,4 @@ public class PathRequestManager : MonoBehaviour
 
     }
 }
+#endregion

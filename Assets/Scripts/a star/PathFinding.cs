@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
+#region ¹ÚÈ¯ÀÇ
 public class PathFinding : MonoBehaviour
 {
     PathRequestManager requestManager;
@@ -128,3 +129,4 @@ public class PathFinding : MonoBehaviour
         return 14 * dstX + 10 * (dstY - dstX);
     }
 }
+#endregion

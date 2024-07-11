@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#region ¹ÚÈ¯ÀÇ
 public class GridController : MonoBehaviour
 {
     public bool displayGridGizmos;
@@ -125,5 +126,5 @@ public class GridController : MonoBehaviour
         public LayerMask terrainMask;
         public int terrainPenalty;
     }
-
 }
+#endregion

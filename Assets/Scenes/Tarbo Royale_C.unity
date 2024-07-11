@@ -2810,6 +2810,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a219455911288e84da9a9c5f55fd95c6, type: 3}
   m_PrefabInstance: {fileID: 444881716}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &450669780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 450669782}
+  - component: {fileID: 450669781}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &450669781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450669780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbfe07bee6e201040a4efff3672e250c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 0}
+--- !u!4 &450669782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450669780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.705978, y: 9.72633, z: 1.6719867}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &456705943 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821374989505724, guid: 1a51fe95cc8cc3a4ca8f62728430ca9f, type: 3}
@@ -3685,6 +3730,7 @@ Transform:
   m_Father: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_RootOrder: 8
 =======
   m_RootOrder: 10
@@ -3692,6 +3738,9 @@ Transform:
 =======
   m_RootOrder: 10
 >>>>>>> parent of 4a6befa4 (Merge branch 'Park')
+=======
+  m_RootOrder: 10
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &566930286
 PrefabInstance:
@@ -4203,6 +4252,7 @@ MonoBehaviour:
   gridWorldSize: {x: 112.19, y: 126.1}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   nodeRadius: 0.1
 =======
   nodeRadius: 0.8
@@ -4210,6 +4260,9 @@ MonoBehaviour:
 =======
   nodeRadius: 0.8
 >>>>>>> parent of 4a6befa4 (Merge branch 'Park')
+=======
+  nodeRadius: 0.8
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   walkableRegions:
   - terrainMask:
       serializedVersion: 2
@@ -4794,6 +4847,7 @@ Transform:
   m_Father: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_RootOrder: 9
 =======
   m_RootOrder: 11
@@ -4801,6 +4855,9 @@ Transform:
 =======
   m_RootOrder: 11
 >>>>>>> parent of 4a6befa4 (Merge branch 'Park')
+=======
+  m_RootOrder: 11
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &722741151
 PrefabInstance:
@@ -12883,6 +12940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 719874392}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &1295387881986344837
@@ -38913,6 +38971,13 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
 >>>>>>> parent of 4a6befa4 (Merge branch 'Park')
+=======
+--- !u!198 &2368890502783719555
+ParticleSystem:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2368890502783719566}
   serializedVersion: 8
@@ -43699,7 +43764,10 @@ Transform:
   m_LocalScale: {x: 9.744839, y: 9.744839, z: 9.744839}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD
   - {fileID: 7779658808734884320}
+=======
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   - {fileID: 7779658807551191827}
   - {fileID: 7779658808994144799}
   - {fileID: 7779658808233937310}
@@ -43772,7 +43840,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2368890502783719565}
+<<<<<<< HEAD
   m_RootOrder: 4
+=======
+  m_RootOrder: 3
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &2675953080497709091
 ParticleSystemRenderer:
@@ -43855,7 +43927,11 @@ ParticleSystem:
   m_GameObject: {fileID: 2675953080497709089}
   serializedVersion: 8
   lengthInSec: 5
+<<<<<<< HEAD
   simulationSpeed: 1
+=======
+  simulationSpeed: 0.1
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -48718,7 +48794,11 @@ ParticleSystem:
   m_GameObject: {fileID: 7779658807551191828}
   serializedVersion: 8
   lengthInSec: 5
+<<<<<<< HEAD
   simulationSpeed: 1
+=======
+  simulationSpeed: 0.1
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -49426,6 +49506,7 @@ ParticleSystem:
     radius:
       value: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 7052367320052481996, guid: 4fe57658fe5e96d43bdbd97e52cb208e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49471,6 +49552,8 @@ ParticleSystem:
   m_SourcePrefab: {fileID: 100100000, guid: 4fe57658fe5e96d43bdbd97e52cb208e, type: 3}
 >>>>>>> parent of 7d5e190f (Merge branch 'main' of https://github.com/jisoo5531/RoyalGame)
 =======
+=======
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
       mode: 0
       spread: 0
       speed:
@@ -53547,7 +53630,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2368890502783719565}
+<<<<<<< HEAD
   m_RootOrder: 1
+=======
+  m_RootOrder: 0
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_LocalEulerAnglesHint: {x: 0, y: -23.176, z: 0}
 --- !u!1 &7779658807551191828
 GameObject:
@@ -53576,7 +53663,11 @@ ParticleSystem:
   m_GameObject: {fileID: 7779658808233937311}
   serializedVersion: 8
   lengthInSec: 5
+<<<<<<< HEAD
   simulationSpeed: 1
+=======
+  simulationSpeed: 0.1
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -58359,7 +58450,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2368890502783719565}
+<<<<<<< HEAD
   m_RootOrder: 3
+=======
+  m_RootOrder: 2
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7779658808233937311
 GameObject:
@@ -58379,6 +58474,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &7779658808734884320
 Transform:
   m_ObjectHideFlags: 0
@@ -63191,6 +63287,8 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+=======
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
 --- !u!1 &7779658808994144768
 GameObject:
   m_ObjectHideFlags: 0
@@ -63218,7 +63316,11 @@ ParticleSystem:
   m_GameObject: {fileID: 7779658808994144768}
   serializedVersion: 8
   lengthInSec: 5
+<<<<<<< HEAD
   simulationSpeed: 1
+=======
+  simulationSpeed: 0.01
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -68001,7 +68103,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2368890502783719565}
+<<<<<<< HEAD
   m_RootOrder: 2
+=======
+  m_RootOrder: 1
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7883831431708593385
 Animator:
@@ -68974,4 +69080,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+<<<<<<< HEAD
 >>>>>>> parent of 4a6befa4 (Merge branch 'Park')
+=======
+>>>>>>> parent of ad767890 (Revert "Merge branch 'main' of https://github.com/jisoo5531/RoyalGame")

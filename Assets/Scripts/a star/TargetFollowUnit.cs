@@ -6,7 +6,7 @@ using UnityEngine;
 public class TargetFollowUnit : MonoBehaviour
 {
     public Transform target;
-    float speed = 5;
+    float speed = 14;
     Vector3[] path;
     int targetIndex;
 
@@ -29,11 +29,10 @@ public class TargetFollowUnit : MonoBehaviour
     IEnumerator FollowPath()
     {
         Vector3 currentWaypoint = path[0];
-        float threshold = 0.1f; // 임계값 설정
 
         while (true)
         {
-            if (Vector3.Distance(transform.position, currentWaypoint) < threshold)
+            if (transform.position == currentWaypoint)
             {
                 targetIndex++;
                 if (targetIndex >= path.Length)
@@ -45,6 +44,7 @@ public class TargetFollowUnit : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
+
         }
     }
 

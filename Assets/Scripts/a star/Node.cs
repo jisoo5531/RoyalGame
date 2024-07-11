@@ -20,7 +20,6 @@ public class Node : IHeapItem<Node>
     public Node(bool walkable, Vector3 worldPosition, int _gridX, int _gridY, int _penalty)
     {
         this.walkable = walkable;
-        //worldPosition.y = 1;
         this.worldPosition = worldPosition;
         this.gridX = _gridX;
         this.gridY = _gridY;

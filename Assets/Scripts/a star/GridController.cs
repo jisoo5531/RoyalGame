@@ -20,7 +20,7 @@ public class GridController : MonoBehaviour
 
     void Awake()
     {
-        nodeDiameter = nodeRadius * 2;
+        nodeDiameter = nodeRadius * 2f;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
@@ -40,36 +40,6 @@ public class GridController : MonoBehaviour
             return gridSizeX * gridSizeY;
         }
     }
-
-    //void CreateGrid()
-    //{
-    //    grid = new Node[gridSizeX, gridSizeY];
-    //    Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
-
-    //    for (int x = 0; x < gridSizeX; x++)
-    //    {
-    //        for (int y = 0; y < gridSizeY; y++)
-    //        {
-    //            Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-    //            bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
-
-    //            int movementPenalty = 0;
-
-    //            if (walkable)
-    //            {
-    //                Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
-    //                RaycastHit hit;
-    //                if (Physics.Raycast(ray, out hit, 100, walkableMask))
-    //                {
-    //                    walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
-    //                }
-    //            }
-
-    //            grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
-    //        }
-    //    }
-    //}
-
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -96,7 +66,7 @@ public class GridController : MonoBehaviour
                 }
                 else
                 {
-                    Collider[] colliders = Physics.OverlapSphere(worldPoint, nodeRadius * 2, unwalkableMask);
+                    Collider[] colliders = Physics.OverlapSphere(worldPoint, nodeRadius * 1.2f, unwalkableMask);
                     foreach (Collider collider in colliders)
                     {
                         float distance = Vector3.Distance(worldPoint, collider.ClosestPoint(worldPoint));

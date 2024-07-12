@@ -9,6 +9,8 @@ public class PathFinding : MonoBehaviour
 {
     PathRequestManager requestManager;
     GridController grid;
+    Vector3[] path;
+    int targetIndex;
 
     void Awake()
     {
@@ -33,6 +35,7 @@ public class PathFinding : MonoBehaviour
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
         startNode.parent = startNode;
 
+        // Check if both start and target nodes are walkable
         if (startNode.walkable && targetNode.walkable)
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -60,9 +63,9 @@ public class PathFinding : MonoBehaviour
                     }
 
                     int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour) + neighbour.movementPenalty;
-                    if (neighbour.distanceToObstacle < grid.nodeDiameter) // 장애물 가까이에 추가 페널티 부여
+                    if (neighbour.distanceToObstacle < grid.nodeDiameter)
                     {
-                        newMovementCostToNeighbour += (int)(1000 / neighbour.distanceToObstacle);
+                        newMovementCostToNeighbour += (int)(700 / (neighbour.distanceToObstacle + 1));
                     }
 
                     if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
@@ -83,6 +86,11 @@ public class PathFinding : MonoBehaviour
         if (pathSuccess)
         {
             waypoints = RetracePath(startNode, targetNode);
+            path = waypoints;
+        }
+        else
+        {
+            path = new Vector3[] { targetPos };
         }
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
     }
@@ -128,6 +136,29 @@ public class PathFinding : MonoBehaviour
             return 14 * dstY + 10 * (dstX - dstY);
         return 14 * dstX + 10 * (dstY - dstX);
     }
+
+    //IEnumerator FollowPath()
+    //{
+    //    Vector3 currentWaypoint = path[0];
+    //    float threshold = 0.1f;
+
+    //    while (true)
+    //    {
+    //        if (transform.position == currentWaypoint)
+    //        {
+    //            targetIndex++;
+    //            if (targetIndex >= path.Length)
+    //            {
+    //                yield break;
+    //            }
+    //            currentWaypoint = path[targetIndex];
+    //        }
+
+
+    //        unit.position = Vector3.MoveTowards(transform.position, currentWaypoint, Time.deltaTime * 5f);
+    //        yield return null;
+    //    }
+    //}
     //PathRequestManager requestManager;
     //GridController grid;
 

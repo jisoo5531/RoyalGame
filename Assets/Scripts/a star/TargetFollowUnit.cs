@@ -6,7 +6,7 @@ using UnityEngine;
 public class TargetFollowUnit : MonoBehaviour
 {
     public Transform target;
-    float speed = 5;
+    float speed = 4;
     Vector3[] path;
     int targetIndex;
 

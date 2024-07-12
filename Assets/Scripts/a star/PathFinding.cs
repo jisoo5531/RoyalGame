@@ -35,7 +35,6 @@ public class PathFinding : MonoBehaviour
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
         startNode.parent = startNode;
 
-        // Check if both start and target nodes are walkable
         if (startNode.walkable && targetNode.walkable)
         {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -65,7 +64,7 @@ public class PathFinding : MonoBehaviour
                     int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour) + neighbour.movementPenalty;
                     if (neighbour.distanceToObstacle < grid.nodeDiameter)
                     {
-                        newMovementCostToNeighbour += (int)(700 / (neighbour.distanceToObstacle + 1));
+                        newMovementCostToNeighbour += (int)(1000 / (neighbour.distanceToObstacle + 20));
                     }
 
                     if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))

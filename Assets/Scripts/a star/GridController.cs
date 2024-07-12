@@ -15,12 +15,12 @@ public class GridController : MonoBehaviour
 
     Node[,] grid;
 
-    float nodeDiameter;
+    public float nodeDiameter;
     int gridSizeX, gridSizeY;
 
     void Awake()
     {
-        nodeDiameter = nodeRadius * 2;
+        nodeDiameter = nodeRadius * 2f;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
@@ -40,7 +40,6 @@ public class GridController : MonoBehaviour
             return gridSizeX * gridSizeY;
         }
     }
-
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -54,6 +53,7 @@ public class GridController : MonoBehaviour
                 bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
 
                 int movementPenalty = 0;
+                float distanceToObstacle = float.MaxValue;
 
                 if (walkable)
                 {
@@ -64,8 +64,22 @@ public class GridController : MonoBehaviour
                         walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
                     }
                 }
+                else
+                {
+                    Collider[] colliders = Physics.OverlapSphere(worldPoint, nodeRadius * 1.2f, unwalkableMask);
+                    foreach (Collider collider in colliders)
+                    {
+                        float distance = Vector3.Distance(worldPoint, collider.ClosestPoint(worldPoint));
+                        if (distance < distanceToObstacle)
+                        {
+                            distanceToObstacle = distance;
+                        }
+                    }
+                }
 
-                grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
+                Node node = new Node(walkable, worldPoint, x, y, movementPenalty);
+                node.distanceToObstacle = distanceToObstacle;
+                grid[x, y] = node;
             }
         }
     }
@@ -105,19 +119,6 @@ public class GridController : MonoBehaviour
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
         return grid[x, y];
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-        if (grid != null && displayGridGizmos)
-        {
-            foreach (Node n in grid)
-            {
-                Gizmos.color = (n.walkable) ? Color.white : Color.red;
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-            }
-        }
     }
 
     [System.Serializable]

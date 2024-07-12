@@ -6,7 +6,7 @@ using UnityEngine;
 public class TargetFollowUnit : MonoBehaviour
 {
     public Transform target;
-    float speed = 5;
+    float speed = 3;
     Vector3[] path;
     int targetIndex;
 
@@ -29,7 +29,7 @@ public class TargetFollowUnit : MonoBehaviour
     IEnumerator FollowPath()
     {
         Vector3 currentWaypoint = path[0];
-        float threshold = 0.1f; // 임계값 설정
+        float threshold = 0.1f;
 
         while (true)
         {
@@ -43,6 +43,11 @@ public class TargetFollowUnit : MonoBehaviour
                 currentWaypoint = path[targetIndex];
             }
 
+            Vector3 direction = (currentWaypoint - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            lookRotation.x = transform.rotation.x;
+            lookRotation.z = transform.rotation.z;
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 7f);
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }

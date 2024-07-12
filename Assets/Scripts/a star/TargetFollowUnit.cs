@@ -45,7 +45,8 @@ public class TargetFollowUnit : MonoBehaviour
 
             Vector3 direction = (currentWaypoint - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-
+            lookRotation.x = transform.rotation.x;
+            lookRotation.z = transform.rotation.z;
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 7f);
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;

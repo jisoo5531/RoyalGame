@@ -11,6 +11,7 @@ public class SpawnSlot : MonoBehaviour,
     IBeginDragHandler, IDragHandler, IEndDragHandler,
     IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    public LayerMask targetLayer;
     public Image iconImage;
     public int selectedNumber;
 
@@ -114,7 +115,7 @@ public class SpawnSlot : MonoBehaviour,
     private void MoveImage(PointerEventData eventData)
     {
         // TODO : Slot Background 안에서만 - y 좌표 알맞게 수정
-        if (eventData.position.y > 230f)
+        if (eventData.position.y > 200f)
         {
             iconImage.gameObject.SetActive(false);
             return;
@@ -130,7 +131,7 @@ public class SpawnSlot : MonoBehaviour,
     private void MoveModel(PointerEventData eventData)
     {
         // TODO : Slot Background 밖에서 (맵에서) - y 좌표 알맞게 수정
-        if (eventData.position.y < 230f)
+        if (eventData.position.y < 180f)
         {
             if (dragUnit == null)
             {
@@ -146,7 +147,10 @@ public class SpawnSlot : MonoBehaviour,
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.CompareTag("Map"))
+            Debug.Log($"충돌 물체 이름 : {hit.collider.name}");
+            Debug.Log($"레이어 : {hit.collider.gameObject.layer}");
+            
+            if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
             {
                 if (false == isSpawn)
                 {

@@ -40,14 +40,14 @@ public class UI_Manager : MonoBehaviour
     /// </summary>
     [HideInInspector] public TextMeshProUGUI[] m_UI_unitElixirText { get { return UI_unitElixirText; } }
 
-
+    [Space(20)]
+    public GameObject UI_nextUnitDisplay;    
+    [Space(20)]
     /// <summary>
     /// 몇번째 유닛을 선택했는지
     /// </summary>
     public int selectSlotNumber;
 
-
-    public GameObject[] waitUnitsDisplay;     // TODO : 대기 유닛들 (테스트용, 나중에 지우기)
 
     public Transform SelectedUnitPanel;
 

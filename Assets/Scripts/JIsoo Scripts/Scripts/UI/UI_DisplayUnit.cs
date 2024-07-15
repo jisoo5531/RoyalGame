@@ -64,14 +64,15 @@ public class UI_DisplayUnit : MonoBehaviour
         {
             if (i < 4)
             {
-                UI_SetDisplayUnit(shuffledUnit[i], unitButtons[i], unitElixirText[i]);
+                UI_SetDisplayUnit(shuffledUnit[i], i);
             }
             else
             {                
                 // waitUnitQueue 시각화 테스트
-                UI_SetDisplayUnit(shuffledUnit[i], UI_Manager.m_Instance.waitUnitsDisplay[i - 4]);
+                //UI_SetDisplayUnit(shuffledUnit[i], UI_Manager.m_Instance.waitUnitsDisplay[i - 4]);
             }
         }
+        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = shuffledUnit[4].iconSprite;
     }
     /// <summary>
     /// 유닛 소환때마다 UI 바꾸기
@@ -81,14 +82,17 @@ public class UI_DisplayUnit : MonoBehaviour
     public void UI_ChangeDisplayUnit(UnitData_SO unitData, int number)
     {
         //unitSpawnButtons[number].transform.GetChild(1).GetComponent<Image>().sprite = unitData.iconSprite;
-        UI_SetDisplayUnit(unitData, unitSpawnButtons[number], unitElixirText[number]);
-        
-        int index = 0;
-        foreach (UnitData_SO unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
-        {
-            UI_Manager.m_Instance.waitUnitsDisplay[index++].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unit.iconSprite;
-        }
-          
+        UI_SetDisplayUnit(unitData, number, unitElixirText[number]);
+
+        UnitData_SO nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
+        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = nextUnitData.iconSprite;
+
+        //int index = 0;
+        //foreach (UnitData_SO unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
+        //{
+        //    UI_Manager.m_Instance.waitUnitsDisplay[index++].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unit.iconSprite;
+        //}
+
     }
     /// <summary>
     /// UI Set
@@ -96,11 +100,11 @@ public class UI_DisplayUnit : MonoBehaviour
     /// <param name="unitData"></param>
     /// <param name="unitButton"></param>
     /// <param name="elixirText">유닛 코스트</param>
-    private void UI_SetDisplayUnit(UnitData_SO unitData, GameObject unitButton, TextMeshProUGUI elixirText = null)
+    private void UI_SetDisplayUnit(UnitData_SO unitData, int number, TextMeshProUGUI elixirText = null)
     {
         //GameObject unitUI = unitButton.transform.GetChild(1).gameObject;
-
-        unitButton.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unitData.iconSprite;
+        unitImage[number].sprite = unitData.iconSprite;
+        //unitButton.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unitData.iconSprite;
         if (elixirText != null)
         {
             elixirText.text = unitData.cost.ToString();

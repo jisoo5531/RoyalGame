@@ -12,11 +12,12 @@ public class SpawnSlot : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public LayerMask targetLayer;
-    public Image iconImage;
+    public SpawnSlot iconImage;
     public int selectedNumber;
 
     public GameObject dragUnit = null;
-    
+
+    private UnitData_SO unitData;
     private bool isSpawn = false;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -28,8 +29,9 @@ public class SpawnSlot : MonoBehaviour,
             return;
         }
         
-        // 이미지 드래그 시작
-        iconImage.rectTransform.SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
+        // 이미지 드래그 시작        
+        iconImage.GetComponent<RectTransform>().SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
+        //iconImage.rectTransform.SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
         UI_Manager.m_Instance.selectedSlot = this;
 
         //Debug.Log($"드래그 시작 {selectedNumber}");
@@ -66,7 +68,7 @@ public class SpawnSlot : MonoBehaviour,
             UnitSpawner.instance.spawnComplete = true;
 
             // TODO : 유닛 유형(유닛, 방어타워) 등에 맞게 수정
-            //dragUnit.AddComponent<MovableUnit>();
+            dragUnit.UnitClassification(unitData);
 
             dragUnit.UnitTransparent(1f);
 
@@ -76,9 +78,11 @@ public class SpawnSlot : MonoBehaviour,
         UI_Manager.m_Instance.selectedSlot = null;
 
         iconImage.gameObject.SetActive(true);
-        iconImage.rectTransform.SetParent(transform);
+        //iconImage.rectTransform.SetParent(transform);
+        iconImage.GetComponent<RectTransform>().SetParent(transform);
 
-        iconImage.rectTransform.anchoredPosition = Vector2.zero;
+        //iconImage.rectTransform.anchoredPosition = Vector2.zero;
+        iconImage.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
 
         dragUnit = null;
@@ -121,7 +125,8 @@ public class SpawnSlot : MonoBehaviour,
             return;
         }
         iconImage.gameObject.SetActive(true);
-        iconImage.rectTransform.position = eventData.position;
+        iconImage.GetComponent<RectTransform>().position = eventData.position;
+        //iconImage.rectTransform.position = eventData.position;
     }
 
     /// <summary>
@@ -142,19 +147,17 @@ public class SpawnSlot : MonoBehaviour,
             return;
         }
 
-        GameObject unit = UI_Manager.m_Instance.m_UI_availableUnit[selectedNumber].prefab;
+        unitData = UI_Manager.m_Instance.m_UI_availableUnit[selectedNumber];
+        GameObject unitPrefab = unitData.prefab;        
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Debug.Log($"충돌 물체 이름 : {hit.collider.name}");
-            Debug.Log($"레이어 : {hit.collider.gameObject.layer}");
-            
+        {               
             if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
             {
                 if (false == isSpawn)
                 {
-                    dragUnit = Instantiate(unit, hit.point, Quaternion.identity);
+                    dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
                     dragUnit.UnitTransparent(0.5f);
 
                     isSpawn = true;

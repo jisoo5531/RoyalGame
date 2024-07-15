@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MovableUnit : Unit
 {
+    protected override void InitializeUnitData(UnitData_SO unit)
+    {
+        base.InitializeUnitData(unit);
+
+        moveSpeed = unit.moveSpeed;
+    }
     protected override void Start()
     {
         base.Start();
@@ -17,23 +23,18 @@ public class MovableUnit : Unit
         if (targetTransform)
         {
             float distance = Vector3.Distance(targetTransform.position, transform.position);
-            if (distance < detectionRange)
+            if (distance < range)
             {
                 SetState(UnitState.Attack);
             }
             else
             {
                 SetState(UnitState.Move);
-            }
-            //else if (stateMachine.currrentState != dicState[UnitState.Attack]) // 공격 중이 아닐 때만 이동 상태로 전이
-            //{
-                
-            //}
+            }            
         }
         else
         {
-            SetState(UnitState.Move);
-            //SetState(UnitState.Idle);
+            SetState(UnitState.Move);            
         }
     }
 }

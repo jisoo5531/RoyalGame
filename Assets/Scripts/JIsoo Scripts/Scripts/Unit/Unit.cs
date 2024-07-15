@@ -39,14 +39,14 @@ public class Unit : Damagable
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
         //GetComponentInChildren<Weapon>().damage = damage;        
     }
-    private void InitializeUnitData(UnitData_SO unit)
+    protected virtual void InitializeUnitData(UnitData_SO unit)
     {        
         name = unit.unitName;
         HP = unit.HP;
         maxHp = unit.maxHp;
         damage = unit.damage;
-        moveSpeed = unit.moveSpeed;
-        detectionRange = unit.range;
+        range = unit.range;
+        detectionRange = unit.detectionRange;
         //coolTime = unit.spawnTime;
     }
 

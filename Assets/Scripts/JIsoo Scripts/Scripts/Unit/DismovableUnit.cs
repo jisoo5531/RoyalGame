@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class DismovableUnit : Unit
 {
-    private int lifeTime;
+    private float lifeTime;
 
+    protected override void InitializeUnitData(UnitData_SO unit)
+    {
+        base.InitializeUnitData(unit);
+
+        lifeTime = unit.lifeTime;
+    }
 
     protected override void StateTransition()
     {
         if (targetTransform)
         {
             float distance = Vector3.Distance(targetTransform.position, transform.position);
-            if (distance < detectionRange)
+            if (distance < range)
             {
                 SetState(UnitState.Attack);
             }
@@ -26,4 +32,14 @@ public class DismovableUnit : Unit
             SetState(UnitState.Idle);
         }
     }
+
+    private void UpdateLifeTime()
+    {
+        lifeTime -= Time.deltaTime;
+
+        if (lifeTime <= 0)
+        {
+            Destroy(this);
+        }
+    }    
 }

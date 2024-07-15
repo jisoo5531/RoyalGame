@@ -64,7 +64,7 @@ public class UI_DisplayUnit : MonoBehaviour
         {
             if (i < 4)
             {
-                UI_SetDisplayUnit(shuffledUnit[i], i);
+                UI_SetDisplayUnit(shuffledUnit[i], i, unitElixirText[i]);
             }
             else
             {                

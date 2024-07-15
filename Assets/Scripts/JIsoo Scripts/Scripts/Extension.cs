@@ -56,4 +56,18 @@ public static class Extension
             material.color = color;
         }
     }
+    /// <summary>
+    /// 유닛 유형에 맞게 분류
+    /// </summary>
+    public static void UnitClassification(this GameObject unit, UnitData_SO unitData)
+    {
+        if (unitData.type == Type.Unit)
+        {
+            unit.AddComponent<MovableUnit>();
+        }
+        else if (unitData.type == Type.Deffense)
+        {
+            unit.AddComponent<DismovableUnit>();
+        }
+    }
 }

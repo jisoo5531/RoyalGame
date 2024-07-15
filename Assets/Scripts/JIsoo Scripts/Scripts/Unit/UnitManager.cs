@@ -33,8 +33,7 @@ public class UnitManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("UnitManager instance created");
+            DontDestroyOnLoad(gameObject);            
         }
         else
         {

@@ -28,6 +28,7 @@ public class PathFinding : MonoBehaviour
 
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
+        print("grid:  "+startNode.gridX+",  "+ startNode.gridY);
         startNode.parent = startNode;
 
         if (startNode.walkable && targetNode.walkable)

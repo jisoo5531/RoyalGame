@@ -42,6 +42,7 @@ public class UnitData
     public string unit_Desc;
 
     public Grade grade;
+
     public Sprite iconSprite;
     public GameObject prefab;
 }

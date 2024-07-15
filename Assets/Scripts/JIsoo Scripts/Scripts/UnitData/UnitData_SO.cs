@@ -9,14 +9,15 @@ public class UnitData_SO : ScriptableObject
     public int unit_MaxCardCount;
     public int user_ID;
 
+    [Space(20)]
+
     public string unitName;
     public int damage;
     public int HP;
     public int maxHp;
     public int attackSpeed;
     public int moveSpeed;
-
-    // TODO : 공격 대상 추가
+    
 
     public int range;
 
@@ -34,6 +35,8 @@ public class UnitData_SO : ScriptableObject
     /// 유닛 설명
     /// </summary>
     public string unit_Desc;
+
+    [Space(20)]
 
     public Grade grade;
 

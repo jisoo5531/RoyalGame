@@ -41,6 +41,32 @@ public class GridController : MonoBehaviour
         }
     }
 
+    //void CreateGrid()
+    //{
+    //    grid = new Node[gridSizeX, gridSizeY];
+    //    Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+
+    //    for (int x = 0; x < gridSizeX; x++)
+    //    {
+    //        for (int y = 0; y < gridSizeY; y++)
+    //        {
+    //            Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+    //            bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
+    //            int movementPenalty = 0;
+
+    //            if (walkable)
+    //            {
+    //                Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
+    //                RaycastHit hit;
+    //                if (Physics.Raycast(ray, out hit, 100, walkableMask))
+    //                {
+    //                    walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
+    //                }
+    //            }
+    //            grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
+    //        }
+    //    }
+    //}
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -63,6 +89,35 @@ public class GridController : MonoBehaviour
                         walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
                     }
                 }
+                //else
+                //{
+                //    bool foundWalkableNeighbor = false;
+                //    for (int offsetX = -1; offsetX <= 1 && !foundWalkableNeighbor; offsetX++)
+                //    {
+                //        for (int offsetY = -1; offsetY <= 1 && !foundWalkableNeighbor; offsetY++)
+                //        {
+                //            if (offsetX == 0 && offsetY == 0) continue;
+
+                //            int neighborX = x + offsetX;
+                //            int neighborY = y + offsetY+7;
+
+                //            if (neighborX >= 0 && neighborX < gridSizeX && neighborY >= 0 && neighborY < gridSizeY)
+                //            {
+                //                Vector3 neighborPoint = worldBottomLeft + Vector3.right * (neighborX * nodeDiameter + nodeRadius) + Vector3.forward * (neighborY * nodeDiameter + nodeRadius);
+                //                if (!(Physics.CheckSphere(neighborPoint, nodeRadius, unwalkableMask)))
+                //                {
+                //                    foundWalkableNeighbor = true;
+                //                    break;
+                //                }
+                //            }
+                //        }
+                //    } 
+
+                //    if (foundWalkableNeighbor)
+                //    {
+                //        walkable = true;
+                //    }
+                //}
 
                 grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
             }

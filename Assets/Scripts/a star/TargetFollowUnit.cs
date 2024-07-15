@@ -43,74 +43,33 @@ public class TargetFollowUnit : MonoBehaviour
     IEnumerator FollowPath()
     {
         Vector3 currentWaypoint = path[0];
-
         while (true)
         {
-            if (targetIndex < path.Length)
+            if (transform.position == currentWaypoint)
             {
-                if (transform.position == currentWaypoint)
-                {
-                    targetIndex++;
-                    if (targetIndex >= path.Length - 1)
-                    {
-                        // 목표 지점 앞에서 멈추는 지점 계산
-                        Vector3 directionToTarget = (target.position - transform.position).normalized;
-                        currentWaypoint = target.position - directionToTarget * stopDistance;
-                    }
-                    else
-                    {
-                        currentWaypoint = path[targetIndex];
-                    }
-                }
-            }
-            else
-            {
-                Vector3 directionToTarget = (target.position - transform.position).normalized;
-                Vector3 stopPosition = target.position - directionToTarget * stopDistance;
-
-                if (Vector3.Distance(transform.position, stopPosition) < 0.1f)
+                targetIndex++;
+                if (targetIndex >= path.Length)
                 {
                     yield break;
                 }
-                else
-                {
-                    currentWaypoint = stopPosition;
-                }
+                currentWaypoint = path[targetIndex];
             }
-
             Vector3 direction = (currentWaypoint - transform.position);
             direction.y = 0;
 
-            // 장애물 감지
-            Ray ray = new Ray(transform.position, transform.forward);
-            print("a");
-            Debug.DrawRay(transform.position, transform.forward * 300, Color.red);
-            if (Physics.Raycast(ray, obstacleCheckDistance, controller.unwalkableMask))
+            if (direction != Vector3.zero)
             {
-                // 장애물 회피
-                Vector3 avoidanceDirection = Vector3.Cross(transform.forward, Vector3.up).normalized;
-                Vector3 avoidancePosition = transform.position + avoidanceDirection * obstacleAvoidanceDistance;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                Vector3 eulerAngles = targetRotation.eulerAngles;
+                eulerAngles.x = 0;
+                eulerAngles.z = 0;
+                targetRotation = Quaternion.Euler(eulerAngles);
 
-                // 회피할 위치로 이동
-                transform.position = Vector3.MoveTowards(transform.position, avoidancePosition, speed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            else
-            {
-                if (direction != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    Vector3 eulerAngles = targetRotation.eulerAngles;
-                    eulerAngles.x = 0;
-                    eulerAngles.z = 0;
-                    targetRotation = Quaternion.Euler(eulerAngles);
-
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
-                }
-
-                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            }
-
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
+
         }
     }
 
@@ -122,23 +81,15 @@ public class TargetFollowUnit : MonoBehaviour
             for (int i = targetIndex; i < path.Length; i++)
             {
                 Gizmos.color = Color.black;
-
-                Vector3 adjustedPosition = path[i];
-                if (i == path.Length - 1)
-                {
-                    Vector3 directionToTarget = (target.position - transform.position).normalized;
-                    adjustedPosition = target.position - directionToTarget * stopDistance;
-                }
-
-                Gizmos.DrawCube(adjustedPosition, Vector3.one);
+                Gizmos.DrawCube(path[i], Vector3.one);
 
                 if (i == targetIndex)
                 {
-                    Gizmos.DrawLine(transform.position, adjustedPosition);
+                    Gizmos.DrawLine(transform.position, path[i]);
                 }
                 else
                 {
-                    Gizmos.DrawLine(path[i - 1], adjustedPosition);
+                    Gizmos.DrawLine(path[i - 1], path[i]);
                 }
             }
         }

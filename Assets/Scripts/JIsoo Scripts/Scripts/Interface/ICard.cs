@@ -4,6 +4,6 @@ public interface ICard
     int cardLevel { get; set; }
     int currentCardCount { get; set; }
     int maxCardCount { get; set; }    
-    int damage { get; set; }
-    float range { get; set; }
+    int cost { get; set; }
+    float spawnTime { get; set; }
 }

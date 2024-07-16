@@ -2,8 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Magic : Attackable
+public class Magic : MonoBehaviour, ICard, IAttackable
 {
+    public int cardLevel { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int currentCardCount { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int maxCardCount { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float range { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int cost { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float spawnTime { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float attackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     private void Awake()
     {
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
@@ -17,7 +26,12 @@ public class Magic : Attackable
         //coolTime = unit.spawnTime;
     }
 
-    public override void Damage(int damage)
+    public void GetDamage(int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SendDamage(int damage)
     {
         throw new System.NotImplementedException();
     }

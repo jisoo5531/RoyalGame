@@ -2,9 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : Damagable
+public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 {
+
     public int unit_ID;
+
+    #region º¯¼ö
+
+    public float detectionRange;
+    //public float coolTime;
+    public Transform targetTransform;
+
+    public string name { get; set; }
+    public int cardLevel { get; set; }
+    public int currentCardCount { get; set; }
+    public int maxCardCount { get; set; }
+    public int damage { get; set; }
+    public float range { get; set; }
+    public int HP { get; set; }
+    public int maxHP { get; set; }
+    public int cost { get; set; }
+    public float spawnTime { get; set; }
+    public float attackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+
+
+    #endregion
 
     protected enum UnitState
     {
@@ -16,7 +39,7 @@ public class Unit : Damagable
     protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
     protected StateMachine<Unit> stateMachine;
 
-    [HideInInspector] public Animator anim;
+    [HideInInspector] public Animator anim;    
 
     private void Awake()
     {        
@@ -43,7 +66,7 @@ public class Unit : Damagable
     {        
         name = unit.unitName;
         HP = unit.HP;
-        maxHp = unit.maxHp;
+        maxHP = unit.maxHp;
         damage = unit.damage;
         range = unit.range;
         detectionRange = unit.detectionRange;
@@ -67,4 +90,14 @@ public class Unit : Damagable
             stateMachine.SetState(dicState[state]);
         }
     }
+
+    public void SendDamage(int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void GetDamage(int damage)
+    {
+        throw new System.NotImplementedException();
+    }    
 }

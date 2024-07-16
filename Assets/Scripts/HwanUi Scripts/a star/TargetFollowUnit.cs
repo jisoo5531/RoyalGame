@@ -11,9 +11,8 @@ public class TargetFollowUnit : MonoBehaviour
     public float range;
     Vector3[] path;
     int targetIndex;
-    bool istrue = false;
-    Transform firstTarget;
-    Collider targetCollider;
+    public Collider targetCollider;
+    public Vector3 currentWaypoint;
 
     void Start()
     {
@@ -21,15 +20,6 @@ public class TargetFollowUnit : MonoBehaviour
         target = DetectEnemyManager.instance.towerArr[index].transform;
         targetCollider = target?.GetComponent<Collider>();
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-    }
-
-    private void Update()
-    {
-        //if (firstTarget != target)
-        //{
-        //    PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-        //    firstTarget = target;
-        //}
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -50,7 +40,7 @@ public class TargetFollowUnit : MonoBehaviour
 
     IEnumerator FollowPath()
     {
-        Vector3 currentWaypoint = path[0];
+        currentWaypoint = path[0];
 
         while (true)
         {
@@ -73,27 +63,23 @@ public class TargetFollowUnit : MonoBehaviour
 
             if (distanceToTargetPosition < 0.1f)
             {
-                istrue = true;
                 yield break;
             }
 
-            if (!istrue)
+            Vector3 direction = (currentWaypoint - transform.position);
+            direction.y = 0;
+
+            if (direction != Vector3.zero)
             {
-                Vector3 direction = (currentWaypoint - transform.position);
-                direction.y = 0;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                Vector3 eulerAngles = targetRotation.eulerAngles;
+                eulerAngles.x = 0;
+                eulerAngles.z = 0;
+                targetRotation = Quaternion.Euler(eulerAngles);
 
-                if (direction != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    Vector3 eulerAngles = targetRotation.eulerAngles;
-                    eulerAngles.x = 0;
-                    eulerAngles.z = 0;
-                    targetRotation = Quaternion.Euler(eulerAngles);
-
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
-                }
-                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

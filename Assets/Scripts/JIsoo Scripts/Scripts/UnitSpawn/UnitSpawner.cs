@@ -52,6 +52,7 @@ public class UnitSpawner : MonoBehaviour
     }
     public void SpawnUnit(Vector3 position)
     {
+        position.y = 180f;
         Instantiate(selectedUnit.prefab, position, Quaternion.identity);
     }
 

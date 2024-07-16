@@ -22,9 +22,5 @@ public class UnitMove : IState<Unit>
     }
     public void OperateUpdate(Unit sender)
     {
-        if (unit)
-        {            
-            unit.transform.Translate(Vector3.forward * movableUnit.moveSpeed * Time.deltaTime);
-        }
     }
 }

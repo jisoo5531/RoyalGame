@@ -6,6 +6,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 {
 
     public int unit_ID;
+    [HideInInspector] public Animator anim;
 
     #region 변수
 
@@ -39,20 +40,8 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
     protected StateMachine<Unit> stateMachine;
 
-    [HideInInspector] public Animator anim;    
-
-    private void Awake()
-    {        
-        anim = GetComponent<Animator>();
-
-        // TODO : 테스트용 Enemy 태그 
-        //targetTransform = GameObject.FindWithTag("Enemy").transform;
-
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
-    }
-
-    protected virtual void Start()
-    {        
+    protected virtual void InitStateMachine()
+    {
         IState<Unit> idle = new UnitIdle();
         IState<Unit> attack = new UnitAttack();
 
@@ -60,31 +49,19 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         dicState.Add(UnitState.Attack, attack);
 
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
-        //GetComponentInChildren<Weapon>().damage = damage;        
     }
 
 
     protected virtual void InitializeUnitData(UnitData_SO unit)
-    {        
+    {
         name = unit.unitName;
         HP = unit.HP;
         maxHP = unit.maxHp;
         damage = unit.damage;
         range = unit.range;
         detectionRange = unit.detectionRange;
-        print("부모 클래스 호출");
-        //coolTime = unit.spawnTime;
     }
 
-    private void Update()
-    {
-        //StateTransition();
-        stateMachine.DoOperateUpdate();
-    }
-    //protected virtual void StateTransition()
-    //{
-
-    //}
 
     protected void SetState(UnitState state)
     {

@@ -14,6 +14,8 @@ public class SpawnSlot : MonoBehaviour,
     public LayerMask targetLayer;
     //public Image iconImage;
     public GameObject iconImage;
+    public GameObject SelectedOutLine;
+
     public int selectedNumber;
     public RectTransform mainCard;
 
@@ -30,8 +32,9 @@ public class SpawnSlot : MonoBehaviour,
         {
             return;
         }
-
         // 이미지 드래그 시작        
+
+        UI_Manager.m_Instance.ActiveSlotOutLine();
         iconImage.GetComponent<RectTransform>().SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
         //iconImage.rectTransform.SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
         UI_Manager.m_Instance.selectedSlot = this;
@@ -83,6 +86,7 @@ public class SpawnSlot : MonoBehaviour,
 
         //iconImage.rectTransform.SetParent(transform);
         iconImage.GetComponent<RectTransform>().SetParent(transform);
+        iconImage.GetComponent<RectTransform>().SetSiblingIndex(0);
 
         //iconImage.rectTransform.anchoredPosition = Vector2.zero;
         iconImage.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
@@ -101,7 +105,7 @@ public class SpawnSlot : MonoBehaviour,
         {
             return;
         }
-
+        UI_Manager.m_Instance.ActiveSlotOutLine();
         UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
     }
 

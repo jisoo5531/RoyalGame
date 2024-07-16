@@ -47,21 +47,20 @@ public class UI_Elixir : MonoBehaviour
         //elixirImage.fillAmount = currentElixir / maxElixir;        
         //elixirImage.fillAmount = Mathf.Lerp(elixirImage.fillAmount, currentElixir / maxElixir, Time.deltaTime);
 
-        elixirSlider.value = Mathf.Lerp(elixirSlider.value, currentElixir, changeRate * 5f * Time.deltaTime);
+        elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.5f);
         if (elixirText != null)
         {
             elixirText.text = ((int)elixirSlider.value).ToString();
         }
     }    
-    private void ReturnRate()
-    {
-        changeRate = 1;
-    }
+    
     public void ElixirMinus(int elixirCost)
     {
         currentElixir -= elixirCost;
-        changeRate = 5;
+        changeRate = 20;
         Invoke("ReturnRate", 1f);
     }
+
+    private void ReturnRate() => changeRate = 1;
     public bool IsSpawnUnitPossible(int elixirCost) => currentElixir >= elixirCost;
 }

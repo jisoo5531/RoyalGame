@@ -54,6 +54,7 @@ public class UI_Manager : MonoBehaviour
     public SpawnSlot focusedSlot;           // 어떤 슬롯에 커서를 대고 있는지
 
     public SpawnSlot selectedSlot;          // TODO : 어떤 슬롯이 선택되었는지 (선택된 슬롯 하이라이트할 때 사용)
+    public GameObject[] slotOutLine;
 
     private UI_Elixir elixir;
 
@@ -109,6 +110,9 @@ public class UI_Manager : MonoBehaviour
                     UI_waitUnitsQueue.Enqueue(spawnedUnit);
 
                     GetComponent<UI_DisplayUnit>().UI_ChangeDisplayUnit(UI_availableUnit[selectSlotNumber], selectSlotNumber);
+                    selectedSlot = null;
+                    ActiveSlotOutLine();
+
                     UnitSpawner.instance.spawnComplete = false;
                 }
             }
@@ -136,5 +140,17 @@ public class UI_Manager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void ActiveSlotOutLine()
+    {
+        foreach (GameObject slot in slotOutLine)
+        {
+            slot.SetActive(false);
+        }
+        if (selectedSlot != null)
+        {
+            selectedSlot.SelectedOutLine.SetActive(true);
+        }        
     }
 }

@@ -9,7 +9,7 @@ public abstract class Damagable : MonoBehaviour//, ICard//, IDamagable
     public int maxHp;
     public int damage;
     //public int moveSpeed;
-    public int range;
+    public float range;
     public float detectionRange;
     //public float coolTime;
     public Transform targetTransform;

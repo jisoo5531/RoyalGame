@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class MovableUnit : Unit
 {
-    public int moveSpeed;
+    public float moveSpeed;
+    TargetFollowUnit targetFollowUnit;
+    
+
+    private void Awake()
+    {
+        targetFollowUnit = GetComponent<TargetFollowUnit>();
+
+    }
 
     protected override void InitializeUnitData(UnitData_SO unit)
     {
@@ -12,12 +20,18 @@ public class MovableUnit : Unit
 
         moveSpeed = unit.moveSpeed;
     }
+
     protected override void Start()
     {
         base.Start();
 
         IState<Unit> move = new UnitMove();
         dicState.Add(UnitState.Move, move);
+        if (targetFollowUnit != null)
+        {
+            targetFollowUnit.speed = moveSpeed;
+            targetFollowUnit.range = range;
+        }
     }
 
     protected override void StateTransition()

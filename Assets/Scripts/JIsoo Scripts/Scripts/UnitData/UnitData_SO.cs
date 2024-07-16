@@ -15,14 +15,14 @@ public class UnitData_SO : ScriptableObject
     public int damage;
     public int HP;
     public int maxHp;
-    public int attackSpeed;
-    public int moveSpeed;
+    public float attackSpeed;
+    public float moveSpeed;
     public Type type;
     
     [Space(20)]
 
     [Tooltip("사정거리")]
-    public int range;
+    public float range;
     [Tooltip("탐지거리")]
     public int detectionRange;
 

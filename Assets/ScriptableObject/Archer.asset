@@ -18,15 +18,18 @@ MonoBehaviour:
   unit_MaxCardCount: 123
   user_ID: 0
   unitName: "\uAD81\uC218"
-  damage: 5
-  HP: 10
+  damage: 42
+  HP: 119
   maxHp: 10
-  attackSpeed: 0
-  moveSpeed: 7
-  range: 0
+  attackSpeed: 0.9
+  moveSpeed: 3.5
+  type: 0
+  range: 12
+  detectionRange: 15
   cost: 4
   spawnTime: 0
   unit_Desc: 
+  lifeTime: 0
   grade: 0
   iconSprite: {fileID: 21300000, guid: a4768e2e339ae574cb2258979c00ad7d, type: 3}
   prefab: {fileID: 8846955532090451774, guid: 0413788304a31574a9af12cf52104f2b, type: 3}

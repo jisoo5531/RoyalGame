@@ -7,10 +7,9 @@ using UnityEngine;
 public class TargetFollowUnit : MonoBehaviour
 {
     public Transform target;
-    float speed = 3;
+    public float speed;
+    public float range;
     Vector3[] path;
-    float range = 3.5f;
-    float baseRange = 1.3f;
     int targetIndex;
     bool istrue = false;
     Transform firstTarget;
@@ -19,7 +18,6 @@ public class TargetFollowUnit : MonoBehaviour
     void Start()
     {
         firstTarget = target;
-        // AdjustRange();
         targetCollider = target.GetComponent<Collider>();
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
@@ -28,7 +26,6 @@ public class TargetFollowUnit : MonoBehaviour
     {
         if (firstTarget != target)
         {
-           // AdjustRange();
             PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
             firstTarget = target;
         }
@@ -49,33 +46,6 @@ public class TargetFollowUnit : MonoBehaviour
             StartCoroutine("FollowPath");
         }
     }
-    void AdjustRange()
-    {
-
-        if (targetCollider != null)
-        {
-            float maxColliderDimension = GetMaxColliderDimension(targetCollider);
-            range = baseRange * maxColliderDimension;
-            print(maxColliderDimension + ",  " + range);
-        }
-    }
-    float GetMaxColliderDimension(Collider collider)
-    {
-        if (collider is BoxCollider)
-        {
-            BoxCollider boxCollider = (BoxCollider)collider;
-            Vector3 size = boxCollider.size;
-            return Mathf.Max(size.x, size.y, size.z);
-        }
-        else if (collider is CapsuleCollider)
-        {
-            CapsuleCollider capsuleCollider = (CapsuleCollider)collider;
-            float radius = capsuleCollider.radius;
-            float height = capsuleCollider.height;
-            return Mathf.Max(radius * 7f, height);
-        }
-        return 1f;
-    }
 
     IEnumerator FollowPath()
     {
@@ -94,13 +64,10 @@ public class TargetFollowUnit : MonoBehaviour
             }
             Vector3 closestPointOnTarget = targetCollider.ClosestPoint(transform.position);
 
-            // 타겟의 가장 가까운 점으로의 방향을 계산
             Vector3 directionToTarget = (closestPointOnTarget - transform.position).normalized;
 
-            // 타겟의 콜라이더로부터 `range`만큼 떨어진 지점 계산
             Vector3 targetPosition = closestPointOnTarget - directionToTarget * range;
 
-            // 타겟 위치까지의 거리 계산
             float distanceToTargetPosition = Vector3.Distance(transform.position, targetPosition);
 
             if (distanceToTargetPosition < 0.1f)

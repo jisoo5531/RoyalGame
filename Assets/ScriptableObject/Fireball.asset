@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85f88cd78bae6a4a930d0d2c4bc0819, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  unit_ID: 0
+  unit_ID: 4
   unit_Level: 0
   unit_CurrentCardCount: 0
   unit_MaxCardCount: 0
@@ -25,9 +25,11 @@ MonoBehaviour:
   moveSpeed: 5
   type: 2
   range: 0
+  detectionRange: 0
   cost: 4
-  spawnTime: 0
+  spawnTime: 0.3
   unit_Desc: 
+  lifeTime: 0
   grade: 0
   iconSprite: {fileID: 21300000, guid: 233902d0d9bb9054ea67183f3629b1c2, type: 3}
   prefab: {fileID: 190810, guid: 5f6ee5df488746f4ca1b939fbaac29e2, type: 3}

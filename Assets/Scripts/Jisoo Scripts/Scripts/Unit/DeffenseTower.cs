@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DismovableUnit : Unit
+public class DeffenseTower : Unit
 {
     private float lifeTime;
 
@@ -11,6 +11,10 @@ public class DismovableUnit : Unit
         base.InitializeUnitData(unit);
 
         lifeTime = unit.lifeTime;
+    }
+    private void Update()
+    {
+        UpdateLifeTime();
     }
 
     protected override void StateTransition()
@@ -39,7 +43,7 @@ public class DismovableUnit : Unit
 
         if (lifeTime <= 0)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }    
 }

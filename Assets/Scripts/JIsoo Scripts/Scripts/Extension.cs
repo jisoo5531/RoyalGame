@@ -67,7 +67,11 @@ public static class Extension
         }
         else if (unitData.type == Type.Deffense)
         {
-            unit.AddComponent<DismovableUnit>();
+            unit.AddComponent<DeffenseTower>();
+        }
+        else
+        {
+            unit.AddComponent<Magic>();
         }
     }
 }

@@ -9,16 +9,18 @@ public class TargetFollowUnit : MonoBehaviour
     public Transform target;
     float speed = 3;
     Vector3[] path;
-    float range;
+    float range = 3.5f;
     float baseRange = 1.3f;
     int targetIndex;
     bool istrue = false;
     Transform firstTarget;
+    Collider targetCollider;
 
     void Start()
     {
         firstTarget = target;
-        AdjustRange();
+        // AdjustRange();
+        targetCollider = target.GetComponent<Collider>();
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
 
@@ -26,7 +28,7 @@ public class TargetFollowUnit : MonoBehaviour
     {
         if (firstTarget != target)
         {
-            AdjustRange();
+           // AdjustRange();
             PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
             firstTarget = target;
         }
@@ -49,25 +51,12 @@ public class TargetFollowUnit : MonoBehaviour
     }
     void AdjustRange()
     {
-        Collider targetCollider = target.GetComponent<Collider>();
-        //if (targetCollider != null)
-        //{
-        //    float targetSize = Mathf.Max(targetCollider.bounds.size.x, targetCollider.bounds.size.z);
-        //    print(targetSize);
-        //    range = targetSize;
-        //}
-        //else
-        //{
-        //    range = baseRange;
-        //}
+
         if (targetCollider != null)
         {
-            // Collider 타입에 따라 크기를 계산
             float maxColliderDimension = GetMaxColliderDimension(targetCollider);
-
-            // 조정된 범위 계산
             range = baseRange * maxColliderDimension;
-            print(range);
+            print(maxColliderDimension + ",  " + range);
         }
     }
     float GetMaxColliderDimension(Collider collider)
@@ -83,19 +72,14 @@ public class TargetFollowUnit : MonoBehaviour
             CapsuleCollider capsuleCollider = (CapsuleCollider)collider;
             float radius = capsuleCollider.radius;
             float height = capsuleCollider.height;
-            return Mathf.Max(radius * 2, height);
+            return Mathf.Max(radius * 7f, height);
         }
-        else
-        {
-            Debug.LogWarning("Collider type not supported for range adjustment.");
-            return 1.0f; // 기본 값 반환
-        }
+        return 1f;
     }
 
     IEnumerator FollowPath()
     {
         Vector3 currentWaypoint = path[0];
-        //float stoppingDistance = 8f;
 
         while (true)
         {
@@ -108,24 +92,22 @@ public class TargetFollowUnit : MonoBehaviour
                     currentWaypoint = path[targetIndex];
                 }
             }
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-            Vector3 targetPosition = target.position - directionToTarget * range;
+            Vector3 closestPointOnTarget = targetCollider.ClosestPoint(transform.position);
 
-            // targetPosition과 현재 위치의 거리 계산
+            // 타겟의 가장 가까운 점으로의 방향을 계산
+            Vector3 directionToTarget = (closestPointOnTarget - transform.position).normalized;
+
+            // 타겟의 콜라이더로부터 `range`만큼 떨어진 지점 계산
+            Vector3 targetPosition = closestPointOnTarget - directionToTarget * range;
+
+            // 타겟 위치까지의 거리 계산
             float distanceToTargetPosition = Vector3.Distance(transform.position, targetPosition);
 
-            // targetPosition에 도달하면 멈춤
             if (distanceToTargetPosition < 0.1f)
             {
                 istrue = true;
                 yield break;
             }
-
-            //if (Vector3.Distance(transform.position, target.position) < stoppingDistance)
-            //{
-            //    istrue = true;
-            //    yield break;
-            //}
 
             if (!istrue)
             {

@@ -21,11 +21,7 @@ public abstract class Damagable : MonoBehaviour//, ICard//, IDamagable
     //public float Damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     //public float Range { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    public virtual void GetDamage(int _damage)
-    {
-        HP -= _damage;
-        PrintTest();
-    }
+    public abstract void GetDamage(int damage);
 
     public virtual void PrintTest()
     {

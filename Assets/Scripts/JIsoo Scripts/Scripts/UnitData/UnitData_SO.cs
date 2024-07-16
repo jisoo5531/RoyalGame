@@ -36,7 +36,7 @@ public class UnitData_SO : ScriptableObject
     /// <summary>
     /// 생성 소요 시간
     /// </summary>
-    public int spawnTime;
+    public float spawnTime;
 
     /// <summary>
     /// 유닛 설명

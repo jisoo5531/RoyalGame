@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85f88cd78bae6a4a930d0d2c4bc0819, type: 3}
   m_Name: Prince
   m_EditorClassIdentifier: 
-  unit_ID: 0
+  unit_ID: 7
   unit_Level: 0
   unit_CurrentCardCount: 0
   unit_MaxCardCount: 0
@@ -23,10 +23,13 @@ MonoBehaviour:
   maxHp: 10
   attackSpeed: 0
   moveSpeed: 6
+  type: 0
   range: 0
+  detectionRange: 0
   cost: 7
-  spawnTime: 0
+  spawnTime: 1
   unit_Desc: 
+  lifeTime: 0
   grade: 0
   iconSprite: {fileID: 21300000, guid: 27a9a19878eec244b991a64862449567, type: 3}
   prefab: {fileID: 3993301697071915455, guid: 52984d946b326f048b94416623f3a555, type: 3}

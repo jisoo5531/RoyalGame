@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovableUnit : Unit
 {
+    public int moveSpeed;
+
     protected override void InitializeUnitData(UnitData_SO unit)
     {
         base.InitializeUnitData(unit);

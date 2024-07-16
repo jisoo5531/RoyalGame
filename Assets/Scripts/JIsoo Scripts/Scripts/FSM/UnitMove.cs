@@ -3,12 +3,17 @@ using UnityEngine;
 public class UnitMove : IState<Unit>
 {
     private Unit unit;
+    private MovableUnit movableUnit;
 
     public void OperateEnter(Unit sender)
     {
         unit = sender;
         unit.anim.SetBool("isMove", true);
-        
+
+        if (sender is MovableUnit)
+        {
+            movableUnit = sender as MovableUnit;
+        }
     }
     public void OperateExit(Unit sender)
     {
@@ -19,7 +24,7 @@ public class UnitMove : IState<Unit>
     {
         if (unit)
         {            
-            unit.transform.Translate(Vector3.forward * unit.moveSpeed * Time.deltaTime);
+            unit.transform.Translate(Vector3.forward * movableUnit.moveSpeed * Time.deltaTime);
         }
     }
 }

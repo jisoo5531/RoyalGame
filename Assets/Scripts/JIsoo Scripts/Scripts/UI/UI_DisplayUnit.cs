@@ -6,6 +6,8 @@ using TMPro;
 
 public class UI_DisplayUnit : MonoBehaviour
 {
+    public Image[] unitImage;
+
     private List<UnitData_SO> shuffledUnit;
 
     private GameObject[] unitSpawnButtons;       // 유닛 생성하기 위해 보여지는 게임 상에 보여지는 이미지
@@ -18,36 +20,35 @@ public class UI_DisplayUnit : MonoBehaviour
     //private int selectSlotNumber;
 
     private UI_Elixir elixir;
-    
+
     private void Start()
     {
         shuffledUnit = UI_Manager.m_Instance.m_shuffledUnit;
         unitElixirText = UI_Manager.m_Instance.m_UI_unitElixirText;
-        unitSpawnButtons = UI_Manager.m_Instance.UI_unitSpawnButtons;        
+        unitSpawnButtons = UI_Manager.m_Instance.UI_unitSpawnButtons;
 
         elixir = GetComponent<UI_Elixir>();
 
-        UI_DisplayInitialUnits(unitSpawnButtons);        
+        UI_DisplayInitialUnits(unitSpawnButtons);
 
         StartCoroutine(UI_UnitElixir_Slider());
     }
 
-    
+
     IEnumerator UI_UnitElixir_Slider()
     {
         while (true)
         {
             yield return null;
-
             for (int i = 0; i < unitSpawnButtons.Length; i++)
             {
-                Image unitImage = unitSpawnButtons[i].transform.GetChild(0).GetChild(0).GetComponent<Image>();
+                //Image unitImage = unitSpawnButtons[i].transform.GetChild(0).GetChild(0).GetComponent<Image>();
 
-                unitImage.fillMethod = Image.FillMethod.Radial360;
-                unitImage.fillOrigin = (int)Image.Origin360.Top;
-                
+                unitImage[i].fillMethod = Image.FillMethod.Radial360;
+                unitImage[i].fillOrigin = (int)Image.Origin360.Top;
 
-                unitImage.fillAmount = elixir.currentElixir / UI_Manager.m_Instance.m_UI_availableUnit[i].cost;
+
+                unitImage[i].fillAmount = elixir.currentElixir / UI_Manager.m_Instance.m_UI_availableUnit[i].cost;
                 //unitImage.fillAmount = Mathf.Lerp(unitImage.fillAmount, 1, Time.time);
             }
         }
@@ -62,16 +63,16 @@ public class UI_DisplayUnit : MonoBehaviour
         for (int i = 0; i < shuffledUnit.Count; i++)
         {
             if (i < 4)
-            {                
-                UI_SetDisplayUnit(shuffledUnit[i], unitButtons[i], unitElixirText[i]);                
+            {
+                UI_SetDisplayUnit(shuffledUnit[i], i, unitElixirText[i]);
             }
             else
             {                
-                Debug.Log("테스트");
                 // waitUnitQueue 시각화 테스트
-                UI_SetDisplayUnit(shuffledUnit[i], UI_Manager.m_Instance.waitUnitsDisplay[i - 4]);
+                //UI_SetDisplayUnit(shuffledUnit[i], UI_Manager.m_Instance.waitUnitsDisplay[i - 4]);
             }
-        }        
+        }
+        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = shuffledUnit[4].iconSprite;
     }
     /// <summary>
     /// 유닛 소환때마다 UI 바꾸기
@@ -81,13 +82,17 @@ public class UI_DisplayUnit : MonoBehaviour
     public void UI_ChangeDisplayUnit(UnitData_SO unitData, int number)
     {
         //unitSpawnButtons[number].transform.GetChild(1).GetComponent<Image>().sprite = unitData.iconSprite;
-        UI_SetDisplayUnit(unitData, unitSpawnButtons[number], unitElixirText[number]);
+        UI_SetDisplayUnit(unitData, number, unitElixirText[number]);
 
-        int index = 0;
-        foreach (UnitData_SO unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
-        {            
-            UI_Manager.m_Instance.waitUnitsDisplay[index++].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unit.iconSprite;
-        }
+        UnitData_SO nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
+        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = nextUnitData.iconSprite;
+
+        //int index = 0;
+        //foreach (UnitData_SO unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
+        //{
+        //    UI_Manager.m_Instance.waitUnitsDisplay[index++].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unit.iconSprite;
+        //}
+
     }
     /// <summary>
     /// UI Set
@@ -95,11 +100,11 @@ public class UI_DisplayUnit : MonoBehaviour
     /// <param name="unitData"></param>
     /// <param name="unitButton"></param>
     /// <param name="elixirText">유닛 코스트</param>
-    private void UI_SetDisplayUnit(UnitData_SO unitData, GameObject unitButton, TextMeshProUGUI elixirText = null)
+    private void UI_SetDisplayUnit(UnitData_SO unitData, int number, TextMeshProUGUI elixirText = null)
     {
         //GameObject unitUI = unitButton.transform.GetChild(1).gameObject;
-        
-        unitButton.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unitData.iconSprite;
+        unitImage[number].sprite = unitData.iconSprite;
+        //unitButton.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unitData.iconSprite;
         if (elixirText != null)
         {
             elixirText.text = unitData.cost.ToString();

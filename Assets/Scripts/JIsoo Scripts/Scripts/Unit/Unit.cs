@@ -29,8 +29,7 @@ public class Unit : Damagable
     }
 
     protected virtual void Start()
-    {
-        Debug.Log("베이스 스타트");
+    {        
         IState<Unit> idle = new UnitIdle();
         IState<Unit> attack = new UnitAttack();
 
@@ -38,16 +37,16 @@ public class Unit : Damagable
         dicState.Add(UnitState.Attack, attack);
 
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
-        //GetComponentInChildren<Weapon>().damage = damage;
+        //GetComponentInChildren<Weapon>().damage = damage;        
     }
-    private void InitializeUnitData(UnitData_SO unit)
+    protected virtual void InitializeUnitData(UnitData_SO unit)
     {        
         name = unit.unitName;
         HP = unit.HP;
         maxHp = unit.maxHp;
         damage = unit.damage;
-        moveSpeed = unit.moveSpeed;
-        detectionRange = unit.range;
+        range = unit.range;
+        detectionRange = unit.detectionRange;
         //coolTime = unit.spawnTime;
     }
 

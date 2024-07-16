@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class UI_Manager : MonoBehaviour
-{    
+{
     #region 전역변수
 
     private static UI_Manager instance;
@@ -34,26 +34,26 @@ public class UI_Manager : MonoBehaviour
     /// </summary>
     public GameObject[] UI_unitSpawnButtons;
 
-    [SerializeField] private TextMeshProUGUI[] UI_unitElixirText;                                      
+    [SerializeField] private TextMeshProUGUI[] UI_unitElixirText;
     /// <summary>
     /// 유닛 엘릭서 코스트 UI 텍스트 배열
     /// </summary>
     [HideInInspector] public TextMeshProUGUI[] m_UI_unitElixirText { get { return UI_unitElixirText; } }
 
-
-    private int selectSlotNumber;
+    [Space(20)]
+    public GameObject UI_nextUnitDisplay;    
+    [Space(20)]
     /// <summary>
     /// 몇번째 유닛을 선택했는지
     /// </summary>
-    [HideInInspector] public int m_selectSlotNumber { get { return selectSlotNumber; } }
+    public int selectSlotNumber;
 
-
-    public GameObject[] waitUnitsDisplay;     // TODO : 대기 유닛들 (테스트용, 나중에 지우기)
 
     public Transform SelectedUnitPanel;
 
-    public SpawnSlot focusedSlot;    
-    public SpawnSlot selectedSlot;
+    public SpawnSlot focusedSlot;           // 어떤 슬롯에 커서를 대고 있는지
+
+    public SpawnSlot selectedSlot;          // TODO : 어떤 슬롯이 선택되었는지 (선택된 슬롯 하이라이트할 때 사용)
 
     private UI_Elixir elixir;
 
@@ -68,9 +68,9 @@ public class UI_Manager : MonoBehaviour
         elixir = GetComponent<UI_Elixir>();
 
         InitialUnitSet();
-        
 
-        StartCoroutine(CheckSpawnUnit());        
+
+        StartCoroutine(CheckSpawnUnit());
     }
 
     private void InitialUnitSet()
@@ -79,15 +79,14 @@ public class UI_Manager : MonoBehaviour
         {
             if (i < 4)
             {
-                UI_availableUnit.Add(shuffledUnit[i]);                
+                UI_availableUnit.Add(shuffledUnit[i]);
             }
             else
             {
-                UI_waitUnitsQueue.Enqueue(shuffledUnit[i]);                            
+                UI_waitUnitsQueue.Enqueue(shuffledUnit[i]);
             }
         }
     }
-
     IEnumerator CheckSpawnUnit()
     {
         while (true)
@@ -95,7 +94,7 @@ public class UI_Manager : MonoBehaviour
             yield return null;
 
             // 현재 보유 엘릭서가 충분하다면
-            if (elixir.IsSpawnUnitPossible(UI_availableUnit[selectSlotNumber].cost))
+            if (CheckSpawnPossible(selectSlotNumber))
             {
                 UnitSpawner.instance.isElixirEnough = true;
 
@@ -115,9 +114,27 @@ public class UI_Manager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// SpawnManager에게 현재 몇번째 슬롯을 선택했는지 전달
+    /// </summary>
+    /// <param name="number"></param>
     public void OnClickSpawnUnit(int number)
-    {
+    {        
         selectSlotNumber = number;
-        UnitSpawner.instance.SelectUnit(UI_availableUnit[number]);
+
+        UnitSpawner.instance.SelectUnit(UI_availableUnit[number]);        
+    }
+    /// <summary>
+    /// 생성이 가능한지 체크 (엘릭서 코스트 체크)
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public bool CheckSpawnPossible(int number)
+    {
+        if (elixir.IsSpawnUnitPossible(UI_availableUnit[number].cost))
+        {
+            return true;
+        }
+        return false;
     }
 }

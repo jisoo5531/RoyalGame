@@ -33,8 +33,7 @@ public class UnitManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("UnitManager instance created");
+            DontDestroyOnLoad(gameObject);            
         }
         else
         {
@@ -48,6 +47,12 @@ public class UnitManager : MonoBehaviour
     public void OnClickInitializeSelectedUnits(int index)
     {
         selectedUnits.Add(unitDatas[index]);
-        displaySelectedUnit_UI[currentDisplayIndex++].transform.GetChild(1).GetComponent<Image>().sprite = unitDatas[index].iconSprite;
+
+        Image unitImage = displaySelectedUnit_UI[currentDisplayIndex++].transform.GetChild(1).GetComponent<Image>();
+        Color imageColor = unitImage.color;        
+
+        unitImage.sprite = unitDatas[index].iconSprite;
+        imageColor.a = 1;
+        unitImage.color = imageColor;
     }    
 }

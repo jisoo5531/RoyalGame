@@ -39,7 +39,8 @@ public class UnitSpawner : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Map"))
                     {
-                        Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
+                        //Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
+                        SpawnUnit(hit.point);
 
                         spawnComplete = true;  
                         selectedUnit = null;    // Reset selected unit after spawning
@@ -49,10 +50,13 @@ public class UnitSpawner : MonoBehaviour
             }
         }
     }
+    public void SpawnUnit(Vector3 position)
+    {
+        Instantiate(selectedUnit.prefab, position, Quaternion.identity);
+    }
 
     public void SelectUnit(UnitData_SO unit)
-    {
-        Debug.Log("Å×½ºÆ®");
+    {        
         selectedUnit = unit;
     }
 }

@@ -9,16 +9,24 @@ public class UnitData_SO : ScriptableObject
     public int unit_MaxCardCount;
     public int user_ID;
 
+    [Space(20)]
+
     public string unitName;
     public int damage;
     public int HP;
     public int maxHp;
     public int attackSpeed;
     public int moveSpeed;
+    public Type type;
+    
+    [Space(20)]
 
-    // TODO : 공격 대상 추가
-
+    [Tooltip("사정거리")]
     public int range;
+    [Tooltip("탐지거리")]
+    public int detectionRange;
+
+    [Space(20)]
 
     /// <summary>
     /// 엘릭서 비용
@@ -35,10 +43,23 @@ public class UnitData_SO : ScriptableObject
     /// </summary>
     public string unit_Desc;
 
+    /// <summary>
+    /// 방어타워 수명
+    /// </summary>
+    public int lifeTime;
+
+    [Space(20)]
+
     public Grade grade;
 
     public Sprite iconSprite;
     public GameObject prefab;
+}
+public enum Type
+{
+    Unit,
+    Deffense,
+    Magic
 }
 
 public enum Grade

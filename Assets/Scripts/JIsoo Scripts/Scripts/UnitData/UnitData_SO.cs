@@ -17,6 +17,12 @@ public class UnitData_SO : ScriptableObject
     public int maxHp;
     public float attackSpeed;
     public float moveSpeed;
+
+    /// <summary>
+    /// 몇 마리 생성되는지
+    /// </summary>
+    [Tooltip("몇 마리 생성할건지")] public int unitCount;
+
     public Type type;
     
     [Space(20)]
@@ -24,7 +30,7 @@ public class UnitData_SO : ScriptableObject
     [Tooltip("사정거리")]
     public float range;
     [Tooltip("탐지거리")]
-    public int detectionRange;
+    public float detectionRange;
 
     [Space(20)]
 
@@ -36,17 +42,17 @@ public class UnitData_SO : ScriptableObject
     /// <summary>
     /// 생성 소요 시간
     /// </summary>
-    public int spawnTime;
+    public float spawnTime;
 
     /// <summary>
     /// 유닛 설명
     /// </summary>
-    public string unit_Desc;
+    [Tooltip("유닛 설명")] public string unit_Desc;
 
     /// <summary>
     /// 방어타워 수명
     /// </summary>
-    public int lifeTime;
+    [Tooltip("방어 타워 수명")] public int lifeTime;
 
     [Space(20)]
 

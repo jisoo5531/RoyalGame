@@ -1,5 +1,6 @@
 public interface IDamagable
 {
-    void GetDamage(int _damage);
-    void PrintTest();
+    int HP { get; set; }
+    int maxHP { get; set; }
+    void GetDamage(int damage);    
 }

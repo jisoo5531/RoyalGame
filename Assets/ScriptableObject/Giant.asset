@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85f88cd78bae6a4a930d0d2c4bc0819, type: 3}
   m_Name: Giant
   m_EditorClassIdentifier: 
-  unit_ID: 0
+  unit_ID: 5
   unit_Level: 0
   unit_CurrentCardCount: 0
   unit_MaxCardCount: 0
@@ -23,10 +23,13 @@ MonoBehaviour:
   maxHp: 10
   attackSpeed: 0
   moveSpeed: 3
+  type: 0
   range: 0
+  detectionRange: 0
   cost: 6
-  spawnTime: 0
+  spawnTime: 1
   unit_Desc: 
+  lifeTime: 0
   grade: 0
   iconSprite: {fileID: 21300000, guid: a48365251b3231e489d4c45b23b32752, type: 3}
   prefab: {fileID: 3275561838122271502, guid: 030683b8471c4ad4aabf9893f1990b47, type: 3}

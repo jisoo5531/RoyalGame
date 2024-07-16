@@ -9,20 +9,29 @@ public class TargetFollowUnit : MonoBehaviour
     public Transform target;
     float speed = 3;
     Vector3[] path;
+    float range = 3.5f;
+    float baseRange = 1.3f;
     int targetIndex;
-    const float stopDistance = 11f;
-    const float obstacleCheckDistance = 1f;
-    const float obstacleAvoidanceDistance = 1f;
-    GridController controller;
-
-    private void Awake()
-    {
-        controller = FindAnyObjectByType<GridController>();
-    }
+    bool istrue = false;
+    Transform firstTarget;
+    Collider targetCollider;
 
     void Start()
     {
+        firstTarget = target;
+        // AdjustRange();
+        targetCollider = target.GetComponent<Collider>();
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+    }
+
+    private void Update()
+    {
+        if (firstTarget != target)
+        {
+           // AdjustRange();
+            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+            firstTarget = target;
+        }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -40,40 +49,86 @@ public class TargetFollowUnit : MonoBehaviour
             StartCoroutine("FollowPath");
         }
     }
+    void AdjustRange()
+    {
+
+        if (targetCollider != null)
+        {
+            float maxColliderDimension = GetMaxColliderDimension(targetCollider);
+            range = baseRange * maxColliderDimension;
+            print(maxColliderDimension + ",  " + range);
+        }
+    }
+    float GetMaxColliderDimension(Collider collider)
+    {
+        if (collider is BoxCollider)
+        {
+            BoxCollider boxCollider = (BoxCollider)collider;
+            Vector3 size = boxCollider.size;
+            return Mathf.Max(size.x, size.y, size.z);
+        }
+        else if (collider is CapsuleCollider)
+        {
+            CapsuleCollider capsuleCollider = (CapsuleCollider)collider;
+            float radius = capsuleCollider.radius;
+            float height = capsuleCollider.height;
+            return Mathf.Max(radius * 7f, height);
+        }
+        return 1f;
+    }
+
     IEnumerator FollowPath()
     {
         Vector3 currentWaypoint = path[0];
+
         while (true)
         {
             if (transform.position == currentWaypoint)
             {
                 targetIndex++;
-                if (targetIndex >= path.Length)
+
+                if (targetIndex < path.Length)
                 {
-                    yield break;
+                    currentWaypoint = path[targetIndex];
                 }
-                currentWaypoint = path[targetIndex];
             }
-            Vector3 direction = (currentWaypoint - transform.position);
-            direction.y = 0;
+            Vector3 closestPointOnTarget = targetCollider.ClosestPoint(transform.position);
 
-            if (direction != Vector3.zero)
+            // 타겟의 가장 가까운 점으로의 방향을 계산
+            Vector3 directionToTarget = (closestPointOnTarget - transform.position).normalized;
+
+            // 타겟의 콜라이더로부터 `range`만큼 떨어진 지점 계산
+            Vector3 targetPosition = closestPointOnTarget - directionToTarget * range;
+
+            // 타겟 위치까지의 거리 계산
+            float distanceToTargetPosition = Vector3.Distance(transform.position, targetPosition);
+
+            if (distanceToTargetPosition < 0.1f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                Vector3 eulerAngles = targetRotation.eulerAngles;
-                eulerAngles.x = 0;
-                eulerAngles.z = 0;
-                targetRotation = Quaternion.Euler(eulerAngles);
-
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
+                istrue = true;
+                yield break;
             }
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            yield return null;
 
+            if (!istrue)
+            {
+                Vector3 direction = (currentWaypoint - transform.position);
+                direction.y = 0;
+
+                if (direction != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    Vector3 eulerAngles = targetRotation.eulerAngles;
+                    eulerAngles.x = 0;
+                    eulerAngles.z = 0;
+                    targetRotation = Quaternion.Euler(eulerAngles);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
+                }
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            }
+            yield return null;
         }
     }
-
-
     public void OnDrawGizmos()
     {
         if (path != null)

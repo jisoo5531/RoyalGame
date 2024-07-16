@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MovableUnit : Unit
 {
     public float moveSpeed;
     TargetFollowUnit targetFollowUnit;
-    
+
 
     private void Awake()
     {
         targetFollowUnit = GetComponent<TargetFollowUnit>();
-
     }
 
     protected override void InitializeUnitData(UnitData_SO unit)
     {
         base.InitializeUnitData(unit);
-
+        print("자식 클래스 호출");
         moveSpeed = unit.moveSpeed;
     }
 
@@ -34,23 +34,56 @@ public class MovableUnit : Unit
         }
     }
 
-    protected override void StateTransition()
+    private void Update()
     {
-        if (targetTransform)
+        CheckDetectEnemy();
+        StateTransition();
+    }
+
+    public void CheckDetectEnemy()
+    {
+        if (DetectEnemyManager.instance != null)
         {
-            float distance = Vector3.Distance(targetTransform.position, transform.position);
-            if (distance < range)
+            int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.enemyUnit);
+            if (DetectEnemyManager.instance.enemyUnit[index] != null)
             {
-                SetState(UnitState.Attack);
+                Transform enemy = DetectEnemyManager.instance.enemyUnit[index].transform;
+                float distance = Vector3.Distance(enemy.position, transform.position);
+                if (distance <= detectionRange)
+                {
+                    targetFollowUnit.target = enemy;
+                }
+                else
+                {
+                    int towerIndex = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
+                    targetFollowUnit.target = DetectEnemyManager.instance.towerArr[towerIndex].transform;
+                }
+            }
+        }
+    }
+
+    private void StateTransition()
+    {
+        if (DetectEnemyManager.instance != null)
+        {
+            int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.enemyUnit);
+            if (DetectEnemyManager.instance.enemyUnit[index] != null)
+            {
+                Transform enemy = DetectEnemyManager.instance.enemyUnit[index].transform;
+                float distance = Vector3.Distance(enemy.position, transform.position);
+                if (distance < range)
+                {
+                    SetState(UnitState.Attack);
+                }
+                else
+                {
+                    SetState(UnitState.Move);
+                }
             }
             else
             {
                 SetState(UnitState.Move);
-            }            
-        }
-        else
-        {
-            SetState(UnitState.Move);            
+            }
         }
     }
 }

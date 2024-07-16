@@ -25,8 +25,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public float spawnTime { get; set; }
     public float attackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-
-
+        
     #endregion
 
     protected enum UnitState
@@ -35,6 +34,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         Move,
         Attack,
     }
+
 
     protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
     protected StateMachine<Unit> stateMachine;
@@ -62,6 +62,8 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
         //GetComponentInChildren<Weapon>().damage = damage;        
     }
+
+
     protected virtual void InitializeUnitData(UnitData_SO unit)
     {        
         name = unit.unitName;
@@ -70,18 +72,19 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         damage = unit.damage;
         range = unit.range;
         detectionRange = unit.detectionRange;
+        print("부모 클래스 호출");
         //coolTime = unit.spawnTime;
     }
 
     private void Update()
     {
-        StateTransition();
+        //StateTransition();
         stateMachine.DoOperateUpdate();
     }
-    protected virtual void StateTransition()
-    {
-        // 파생 클래스에서 상태 전이를 정의
-    }
+    //protected virtual void StateTransition()
+    //{
+
+    //}
 
     protected void SetState(UnitState state)
     {

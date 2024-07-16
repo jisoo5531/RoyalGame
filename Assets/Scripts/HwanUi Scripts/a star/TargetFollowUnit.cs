@@ -17,8 +17,9 @@ public class TargetFollowUnit : MonoBehaviour
 
     void Start()
     {
-        firstTarget = target;
-        targetCollider = target.GetComponent<Collider>();
+        int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
+        target = DetectEnemyManager.instance.towerArr[index].transform;
+        targetCollider = target?.GetComponent<Collider>();
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
 

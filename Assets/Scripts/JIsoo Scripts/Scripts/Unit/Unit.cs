@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 {
-
+    
     public int unit_ID;
 
     #region º¯¼ö
@@ -49,6 +49,8 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         //targetTransform = GameObject.FindWithTag("Enemy").transform;
 
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
+
+        SendDamage(damage);
     }
 
     protected virtual void Start()
@@ -60,7 +62,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         dicState.Add(UnitState.Attack, attack);
 
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
-        //GetComponentInChildren<Weapon>().damage = damage;        
+        
     }
     protected virtual void InitializeUnitData(UnitData_SO unit)
     {        
@@ -93,7 +95,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        GetComponentInChildren<Damaging>().damage = damage;
     }
 
     public void GetDamage(int damage)

@@ -5,6 +5,5 @@ public interface IAttackable
 
     float attackSpeed { get; set; }
 
-
     void SendDamage(int damage);
 }

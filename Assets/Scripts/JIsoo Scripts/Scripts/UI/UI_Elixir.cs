@@ -50,7 +50,7 @@ public class UI_Elixir : MonoBehaviour
         elixirSlider.value = Mathf.Lerp(elixirSlider.value, currentElixir, changeRate * 5f * Time.deltaTime);
         if (elixirText != null)
         {
-            elixirText.text = ((int)currentElixir).ToString();
+            elixirText.text = ((int)elixirSlider.value).ToString();
         }
     }    
     private void ReturnRate()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewUnitData", menuName = "ScriptableObjects/UnitData", order = 1)]
 public class UnitData_SO : ScriptableObject
@@ -7,7 +8,7 @@ public class UnitData_SO : ScriptableObject
     public int unit_Level;
     public int unit_CurrentCardCount;
     public int unit_MaxCardCount;
-    public int user_ID;
+    public int user_ID;    
 
     [Space(20)]
 

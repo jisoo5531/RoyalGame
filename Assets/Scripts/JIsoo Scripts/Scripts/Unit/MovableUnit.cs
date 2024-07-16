@@ -12,6 +12,7 @@ public class MovableUnit : Unit
     private void Awake()
     {
         targetFollowUnit = GetComponent<TargetFollowUnit>();
+        anim = GetComponent<Animator>();
     }
 
     protected override void InitializeUnitData(UnitData_SO unit)
@@ -56,6 +57,8 @@ public class MovableUnit : Unit
                 else
                 {
                     int towerIndex = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
+                    print(towerIndex);
+                    print(targetFollowUnit.target == null);
                     targetFollowUnit.target = DetectEnemyManager.instance.towerArr[towerIndex].transform;
                 }
             }

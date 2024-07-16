@@ -25,11 +25,11 @@ public class TargetFollowUnit : MonoBehaviour
 
     private void Update()
     {
-        if (firstTarget != target)
-        {
-            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-            firstTarget = target;
-        }
+        //if (firstTarget != target)
+        //{
+        //    PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        //    firstTarget = target;
+        //}
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)

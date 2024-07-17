@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 {
-    
+
     public int unit_ID;
+    [HideInInspector] public Animator anim;
 
     #region 변수
 
@@ -25,8 +26,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public float spawnTime { get; set; }
     public float attackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-
-
+        
     #endregion
 
     protected enum UnitState
@@ -36,25 +36,12 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         Attack,
     }
 
+
     protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
     protected StateMachine<Unit> stateMachine;
 
-    [HideInInspector] public Animator anim;    
-
-    private void Awake()
-    {        
-        anim = GetComponent<Animator>();
-
-        // TODO : 테스트용 Enemy 태그 
-        //targetTransform = GameObject.FindWithTag("Enemy").transform;
-
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
-
-        SendDamage(damage);
-    }
-
-    protected virtual void Start()
-    {        
+    protected virtual void InitStateMachine()
+    {
         IState<Unit> idle = new UnitIdle();
         IState<Unit> attack = new UnitAttack();
 
@@ -62,28 +49,19 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         dicState.Add(UnitState.Attack, attack);
 
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
-        
     }
+
+
     protected virtual void InitializeUnitData(UnitData_SO unit)
-    {        
+    {
         name = unit.unitName;
         HP = unit.HP;
         maxHP = unit.maxHp;
         damage = unit.damage;
         range = unit.range;
         detectionRange = unit.detectionRange;
-        //coolTime = unit.spawnTime;
     }
 
-    private void Update()
-    {
-        StateTransition();
-        stateMachine.DoOperateUpdate();
-    }
-    protected virtual void StateTransition()
-    {
-        // 파생 클래스에서 상태 전이를 정의
-    }
 
     protected void SetState(UnitState state)
     {
@@ -95,7 +73,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        GetComponentInChildren<Damaging>().damage = damage;
+        throw new System.NotImplementedException();
     }
 
     public void GetDamage(int damage)

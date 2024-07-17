@@ -42,7 +42,7 @@ public class UnitSpawner : MonoBehaviour
                         //Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
                         SpawnUnit(hit.point);
 
-                        spawnComplete = true;  
+                        spawnComplete = true;
                         selectedUnit = null;    // Reset selected unit after spawning
                         isElixirEnough = false; // Reset "
                     }

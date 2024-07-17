@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void OnClickSceneChange()
     {
-        SceneManager.LoadScene("GameSceneTest");
+        SceneManager.LoadScene(1);
     }
 
 }

@@ -17,25 +17,25 @@ public class DeffenseTower : Unit
         UpdateLifeTime();
     }
 
-    protected override void StateTransition()
-    {
-        if (targetTransform)
-        {
-            float distance = Vector3.Distance(targetTransform.position, transform.position);
-            if (distance < range)
-            {
-                SetState(UnitState.Attack);
-            }
-            else
-            {
-                SetState(UnitState.Idle);
-            }
-        }
-        else
-        {
-            SetState(UnitState.Idle);
-        }
-    }
+    //protected override void StateTransition()
+    //{
+    //    if (targetTransform)
+    //    {
+    //        float distance = Vector3.Distance(targetTransform.position, transform.position);
+    //        if (distance < range)
+    //        {
+    //            SetState(UnitState.Attack);
+    //        }
+    //        else
+    //        {
+    //            SetState(UnitState.Idle);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        SetState(UnitState.Idle);
+    //    }
+    //}
 
     private void UpdateLifeTime()
     {

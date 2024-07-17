@@ -9,7 +9,7 @@ public class MovableUnit : Unit
     protected override void InitializeUnitData(UnitData_SO unit)
     {
         base.InitializeUnitData(unit);
-
+        Debug.Log("자식 초기화");
         moveSpeed = unit.moveSpeed;
     }
     protected override void Start()
@@ -22,6 +22,7 @@ public class MovableUnit : Unit
 
     protected override void StateTransition()
     {
+        Debug.Log("자식 상태 변화");
         if (targetTransform)
         {
             float distance = Vector3.Distance(targetTransform.position, transform.position);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Extension
 {
@@ -21,9 +22,20 @@ public static class Extension
         }
     }
     /// <summary>
+    /// 투명도 조절
+    /// </summary>
+    /// <param name="image">투명도를 조절할 이미지</param>
+    /// <param name="alpha"></param>
+    public static void ImageTransparent(this Image image, float alpha)
+    {
+        Color tempColor = image.color;
+        tempColor.a = alpha;
+        image.color = tempColor;        
+    }
+    /// <summary>
     /// 유닛 투명도 조절
     /// </summary>
-    /// <param name="unitPrefab">대상 유닛 프리팹</param>
+    /// <param name="unitPrefab">투명도를 조절할 모델</param>
     /// <param name="alpha">alpha값 조절</param>
     public static void UnitTransparent(this GameObject unitPrefab, float alpha)
     {
@@ -63,7 +75,13 @@ public static class Extension
     {
         if (unitData.type == Type.Unit)
         {
-            unit.AddComponent<MovableUnit>();
+            // Animator 컴포넌트를 가진 오브젝트에 넣어주기
+            Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
+            
+            foreach (var unitAnim in unitsAnim)
+            {
+                unitAnim.gameObject.AddComponent<MovableUnit>();
+            }            
         }
         else if (unitData.type == Type.Deffense)
         {

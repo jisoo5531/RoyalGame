@@ -20,7 +20,7 @@ public class UnitManager : MonoBehaviour
     /// </summary>
     [HideInInspector] public UnitData_SO[] m_unitDatas { get { return unitDatas; } }
 
-    [SerializeField] private List<UnitData_SO> selectedUnits;       
+    [SerializeField] private List<UnitData_SO> selectedUnits; 
     /// <summary>
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
@@ -38,21 +38,56 @@ public class UnitManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }        
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            selectedUnits.Add(null);
+        }
     }
     /// <summary>
-    /// 게임 시작 전 유닛 선택
+    /// Collection 탭 유닛 선택
     /// </summary>
     /// <param name="index"></param>
-    public void OnClickInitializeSelectedUnits(int index)
+    public void OnClickUseUnit(int index)
+    {        
+        for (int i = 0; i < 8; i++)
+        {
+
+            if (selectedUnits[i] == null)
+            {
+                currentDisplayIndex = i;
+                break;
+            }
+        }
+        Debug.Log(currentDisplayIndex);
+        selectedUnits[currentDisplayIndex] = unitDatas[index];        
+                
+        Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+        unitImage.ImageTransparent(1f);
+
+        unitImage.sprite = unitDatas[index].iconSprite;        
+    }    
+    /// <summary>
+    /// Collection 탭 유닛 제거
+    /// </summary>
+    /// <param name="index"></param>
+    public void OnClickNotUseUnit(int index)
     {
-        selectedUnits.Add(unitDatas[index]);
+        for (int i = 0; i < 8; i++)
+        {
+            if (selectedUnits[i] != null && (selectedUnits[i].name == unitDatas[index].name))
+            {
+                selectedUnits[i] = null;
+                currentDisplayIndex = i;
+                break;
+            }
+        }        
+        
+        Debug.Log($"배열 개수 : {selectedUnits.Count}");
 
-        Image unitImage = displaySelectedUnit_UI[currentDisplayIndex++].transform.GetChild(1).GetComponent<Image>();
-        Color imageColor = unitImage.color;        
-
-        unitImage.sprite = unitDatas[index].iconSprite;
-        imageColor.a = 1;
-        unitImage.color = imageColor;
+        Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+        unitImage.sprite = null;
+        unitImage.ImageTransparent(0f);
     }    
 }

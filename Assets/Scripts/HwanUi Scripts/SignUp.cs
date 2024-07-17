@@ -32,7 +32,15 @@ public class SignUp : MonoBehaviour
 
     public void LoginClick()
     {
-        CheckDuplicateName(nickname.text);
+        if(CheckDuplicateName(nickname.text))
+        {
+
+        }
+    }
+
+    private void InsertUserData(string name, string password)
+    {
+
     }
 
     private bool CheckDuplicateName(string name)

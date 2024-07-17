@@ -12,18 +12,20 @@ public class TargetFollowUnit : MonoBehaviour
     Vector3[] path;
     int targetIndex;
     public Collider targetCollider;
-    public Vector3 currentWaypoint;
+    Vector3 currentWaypoint;
+    public bool isAttack = false;
 
     void Start()
     {
-        int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
-        target = DetectEnemyManager.instance.towerArr[index].transform;
-        targetCollider = target?.GetComponent<Collider>();
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        //int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
+        //target = DetectEnemyManager.instance.towerArr[index].transform;
+        //targetCollider = target?.GetComponent<Collider>();
+        //PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
+        print("pathSuccessful:  " + pathSuccessful);
         if (pathSuccessful)
         {
             for (int i = 0; i < newPath.Length; i++)
@@ -32,6 +34,7 @@ public class TargetFollowUnit : MonoBehaviour
             }
 
             path = newPath;
+            print(path.Length);
             targetIndex = 0;
             StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
@@ -41,6 +44,7 @@ public class TargetFollowUnit : MonoBehaviour
     IEnumerator FollowPath()
     {
         currentWaypoint = path[0];
+        print("currentWaypoint:  "+ currentWaypoint);
 
         while (true)
         {
@@ -53,15 +57,19 @@ public class TargetFollowUnit : MonoBehaviour
                     currentWaypoint = path[targetIndex];
                 }
             }
-            Vector3 closestPointOnTarget = targetCollider.ClosestPoint(transform.position);
+            //Vector3 closestPointOnTarget = targetCollider.ClosestPoint(transform.position);
 
-            Vector3 directionToTarget = (closestPointOnTarget - transform.position).normalized;
+            //Vector3 directionToTarget = (closestPointOnTarget - transform.position).normalized;
 
-            Vector3 targetPosition = closestPointOnTarget - directionToTarget * range;
+            //Vector3 targetPosition = closestPointOnTarget - directionToTarget * range;
 
-            float distanceToTargetPosition = Vector3.Distance(transform.position, targetPosition);
+            //float distanceToTargetPosition = Vector3.Distance(transform.position, targetPosition);
 
-            if (distanceToTargetPosition < 0.1f)
+            //if (distanceToTargetPosition < 0.1f)
+            //{
+            //    yield break;
+            //}
+            if(isAttack)
             {
                 yield break;
             }

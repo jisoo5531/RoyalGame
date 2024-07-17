@@ -10,7 +10,9 @@ public class DetectEnemyManager : MonoBehaviour
 {
     public static DetectEnemyManager instance;
     public GameObject[] towerArr;
-    public GameObject[] enemyUnit;
+    public GameObject[] enemyUnitArr;
+    Transform enemyUnit;
+    Transform enemyTower;
 
     private void Awake()
     {
@@ -37,5 +39,60 @@ public class DetectEnemyManager : MonoBehaviour
             return objIndex;
         }
         return -1;
+    }
+
+    public void CheckDetectAllEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove)
+    {
+        int towerIndex = CheckEnemyDistance(this.transform, towerArr);
+        int unitIndex = CheckEnemyDistance(this.transform, enemyUnitArr);
+
+        if (enemyUnitArr[unitIndex] == null && towerArr[towerIndex] == null)
+            return;
+
+        enemyTower = towerArr[towerIndex]?.transform;
+        enemyUnit = enemyUnitArr[unitIndex]?.transform;
+
+        float distance = Vector3.Distance(enemyUnit.position, transform.position);
+
+        if (distance <= detectionRange && targetFollowUnit.target != enemyUnit)
+        {
+            targetFollowUnit.target = enemyUnit;
+        }
+        else if (distance > detectionRange && targetFollowUnit.target != enemyTower)
+        {
+            targetFollowUnit.target = enemyTower;
+        }
+        else
+        {
+            return;
+        }
+        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<CharacterController>();
+
+        if (isMove)
+        {
+            PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+            targetFollowUnit.isMove = true;
+        }
+    }
+
+    public void CheckDetectEnemyTower(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove)
+    {
+        int towerIndex = CheckEnemyDistance(this.transform, towerArr);
+
+        if (towerArr[towerIndex] == null)
+            return;
+
+        enemyTower = towerArr[towerIndex]?.transform;
+
+        if (targetFollowUnit.target == enemyTower) return;
+
+        targetFollowUnit.target = enemyTower;
+        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<CharacterController>();
+
+        if (isMove)
+        {
+            PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+            targetFollowUnit.isMove = true;
+        }
     }
 }

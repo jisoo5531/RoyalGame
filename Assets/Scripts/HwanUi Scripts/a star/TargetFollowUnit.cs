@@ -11,7 +11,7 @@ public class TargetFollowUnit : MonoBehaviour
     public float range;
     Vector3[] path;
     int targetIndex;
-    public CharacterController targetCollider;
+    public Collider targetCollider;
     Vector3 currentWaypoint;
     public bool isAttack = false;
     public bool isMove = false;

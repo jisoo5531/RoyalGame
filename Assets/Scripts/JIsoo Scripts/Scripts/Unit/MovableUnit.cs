@@ -54,7 +54,6 @@ public class MovableUnit : Unit
         StateTransition();
     }
 
-
     private void StateTransition()
     {
         if (DetectEnemyManager.instance == null)

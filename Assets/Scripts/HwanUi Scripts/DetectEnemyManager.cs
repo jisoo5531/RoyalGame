@@ -66,7 +66,7 @@ public class DetectEnemyManager : MonoBehaviour
         {
             return;
         }
-        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<CharacterController>();
+        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
         if (isMove)
         {

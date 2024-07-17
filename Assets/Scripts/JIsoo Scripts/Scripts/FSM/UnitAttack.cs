@@ -6,7 +6,6 @@ public class UnitAttack : IState<Unit>
 
     public void OperateEnter(Unit sender)
     {
-        Debug.Log("공격");
         unit = sender;
         unit.anim.SetTrigger("DoAttack");
     }
@@ -15,7 +14,6 @@ public class UnitAttack : IState<Unit>
     }
     public void OperateUpdate(Unit sender)
     {
-        Debug.Log("공격 중");
         if (false == unit.anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             unit.anim.SetTrigger("DoAttack");

@@ -77,13 +77,14 @@ public class MovableUnit : Unit
         {
             return;
         }
-        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
+        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<CharacterController>();
 
         print("Å½Áö");
         if (isMove)
         {
             print("ÀÌµ¿ Áß");
             PathRequestManager.RequestPath(transform.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+            targetFollowUnit.isMove = true;
         }
     }
 
@@ -95,18 +96,15 @@ public class MovableUnit : Unit
         int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.enemyUnit);
         if (DetectEnemyManager.instance.enemyUnit[index] != null)
         {
-            print("¤±");
             Transform enemy = DetectEnemyManager.instance.enemyUnit[index].transform;
             float distance = Vector3.Distance(enemy.position, transform.position);
             if (distance < range)
             {
                 targetFollowUnit.isAttack = true;
-                print("¤µ");
                 SetState(UnitState.Attack);
             }
             else
             {
-                print("¤¼");
                 SetState(UnitState.Move);
             }
         }

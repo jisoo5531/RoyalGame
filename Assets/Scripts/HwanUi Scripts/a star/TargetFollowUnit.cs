@@ -11,12 +11,16 @@ public class TargetFollowUnit : MonoBehaviour
     public float range;
     Vector3[] path;
     int targetIndex;
-    public Collider targetCollider;
+    public CharacterController targetCollider;
     Vector3 currentWaypoint;
     public bool isAttack = false;
+    public bool isMove = false;
+
+    private Rigidbody rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         //int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
         //target = DetectEnemyManager.instance.towerArr[index].transform;
         //targetCollider = target?.GetComponent<Collider>();
@@ -88,8 +92,21 @@ public class TargetFollowUnit : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+           // Vector3 move = currentWaypoint * speed * Time.deltaTime;
+           // rb.MovePosition(transform.position + move);
             yield return null;
         }
+    }
+    void FixedUpdate()
+    {
+        //if (path == null || targetIndex >= path.Length) return;
+
+        //if (isMove)
+        //{
+        //    Vector3 direction = (currentWaypoint - transform.position).normalized;
+        //    Vector3 move = direction * speed * Time.fixedDeltaTime;
+        //    rb.MovePosition(transform.position + move);
+        //}
     }
     public void OnDrawGizmos()
     {

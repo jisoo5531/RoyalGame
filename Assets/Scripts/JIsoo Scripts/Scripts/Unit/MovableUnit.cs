@@ -79,10 +79,8 @@ public class MovableUnit : Unit
         }
         targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<CharacterController>();
 
-        print("탐지");
         if (isMove)
         {
-            print("이동 중");
             PathRequestManager.RequestPath(transform.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
             targetFollowUnit.isMove = true;
         }

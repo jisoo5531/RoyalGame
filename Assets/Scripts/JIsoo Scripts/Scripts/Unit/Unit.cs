@@ -72,11 +72,21 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        GetComponentInChildren<Damaging>().damage = damage;
     }
 
     public void GetDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        HP -= damage;
+
+        // TODO : À¯´ÖÀÌ Á×À» ¶§
+        if (HP <= 0)
+        {
+            Death();
+        }
     }    
+    private void Death()
+    {
+
+    }
 }

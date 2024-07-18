@@ -46,23 +46,23 @@ public class MovableUnit : Unit
         if(this.attackTarget == AttackTarget.All)
         {
             DetectEnemyManager.instance.CheckDetectAllEnemy(detectionRange, this.transform, targetFollowUnit, isMove);
+            //StateTransition();
         }
         else
         {
             DetectEnemyManager.instance.CheckDetectEnemyTower(detectionRange, this.transform, targetFollowUnit, isMove);
         }
-        StateTransition();
     }
 
-    private void StateTransition()
+    private void StateTransition(GameObject[] enemyArr)
     {
         if (DetectEnemyManager.instance == null)
             return;
 
-        int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.enemyUnitArr);
-        if (DetectEnemyManager.instance.enemyUnitArr[index] != null)
+        int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, enemyArr);
+        if (enemyArr[index] != null)
         {
-            Transform enemy = DetectEnemyManager.instance.enemyUnitArr[index].transform;
+            Transform enemy = enemyArr[index].transform;
             float distance = Vector3.Distance(enemy.position, transform.position);
             if (distance < range)
             {

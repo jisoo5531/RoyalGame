@@ -97,7 +97,6 @@ public class SignUp : MonoBehaviour
                 object result = cmd.ExecuteScalar();
                 int rowCount = Convert.ToInt32(result);
 
-                print(rowCount);
                 return rowCount > 0;
             }
         }

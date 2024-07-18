@@ -6,14 +6,8 @@ using UnityEngine.UI;
 
 public class ShakeBox : MonoBehaviour
 {
-    Animator anim;
 
-    private void Awake()
-    {
-        anim = GetComponentInChildren<Animator>();
-    }
-
-    public void Shake()
+    public void Start()
     {
         transform.DOShakeRotation(3);
     }

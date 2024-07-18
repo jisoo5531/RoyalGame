@@ -1,20 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 #region 박환의
 public class TargetFollowUnit : MonoBehaviour
 {
-    public Transform target;
+    #region public 변수
+    public Transform target = null;
+
     public float speed;
     public float range;
-    Vector3[] path;
-    int targetIndex;
     public Collider targetCollider;
-    Vector3 currentWaypoint;
     public bool isAttack = false;
     public bool isMove = false;
+    #endregion
+
+    #region private 변수
+    int targetIndex;
+    Vector3[] path;
+    Vector3 currentWaypoint;
+    Rigidbody rb;
+    #endregion
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
@@ -77,7 +91,9 @@ public class TargetFollowUnit : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            Vector3 targetPosition = transform.position + currentWaypoint * speed * Time.deltaTime;
+            rb.MovePosition(targetPosition);
+            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

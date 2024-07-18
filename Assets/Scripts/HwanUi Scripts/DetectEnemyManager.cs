@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// 포톤으로 생성할 컴포넌트 매니저
-/// </summary>
 public class DetectEnemyManager : MonoBehaviour
 {
+    #region public 변수
     public static DetectEnemyManager instance;
     public GameObject[] towerArr;
     public GameObject[] enemyUnitArr;
+    public Transform enemyTower;
+    #endregion
+
     Transform enemyUnit;
-    Transform enemyTower;
 
     private void Awake()
     {
@@ -41,58 +41,61 @@ public class DetectEnemyManager : MonoBehaviour
         return -1;
     }
 
-    public void CheckDetectAllEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove)
+    public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove, AttackTarget thisAttackTarget)
     {
-        int towerIndex = CheckEnemyDistance(this.transform, towerArr);
-        int unitIndex = CheckEnemyDistance(this.transform, enemyUnitArr);
+        int towerIndex = CheckEnemyDistance(character, towerArr);
+        int unitIndex = -1;
 
-        if (enemyUnitArr[unitIndex] == null && towerArr[towerIndex] == null)
-            return;
-
-        enemyTower = towerArr[towerIndex]?.transform;
-        enemyUnit = enemyUnitArr[unitIndex]?.transform;
-
-        float distance = Vector3.Distance(enemyUnit.position, transform.position);
-
-        if (distance <= detectionRange && targetFollowUnit.target != enemyUnit)
+        if (thisAttackTarget == AttackTarget.All)
         {
-            targetFollowUnit.target = enemyUnit;
+            unitIndex = CheckEnemyDistance(character, enemyUnitArr);
         }
-        else if (distance > detectionRange && targetFollowUnit.target != enemyTower)
+
+        Transform enemyTarget = null;
+        float enemyDistance = float.MaxValue;
+
+        if (towerArr[towerIndex] != null)
         {
-            targetFollowUnit.target = enemyTower;
+            enemyTarget = towerArr[towerIndex].transform;
+            enemyDistance = Vector3.Distance(enemyTarget.position, transform.position);
+
+            if(targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
+            {
+                targetFollowUnit.target = enemyTarget;
+                targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
+
+                if (isMove)
+                {
+                    PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+                    targetFollowUnit.isMove = true;
+                }
+                return;
+            }
         }
-        else
+
+        if (unitIndex != -1)
         {
-            return;
+            Transform enemyUnitTarget = enemyUnitArr[unitIndex].transform;
+            float enemyUnitDistance = Vector3.Distance(enemyUnitTarget.position, transform.position);
+
+            if (enemyDistance >= enemyUnitDistance)
+            {
+                enemyTarget = enemyUnitTarget;
+                enemyDistance = enemyUnitDistance;
+            }
         }
-        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
-        if (isMove)
+        if (enemyTarget != null && enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
         {
-            PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-            targetFollowUnit.isMove = true;
-        }
-    }
+            print(enemyTarget);
+            targetFollowUnit.target = enemyTarget;
+            targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
-    public void CheckDetectEnemyTower(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove)
-    {
-        int towerIndex = CheckEnemyDistance(this.transform, towerArr);
-
-        if (towerArr[towerIndex] == null)
-            return;
-
-        enemyTower = towerArr[towerIndex]?.transform;
-
-        if (targetFollowUnit.target == enemyTower) return;
-
-        targetFollowUnit.target = enemyTower;
-        targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<CharacterController>();
-
-        if (isMove)
-        {
-            PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-            targetFollowUnit.isMove = true;
+            if (isMove)
+            {
+                PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+                targetFollowUnit.isMove = true;
+            }
         }
     }
 }

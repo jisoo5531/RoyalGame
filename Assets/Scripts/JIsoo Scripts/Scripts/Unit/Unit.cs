@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public float spawnTime { get; set; }
     public float attackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
+    public AttackTarget attackTarget { get; set; }
         
     #endregion
 
@@ -59,6 +60,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         damage = unit.damage;
         range = unit.range;
         detectionRange = unit.detectionRange;
+        attackTarget = unit.attackTarget;
     }
 
 

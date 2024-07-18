@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class CollectionUsingCard : MonoBehaviour
 {
-    public GameObject[] onClickUseOrNotUseButton;    
+    public GameObject[] onClickUseOrNotUseButton;
 
     public void OnClickInteract(int number)
     {
-        foreach (GameObject GO in onClickUseOrNotUseButton)
+        for (int i = 0; i < onClickUseOrNotUseButton.Length; i++)
         {
-            GO.SetActive(false);
-        }
-        onClickUseOrNotUseButton[number].SetActive(true);
+            if (i != number)
+            {
+                onClickUseOrNotUseButton[i].SetActive(false);
+                continue;
+            }
+        }        
+        onClickUseOrNotUseButton[number].SetActive(!onClickUseOrNotUseButton[number].activeSelf);
     }
 }

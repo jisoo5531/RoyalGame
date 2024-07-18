@@ -22,15 +22,16 @@ MonoBehaviour:
   HP: 10
   maxHp: 10
   attackSpeed: 0
-  moveSpeed: 3
-  unitCount: 1
+  moveSpeed: 2
+  unitCount: 0
   type: 0
-  range: 0
-  detectionRange: 0
+  range: 9
+  detectionRange: 20
   cost: 6
   spawnTime: 1
   unit_Desc: 
   lifeTime: 0
+  attackTarget: 1
   grade: 0
   iconSprite: {fileID: 21300000, guid: a48365251b3231e489d4c45b23b32752, type: 3}
-  prefab: {fileID: 3275561838122271502, guid: d4362aa8c31a7954188b503a9defc9a5, type: 3}
+  prefab: {fileID: 3275561838122271502, guid: 030683b8471c4ad4aabf9893f1990b47, type: 3}

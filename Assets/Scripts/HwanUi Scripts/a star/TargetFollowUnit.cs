@@ -1,35 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 #region 박환의
 public class TargetFollowUnit : MonoBehaviour
 {
-    public Transform target;
+    #region public 변수
+    public Transform target = null;
+
     public float speed;
     public float range;
-    Vector3[] path;
-    int targetIndex;
-    public CharacterController targetCollider;
-    Vector3 currentWaypoint;
+    public Collider targetCollider;
     public bool isAttack = false;
     public bool isMove = false;
+    #endregion
 
-    private Rigidbody rb;
+    #region private 변수
+    int targetIndex;
+    Vector3[] path;
+    Vector3 currentWaypoint;
+    Rigidbody rb;
+    #endregion
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        //int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.towerArr);
-        //target = DetectEnemyManager.instance.towerArr[index].transform;
-        //targetCollider = target?.GetComponent<Collider>();
-        //PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
-        print("pathSuccessful:  " + pathSuccessful);
         if (pathSuccessful)
         {
             for (int i = 0; i < newPath.Length; i++)
@@ -38,7 +40,6 @@ public class TargetFollowUnit : MonoBehaviour
             }
 
             path = newPath;
-            print(path.Length);
             targetIndex = 0;
             StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
@@ -48,7 +49,6 @@ public class TargetFollowUnit : MonoBehaviour
     IEnumerator FollowPath()
     {
         currentWaypoint = path[0];
-        print("currentWaypoint:  "+ currentWaypoint);
 
         while (true)
         {
@@ -91,22 +91,11 @@ public class TargetFollowUnit : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-           // Vector3 move = currentWaypoint * speed * Time.deltaTime;
-           // rb.MovePosition(transform.position + move);
+            Vector3 targetPosition = transform.position + currentWaypoint * speed * Time.deltaTime;
+            rb.MovePosition(targetPosition);
+            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
-    }
-    void FixedUpdate()
-    {
-        //if (path == null || targetIndex >= path.Length) return;
-
-        //if (isMove)
-        //{
-        //    Vector3 direction = (currentWaypoint - transform.position).normalized;
-        //    Vector3 move = direction * speed * Time.fixedDeltaTime;
-        //    rb.MovePosition(transform.position + move);
-        //}
     }
     public void OnDrawGizmos()
     {

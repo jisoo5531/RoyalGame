@@ -55,7 +55,7 @@ public class UnitData_SO : ScriptableObject
     /// </summary>
     [Tooltip("방어 타워 수명")] public int lifeTime;
 
-    [Space(20)]
+    public AttackTarget attackTarget;
 
     public Grade grade;
 
@@ -74,4 +74,10 @@ public enum Grade
     Normal,
     Rare,
     Epic
+}
+
+public enum AttackTarget
+{
+    All,
+    Tower
 }

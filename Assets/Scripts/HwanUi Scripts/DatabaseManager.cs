@@ -48,14 +48,30 @@ public class DatabaseManager : MonoBehaviour
             connection = new MySqlConnection(connStr);
         }
 
-        try
+        bool connected = false;
+        int retryCount = 0;
+        int maxRetries = 5;
+        int retryDelay = 2000;
+
+        while (!connected && retryCount < maxRetries)
         {
-            connection.Open();
-            Debug.Log("Database connection opened");
+            try
+            {
+                connection.Open();
+                connected = true;
+                Debug.Log("Database connection opened");
+            }
+            catch (Exception ex)
+            {
+                retryCount++;
+                Debug.LogWarning($"Failed to open database connection (Attempt {retryCount}/{maxRetries}): " + ex.Message);
+                System.Threading.Thread.Sleep(retryDelay);
+            }
         }
-        catch (Exception ex)
+
+        if (!connected)
         {
-            Debug.LogError("Failed to open database connection: " + ex.Message);
+            Debug.LogError("Failed to open database connection after multiple attempts.");
         }
     }
 
@@ -77,7 +93,7 @@ public class DatabaseManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Connection is not open");
+            Debug.LogWarning("Connection is not open");
             return null;
         }
     }

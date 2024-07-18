@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;
 
-        // TODO : À¯´ÖÀÌ Á×À» ¶§
+        // À¯´ÖÀÌ Á×À» ¶§
         if (HP <= 0)
         {            
             Death();
@@ -89,7 +89,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }    
     private void Death()
     {        
-        GameObject effect = Instantiate(EffectManager.m_Instance.deathEffect, transform.position + new Vector3(0, 3, 0), transform.rotation);
+        GameObject effect = Instantiate(EffectManager.m_Instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
         effect.transform.localScale = transform.localScale;
         Destroy(gameObject);
     }

@@ -61,6 +61,14 @@ public class UnitData_SO : ScriptableObject
 
     public Sprite iconSprite;
     public GameObject prefab;    
+
+    /// <summary>
+    /// 레벨 올라갈 때마다 스탯 증가
+    /// </summary>
+    public void UpgradeToStat()
+    {
+        
+    }
 }
 public enum Type
 {

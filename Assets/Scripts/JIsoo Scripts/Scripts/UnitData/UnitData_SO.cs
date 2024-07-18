@@ -60,7 +60,7 @@ public class UnitData_SO : ScriptableObject
     public Grade grade;
 
     public Sprite iconSprite;
-    public GameObject prefab;
+    public GameObject prefab;    
 }
 public enum Type
 {

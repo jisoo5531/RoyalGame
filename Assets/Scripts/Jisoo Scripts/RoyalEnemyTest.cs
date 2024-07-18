@@ -19,9 +19,9 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
         HP -= damage;
         if (HP <= 0)
         {
-            Destroy(gameObject);
-            GameObject effect = Instantiate(blastEffect, transform.position, transform.rotation);
+            GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
             effect.transform.localScale = transform.localScale;
+            Destroy(gameObject);
         }
     }
 }

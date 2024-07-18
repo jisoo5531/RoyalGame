@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitManager : MonoBehaviour
+public class StartSelectUnitManager : MonoBehaviour
 {
-    private static UnitManager instance;
-    public static UnitManager m_Instance { get { return instance; } }    
+    private static StartSelectUnitManager instance;
+    public static StartSelectUnitManager m_Instance { get { return instance; } }    
     
     [SerializeField] private GameObject[] displaySelectedUnit_UI;
     /// <summary>
@@ -25,6 +25,7 @@ public class UnitManager : MonoBehaviour
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
     [HideInInspector] public List<UnitData_SO> m_selectedUnits { get { return selectedUnits; } }
+    
     
     private int currentDisplayIndex = 0;
 

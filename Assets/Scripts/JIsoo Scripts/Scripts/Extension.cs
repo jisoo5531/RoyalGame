@@ -75,13 +75,15 @@ public static class Extension
     {
         if (unitData.type == Type.Unit)
         {
-            // Animator 컴포넌트를 가진 오브젝트에 넣어주기
-            Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
-            
-            foreach (var unitAnim in unitsAnim)
-            {
-                unitAnim.gameObject.AddComponent<MovableUnit>();
-            }            
+            //// Animator 컴포넌트를 가진 오브젝트에 넣어주기
+            //Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
+
+            //foreach (var unitAnim in unitsAnim)
+            //{
+            //    unitAnim.gameObject.AddComponent<MovableUnit>();
+            //}
+
+            unit.AddComponent<MovableUnit>();
         }
         else if (unitData.type == Type.Deffense)
         {

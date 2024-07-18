@@ -91,9 +91,8 @@ public class TargetFollowUnit : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            Vector3 targetPosition = transform.position + currentWaypoint * speed * Time.deltaTime;
-            rb.MovePosition(targetPosition);
-            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

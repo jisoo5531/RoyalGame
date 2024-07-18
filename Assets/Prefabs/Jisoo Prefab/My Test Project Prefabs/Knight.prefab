@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 997537084491049535}
   - component: {fileID: 241768327971323687}
   - component: {fileID: 628802620234354283}
+  - component: {fileID: 5593123480686039759}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -517,6 +518,24 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &5593123480686039759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997537084498369677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b778833f937d9b4b932666fdd448b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 0
+  range: 0
+  targetCollider: {fileID: 0}
+  isAttack: 0
+  isMove: 0
 --- !u!1 &997537084498371393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1495,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997537084498419269}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.438031, y: 0.08983607, z: 0.3547706}
@@ -1868,7 +1887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6684863219293211929
 RectTransform:
   m_ObjectHideFlags: 0

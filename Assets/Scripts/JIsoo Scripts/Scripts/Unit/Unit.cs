@@ -11,8 +11,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     #region º¯¼ö
 
     public float detectionRange;
-    //public float coolTime;
-    public Transform targetTransform;
+    //public float coolTime;    
 
     public string name { get; set; }
     public int cardLevel { get; set; }
@@ -89,6 +88,6 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }    
     private void Death()
     {
-
+        Destroy(gameObject);
     }
 }

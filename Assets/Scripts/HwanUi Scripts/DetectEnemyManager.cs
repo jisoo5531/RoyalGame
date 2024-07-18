@@ -57,7 +57,7 @@ public class DetectEnemyManager : MonoBehaviour
         if (towerArr[towerIndex] != null)
         {
             enemyTarget = towerArr[towerIndex].transform;
-            enemyDistance = Vector3.Distance(enemyTarget.position, transform.position);
+            enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
 
             if(targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
             {
@@ -76,7 +76,7 @@ public class DetectEnemyManager : MonoBehaviour
         if (unitIndex != -1)
         {
             Transform enemyUnitTarget = enemyUnitArr[unitIndex].transform;
-            float enemyUnitDistance = Vector3.Distance(enemyUnitTarget.position, transform.position);
+            float enemyUnitDistance = Vector3.Distance(enemyUnitTarget.position, character.position);
 
             if (enemyDistance >= enemyUnitDistance)
             {

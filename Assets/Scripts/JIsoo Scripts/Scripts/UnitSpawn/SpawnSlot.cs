@@ -78,7 +78,6 @@ public class SpawnSlot : MonoBehaviour,
             dragUnit.UnitTransparent(1f);
             if(dragUnit.TryGetComponent<MovableUnit>(out MovableUnit mu))
             {
-                print("»ý¼º");
                 mu.isMove = true;
             }
 

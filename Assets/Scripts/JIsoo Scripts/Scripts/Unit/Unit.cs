@@ -51,7 +51,6 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
     }
 
-
     protected virtual void InitializeUnitData(UnitData_SO unit)
     {
         name = unit.unitName;

@@ -23,6 +23,7 @@ public class TargetFollowUnit : MonoBehaviour
     Vector3[] path;
     Vector3 currentWaypoint;
     Rigidbody rb;
+    private bool isColliding = false;
     #endregion
 
     private void Awake()
@@ -73,7 +74,7 @@ public class TargetFollowUnit : MonoBehaviour
             //{
             //    yield break;
             //}
-            if(isAttack)
+            if (isAttack)
             {
                 yield break;
             }
@@ -91,12 +92,45 @@ public class TargetFollowUnit : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            Vector3 targetPosition = transform.position + currentWaypoint * speed * Time.deltaTime;
-            rb.MovePosition(targetPosition);
-            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+
+            if (isColliding)
+            {
+                newPosition = AdjustPositionAroundObstacle(transform.position, currentWaypoint);
+            }
+           // rb.MovePosition(newPosition);
+
+            //rb.AddForce(currentWaypoint * speed, ForceMode.Acceleration);
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // 충돌 감지
+        if (collision.collider.CompareTag("Tower"))
+        {
+            isColliding = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        // 충돌 종료
+        if (collision.collider.CompareTag("Tower"))
+        {
+            isColliding = false;
+        }
+    }
+
+    Vector3 AdjustPositionAroundObstacle(Vector3 currentPosition, Vector3 targetPosition)
+    {
+        // 충돌 지점에서 목표 지점 방향으로 이동 방향을 조정
+        Vector3 adjustedDirection = (targetPosition - currentPosition).normalized;
+        return currentPosition + (adjustedDirection * speed * Time.deltaTime);
+    }
+
     public void OnDrawGizmos()
     {
         if (path != null)

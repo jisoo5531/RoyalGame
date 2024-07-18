@@ -25,24 +25,12 @@ public class Node : IHeapItem<Node>
         movementPenalty = _penalty;
     }
 
-    public int fCost
-    {
-        get
-        {
-            return gCost + hCost;
-        }
-    }
+    public int fCost => gCost + hCost;
 
     public int HeapIndex
     {
-        get
-        {
-            return heapIndex;
-        }
-        set
-        {
-            heapIndex = value;
-        }
+        get => heapIndex;
+        set => heapIndex = value;
     }
 
     public int CompareTo(Node nodeToCompare)

@@ -33,13 +33,8 @@ public class GridController : MonoBehaviour
         CreateGrid();
     }
 
-    public int MaxSize
-    {
-        get
-        {
-            return gridSizeX * gridSizeY;
-        }
-    }
+    public int MaxSize => gridSizeX * gridSizeY;
+
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -56,8 +51,7 @@ public class GridController : MonoBehaviour
                 if (walkable)
                 {
                     Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 100, walkableMask))
+                    if (Physics.Raycast(ray, out RaycastHit hit, 100, walkableMask))
                     {
                         walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
                     }
@@ -91,7 +85,6 @@ public class GridController : MonoBehaviour
         return neighbours;
     }
 
-
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
@@ -111,7 +104,7 @@ public class GridController : MonoBehaviour
         {
             foreach (Node n in grid)
             {
-                Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                Gizmos.color = n.walkable ? Color.white : Color.red;
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
         }
@@ -123,6 +116,5 @@ public class GridController : MonoBehaviour
         public LayerMask terrainMask;
         public int terrainPenalty;
     }
-
 }
 #endregion

@@ -15,7 +15,6 @@ public class PathFinding : MonoBehaviour
         grid = GetComponent<GridController>();
     }
 
-
     public void StartFindPath(Vector3 startPos, Vector3 targetPos)
     {
         StartCoroutine(FindPath(startPos, targetPos));
@@ -50,9 +49,7 @@ public class PathFinding : MonoBehaviour
                 foreach (Node neighbour in grid.GetNeighbours(currentNode))
                 {
                     if (!neighbour.walkable || closedSet.Contains(neighbour))
-                    {
                         continue;
-                    }
 
                     int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour) + neighbour.movementPenalty;
                     if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
@@ -90,7 +87,6 @@ public class PathFinding : MonoBehaviour
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
         return waypoints;
-
     }
 
     Vector3[] SimplifyPath(List<Node> path)

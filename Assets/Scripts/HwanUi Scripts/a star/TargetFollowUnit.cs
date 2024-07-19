@@ -22,12 +22,13 @@ public class TargetFollowUnit : MonoBehaviour
     int targetIndex;
     Vector3[] path;
     Vector3 currentWaypoint;
-    GridController controller;
+    Rigidbody rb;
+    private bool isColliding = false;
     #endregion
 
     private void Awake()
     {
-        controller = FindAnyObjectByType<GridController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -56,12 +57,10 @@ public class TargetFollowUnit : MonoBehaviour
             {
                 targetIndex++;
 
-                if (targetIndex >= path.Length)
+                if (targetIndex < path.Length)
                 {
-                    yield break;
+                    currentWaypoint = path[targetIndex];
                 }
-
-                currentWaypoint = path[targetIndex];
             }
 
             if (isAttack)
@@ -69,7 +68,7 @@ public class TargetFollowUnit : MonoBehaviour
                 yield break;
             }
 
-            Vector3 direction = (currentWaypoint - transform.position).normalized;
+            Vector3 direction = (currentWaypoint - transform.position);
             direction.y = 0;
 
             if (direction != Vector3.zero)
@@ -83,23 +82,7 @@ public class TargetFollowUnit : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
 
-            if (!Physics.CheckSphere(transform.position + direction * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
-            {
-                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            }
-            else
-            {
-                Vector3 avoidanceDirection = Vector3.Cross(direction, Vector3.up).normalized;
-                if (!Physics.CheckSphere(transform.position + avoidanceDirection * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
-                {
-                    transform.position += avoidanceDirection * speed * Time.deltaTime;
-                }
-                else
-                {
-                    transform.position -= avoidanceDirection * speed * Time.deltaTime;
-                }
-            }
-
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

@@ -73,7 +73,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        GetComponentInChildren<Damaging>().damage = damage;
+        //GetComponentInChildren<Damaging>().damage = damage;
     }
 
     public void GetDamage(int damage)

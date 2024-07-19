@@ -20,13 +20,12 @@ public class SignIn : MonoBehaviour
 
     void Update()
     {
-        if (nickname.text.Length < 4 || password.text.Length < 4)
-            loginBtn.interactable = false;
+        loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
+    }
 
-
-        if (nickname.text.Length >= 4 && password.text.Length >= 4)
-            loginBtn.interactable = true;
-
+    private bool CheckTextLength(int nicknameLength, int passwordLength)
+    {
+        return (nicknameLength >= 4 && passwordLength >= 4);
     }
 
     public void LoginClick()

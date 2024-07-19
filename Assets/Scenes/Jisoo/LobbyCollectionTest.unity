@@ -6164,7 +6164,7 @@ GameObject:
   - component: {fileID: 60847967}
   - component: {fileID: 60847966}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6780,7 +6780,7 @@ GameObject:
   - component: {fileID: 90055374}
   - component: {fileID: 90055373}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7134,6 +7134,7 @@ GameObject:
   - component: {fileID: 111169308}
   - component: {fileID: 111169307}
   - component: {fileID: 111169306}
+  - component: {fileID: 111169310}
   m_Layer: 5
   m_Name: Collection Unit Slots (2)
   m_TagString: Untagged
@@ -7279,6 +7280,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111169304}
   m_CullTransparentMesh: 0
+--- !u!114 &111169310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111169304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 1
+  cardCountFill: {fileID: 1516781140}
+  UpArrow: {fileID: 527319265}
+  cardCountText: {fileID: 521405861}
+  costText: {fileID: 1910290907}
 --- !u!1 &116969029
 GameObject:
   m_ObjectHideFlags: 0
@@ -9834,6 +9852,7 @@ GameObject:
   - component: {fileID: 243658591}
   - component: {fileID: 243658590}
   - component: {fileID: 243658589}
+  - component: {fileID: 243658593}
   m_Layer: 5
   m_Name: Collection Unit Slots (7)
   m_TagString: Untagged
@@ -9979,6 +9998,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243658587}
   m_CullTransparentMesh: 0
+--- !u!114 &243658593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243658587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 6
+  cardCountFill: {fileID: 1140797917}
+  UpArrow: {fileID: 515888681}
+  cardCountText: {fileID: 90055373}
+  costText: {fileID: 935549486}
 --- !u!1 &250716701
 GameObject:
   m_ObjectHideFlags: 0
@@ -22564,7 +22600,7 @@ GameObject:
   - component: {fileID: 466561160}
   - component: {fileID: 466561159}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23207,7 +23243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23390,7 +23426,7 @@ GameObject:
   - component: {fileID: 521405862}
   - component: {fileID: 521405861}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36019,14 +36055,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.11372549, g: 0.83137256, b: 0.8862745, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36194,7 +36230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55617,7 +55653,7 @@ GameObject:
   - component: {fileID: 947147393}
   - component: {fileID: 947147392}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61288,6 +61324,7 @@ GameObject:
   - component: {fileID: 984202112}
   - component: {fileID: 984202111}
   - component: {fileID: 984202110}
+  - component: {fileID: 984202114}
   m_Layer: 5
   m_Name: Collection Unit Slots (4)
   m_TagString: Untagged
@@ -61433,6 +61470,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984202108}
   m_CullTransparentMesh: 0
+--- !u!114 &984202114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984202108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 3
+  cardCountFill: {fileID: 684976095}
+  UpArrow: {fileID: 982592750}
+  cardCountText: {fileID: 2132767851}
+  costText: {fileID: 1819560431}
 --- !u!1 &986979559
 GameObject:
   m_ObjectHideFlags: 0
@@ -64013,7 +64067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -65317,7 +65371,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -67024,6 +67078,7 @@ GameObject:
   - component: {fileID: 1347985535}
   - component: {fileID: 1347985534}
   - component: {fileID: 1347985533}
+  - component: {fileID: 1347985537}
   m_Layer: 5
   m_Name: Collection Unit Slots (6)
   m_TagString: Untagged
@@ -67169,6 +67224,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347985531}
   m_CullTransparentMesh: 0
+--- !u!114 &1347985537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347985531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 5
+  cardCountFill: {fileID: 1237997468}
+  UpArrow: {fileID: 799298031}
+  cardCountText: {fileID: 466561159}
+  costText: {fileID: 625010113}
 --- !u!1 &1350749033
 GameObject:
   m_ObjectHideFlags: 0
@@ -72624,7 +72696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -72730,7 +72802,7 @@ GameObject:
   - component: {fileID: 1410457696}
   - component: {fileID: 1410457695}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74945,7 +75017,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516781138}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -74956,7 +75028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.7848, y: 0}
+  m_AnchoredPosition: {x: 12.7848, y: 0.000061035156}
   m_SizeDelta: {x: -25.5696, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1516781140
@@ -74979,7 +75051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -75265,6 +75337,7 @@ GameObject:
   - component: {fileID: 1536302100}
   - component: {fileID: 1536302099}
   - component: {fileID: 1536302098}
+  - component: {fileID: 1536302102}
   m_Layer: 5
   m_Name: Collection Unit Slots (5)
   m_TagString: Untagged
@@ -75410,6 +75483,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536302096}
   m_CullTransparentMesh: 0
+--- !u!114 &1536302102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536302096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 4
+  cardCountFill: {fileID: 1903588443}
+  UpArrow: {fileID: 2039281835}
+  cardCountText: {fileID: 947147392}
+  costText: {fileID: 1305510708}
 --- !u!1 &1537721204
 GameObject:
   m_ObjectHideFlags: 0
@@ -75558,6 +75648,7 @@ GameObject:
   - component: {fileID: 1542751462}
   - component: {fileID: 1542751461}
   - component: {fileID: 1542751460}
+  - component: {fileID: 1542751464}
   m_Layer: 5
   m_Name: Collection Unit Slots (3)
   m_TagString: Untagged
@@ -75703,6 +75794,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542751458}
   m_CullTransparentMesh: 0
+--- !u!114 &1542751464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542751458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 2
+  cardCountFill: {fileID: 1399191973}
+  UpArrow: {fileID: 412320206}
+  cardCountText: {fileID: 1410457695}
+  costText: {fileID: 1477572507}
 --- !u!1 &1543602452
 GameObject:
   m_ObjectHideFlags: 0
@@ -78521,7 +78629,7 @@ GameObject:
   - component: {fileID: 1654398566}
   - component: {fileID: 1654398565}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87480,7 +87588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ddc2082251c84e67adbea97fdabceb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36e4c6c009bbe4284ab6295f053c20a5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -94357,6 +94465,7 @@ GameObject:
   - component: {fileID: 1978276575}
   - component: {fileID: 1978276574}
   - component: {fileID: 1978276573}
+  - component: {fileID: 1978276577}
   m_Layer: 5
   m_Name: Collection Unit Slots (1)
   m_TagString: Untagged
@@ -94502,6 +94611,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978276571}
   m_CullTransparentMesh: 0
+--- !u!114 &1978276577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978276571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 0
+  cardCountFill: {fileID: 656601932}
+  UpArrow: {fileID: 2083636698}
+  cardCountText: {fileID: 60847966}
+  costText: {fileID: 533233396}
 --- !u!1 &1983575897
 GameObject:
   m_ObjectHideFlags: 0
@@ -96928,6 +97054,7 @@ GameObject:
   - component: {fileID: 2078177175}
   - component: {fileID: 2078177174}
   - component: {fileID: 2078177173}
+  - component: {fileID: 2078177177}
   m_Layer: 5
   m_Name: Collection Unit Slots (8)
   m_TagString: Untagged
@@ -97073,6 +97200,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078177171}
   m_CullTransparentMesh: 0
+--- !u!114 &2078177177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078177171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ac44df8c5d34c42853f11ebc05512e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySequence: 7
+  cardCountFill: {fileID: 510549583}
+  UpArrow: {fileID: 835209867}
+  cardCountText: {fileID: 1654398565}
+  costText: {fileID: 1846851626}
 --- !u!1 &2079104973
 GameObject:
   m_ObjectHideFlags: 0
@@ -98511,7 +98655,7 @@ GameObject:
   - component: {fileID: 2132767852}
   - component: {fileID: 2132767851}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CardCount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

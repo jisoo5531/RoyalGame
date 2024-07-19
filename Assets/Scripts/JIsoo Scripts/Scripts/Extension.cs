@@ -94,4 +94,16 @@ public static class Extension
             unit.AddComponent<Magic>();
         }
     }
+    public static void ColorSky(this Image image)
+    {
+        Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);        
+        
+        image.color = color;
+    }
+    public static void ColorGreen(this Image image)
+    {
+        Color color = new Color(80f / 255f, 255f / 255f, 0f / 255f);
+        
+        image.color = color;
+    }
 }

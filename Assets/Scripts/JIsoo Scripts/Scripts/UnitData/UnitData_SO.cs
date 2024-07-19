@@ -67,7 +67,8 @@ public class UnitData_SO : ScriptableObject
     /// </summary>
     public void UpgradeToStat()
     {
-        
+        maxHp += Mathf.RoundToInt((float)maxHp * 0.2f);
+        damage += Mathf.RoundToInt((float)damage * 0.3f);
     }
 }
 public enum Type

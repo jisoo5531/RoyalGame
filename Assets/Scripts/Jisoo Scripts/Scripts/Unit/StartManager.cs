@@ -10,7 +10,7 @@ public class StartManager : MonoBehaviour
     
     [SerializeField] private GameObject[] displaySelectedUnit_UI;
     /// <summary>
-    /// 게임 상에 보여지는 8개의 선택한 유닛들
+    /// 배틀덱의 8개의 선택한 유닛들
     /// </summary>
     [HideInInspector] public GameObject[] m_displaySelectedUnit_UI { get { return displaySelectedUnit_UI; } }
     
@@ -25,8 +25,7 @@ public class StartManager : MonoBehaviour
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
     [HideInInspector] public List<UnitData_SO> m_selectedUnits { get { return selectedUnits; } }
-
-    public GameObject[] collectionUnitSlots;
+        
     public Image[] collectionsImage;
     
     
@@ -61,6 +60,10 @@ public class StartManager : MonoBehaviour
         for (int i = 0; i < collectionsImage.Length; i++)
         {
             collectionsImage[i].sprite = unitDatas[i].iconSprite;
+            if (collectionsImage[i].sprite != null)
+            {
+                collectionsImage[i].ImageTransparent(1f);
+            }            
         }
     }
 

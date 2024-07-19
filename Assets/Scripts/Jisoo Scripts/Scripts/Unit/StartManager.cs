@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartSelectUnitManager : MonoBehaviour
+public class StartManager : MonoBehaviour
 {
-    private static StartSelectUnitManager instance;
-    public static StartSelectUnitManager m_Instance { get { return instance; } }    
+    private static StartManager instance;
+    public static StartManager m_Instance { get { return instance; } }        
     
     [SerializeField] private GameObject[] displaySelectedUnit_UI;
     /// <summary>
@@ -25,12 +25,17 @@ public class StartSelectUnitManager : MonoBehaviour
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
     [HideInInspector] public List<UnitData_SO> m_selectedUnits { get { return selectedUnits; } }
+
+    public GameObject[] collectionUnitSlots;
+    public Image[] collectionsImage;
     
     
     private int currentDisplayIndex = 0;
 
     private void Awake()
-    {        
+    {
+        InitializeCollectionImage();
+
         if (instance == null)
         {
             instance = this;
@@ -45,7 +50,20 @@ public class StartSelectUnitManager : MonoBehaviour
         {
             selectedUnits.Add(null);
         }
+        
     }
+
+    /// <summary>
+    /// 컬렉션 탭 SO에 맞춰 이미지 세팅
+    /// </summary>
+    private void InitializeCollectionImage()
+    {
+        for (int i = 0; i < collectionsImage.Length; i++)
+        {
+            collectionsImage[i].sprite = unitDatas[i].iconSprite;
+        }
+    }
+
     /// <summary>
     /// Collection 탭 유닛 선택
     /// </summary>

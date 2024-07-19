@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeffenseTower : Unit
+public class UnitDefenseTower : Unit
 {
-    private float lifeTime;
+    public DeffenseTower defense = new DeffenseTower();
+
+    private void Awake()
+    {        
+    }
+}
+public class DeffenseTower : Unit /*IAttackable, IDamagable*/
+{
+    protected float lifeTime;
 
     private void Awake()
     {
@@ -31,47 +39,10 @@ public class DeffenseTower : Unit
     private void Update()
     {
         UpdateLifeTime();
-
-        //stateMachine.DoOperateUpdate();
-
-        //if (this.attackTarget == AttackTarget.All)
-        //{
-        //    DetectEnemyManager.instance.CheckDetectAllEnemy(detectionRange, this.transform, targetFollowUnit, isMove);
-        //}
-        //else
-        //{
-        //    DetectEnemyManager.instance.CheckDetectEnemyTower(detectionRange, this.transform, targetFollowUnit, isMove);
-        //}
-        //StateTransition();
     }
 
-    //private void StateTransition()
-    //{
-    //    if (DetectEnemyManager.instance == null)
-    //        return;
 
-    //    int index = DetectEnemyManager.instance.CheckEnemyDistance(this.transform, DetectEnemyManager.instance.enemyUnitArr);
-    //    if (DetectEnemyManager.instance.enemyUnitArr[index] != null)
-    //    {
-    //        Transform enemy = DetectEnemyManager.instance.enemyUnitArr[index].transform;
-    //        float distance = Vector3.Distance(enemy.position, transform.position);
-    //        if (distance < range)
-    //        {
-    //            targetFollowUnit.isAttack = true;
-    //            SetState(UnitState.Attack);
-    //        }
-    //        else
-    //        {
-    //            SetState(UnitState.Move);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        SetState(UnitState.Move);
-    //    }
-    //}
-
-    private void UpdateLifeTime()
+    public void UpdateLifeTime()
     {
         lifeTime -= Time.deltaTime;
 

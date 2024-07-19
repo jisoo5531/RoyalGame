@@ -63,7 +63,7 @@ public class UI_Manager : MonoBehaviour
     {
         instance = this;
 
-        shuffledUnit = StartSelectUnitManager.m_Instance.m_selectedUnits;
+        shuffledUnit = StartManager.m_Instance.m_selectedUnits;
         shuffledUnit.Shuffle();
 
         elixir = GetComponent<UI_Elixir>();

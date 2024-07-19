@@ -48,7 +48,7 @@ public class SignUp : MonoBehaviour
                 "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
                 "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount)";
 
-            MySqlCommand cmd = DatabaseManager.Instance.CreateCommand(insertQuery);
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(insertQuery);
 
             if (cmd != null)
             {
@@ -88,14 +88,13 @@ public class SignUp : MonoBehaviour
         {
             string nameSelect = string.Format("SELECT count(*) FROM USER WHERE userName = '{0}'", name);
 
-            MySqlCommand cmd = DatabaseManager.Instance.CreateCommand(nameSelect);
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(nameSelect);
 
             if (cmd != null)
             {
-                object result = cmd.ExecuteScalar();
-                int rowCount = Convert.ToInt32(result);
+                int result = GetRowCount(cmd);
 
-                return rowCount > 0;
+                return result > 0;
             }
         }
         catch(Exception ex)
@@ -103,5 +102,21 @@ public class SignUp : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return true;
+    }
+
+    int GetRowCount(MySqlCommand cmd)
+    {
+        int count = 0;
+
+        using (MySqlDataReader reader = cmd.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                count = reader.GetInt32(0);
+            }
+            reader.Close();
+        }
+
+        return count;
     }
 }

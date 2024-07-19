@@ -6,7 +6,7 @@ using TMPro;
 using System;
 
 public class Collection : MonoBehaviour
-{
+{    
     /// <summary>
     /// TODO : 정렬 할 때는 맞춰서
     /// </summary>
@@ -18,17 +18,25 @@ public class Collection : MonoBehaviour
     public TextMeshProUGUI cardCountText;
     public TextMeshProUGUI costText;
 
+    [Space(20)]
+    public GameObject Info;
+    public GameObject Upgrade;
+
     private int myCurrentCardCount;
     private int myMaxCardCount;
     private int myUnitCost;
 
     private void Start()
     {
+        Info.SetActive(true);
+        Upgrade.SetActive(false);
+
         SettingUI();
     }
     private void Update()
     {
-        SetColor();
+        CheckAvailableUpgrade();
+        SettingUI();
     }    
 
     private void SettingUI()
@@ -40,21 +48,28 @@ public class Collection : MonoBehaviour
         
         cardCountFill.fillAmount = (float)myCurrentCardCount / (float)myMaxCardCount;
         cardCountText.text = $"{myCurrentCardCount} / {myMaxCardCount}".ToString();
-        costText.text = $"{myUnitCost}".ToString();
-
-        
+        costText.text = $"{myUnitCost}".ToString();        
     }
-    private void SetColor()
+    /// <summary>
+    /// 카드가 다 모여 업그레이드가 가능하면
+    /// </summary>
+    private void CheckAvailableUpgrade()
     {
         if (cardCountFill.fillAmount >= 1f)
         {
             cardCountFill.ColorGreen();
             UpArrow.ColorGreen();
+
+            Info.SetActive(false);
+            Upgrade.SetActive(true);
         }
         else
         {
             cardCountFill.ColorSky();
             UpArrow.ColorSky();
+
+            Info.SetActive(true);
+            Upgrade.SetActive(false);
         }
     }
 }

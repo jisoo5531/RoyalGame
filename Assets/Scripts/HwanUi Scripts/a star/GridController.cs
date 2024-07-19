@@ -57,32 +57,6 @@ public class GridController : MonoBehaviour
                     }
                 }
                 grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
-
-                if (!walkable)
-                {
-                    IncreaseNeighbourCost(x, y, 10);
-                }
-            }
-        }
-    }   
-
-    void IncreaseNeighbourCost(int x, int y, int cost)
-    {
-        for (int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
-            {
-                int checkX = x + i;
-                int checkY = y + j;
-
-                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
-                {
-
-                    if (grid[checkX, checkY] != null)
-                    {
-                        grid[checkX, checkY].movementPenalty += cost;
-                    }
-                }
             }
         }
     }

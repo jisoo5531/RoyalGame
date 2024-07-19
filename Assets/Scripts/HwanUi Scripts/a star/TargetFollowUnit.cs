@@ -83,22 +83,22 @@ public class TargetFollowUnit : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
 
-            //if (!Physics.CheckSphere(transform.position + direction * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
-            //{
+            if (!Physics.CheckSphere(transform.position + direction * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
+            {
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            //}
-            //else
-            //{
-            //    Vector3 avoidanceDirection = Vector3.Cross(direction, Vector3.up).normalized;
-            //    if (!Physics.CheckSphere(transform.position + avoidanceDirection * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
-            //    {
-            //        transform.position += avoidanceDirection * speed * Time.deltaTime;
-            //    }
-            //    else
-            //    {
-            //        transform.position -= avoidanceDirection * speed * Time.deltaTime;
-            //    /}
-            //}
+            }
+            else
+            {
+                Vector3 avoidanceDirection = Vector3.Cross(direction, Vector3.up).normalized;
+                if (!Physics.CheckSphere(transform.position + avoidanceDirection * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
+                {
+                    transform.position += avoidanceDirection * speed * Time.deltaTime;
+                }
+                else
+                {
+                    transform.position -= avoidanceDirection * speed * Time.deltaTime;
+                }
+            }
 
             yield return null;
         }

@@ -3355,7 +3355,6 @@ GameObject:
   - component: {fileID: 3993301697071622475}
   - component: {fileID: 3993301697064523347}
   - component: {fileID: 5525976261047048427}
-  - component: {fileID: 615291361665759736}
   - component: {fileID: 592256653072153509}
   m_Layer: 0
   m_Name: Prince
@@ -3425,22 +3424,6 @@ MonoBehaviour:
   targetCollider: {fileID: 0}
   isAttack: 0
   isMove: 0
---- !u!54 &615291361665759736
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3993301697071915455}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!136 &592256653072153509
 CapsuleCollider:
   m_ObjectHideFlags: 0

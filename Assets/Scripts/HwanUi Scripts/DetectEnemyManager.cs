@@ -77,7 +77,6 @@ public class DetectEnemyManager : MonoBehaviour
         {
             Transform enemyUnitTarget = enemyUnitArr[unitIndex].transform;
             float enemyUnitDistance = Vector3.Distance(enemyUnitTarget.position, character.position);
-
             if (enemyDistance >= enemyUnitDistance)
             {
                 enemyTarget = enemyUnitTarget;

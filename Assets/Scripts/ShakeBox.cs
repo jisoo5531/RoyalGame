@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class ShakeBox : MonoBehaviour
 {
-    Animator anim;
+    Vector3 targetPosUP = new Vector3(0, 165, 0);
+    Vector3 targetPosDown = new Vector3(0, 0, 0);
 
-    private void Awake()
+    public void Start()
     {
-        anim = GetComponentInChildren<Animator>();
+        transform.DOShakeRotation(3).OnComplete(BoxUP);
     }
 
-    public void Shake()
+    public void BoxUP()
     {
-        transform.DOShakeRotation(3);
+        transform.DOLocalMove(targetPosUP, 0.5f).OnComplete(BoxDown);
     }
+
+    public void BoxDown()
+    {
+        transform.DOLocalMove(targetPosDown, 0.5f).OnComplete(() => gameObject.SetActive(false));
+    }
+
 }

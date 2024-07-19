@@ -15,6 +15,8 @@ public class MovableUnit : Unit
         targetFollowUnit = GetComponent<TargetFollowUnit>();
 
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
+
+
     }
     private void Start()
     {
@@ -37,6 +39,7 @@ public class MovableUnit : Unit
     {
         base.InitializeUnitData(unit);
         moveSpeed = unit.moveSpeed;
+        SendDamage(unit.damage);
     }
 
     private void Update()

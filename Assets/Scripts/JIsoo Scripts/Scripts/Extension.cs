@@ -75,13 +75,15 @@ public static class Extension
     {
         if (unitData.type == Type.Unit)
         {
-            // Animator 컴포넌트를 가진 오브젝트에 넣어주기
-            Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
-            
-            foreach (var unitAnim in unitsAnim)
-            {
-                unitAnim.gameObject.AddComponent<MovableUnit>();
-            }            
+            //// Animator 컴포넌트를 가진 오브젝트에 넣어주기
+            //Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
+
+            //foreach (var unitAnim in unitsAnim)
+            //{
+            //    unitAnim.gameObject.AddComponent<MovableUnit>();
+            //}
+
+            unit.AddComponent<MovableUnit>();
         }
         else if (unitData.type == Type.Deffense)
         {
@@ -91,5 +93,17 @@ public static class Extension
         {
             unit.AddComponent<Magic>();
         }
+    }
+    public static void ColorSky(this Image image)
+    {
+        Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);        
+        
+        image.color = color;
+    }
+    public static void ColorGreen(this Image image)
+    {
+        Color color = new Color(80f / 255f, 255f / 255f, 0f / 255f);
+        
+        image.color = color;
     }
 }

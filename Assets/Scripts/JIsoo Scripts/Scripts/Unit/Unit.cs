@@ -11,8 +11,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     #region 변수
 
     public float detectionRange;
-    //public float coolTime;
-    public Transform targetTransform;
+    //public float coolTime;    
 
     public string name { get; set; }
     public int cardLevel { get; set; }
@@ -74,11 +73,24 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        GetComponentInChildren<Damaging>().damage = damage;
     }
 
     public void GetDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        Debug.Log($"{gameObject.name} 맞았다");
+        HP -= damage;
+
+        // 유닛이 죽을 때
+        if (HP <= 0)
+        {            
+            Death();
+        }
     }    
+    private void Death()
+    {        
+        GameObject effect = Instantiate(EffectManager.m_Instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        effect.transform.localScale = transform.localScale;
+        Destroy(gameObject);
+    }
 }

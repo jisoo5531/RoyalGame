@@ -33,13 +33,8 @@ public class GridController : MonoBehaviour
         CreateGrid();
     }
 
-    public int MaxSize
-    {
-        get
-        {
-            return gridSizeX * gridSizeY;
-        }
-    }
+    public int MaxSize => gridSizeX * gridSizeY;
+
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -56,13 +51,39 @@ public class GridController : MonoBehaviour
                 if (walkable)
                 {
                     Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 100, walkableMask))
+                    if (Physics.Raycast(ray, out RaycastHit hit, 100, walkableMask))
                     {
                         walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
                     }
                 }
                 grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
+
+                // 추가 코드: 장애물 주변 노드 비용 증가
+                if (!walkable)
+                {
+                    IncreaseNeighbourCost(x, y, 10); // 여기서 10은 증가시킬 비용
+                }
+            }
+        }
+    }   
+
+    void IncreaseNeighbourCost(int x, int y, int cost)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                int checkX = x + i;
+                int checkY = y + j;
+
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+
+                    if (grid[checkX, checkY] != null)
+                    {
+                        grid[checkX, checkY].movementPenalty += cost;
+                    }
+                }
             }
         }
     }
@@ -91,7 +112,6 @@ public class GridController : MonoBehaviour
         return neighbours;
     }
 
-
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
@@ -111,7 +131,7 @@ public class GridController : MonoBehaviour
         {
             foreach (Node n in grid)
             {
-                Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                Gizmos.color = n.walkable ? Color.white : Color.red;
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
         }
@@ -123,6 +143,5 @@ public class GridController : MonoBehaviour
         public LayerMask terrainMask;
         public int terrainPenalty;
     }
-
 }
 #endregion

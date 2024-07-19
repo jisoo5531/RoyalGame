@@ -58,10 +58,9 @@ public class GridController : MonoBehaviour
                 }
                 grid[x, y] = new Node(walkable, worldPoint, x, y, movementPenalty);
 
-                // 추가 코드: 장애물 주변 노드 비용 증가
                 if (!walkable)
                 {
-                    IncreaseNeighbourCost(x, y, 10); // 여기서 10은 증가시킬 비용
+                    IncreaseNeighbourCost(x, y, 10);
                 }
             }
         }

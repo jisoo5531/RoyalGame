@@ -85,7 +85,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public MySqlCommand CreateCommand(string query)
+    public MySqlCommand DBConnection(string query)
     {
         if (connection != null && connection.State == System.Data.ConnectionState.Open)
         {

@@ -46,14 +46,13 @@ public class SignIn : MonoBehaviour
         {
             string userInfoSelect = string.Format("SELECT count(*) FROM USER WHERE userName = '{0}' AND '{1}'", name, password);
 
-            MySqlCommand cmd = DatabaseManager.Instance.CreateCommand(userInfoSelect);
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect);
 
             if (cmd != null)
             {
-                object result = cmd.ExecuteScalar();
-                int rowCount = Convert.ToInt32(result);
+                int result = GetRowCount(cmd);
 
-                return rowCount > 0;
+                return result > 0;
             }
         }
         catch (Exception ex)
@@ -61,5 +60,21 @@ public class SignIn : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return false;
+    }
+
+    int GetRowCount(MySqlCommand cmd)
+    {
+        int count = 0;
+
+        using (MySqlDataReader reader = cmd.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                count = reader.GetInt32(0);
+            }
+            reader.Close();
+        }
+
+        return count;
     }
 }

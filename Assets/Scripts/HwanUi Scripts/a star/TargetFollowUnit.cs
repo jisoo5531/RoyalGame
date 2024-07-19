@@ -22,13 +22,12 @@ public class TargetFollowUnit : MonoBehaviour
     int targetIndex;
     Vector3[] path;
     Vector3 currentWaypoint;
-    Rigidbody rb;
-    private bool isColliding = false;
+    GridController controller;
     #endregion
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = FindAnyObjectByType<GridController>();
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -57,29 +56,20 @@ public class TargetFollowUnit : MonoBehaviour
             {
                 targetIndex++;
 
-                if (targetIndex < path.Length)
+                if (targetIndex >= path.Length)
                 {
-                    currentWaypoint = path[targetIndex];
+                    yield break;
                 }
+
+                currentWaypoint = path[targetIndex];
             }
-            //Vector3 closestPointOnTarget = targetCollider.ClosestPoint(transform.position);
 
-            //Vector3 directionToTarget = (closestPointOnTarget - transform.position).normalized;
-
-            //Vector3 targetPosition = closestPointOnTarget - directionToTarget * range;
-
-            //float distanceToTargetPosition = Vector3.Distance(transform.position, targetPosition);
-
-            //if (distanceToTargetPosition < 0.1f)
-            //{
-            //    yield break;
-            //}
             if (isAttack)
             {
                 yield break;
             }
 
-            Vector3 direction = (currentWaypoint - transform.position);
+            Vector3 direction = (currentWaypoint - transform.position).normalized;
             direction.y = 0;
 
             if (direction != Vector3.zero)
@@ -92,43 +82,26 @@ public class TargetFollowUnit : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
 
-            if (isColliding)
-            {
-                newPosition = AdjustPositionAroundObstacle(transform.position, currentWaypoint);
-            }
-           // rb.MovePosition(newPosition);
+            //if (!Physics.CheckSphere(transform.position + direction * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
+            //{
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            //}
+            //else
+            //{
+            //    Vector3 avoidanceDirection = Vector3.Cross(direction, Vector3.up).normalized;
+            //    if (!Physics.CheckSphere(transform.position + avoidanceDirection * controller.nodeRadius, controller.nodeRadius, controller.unwalkableMask))
+            //    {
+            //        transform.position += avoidanceDirection * speed * Time.deltaTime;
+            //    }
+            //    else
+            //    {
+            //        transform.position -= avoidanceDirection * speed * Time.deltaTime;
+            //    /}
+            //}
 
-            //rb.AddForce(currentWaypoint * speed, ForceMode.Acceleration);
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        // 충돌 감지
-        if (collision.collider.CompareTag("Tower"))
-        {
-            isColliding = true;
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        // 충돌 종료
-        if (collision.collider.CompareTag("Tower"))
-        {
-            isColliding = false;
-        }
-    }
-
-    Vector3 AdjustPositionAroundObstacle(Vector3 currentPosition, Vector3 targetPosition)
-    {
-        // 충돌 지점에서 목표 지점 방향으로 이동 방향을 조정
-        Vector3 adjustedDirection = (targetPosition - currentPosition).normalized;
-        return currentPosition + (adjustedDirection * speed * Time.deltaTime);
     }
 
     public void OnDrawGizmos()

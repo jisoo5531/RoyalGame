@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void OnClickSceneChange()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(1);
     }
 
 }

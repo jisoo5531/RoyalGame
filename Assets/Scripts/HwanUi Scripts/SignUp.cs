@@ -9,10 +9,14 @@ using UnityEngine.UI;
 
 public class SignUp : MonoBehaviour
 {
+    #region public º¯¼ö
     public TMP_InputField nickname;
     public TMP_InputField password;
 
     public Button loginBtn;
+
+    public GameObject signInUI;
+    #endregion
 
     private void Start()
     {
@@ -23,6 +27,14 @@ public class SignUp : MonoBehaviour
     {
         loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
     }
+    public void SignInClick()
+    {
+        nickname.text = string.Empty;
+        password.text = string.Empty;
+        signInUI.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+
     private bool CheckTextLength(int nicknameLength, int passwordLength)
     {
         return (nicknameLength >= 4 && passwordLength >= 4);

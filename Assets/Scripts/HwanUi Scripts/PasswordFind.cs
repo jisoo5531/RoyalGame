@@ -8,11 +8,19 @@ using UnityEngine.UI;
 
 public class PasswordFind : MonoBehaviour
 {
+    #region public º¯¼ö
     public TMP_InputField nickname;
-
-    public static string userPassword;
-
     public Button findBtn;
+
+    public string userPassword;
+
+    public GameObject findPasswordFail_UI;
+    public GameObject findPasswordSuccess_UI;
+    public GameObject findPassword;
+
+    public GameObject signInUI;
+    public GameObject signUpUI;
+    #endregion
 
     void Update()
     {
@@ -23,17 +31,41 @@ public class PasswordFind : MonoBehaviour
     {
         return nicknameLength >= 4;
     }
+    public void FindPasswordFail_SignInClick()
+    {
+        signInUI.SetActive(true);
+        findPasswordFail_UI.SetActive(false);
+    }
+    public void FindPasswordSuccess_SignInClick()
+    {
+        signInUI.SetActive(true);
+        findPasswordSuccess_UI.SetActive(false);
+    }
+    public void FindPassword_SignInClick()
+    {
+        nickname.text = string.Empty;
+        signInUI.SetActive(true);
+        findPassword.SetActive(false);
+    }
+
+    public void SignUpClick()
+    {
+        signUpUI.SetActive(true);
+        findPasswordFail_UI.SetActive(false);
+    }
 
     public void FindPasswordClick()
     {
-        if(CheckEqualsUserName(nickname.text))
+        findPassword.SetActive(false);
+        if (CheckEqualsUserName(nickname.text))
         {
-
+            findPasswordSuccess_UI.SetActive(true);
         }
         else
         {
-
+            findPasswordFail_UI.SetActive(true);
         }
+        nickname.text = string.Empty;
     }
 
     private bool CheckEqualsUserName(string nickname)

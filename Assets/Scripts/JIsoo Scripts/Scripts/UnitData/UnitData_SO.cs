@@ -62,6 +62,16 @@ public class UnitData_SO : ScriptableObject
     public Sprite iconSprite;
     public GameObject prefab;    
 
+    public int Get_Upgrade_HP()
+    {
+        return Mathf.RoundToInt((float)maxHp * 0.2f);
+    }    
+    
+    public int Get_Upgrade_Damage()
+    {
+        return Mathf.RoundToInt((float)damage * 0.2f);
+    }
+
     /// <summary>
     /// 레벨 올라갈 때마다 스탯 증가
     /// </summary>

@@ -53,8 +53,7 @@ public class TargetFollowUnit : MonoBehaviour
 
         while (true)
         {
-            print(Vector3.Distance(transform.position, currentWaypoint));
-            if (Vector3.Distance(transform.position, currentWaypoint) < 2.5)
+            if (Vector3.Distance(transform.position, currentWaypoint) < 1.5)
             {
                 targetIndex++;
 
@@ -83,7 +82,6 @@ public class TargetFollowUnit : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
             rb.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

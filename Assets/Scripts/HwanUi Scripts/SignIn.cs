@@ -53,6 +53,9 @@ public class SignIn : MonoBehaviour
         if (CheckUserInfo(nickname.text, password.text))
         {
             print("로그인 되었습니다");
+            loginBtn.interactable = false;
+            PhotonConnManager.instance.userName = nickname.text;
+            PhotonConnManager.instance.Connection();
         }
         else
         {

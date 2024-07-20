@@ -23,7 +23,6 @@ public class TargetFollowUnit : MonoBehaviour
     Vector3[] path;
     Vector3 currentWaypoint;
     Rigidbody rb;
-    private bool isColliding = false;
     #endregion
 
     private void Awake()

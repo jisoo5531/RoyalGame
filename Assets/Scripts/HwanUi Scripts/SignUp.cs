@@ -45,6 +45,9 @@ public class SignUp : MonoBehaviour
         if(!CheckDuplicateName(nickname.text))
         {
             InsertUserData(nickname.text, password.text);
+            loginBtn.interactable = false;
+            PhotonConnManager.instance.userName = nickname.text;
+            PhotonConnManager.instance.Connection();
         }
         else
         {

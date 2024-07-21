@@ -33,7 +33,7 @@ public class Chest : MonoBehaviour
     }
 
     /// <summary>
-    /// 상자에서 얻은 보상을 담은 딕셔너리입니다.<br/>
+    /// 상자에서 얻은 보상을 담은 딕셔너리.<br/>
     /// <b>Key:</b> 카드 ID - 각 유닛 타입을 나타내는 값.<br/>
     /// <b>Value:</b> 튜플로 구성되어 있으며,<br/>
     /// 첫 번째 항목은 카드의 등급, Normal, Rare, Epic 중 하나.<br/>

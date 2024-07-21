@@ -23,7 +23,6 @@ public class TargetFollowUnit : MonoBehaviour
     Vector3[] path;
     Vector3 currentWaypoint;
     Rigidbody rb;
-    private bool isColliding = false;
     #endregion
 
     private void Awake()
@@ -53,7 +52,7 @@ public class TargetFollowUnit : MonoBehaviour
 
         while (true)
         {
-            if (transform.position == currentWaypoint)
+            if (Vector3.Distance(transform.position, currentWaypoint) < 1.5)
             {
                 targetIndex++;
 
@@ -81,8 +80,7 @@ public class TargetFollowUnit : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            rb.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

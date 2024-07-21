@@ -44,6 +44,14 @@ public class UnitDescription
 {
     public TextMeshProUGUI descText;
 }
+[System.Serializable]
+public class UpgradeButton
+{
+    public Image background;
+    public TextMeshProUGUI upgradeText;
+    public TextMeshProUGUI upgradeCost;
+    public Image coinImage;
+}
 
 public class Upgrade : MonoBehaviour
 {            
@@ -52,6 +60,8 @@ public class Upgrade : MonoBehaviour
     public GradeAndType unitGnT;
     public UnitDescription unitDesc;
     public UnitStat unitStatList;
+    public UpgradeButton upgradeButton;
+
 
     private UnitData_SO unitData;
 
@@ -73,7 +83,9 @@ public class Upgrade : MonoBehaviour
 
         SetCardCountFill();
 
-        SetStats();        
+        SetStats();
+
+        SetUpgradeButton();
     }
 
     #region Title
@@ -103,7 +115,7 @@ public class Upgrade : MonoBehaviour
 
         if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
         {
-            availableUpgrade = true;
+            availableUpgrade = true;            
         }      
         else
         {
@@ -347,4 +359,22 @@ public class Upgrade : MonoBehaviour
     }
 
     #endregion
+
+    private void SetUpgradeButton()
+    {
+        if (availableUpgrade)
+        {
+            upgradeButton.background.ColorGreen();
+            upgradeButton.upgradeText.ColorWhite();
+            upgradeButton.upgradeCost.ColorWhite();
+            upgradeButton.coinImage.ColorWhite();
+        }
+        else
+        {
+            upgradeButton.background.ColorNormal();
+            upgradeButton.upgradeText.ColorNormal();
+            upgradeButton.upgradeCost.ColorNormal();
+            upgradeButton.coinImage.ColorNormal();
+        }
+    }
 }

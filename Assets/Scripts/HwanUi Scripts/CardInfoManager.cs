@@ -4,18 +4,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CardInfoManager : MonoBehaviour
 {
     public static CardInfoManager instance;
 
     public Sprite[] characterImgs;
-    public List<Chest> allCharacters;
+    public List<CharacterInfo> allCharacters;
+    public Chest openChest;
 
     private void Awake()
     {
         instance = this;
-        allCharacters = new List<Chest>();
+        allCharacters = new List<CharacterInfo>();
+    }
+
+    public void OpenFirstChestClick()
+    {
+        SelectCardInfoInEpicChest();
     }
 
     public void SelectCardInfoInEpicChest()
@@ -23,7 +30,7 @@ public class CardInfoManager : MonoBehaviour
         try
         {
             allCharacters.Clear();
-            string selectCardInfo = $"SELECT * FROM CARD";
+            string selectCardInfo = $"SELECT cardID, name, grade FROM CARD";
 
             using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
             {
@@ -31,13 +38,22 @@ public class CardInfoManager : MonoBehaviour
                 {
                     while (reader.Read())
                     {
-                        Chest cardInfo = new Chest
+                        int characterID = reader.GetInt32(0) - 1; 
+                        if (characterID >= 0 && characterID < characterImgs.Length)
                         {
-                            characterSprite = characterImgs[reader.GetInt32(0)],
-                            CharacterName = reader.GetString(1),
-                            CharacterGrade = reader.GetString(2),
-                        };
-                        allCharacters.Add(cardInfo);
+                            CharacterInfo cardInfo = new CharacterInfo
+                            {
+                                characterID = characterID,
+                                characterSprite = characterImgs[characterID],
+                                CharacterName = reader.GetString(1),
+                                CharacterGrade = reader.GetString(2),
+                            };
+                            allCharacters.Add(cardInfo);
+                        }
+                    }
+                    if(openChest != null)
+                    {
+                        openChest.OpenEpicChest();
                     }
                 }
             }
@@ -72,8 +88,9 @@ public class CardInfoManager : MonoBehaviour
                 {
                     while (reader.Read())
                     {
-                        Chest cardInfo = new Chest
+                        CharacterInfo cardInfo = new CharacterInfo
                         {
+                            characterID = reader.GetInt32(0),
                             characterSprite = characterImgs[reader.GetInt32(0)],
                             CharacterName = reader.GetString(1),
                             CharacterGrade = reader.GetString(2),

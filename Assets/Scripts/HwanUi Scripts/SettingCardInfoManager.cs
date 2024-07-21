@@ -75,4 +75,23 @@ public class SettingCardInfoManager : MonoBehaviour
             print(ex.Message);
         }
     }
+
+    public void UpdateUserInfo(int amount)
+    {
+        string updateUserCard = string.Empty;
+        try
+        {
+            updateUserCard = $"UPDATE UNIT SET currentCardCount = {amount} WHERE userID = {DatabaseManager.Instance.userId}";
+
+            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(updateUserCard))
+            {
+                int rowsAffected = cmd.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} row(s) updated.");
+            }
+        }
+        catch (Exception ex)
+        {
+            print(ex.Message);
+        }
+    }
 }

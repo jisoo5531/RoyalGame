@@ -11,16 +11,16 @@ public class MJ_OpenCard : MonoBehaviour
     public void Chanege()
     {
         Debug.Log("Â¥ÀÜ");
-        if (openChest.isOpenClick)
-        {
-            OpenBox();
-            openChest.isOpenClick = false;
-        }
-        else
-        {
-            CloseBox();
-            openChest.isOpenClick = true;
-        }
+        //if (openChest.isOpenClick)
+        //{
+        //   // OpenBox();
+        //    openChest.isOpenClick = false;
+        //}
+        //else
+        //{
+        //    //CloseBox();
+        //    openChest.isOpenClick = true;
+        //}
     }
     private void OpenBox()
     {

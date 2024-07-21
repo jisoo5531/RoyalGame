@@ -96,6 +96,10 @@ public class Upgrade : MonoBehaviour
         {
             availableUpgrade = true;
         }      
+        else
+        {
+            availableUpgrade = false;
+        }
     }
 
     #endregion

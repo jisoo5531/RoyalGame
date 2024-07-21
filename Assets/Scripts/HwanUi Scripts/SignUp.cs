@@ -59,7 +59,7 @@ public class SignUp : MonoBehaviour
     {
         try
         {
-            string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
+            string insertQuery = $"INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
             "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
             "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount); SELECT LAST_INSERT_ID();";
 

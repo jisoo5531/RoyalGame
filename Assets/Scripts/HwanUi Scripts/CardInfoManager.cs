@@ -20,61 +20,75 @@ public class CardInfoManager : MonoBehaviour
 
     public void SelectCardInfoInEpicChest()
     {
-        allCharacters.Clear();
-        string selectCardInfo = $"SELECT * FROM CARD";
-
-        using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
+        try
         {
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            allCharacters.Clear();
+            string selectCardInfo = $"SELECT * FROM CARD";
+
+            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
             {
-                while (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    Chest cardInfo = new Chest
+                    while (reader.Read())
                     {
-                        characterSprite = characterImgs[reader.GetInt32(0)],
-                        CharacterName = reader.GetString(1),
-                        CharacterGrade = reader.GetString(2),
-                    };
-                    allCharacters.Add(cardInfo);
+                        Chest cardInfo = new Chest
+                        {
+                            characterSprite = characterImgs[reader.GetInt32(0)],
+                            CharacterName = reader.GetString(1),
+                            CharacterGrade = reader.GetString(2),
+                        };
+                        allCharacters.Add(cardInfo);
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            print(ex.Message);
         }
     }
 
     public void SelectCardInfoInChest()
     {
-        allCharacters.Clear();
-        string selectCardInfo = $"SELECT CARD.cardID, CARD.name, CARD.grade, " +
-            $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
-            $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
-            $"WHEN MAGIC.currrentCardCount IS NOT NULL THEN MAGIC.currrentCardCount END AS currentCardCount, " +
-            $"CASE WHEN UNIT.maxCardCount IS NOT NULL THEN UNIT.maxCardCount " +
-            $"WHEN DEFENSE_TOWER.maxCardCount IS NOT NULL THEN DEFENSE_TOWER.maxCardCount " +
-            $"WHEN MAGIC.maxCardCount IS NOT NULL THEN MAGIC.maxCardCount END AS maxCardCount, " +
-            $"CASE WHEN UNIT.level IS NOT NULL THEN UNIT.level WHEN DEFENSE_TOWER.level IS NOT NULL THEN DEFENSE_TOWER.level " +
-            $"WHEN MAGIC.level IS NOT NULL THEN MAGIC.level END AS level FROM CARD " +
-            $"LEFT JOIN UNIT ON CARD.cardID = UNIT.cardID LEFT JOIN MAGIC ON CARD.cardID = MAGIC.cardID " +
-            $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID";
-
-
-        using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
+        try
         {
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            allCharacters.Clear();
+            string selectCardInfo = $"SELECT CARD.cardID, CARD.name, CARD.grade, " +
+                $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
+                $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
+                $"WHEN MAGIC.currentCardCount IS NOT NULL THEN MAGIC.currentCardCount END AS currentCardCount, " +
+                $"CASE WHEN UNIT.maxCardCount IS NOT NULL THEN UNIT.maxCardCount " +
+                $"WHEN DEFENSE_TOWER.maxCardCount IS NOT NULL THEN DEFENSE_TOWER.maxCardCount " +
+                $"WHEN MAGIC.maxCardCount IS NOT NULL THEN MAGIC.maxCardCount END AS maxCardCount, " +
+                $"CASE WHEN UNIT.level IS NOT NULL THEN UNIT.level WHEN DEFENSE_TOWER.level IS NOT NULL THEN DEFENSE_TOWER.level " +
+                $"WHEN MAGIC.level IS NOT NULL THEN MAGIC.level END AS level FROM CARD " +
+                $"LEFT JOIN UNIT ON CARD.cardID = UNIT.cardID LEFT JOIN MAGIC ON CARD.cardID = MAGIC.cardID " +
+                $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID";
+
+
+            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
             {
-                while (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    Chest cardInfo = new Chest
+                    while (reader.Read())
                     {
-                        characterSprite = characterImgs[reader.GetInt32(0)],
-                        CharacterName = reader.GetString(1),
-                        CharacterGrade = reader.GetString(2),
-                        CharacterCurrentCardCount = reader.GetInt32(3),
-                        CharacterMaxCardCount = reader.GetInt32(4),
-                        CharacterLevel = reader.GetInt32(5)
-                    };
-                    allCharacters.Add(cardInfo);
+                        Chest cardInfo = new Chest
+                        {
+                            characterSprite = characterImgs[reader.GetInt32(0)],
+                            CharacterName = reader.GetString(1),
+                            CharacterGrade = reader.GetString(2),
+                            CharacterCurrentCardCount = reader.GetInt32(3),
+                            CharacterMaxCardCount = reader.GetInt32(4),
+                            CharacterLevel = reader.GetInt32(5)
+                        };
+                        allCharacters.Add(cardInfo);
+                    }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            print(ex.Message);
         }
     }
 }

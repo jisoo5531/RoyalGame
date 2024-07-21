@@ -49,6 +49,7 @@ public class Chest : MonoBehaviour
     public int CharacterMaxCardCount { get; set; }
 
 
+
     public Image characterImg;
     public TMP_Text characterName;
     public TMP_Text characterGrade;

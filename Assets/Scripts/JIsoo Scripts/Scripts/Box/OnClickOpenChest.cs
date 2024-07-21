@@ -36,8 +36,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     private UnitData_SO uniData = null;
 
     private int clickCount = 0;
-    public bool isOpenClick;
-    private bool isEnd = false;
+    public bool isOpenClick;    
 
     private void Awake()
     {

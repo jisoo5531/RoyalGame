@@ -94,16 +94,29 @@ public static class Extension
             unit.AddComponent<Magic>();
         }
     }
+    public static void ColorNormal(this Image image)
+    {
+        Color color = new Color(154f / 255f, 154f / 255f, 154f / 255f);
+        image.color = color;
+    }    
+    public static void ColorRare(this Image image)
+    {
+        Color color = new Color(255f / 255f, 166f / 255f, 57f / 255f);
+        image.color = color;
+    }
+    public static void ColorEpic(this Image image)
+    {
+        Color color = new Color(177f / 255f, 69f / 255f, 255f / 255f);
+        image.color = color;
+    }
     public static void ColorSky(this Image image)
     {
-        Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);        
-        
+        Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);                
         image.color = color;
     }
     public static void ColorGreen(this Image image)
     {
-        Color color = new Color(80f / 255f, 255f / 255f, 0f / 255f);
-        
+        Color color = new Color(80f / 255f, 255f / 255f, 0f / 255f);        
         image.color = color;
     }
 }

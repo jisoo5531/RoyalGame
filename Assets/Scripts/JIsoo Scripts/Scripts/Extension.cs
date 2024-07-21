@@ -95,25 +95,73 @@ public static class Extension
             unit.AddComponent<Magic>();
         }
     }
-    public static void ColorNormal(this Image image)
+    public static void ColorNormal<T>(this T uiElement)
     {
-        Color color = new Color(154f / 255f, 154f / 255f, 154f / 255f);
-        image.color = color;
+        Color color = new Color(154f / 255f, 154f / 255f, 154f / 255f);        
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
     }    
-    public static void ColorRare(this Image image)
+    public static void ColorRare<T>(this T uiElement)
     {
         Color color = new Color(255f / 255f, 166f / 255f, 57f / 255f);
-        image.color = color;
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
     }
-    public static void ColorEpic(this Image image)
+    public static void ColorEpic<T>(this T uiElement)
     {
         Color color = new Color(177f / 255f, 69f / 255f, 255f / 255f);
-        image.color = color;
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
     }
-    public static void ColorSky(this Image image)
+    public static void ColorSky<T>(this T uiElement)
     {
-        Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);                
-        image.color = color;
+        Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
     }
 
     public static void ColorGreen<T>(this T uiElement)
@@ -137,6 +185,24 @@ public static class Extension
     public static void ColorWhite<T>(this T uiElement)
     {
         Color color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
+    }
+
+    public static void ColorBlue<T>(this T uiElement)
+    {
+        Color color = new Color(0f / 255f, 49f / 255f, 255f / 255f);
 
         if (uiElement is Image)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    private enum Grade
+    public enum Grade
     {
         Normal,
         Rare,
@@ -52,8 +52,7 @@ public class Chest : MonoBehaviour
     public void OpenNormalChest()
     {
         int normalRemainCard = 3;
-        int rareRemainCard = 1;
-        totalRemainCard = normalRemainCard + rareRemainCard;
+        int rareRemainCard = 1;        
 
         while (normalRemainCard > 0)
         {
@@ -66,14 +65,13 @@ public class Chest : MonoBehaviour
             RareCard();
             rareRemainCard--;
         }
-        PrintRewards();
+        totalRemainCard = reward.Count;
     }
 
     public void OpenRareChest()
     {
         int normalRemainCard = 5;
-        int rareRemainCard = 3;
-        totalRemainCard = normalRemainCard + rareRemainCard;
+        int rareRemainCard = 3;        
 
         while (normalRemainCard > 0)
         {
@@ -86,14 +84,15 @@ public class Chest : MonoBehaviour
             RareCard();
             rareRemainCard--;
         }
+
+        totalRemainCard = reward.Count;
     }
 
     public void OpenEpicChest()
     {
         int normalRemainCard = 6;
         int rareRemainCard = 4;
-        int epicRemainCard = 2;
-        totalRemainCard = normalRemainCard + rareRemainCard + epicRemainCard;
+        int epicRemainCard = 2;        
 
         while (normalRemainCard > 0)
         {
@@ -112,6 +111,7 @@ public class Chest : MonoBehaviour
             EpicCard();
             epicRemainCard--;
         }
+        totalRemainCard = reward.Count;
     }
 
     private void NormalCard()
@@ -147,6 +147,25 @@ public class Chest : MonoBehaviour
         }
     }
 
+    public KeyValuePair<int, (Grade, int)>? OnClickOpenCard(int index)
+    {
+        // reward 딕셔너리를 리스트로 변환
+        List<KeyValuePair<int, (Grade, int)>> rewardList = reward.ToList();
+        Debug.Log(rewardList.Count);
+
+        if (index >= 0 && index < rewardList.Count)
+        {
+            var rewardItem = rewardList[index];
+            Debug.Log($"Grade: {rewardItem.Value.Item1}, Card ID: {rewardItem.Key}, Count: {rewardItem.Value.Item2}");
+            totalRemainCard -= 1;
+            return rewardItem;
+        }
+        else
+        {
+            Debug.Log("Invalid index.");
+            return null;
+        }
+    }
     private void PrintRewards()
     {
         foreach (var item in reward)

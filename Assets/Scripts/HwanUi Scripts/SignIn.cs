@@ -8,10 +8,15 @@ using UnityEngine.UI;
 
 public class SignIn : MonoBehaviour
 {
+    #region public 변수
     public TMP_InputField nickname;
     public TMP_InputField password;
 
     public Button loginBtn;
+
+    public GameObject signUpUI;
+    public GameObject findPasswordUI;
+    #endregion
 
     private void Start()
     {
@@ -21,6 +26,21 @@ public class SignIn : MonoBehaviour
     void Update()
     {
         loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
+    }
+
+    public void SignUpClick()
+    {
+        nickname.text = string.Empty;
+        password.text = string.Empty;
+        signUpUI.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+    public void FindPasswordClick()
+    {
+        nickname.text = string.Empty;
+        password.text = string.Empty;
+        findPasswordUI.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
     private bool CheckTextLength(int nicknameLength, int passwordLength)
@@ -33,6 +53,9 @@ public class SignIn : MonoBehaviour
         if (CheckUserInfo(nickname.text, password.text))
         {
             print("로그인 되었습니다");
+            loginBtn.interactable = false;
+            PhotonConnManager.instance.userName = nickname.text;
+            PhotonConnManager.instance.Connection();
         }
         else
         {
@@ -44,13 +67,14 @@ public class SignIn : MonoBehaviour
     {
         try
         {
-            string userInfoSelect = string.Format("SELECT count(*) FROM USER WHERE userName = '{0}' AND '{1}'", name, password);
+            string userInfoSelect = string.Format("SELECT count(*), userID FROM USER WHERE userName = '{0}' AND password = '{1}'", name, password);
 
             MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect);
 
             if (cmd != null)
             {
                 int result = GetRowCount(cmd);
+                DatabaseManager.Instance.userId = GetUserId(cmd);
 
                 return result > 0;
             }
@@ -60,6 +84,21 @@ public class SignIn : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return false;
+    }
+    int GetUserId(MySqlCommand cmd)
+    {
+        int userId = 0;
+
+        using (MySqlDataReader reader = cmd.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                userId = reader.GetInt32(1);
+            }
+            reader.Close();
+        }
+
+        return userId;
     }
 
     int GetRowCount(MySqlCommand cmd)

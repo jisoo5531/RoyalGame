@@ -5,6 +5,7 @@ using UnityEngine;
 #region 박환의
 public class Node : IHeapItem<Node>
 {
+    #region public 변수
     public bool walkable;
     public Vector3 worldPosition;
     public int gridX;
@@ -14,6 +15,8 @@ public class Node : IHeapItem<Node>
     public int gCost;
     public int hCost;
     public Node parent;
+    #endregion
+
     int heapIndex;
 
     public Node(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY, int _penalty)

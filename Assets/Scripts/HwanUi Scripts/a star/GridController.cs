@@ -5,11 +5,15 @@ using UnityEngine;
 #region 박환의
 public class GridController : MonoBehaviour
 {
+    #region public 변수
     public bool displayGridGizmos;
     public LayerMask unwalkableMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
     public TerrainType[] walkableRegions;
+    #endregion
+
+    #region private 변수
     Dictionary<int, int> walkableRegionsDictionary = new Dictionary<int, int>();
     LayerMask walkableMask;
 
@@ -17,6 +21,7 @@ public class GridController : MonoBehaviour
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+    #endregion
 
     void Awake()
     {

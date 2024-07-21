@@ -9,10 +9,14 @@ using UnityEngine.UI;
 
 public class SignUp : MonoBehaviour
 {
+    #region public 변수
     public TMP_InputField nickname;
     public TMP_InputField password;
 
     public Button loginBtn;
+
+    public GameObject signInUI;
+    #endregion
 
     private void Start()
     {
@@ -23,6 +27,14 @@ public class SignUp : MonoBehaviour
     {
         loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
     }
+    public void SignInClick()
+    {
+        nickname.text = string.Empty;
+        password.text = string.Empty;
+        signInUI.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+
     private bool CheckTextLength(int nicknameLength, int passwordLength)
     {
         return (nicknameLength >= 4 && passwordLength >= 4);
@@ -30,9 +42,12 @@ public class SignUp : MonoBehaviour
 
     public void LoginClick()
     {
-        if(!CheckDuplicateName(nickname.text))
+        if (!CheckDuplicateName(nickname.text))
         {
             InsertUserData(nickname.text, password.text);
+            loginBtn.interactable = false;
+            PhotonConnManager.instance.userName = nickname.text;
+            PhotonConnManager.instance.Connection();
         }
         else
         {
@@ -44,9 +59,12 @@ public class SignUp : MonoBehaviour
     {
         try
         {
+            //string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
+            //    "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
+            //    "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount)";
             string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
-                "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
-                "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount)";
+            "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
+            "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount); SELECT LAST_INSERT_ID();";
 
             MySqlCommand cmd = DatabaseManager.Instance.DBConnection(insertQuery);
 
@@ -64,16 +82,18 @@ public class SignUp : MonoBehaviour
                 cmd.Parameters.AddWithValue("@maxCardCount", 8);
                 cmd.Parameters.AddWithValue("@currentCardCount", 0);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
+                using (var reader = cmd.ExecuteReader())
                 {
-                    Debug.Log("데이터 삽입 성공");
+                    if (reader.Read())
+                    {
+                        DatabaseManager.Instance.userId = reader.GetInt32(0);
+                        Debug.Log("데이터 삽입 성공");
+                    }
                 }
-                else
-                {
-                    Debug.LogWarning("데이터 삽입 실패");
-                }
+            }
+            else
+            {
+                Debug.LogWarning("데이터 삽입 실패");
             }
         }
         catch (Exception ex)
@@ -97,7 +117,7 @@ public class SignUp : MonoBehaviour
                 return result > 0;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }

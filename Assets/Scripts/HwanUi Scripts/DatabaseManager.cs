@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 
 public class DatabaseManager : MonoBehaviour
 {
+    #region private º¯¼ö
     private static DatabaseManager instance;
     private MySqlConnection connection;
 
@@ -16,6 +17,9 @@ public class DatabaseManager : MonoBehaviour
     private string password = "abcdgh3076";
 
     private string connStr;
+    #endregion
+
+    public int userId;
 
     public static DatabaseManager Instance
     {

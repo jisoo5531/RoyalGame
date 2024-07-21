@@ -42,7 +42,7 @@ public class SignUp : MonoBehaviour
 
     public void LoginClick()
     {
-        if(!CheckDuplicateName(nickname.text))
+        if (!CheckDuplicateName(nickname.text))
         {
             InsertUserData(nickname.text, password.text);
             loginBtn.interactable = false;
@@ -59,9 +59,12 @@ public class SignUp : MonoBehaviour
     {
         try
         {
+            //string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
+            //    "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
+            //    "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount)";
             string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
-                "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
-                "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount)";
+            "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
+            "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount); SELECT LAST_INSERT_ID();";
 
             MySqlCommand cmd = DatabaseManager.Instance.DBConnection(insertQuery);
 
@@ -79,16 +82,18 @@ public class SignUp : MonoBehaviour
                 cmd.Parameters.AddWithValue("@maxCardCount", 8);
                 cmd.Parameters.AddWithValue("@currentCardCount", 0);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
+                using (var reader = cmd.ExecuteReader())
                 {
-                    Debug.Log("데이터 삽입 성공");
+                    if (reader.Read())
+                    {
+                        DatabaseManager.Instance.userId = reader.GetInt32(0);
+                        Debug.Log("데이터 삽입 성공");
+                    }
                 }
-                else
-                {
-                    Debug.LogWarning("데이터 삽입 실패");
-                }
+            }
+            else
+            {
+                Debug.LogWarning("데이터 삽입 실패");
             }
         }
         catch (Exception ex)
@@ -112,7 +117,7 @@ public class SignUp : MonoBehaviour
                 return result > 0;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }

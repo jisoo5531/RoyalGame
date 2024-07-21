@@ -67,13 +67,14 @@ public class SignIn : MonoBehaviour
     {
         try
         {
-            string userInfoSelect = string.Format("SELECT count(*) FROM USER WHERE userName = '{0}' AND password = '{1}'", name, password);
+            string userInfoSelect = string.Format("SELECT count(*), userID FROM USER WHERE userName = '{0}' AND password = '{1}'", name, password);
 
             MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect);
 
             if (cmd != null)
             {
                 int result = GetRowCount(cmd);
+                DatabaseManager.Instance.userId = GetUserId(cmd);
 
                 return result > 0;
             }
@@ -83,6 +84,21 @@ public class SignIn : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return false;
+    }
+    int GetUserId(MySqlCommand cmd)
+    {
+        int userId = 0;
+
+        using (MySqlDataReader reader = cmd.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                userId = reader.GetInt32(1);
+            }
+            reader.Close();
+        }
+
+        return userId;
     }
 
     int GetRowCount(MySqlCommand cmd)

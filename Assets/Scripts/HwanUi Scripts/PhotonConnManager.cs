@@ -52,7 +52,7 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        Loading.LoadScene("minji");
+        Loading.LoadScene("Lobby");
     }
 }
 

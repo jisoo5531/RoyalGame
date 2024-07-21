@@ -39,11 +39,18 @@ public class UnitStat
     public GameObject creationTimeOBJ;
     public GameObject LifeTimeOBJ;
 }
+[System.Serializable]
+public class UnitDescription
+{
+    public TextMeshProUGUI descText;
+}
+
 public class Upgrade : MonoBehaviour
 {            
     public UnitTitle unitTitle;
     public UnitImage unitList;
     public GradeAndType unitGnT;
+    public UnitDescription unitDesc;
     public UnitStat unitStatList;
 
     private UnitData_SO unitData;
@@ -61,6 +68,8 @@ public class Upgrade : MonoBehaviour
         SetUnitImage();
 
         SetUnitGradeAndType();
+
+        SetDescription();
 
         SetCardCountFill();
 
@@ -176,9 +185,18 @@ public class Upgrade : MonoBehaviour
 
     #endregion
 
+    #region Description
+
+    private void SetDescription()
+    {
+        unitDesc.descText.text = unitData.unit_Desc;
+    }
+
+    #endregion
+
     #region Stat
 
-    public void SetStats()
+    private void SetStats()
     {
         foreach (Transform child in unitStatList.unitStats)
         {

@@ -67,16 +67,18 @@ public class SignIn : MonoBehaviour
     {
         try
         {
-            string userInfoSelect = string.Format("SELECT count(*), userID FROM USER WHERE userName = '{0}' AND password = '{1}'", name, password);
+            string userInfoSelect = $"SELECT count(*), userID FROM USER WHERE userName = '{name}' AND password = '{password}'";
 
-            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect);
-
-            if (cmd != null)
+            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect))
             {
-                int result = GetRowCount(cmd);
-                DatabaseManager.Instance.userId = GetUserId(cmd);
 
-                return result > 0;
+                if (cmd != null)
+                {
+                    int result = GetRowCount(cmd);
+                    DatabaseManager.Instance.userId = GetUserId(cmd);
+
+                    return result > 0;
+                }
             }
         }
         catch (Exception ex)

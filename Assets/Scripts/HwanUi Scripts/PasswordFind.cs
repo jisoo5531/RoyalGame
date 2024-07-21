@@ -19,7 +19,6 @@ public class PasswordFind : MonoBehaviour
     public GameObject findPassword;
 
     public GameObject signInUI;
-    public GameObject signUpUI;
     #endregion
 
     void Update()
@@ -31,27 +30,11 @@ public class PasswordFind : MonoBehaviour
     {
         return nicknameLength >= 4;
     }
-    public void FindPasswordFail_SignInClick()
-    {
-        signInUI.SetActive(true);
-        findPasswordFail_UI.SetActive(false);
-    }
-    public void FindPasswordSuccess_SignInClick()
-    {
-        signInUI.SetActive(true);
-        findPasswordSuccess_UI.SetActive(false);
-    }
     public void FindPassword_SignInClick()
     {
         nickname.text = string.Empty;
         signInUI.SetActive(true);
         findPassword.SetActive(false);
-    }
-
-    public void SignUpClick()
-    {
-        signUpUI.SetActive(true);
-        findPasswordFail_UI.SetActive(false);
     }
 
     public void FindPasswordClick()
@@ -72,16 +55,18 @@ public class PasswordFind : MonoBehaviour
     {
         try
         {
-            string selectName = string.Format("SELECT count(*), password FROM USER WHERE userName = '{0}'", nickname);
+            string selectName = $"SELECT count(*), password FROM USER WHERE userName = '{nickname}'";
 
-            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectName);
-            cmd.CommandText = selectName;
-            if (cmd != null)
+            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectName))
             {
-                userPassword = GetPassword(cmd);
-                int rowCount = GetRowCount(cmd);
+                cmd.CommandText = selectName;
+                if (cmd != null)
+                {
+                    userPassword = GetPassword(cmd);
+                    int rowCount = GetRowCount(cmd);
 
-                return rowCount > 0;
+                    return rowCount > 0;
+                }
             }
         }
         catch (Exception ex)

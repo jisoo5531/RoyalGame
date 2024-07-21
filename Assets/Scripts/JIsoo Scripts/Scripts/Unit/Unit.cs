@@ -52,14 +52,14 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }
 
     protected virtual void InitializeUnitData(UnitData unit)
-    {
+    {                
         name = unit.unitInfo.unitName;
         HP = unit.unitInfo.unitStat.HP;
         maxHP = unit.unitInfo.unitStat.maxHp;
         damage = unit.unitInfo.unitStat.damage;
         range = unit.unitInfo.unitRange.range;
         detectionRange = unit.unitInfo.unitRange.detectionRange;
-        attackTarget = unit.attackTarget;
+        attackTarget = unit.unitInfo.attackTarget;
     }
 
 

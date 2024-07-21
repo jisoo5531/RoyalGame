@@ -137,7 +137,7 @@ public class Upgrade : MonoBehaviour
 
     private void SetBackground()
     {
-        switch (unitData.grade)
+        switch (unitData.unitInfo.grade)
         {
             case Grade.Normal:
                 unitGnT.gradeAndTypeBackground.ColorNormal();
@@ -156,7 +156,7 @@ public class Upgrade : MonoBehaviour
     {
         string gradeText = null;
         string typeText = null;
-        switch (unitData.grade)
+        switch (unitData.unitInfo.grade)
         {
             case Grade.Normal:
                 gradeText = "¿œπ›";
@@ -313,7 +313,7 @@ public class Upgrade : MonoBehaviour
 
         if (ui_Target != null)
         {
-            ui_Target.value.text = unitData.attackTarget.ToString();
+            ui_Target.value.text = unitData.unitInfo.attackTarget.ToString();
         }
     }
     

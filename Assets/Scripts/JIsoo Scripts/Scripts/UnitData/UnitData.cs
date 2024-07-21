@@ -1,50 +1,6 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CardInfo
-{
-    public int unit_ID;
-    public int unit_Level;
-    public int unit_CurrentCardCount;
-    public int unit_MaxCardCount;
-    public int user_ID;
-}
-
-[System.Serializable]
-public class UnitInfo
-{    
-    public string unitName;
-    public int unitCount;
-    public Type type;
-    
-    public Stat unitStat;
-    public Range unitRange;
-
-    public string unit_Desc;
-
-    public UnitInfo()
-    {
-        unitStat = new Stat();
-        unitRange = new Range();
-    }
-}
-
-[System.Serializable]
-public class Stat
-{
-    public int maxHp;
-    public int HP;
-    public int damage;
-    public float attackSpeed;
-    public float moveSpeed;
-
-    [Space(20)]
-    public int cost;
-    public int lifeTime;
-    public float spawnTime;
-}
-
-[System.Serializable]
 public class Range
 {
     public float range;
@@ -55,10 +11,7 @@ public class Range
 public class UnitData
 {
     public CardInfo cardInfo;
-    public UnitInfo unitInfo;
-    
-    public AttackTarget attackTarget;
-    public Grade grade;
+    public UnitInfo unitInfo;       
     
     public Sprite iconSprite;
     public GameObject prefab;
@@ -91,8 +44,8 @@ public class UnitData
         unitInfo.unitRange.detectionRange = unitDataSO.detectionRange;
         unitInfo.unitRange.range = unitDataSO.range;
         unitInfo.unit_Desc = unitDataSO.unit_Desc;
-        attackTarget = unitDataSO.attackTarget;
-        grade = unitDataSO.grade;
+        unitInfo.attackTarget = unitDataSO.attackTarget;
+        unitInfo.grade = unitDataSO.grade;
         iconSprite = unitDataSO.iconSprite;
         prefab = unitDataSO.prefab;
     }
@@ -112,4 +65,51 @@ public class UnitData
         unitInfo.unitStat.maxHp += Mathf.RoundToInt((float)unitInfo.unitStat.maxHp * 0.2f);
         unitInfo.unitStat.damage += Mathf.RoundToInt((float)unitInfo.unitStat.damage * 0.3f);
     }
+}
+
+[System.Serializable]
+public class CardInfo
+{
+    public int unit_ID;
+    public int unit_Level;
+    public int unit_CurrentCardCount;
+    public int unit_MaxCardCount;
+    public int user_ID;
+}
+
+[System.Serializable]
+public class UnitInfo
+{
+    public string unitName;
+    public int unitCount;
+    public Type type;
+
+    public Stat unitStat;
+    public Range unitRange;
+
+    public AttackTarget attackTarget;
+    public Grade grade;
+
+    public string unit_Desc;
+
+    public UnitInfo()
+    {
+        unitStat = new Stat();
+        unitRange = new Range();
+    }
+}
+
+[System.Serializable]
+public class Stat
+{
+    public int maxHp;
+    public int HP;
+    public int damage;
+    public float attackSpeed;
+    public float moveSpeed;
+
+    [Space(20)]
+    public int cost;
+    public int lifeTime;
+    public float spawnTime;
 }

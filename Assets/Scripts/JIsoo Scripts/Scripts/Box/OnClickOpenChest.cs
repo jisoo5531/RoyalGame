@@ -111,7 +111,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     private void Set_Grade()
     {
         string grade = null;
-        switch (uniData.grade)
+        switch (uniData.unitInfo.grade)
         {
             case Grade.Normal:
                 unitOBJ.unitBackground.ColorNormal();

@@ -18,5 +18,4 @@ public class MoveCard : MonoBehaviour
     {
         GameObject.Find("Box").transform.Find("Card").gameObject.SetActive(true);
     }
-
 }

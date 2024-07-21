@@ -41,17 +41,19 @@ public class Chest : MonoBehaviour
     /// </summary>
     private Dictionary<int, (Grade, int)> reward = new Dictionary<int, (Grade, int)>();
 
+    public int totalRemainCard;    
 
-    private void Awake()
-    {
-        OpenEpicChest();
-        PrintRewards();
-    }
+    //private void Awake()
+    //{
+    //    OpenEpicChest();
+    //    PrintRewards();
+    //}
 
     public void OpenNormalChest()
     {
         int normalRemainCard = 3;
         int rareRemainCard = 1;
+        totalRemainCard = normalRemainCard + rareRemainCard;
 
         while (normalRemainCard > 0)
         {
@@ -64,12 +66,14 @@ public class Chest : MonoBehaviour
             RareCard();
             rareRemainCard--;
         }
+        PrintRewards();
     }
 
     public void OpenRareChest()
     {
         int normalRemainCard = 5;
         int rareRemainCard = 3;
+        totalRemainCard = normalRemainCard + rareRemainCard;
 
         while (normalRemainCard > 0)
         {
@@ -89,6 +93,7 @@ public class Chest : MonoBehaviour
         int normalRemainCard = 6;
         int rareRemainCard = 4;
         int epicRemainCard = 2;
+        totalRemainCard = normalRemainCard + rareRemainCard + epicRemainCard;
 
         while (normalRemainCard > 0)
         {

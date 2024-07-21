@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class ShakeCard_Jisoo : MonoBehaviour
 {
-    Vector3 targetPosUP = new Vector3(-265, 373, 0);
+    Vector3 targetPosUP = new Vector3(0, 373, 0);
 
     private void Start()
     {

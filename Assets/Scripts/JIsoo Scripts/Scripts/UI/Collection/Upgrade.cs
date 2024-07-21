@@ -5,8 +5,31 @@ using UnityEngine.UI;
 using TMPro;
 
 [System.Serializable]
+public class UnitTitle
+{
+    public TextMeshProUGUI unitName;
+}
+[System.Serializable]
+public class UnitImage
+{
+    public Image unitImage;
+    public Image cardCountFill;
+    public TextMeshProUGUI costText;
+    public TextMeshProUGUI cardCountText;
+    public Image upArrow;
+}
+[System.Serializable]
+public class GradeAndType
+{
+    public Image gradeAndTypeBackground;
+    public TextMeshProUGUI gradeText;
+    public TextMeshProUGUI typeText;
+}
+
+[System.Serializable]
 public class UnitStat
 {
+    public Transform unitStats;
     public GameObject hpOBJ;
     public GameObject damageOBJ;
     public GameObject attackSpeedOBJ;
@@ -14,25 +37,20 @@ public class UnitStat
     public GameObject targetOBJ;
     public GameObject rangeOBJ;
     public GameObject creationTimeOBJ;
+    public GameObject LifeTimeOBJ;
 }
 public class Upgrade : MonoBehaviour
-{
-    public TextMeshProUGUI unitName;
-
-    public Image unitImage;
-    public Image cardCountFill;
-    public Image upArrow;
-    public Image gradeAndTypeBackground;
-
-    public TextMeshProUGUI costText;
-    public TextMeshProUGUI cardCountText;
-
-    public Transform unitStats;
-
-    [Space(20)]
+{            
+    public UnitTitle unitTitle;
+    public UnitImage unitList;
+    public GradeAndType unitGnT;
     public UnitStat unitStatList;
 
     private UnitData_SO unitData;
+
+    private bool availableUpgrade = false;
+
+    
 
     public void SetInfo(UnitData_SO unitData)
     {
@@ -42,7 +60,7 @@ public class Upgrade : MonoBehaviour
 
         SetUnitImage();
 
-        SetUnitGradePanel();
+        SetUnitGradeAndType();
 
         SetCardCountFill();
 
@@ -53,7 +71,7 @@ public class Upgrade : MonoBehaviour
 
     private void SetTitle()
     {
-        unitName.text = $"·¹º§ {unitData.unit_Level} {unitData.unitName}".ToString();
+        unitTitle.unitName.text = $"·¹º§ {unitData.unit_Level} {unitData.unitName}".ToString();
     }
 
     #endregion
@@ -62,8 +80,8 @@ public class Upgrade : MonoBehaviour
 
     private void SetUnitImage()
     {
-        unitImage.sprite = unitData.iconSprite;
-        costText.text = unitData.cost.ToString();
+        unitList.unitImage.sprite = unitData.iconSprite;
+        unitList.costText.text = unitData.cost.ToString();
     }
 
     #region CardCount
@@ -72,8 +90,12 @@ public class Upgrade : MonoBehaviour
     {
         Collection collection = FindObjectOfType<Collection>();
 
-        collection.SettingUI(unitData, cardCountFill, cardCountText, costText);
-        collection.CheckAvailableUpgrade(cardCountFill, upArrow);
+        collection.SettingUI(unitData, unitList.cardCountFill, unitList.cardCountText, unitList.costText);
+
+        if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
+        {
+            availableUpgrade = true;
+        }      
     }
 
     #endregion
@@ -82,11 +104,10 @@ public class Upgrade : MonoBehaviour
 
     #region Grade / Type
 
-    private void SetUnitGradePanel()
+    private void SetUnitGradeAndType()
     {
         SetBackground();
-        
-
+        Set_GnT_Text();
     }
 
     private void SetBackground()
@@ -94,18 +115,60 @@ public class Upgrade : MonoBehaviour
         switch (unitData.grade)
         {
             case Grade.Normal:
-                gradeAndTypeBackground.ColorNormal();
+                unitGnT.gradeAndTypeBackground.ColorNormal();
                 break;
             case Grade.Rare:
-                gradeAndTypeBackground.ColorRare();
+                unitGnT.gradeAndTypeBackground.ColorRare();
                 break;
             case Grade.Epic:
-                gradeAndTypeBackground.ColorEpic();
+                unitGnT.gradeAndTypeBackground.ColorEpic();
                 break;
             default:
                 break;
         }
     }
+    private void Set_GnT_Text()
+    {
+        string gradeText = null;
+        string typeText = null;
+        switch (unitData.grade)
+        {
+            case Grade.Normal:
+                gradeText = "ÀÏ¹Ý";
+                break;
+            case Grade.Rare:
+                gradeText = "Èñ±Í";
+                break;
+            case Grade.Epic:
+                gradeText = "¿µ¿õ";
+                break;
+            default:
+                break;
+        }
+        switch (unitData.type)
+        {
+            case Type.Unit:
+                typeText = "À¯´Ö";
+                break;
+            case Type.Deffense:
+                typeText = "°Ç¹°";
+                break;
+            case Type.Magic:
+                typeText = "¸¶¹ý";
+                break;
+            default:
+                break;
+        }
+        if (gradeText != null)
+        {
+            unitGnT.gradeText.text = gradeText;
+        }
+        if (typeText != null)
+        {
+            unitGnT.typeText.text = typeText;
+        }        
+    }
+
 
     #endregion
 
@@ -113,7 +176,7 @@ public class Upgrade : MonoBehaviour
 
     public void SetStats()
     {
-        foreach (Transform child in unitStats)
+        foreach (Transform child in unitStatList.unitStats)
         {
             Destroy(child.gameObject);
         }
@@ -125,33 +188,62 @@ public class Upgrade : MonoBehaviour
         Set_TargetObj();
         Set_RangeObj();
         Set_CreationTimeObj();
+        Set_LifeTimeObj();
     }
     private void Set_HPObj()
     {
-        GameObject hpStat_OBJ = Instantiate(unitStatList.hpOBJ, unitStats);
-        UI_UpgradeStatText uiHp = hpStat_OBJ.GetComponent<UI_UpgradeStatText>();
+        if (unitData.type == Type.Magic)
+        {
+            return;
+        }
+
+        GameObject hpStat_OBJ = Instantiate(unitStatList.hpOBJ, unitStatList.unitStats);
+        UI_UpgradeStat uiHp = hpStat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (uiHp != null)
         {
             uiHp.value.text = unitData.maxHp.ToString();
             uiHp.upgradeValue.text = $"+ {unitData.Get_Upgrade_HP()}";
+
+            if (availableUpgrade)
+            {
+                uiHp.SetUpgrade();
+            }
+            else
+            {
+                uiHp.SetNotUpgrade();
+            }
         }
     }
     private void Set_DamageObj()
     {
-        GameObject DamageStat_OBJ = Instantiate(unitStatList.damageOBJ, unitStats);
-        UI_UpgradeStatText uiDamage = DamageStat_OBJ.GetComponent<UI_UpgradeStatText>();
+        GameObject DamageStat_OBJ = Instantiate(unitStatList.damageOBJ, unitStatList.unitStats);
+        UI_UpgradeStat uiDamage = DamageStat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (uiDamage != null)
         {
             uiDamage.value.text = unitData.damage.ToString();
             uiDamage.upgradeValue.text = $"+ {unitData.Get_Upgrade_Damage()}";
+
+            if (availableUpgrade)
+            {
+                uiDamage.SetUpgrade();
+            }
+            else
+            {
+                uiDamage.SetNotUpgrade();
+            }
         }
     }
     private void Set_AttackSppedObj()
     {
-        GameObject AS_Stat_OBJ = Instantiate(unitStatList.attackSpeedOBJ, unitStats);
-        UI_UpgradeStatText ui_AS = AS_Stat_OBJ.GetComponent<UI_UpgradeStatText>();
+        if (unitData.type == Type.Magic)
+        {
+            return;
+        }
+
+        GameObject AS_Stat_OBJ = Instantiate(unitStatList.attackSpeedOBJ, unitStatList.unitStats);
+        UI_UpgradeStat ui_AS = AS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (ui_AS != null)
         {
@@ -161,8 +253,13 @@ public class Upgrade : MonoBehaviour
     
     private void Set_MoveSppedObj()
     {
-        GameObject MS_Stat_OBJ = Instantiate(unitStatList.moveSpeedOBJ, unitStats);
-        UI_UpgradeStatText ui_MS = MS_Stat_OBJ.GetComponent<UI_UpgradeStatText>();
+        if (unitData.type == Type.Magic)
+        {
+            return;
+        }
+
+        GameObject MS_Stat_OBJ = Instantiate(unitStatList.moveSpeedOBJ, unitStatList.unitStats);
+        UI_UpgradeStat ui_MS = MS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (ui_MS != null)
         {
@@ -172,8 +269,13 @@ public class Upgrade : MonoBehaviour
     
     private void Set_TargetObj()
     {
-        GameObject target_Stat_OBJ = Instantiate(unitStatList.targetOBJ, unitStats);
-        UI_UpgradeStatText ui_Target = target_Stat_OBJ.GetComponent<UI_UpgradeStatText>();
+        if (unitData.type == Type.Magic)
+        {
+            return;
+        }
+
+        GameObject target_Stat_OBJ = Instantiate(unitStatList.targetOBJ, unitStatList.unitStats);
+        UI_UpgradeStat ui_Target = target_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (ui_Target != null)
         {
@@ -183,8 +285,13 @@ public class Upgrade : MonoBehaviour
     
     private void Set_RangeObj()
     {
-        GameObject range_Stat_OBJ = Instantiate(unitStatList.rangeOBJ, unitStats);
-        UI_UpgradeStatText ui_Range = range_Stat_OBJ.GetComponent<UI_UpgradeStatText>();
+        if (unitData.type == Type.Magic)
+        {
+            return;
+        }
+
+        GameObject range_Stat_OBJ = Instantiate(unitStatList.rangeOBJ, unitStatList.unitStats);
+        UI_UpgradeStat ui_Range = range_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (ui_Range != null)
         {
@@ -194,12 +301,26 @@ public class Upgrade : MonoBehaviour
     
     private void Set_CreationTimeObj()
     {
-        GameObject creationTime_Stat_OBJ = Instantiate(unitStatList.creationTimeOBJ, unitStats);
-        UI_UpgradeStatText ui_CreationTIme = creationTime_Stat_OBJ.GetComponent<UI_UpgradeStatText>();
+        GameObject creationTime_Stat_OBJ = Instantiate(unitStatList.creationTimeOBJ, unitStatList.unitStats);
+        UI_UpgradeStat ui_CreationTIme = creationTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
         if (ui_CreationTIme != null)
         {
             ui_CreationTIme.value.text = unitData.spawnTime.ToString();
+        }
+    }
+    private void Set_LifeTimeObj()
+    {
+        if (unitData.type == Type.Unit || unitData.type == Type.Magic)
+        {
+            return;
+        }
+        GameObject LifeTime_Stat_OBJ = Instantiate(unitStatList.LifeTimeOBJ, unitStatList.unitStats);
+        UI_UpgradeStat ui_LifeTIme = LifeTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+
+        if (ui_LifeTIme != null)
+        {
+            ui_LifeTIme.value.text = unitData.lifeTime.ToString();
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public static class Extension
 {
@@ -114,9 +115,40 @@ public static class Extension
         Color color = new Color(29f / 255f, 212f / 255f, 226f / 255f);                
         image.color = color;
     }
-    public static void ColorGreen(this Image image)
+
+    public static void ColorGreen<T>(this T uiElement)
     {
-        Color color = new Color(80f / 255f, 255f / 255f, 0f / 255f);        
-        image.color = color;
+        Color color = new Color(80f / 255f, 255f / 255f, 0f / 255f);
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
+    }
+
+    public static void ColorWhite<T>(this T uiElement)
+    {
+        Color color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
     }
 }

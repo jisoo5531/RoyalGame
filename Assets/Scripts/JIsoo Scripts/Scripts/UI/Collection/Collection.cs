@@ -22,7 +22,7 @@ public class Collection : MonoBehaviour
     public GameObject InfoButton;
     public GameObject upgradeButton;
 
-    private UnitData_SO unitData;
+    private UnitData unitData;
     private int myCurrentCardCount;
     private int myMaxCardCount;
     private int myUnitCost;
@@ -32,7 +32,7 @@ public class Collection : MonoBehaviour
         InfoButton.SetActive(true);
         upgradeButton.SetActive(false);
 
-        unitData = StartManager.m_Instance.m_unitDatas[mySequence];
+        unitData = GameManager.m_Instance.uniData[mySequence];        
         SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
     private void Update()
@@ -41,11 +41,11 @@ public class Collection : MonoBehaviour
         SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
 
-    public void SettingUI(UnitData_SO unitData, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
+    public void SettingUI(UnitData unitData, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
     {
-        myCurrentCardCount = unitData.unit_CurrentCardCount;
-        myMaxCardCount = unitData.unit_MaxCardCount;
-        myUnitCost = unitData.cost;
+        myCurrentCardCount = unitData.cardInfo.unit_CurrentCardCount;
+        myMaxCardCount = unitData.cardInfo.unit_MaxCardCount;
+        myUnitCost = unitData.unitInfo.unitStat.cost;
 
 
         cardCountFill.fillAmount = (float)myCurrentCardCount / (float)myMaxCardCount;
@@ -87,7 +87,7 @@ public class Collection : MonoBehaviour
     {
         Upgrade upgrade = FindObjectOfType<Upgrade>();
 
-        UnitData_SO unitData = StartManager.m_Instance.m_unitDatas[number];
+        UnitData unitData = GameManager.m_Instance.uniData[number];
 
         upgrade.SetInfo(unitData);
     }

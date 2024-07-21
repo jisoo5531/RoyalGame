@@ -86430,7 +86430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &407952666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -103422,6 +103422,60 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &514732540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 514732542}
+  - component: {fileID: 514732541}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &514732541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514732540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df1d2e493db70b04a9b501cc6d5f3e18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitData_SO:
+  - {fileID: 11400000, guid: 56ce79c0acca5844bae5e92f3df3e51d, type: 2}
+  - {fileID: 11400000, guid: 6745813281bf4f543803f7734095d082, type: 2}
+  - {fileID: 11400000, guid: 5e89f43f0a4e2184aa397245d6d69d23, type: 2}
+  - {fileID: 11400000, guid: fa857c0ad51f8d643b55f5973a8b31a0, type: 2}
+  - {fileID: 11400000, guid: 3b534a6229fee534eac0ff52b4cb4bb4, type: 2}
+  - {fileID: 11400000, guid: 888a018d7897bd44da56b21d5e7afde9, type: 2}
+  - {fileID: 11400000, guid: 1a6c81e7d6cc8594ca13250fc100ed6f, type: 2}
+  - {fileID: 11400000, guid: 8e4a3e93638bf6a4c9bf51c9b2ce739b, type: 2}
+  uniData: []
+--- !u!4 &514732542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514732540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 503.0317, y: 120.80603, z: 8.464628}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &515119879
 GameObject:
   m_ObjectHideFlags: 0
@@ -110327,7 +110381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &568362223
 RectTransform:
   m_ObjectHideFlags: 0
@@ -219666,7 +219720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1106481968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -220011,7 +220065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125789053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -220263,7 +220317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1139556015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -270757,7 +270811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1465964672
 RectTransform:
   m_ObjectHideFlags: 0
@@ -272192,7 +272246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1503650636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -289876,7 +289930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1595478920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -332083,15 +332137,6 @@ MonoBehaviour:
   - {fileID: 1445590368}
   - {fileID: 515119879}
   - {fileID: 1810892172}
-  unitDatas:
-  - {fileID: 11400000, guid: 56ce79c0acca5844bae5e92f3df3e51d, type: 2}
-  - {fileID: 11400000, guid: 6745813281bf4f543803f7734095d082, type: 2}
-  - {fileID: 11400000, guid: 5e89f43f0a4e2184aa397245d6d69d23, type: 2}
-  - {fileID: 11400000, guid: fa857c0ad51f8d643b55f5973a8b31a0, type: 2}
-  - {fileID: 11400000, guid: 3b534a6229fee534eac0ff52b4cb4bb4, type: 2}
-  - {fileID: 11400000, guid: 888a018d7897bd44da56b21d5e7afde9, type: 2}
-  - {fileID: 11400000, guid: 1a6c81e7d6cc8594ca13250fc100ed6f, type: 2}
-  - {fileID: 11400000, guid: 8e4a3e93638bf6a4c9bf51c9b2ce739b, type: 2}
   selectedUnits: []
   collectionsImage:
   - {fileID: 2071056532}

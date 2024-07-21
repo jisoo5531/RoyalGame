@@ -63,13 +63,13 @@ public class Upgrade : MonoBehaviour
     public UpgradeButton upgradeButton;
 
 
-    private UnitData_SO unitData;
+    private UnitData unitData;
 
     private bool availableUpgrade = false;
 
     
 
-    public void SetInfo(UnitData_SO unitData)
+    public void SetInfo(UnitData unitData)
     {
         this.unitData = unitData;
 
@@ -92,7 +92,7 @@ public class Upgrade : MonoBehaviour
 
     private void SetTitle()
     {
-        unitTitle.unitName.text = $"레벨 {unitData.unit_Level} {unitData.unitName}".ToString();
+        unitTitle.unitName.text = $"레벨 {unitData.cardInfo.unit_Level} {unitData.unitInfo.unitName}".ToString();
     }
 
     #endregion
@@ -102,7 +102,7 @@ public class Upgrade : MonoBehaviour
     private void SetUnitImage()
     {
         unitList.unitImage.sprite = unitData.iconSprite;
-        unitList.costText.text = unitData.cost.ToString();
+        unitList.costText.text = unitData.unitInfo.unitStat.cost.ToString();
     }
 
     #region CardCount
@@ -170,7 +170,7 @@ public class Upgrade : MonoBehaviour
             default:
                 break;
         }
-        switch (unitData.type)
+        switch (unitData.unitInfo.type)
         {
             case Type.Unit:
                 typeText = "유닛";
@@ -201,7 +201,7 @@ public class Upgrade : MonoBehaviour
 
     private void SetDescription()
     {
-        unitDesc.descText.text = unitData.unit_Desc;
+        unitDesc.descText.text = unitData.unitInfo.unit_Desc;
     }
 
     #endregion
@@ -226,7 +226,7 @@ public class Upgrade : MonoBehaviour
     }
     private void Set_HPObj()
     {
-        if (unitData.type == Type.Magic)
+        if (unitData.unitInfo.type == Type.Magic)
         {
             return;
         }
@@ -236,7 +236,7 @@ public class Upgrade : MonoBehaviour
 
         if (uiHp != null)
         {
-            uiHp.value.text = unitData.maxHp.ToString();
+            uiHp.value.text = unitData.unitInfo.unitStat.maxHp.ToString();
             uiHp.upgradeValue.text = $"+ {unitData.Get_Upgrade_HP()}";
 
             if (availableUpgrade)
@@ -256,7 +256,7 @@ public class Upgrade : MonoBehaviour
 
         if (uiDamage != null)
         {
-            uiDamage.value.text = unitData.damage.ToString();
+            uiDamage.value.text = unitData.unitInfo.unitStat.damage.ToString();
             uiDamage.upgradeValue.text = $"+ {unitData.Get_Upgrade_Damage()}";
 
             if (availableUpgrade)
@@ -271,7 +271,7 @@ public class Upgrade : MonoBehaviour
     }
     private void Set_AttackSppedObj()
     {
-        if (unitData.type == Type.Magic)
+        if (unitData.unitInfo.type == Type.Magic)
         {
             return;
         }
@@ -281,13 +281,13 @@ public class Upgrade : MonoBehaviour
 
         if (ui_AS != null)
         {
-            ui_AS.value.text = unitData.attackSpeed.ToString();
+            ui_AS.value.text = unitData.unitInfo.unitStat.attackSpeed.ToString();
         }
     }
     
     private void Set_MoveSppedObj()
     {
-        if (unitData.type == Type.Magic)
+        if (unitData.unitInfo.type == Type.Magic)
         {
             return;
         }
@@ -297,13 +297,13 @@ public class Upgrade : MonoBehaviour
 
         if (ui_MS != null)
         {
-            ui_MS.value.text = unitData.moveSpeed.ToString();
+            ui_MS.value.text = unitData.unitInfo.unitStat.moveSpeed.ToString();
         }
     }
     
     private void Set_TargetObj()
     {
-        if (unitData.type == Type.Magic)
+        if (unitData.unitInfo.type == Type.Magic)
         {
             return;
         }
@@ -319,7 +319,7 @@ public class Upgrade : MonoBehaviour
     
     private void Set_RangeObj()
     {
-        if (unitData.type == Type.Magic)
+        if (unitData.unitInfo.type == Type.Magic)
         {
             return;
         }
@@ -329,7 +329,7 @@ public class Upgrade : MonoBehaviour
 
         if (ui_Range != null)
         {
-            ui_Range.value.text = unitData.range.ToString();
+            ui_Range.value.text = unitData.unitInfo.unitRange.range.ToString();
         }
     }
     
@@ -340,12 +340,12 @@ public class Upgrade : MonoBehaviour
 
         if (ui_CreationTIme != null)
         {
-            ui_CreationTIme.value.text = unitData.spawnTime.ToString();
+            ui_CreationTIme.value.text = unitData.unitInfo.unitStat.spawnTime.ToString();
         }
     }
     private void Set_LifeTimeObj()
     {
-        if (unitData.type == Type.Unit || unitData.type == Type.Magic)
+        if (unitData.unitInfo.type == Type.Unit || unitData.unitInfo.type == Type.Magic)
         {
             return;
         }
@@ -354,7 +354,7 @@ public class Upgrade : MonoBehaviour
 
         if (ui_LifeTIme != null)
         {
-            ui_LifeTIme.value.text = unitData.lifeTime.ToString();
+            ui_LifeTIme.value.text = unitData.unitInfo.unitStat.lifeTime.ToString();
         }
     }
 

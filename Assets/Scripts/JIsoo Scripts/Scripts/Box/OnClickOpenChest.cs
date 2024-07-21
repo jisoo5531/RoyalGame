@@ -33,7 +33,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     public OBJ unitOBJ;
 
     private KeyValuePair<int, (Chest.Grade, int)>? reward;
-    private UnitData_SO uniData = null;
+    private UnitData uniData = null;
 
     private int clickCount = 0;
     public bool isOpenClick;    
@@ -94,9 +94,9 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
     private void Set_UI()
     {
-        foreach (UnitData_SO unit in StartManager.m_Instance.m_unitDatas)
+        foreach (UnitData unit in GameManager.m_Instance.uniData)
         {
-            if (unit.unit_ID == reward.Value.Key)
+            if (unit.cardInfo.unit_ID == reward.Value.Key)
             {
                 uniData = unit;
                 break;
@@ -137,7 +137,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     {
         unitOBJ.unitImage.sprite = uniData.iconSprite;
         unitOBJ.unitCardCount.text = $"X{reward.Value.Value.Item2}";
-        unitOBJ.unitName.text = uniData.unitName;
+        unitOBJ.unitName.text = uniData.unitInfo.unitName;
 
 
         GameObject addResultReward = Instantiate(giftCard, gainCards);
@@ -152,7 +152,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         displayOBJ.unitImage.sprite = unitOBJ.unitImage.sprite;
         displayOBJ.unitCount.text = unitOBJ.unitCardCount.text;
 
-        uniData.unit_CurrentCardCount += reward.Value.Value.Item2;
+        uniData.cardInfo.unit_CurrentCardCount += reward.Value.Value.Item2;
     }
 
     #endregion

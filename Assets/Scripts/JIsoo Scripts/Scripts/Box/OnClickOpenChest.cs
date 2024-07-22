@@ -85,9 +85,15 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (chest.totalRemainCard == 0 || clickCount >= chest.randomUnits.Count)
+        if(clickCount > chest.randomUnits.Count)
+        {
+            ClosePanel();
+            return;
+        }
+        else if (chest.totalRemainCard == 0 || clickCount == chest.randomUnits.Count)
         {
             DisplayAll();
+            clickCount++;
             return;
         }
 
@@ -178,7 +184,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            SettingCardInfoManager.instance.UpdateCard(characterInfo.Key.characterID, 11);
+            SettingCardInfoManager.instance.UpdateCard(characterInfo.Key.characterID, 11); // 11 ¼öÁ¤
         }
 
         GameObject addResultReward = Instantiate(giftCard, gainCards);

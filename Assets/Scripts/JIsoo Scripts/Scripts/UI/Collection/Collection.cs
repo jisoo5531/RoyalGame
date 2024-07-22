@@ -27,30 +27,33 @@ public class Collection : MonoBehaviour
     private int myMaxCardCount;
     private int myUnitCost;
 
+    private int cardId;
+
     private void Start()
     {
         InfoButton.SetActive(true);
         upgradeButton.SetActive(false);
 
-        unitData = StartManager.m_Instance.m_unitDatas[mySequence];
-        SettingUI(unitData, cardCountFill, cardCountText, costText);
+        //unitData = StartManager.m_Instance.m_unitDatas[mySequence];
+        //SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
     private void Update()
     {
-        CheckAvailableUpgrade(cardCountFill, upArrow, InfoButton, upgradeButton);
-        SettingUI(unitData, cardCountFill, cardCountText, costText);
+        //CheckAvailableUpgrade(cardCountFill, upArrow, InfoButton, upgradeButton);
+        //SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
 
-    public void SettingUI(UnitData_SO unitData, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
+    public void InitUI(int cardID, int currentCard, int maxCard, int cost, string grade, string name, int level)
     {
-        myCurrentCardCount = unitData.unit_CurrentCardCount;
-        myMaxCardCount = unitData.unit_MaxCardCount;
-        myUnitCost = unitData.cost;
+        this.cardId = cardID;
+        SettingUI(currentCard, maxCard, cost, cardCountFill, cardCountText, costText);
+    }
 
-
-        cardCountFill.fillAmount = (float)myCurrentCardCount / (float)myMaxCardCount;
-        cardCountText.text = $"{myCurrentCardCount} / {myMaxCardCount}".ToString();
-        costText.text = $"{myUnitCost}".ToString();
+    public void SettingUI(int currentCard, int maxCard, int cost, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
+    {
+        cardCountFill.fillAmount = currentCard / maxCard;
+        cardCountText.text = $"{currentCard} / {maxCard}";
+        costText.text = $"{cost}";
     }
     /// <summary>
     /// 카드가 다 모여 업그레이드가 가능하면

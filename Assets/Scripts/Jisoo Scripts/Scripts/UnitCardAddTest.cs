@@ -6,6 +6,6 @@ public class UnitCardAddTest : MonoBehaviour
 {
     public void UnidAddTest(int number)
     {
-        StartManager.m_Instance.m_unitDatas[number].unit_CurrentCardCount += 1;
+        //StartManager.m_Instance.m_unitDatas[number].unit_CurrentCardCount += 10;
     }
 }

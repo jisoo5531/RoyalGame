@@ -11,12 +11,12 @@ public class MoveCard : MonoBehaviour
 
     void Start()
     {
-        Invoke("CardActive", 0.7f);
+        //Invoke("CardActive", 0.7f);
     }
 
     public void CardActive()
-    {
+    {        
         GameObject.Find("Box").transform.Find("Card").gameObject.SetActive(true);
+        Card.GetComponent<OpenChestMoveCard>().MoveCard();
     }
-
 }

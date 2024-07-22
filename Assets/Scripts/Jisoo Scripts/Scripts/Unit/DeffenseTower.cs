@@ -18,7 +18,7 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
     {
         anim = GetComponent<Animator>();
 
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        //InitializeUnitData(UnitSpawner.instance.selectedUnit);
     }
     private void Start()
     {

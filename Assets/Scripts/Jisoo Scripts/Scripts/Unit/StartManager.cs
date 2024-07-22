@@ -14,17 +14,18 @@ public class StartManager : MonoBehaviour
     /// </summary>
     [HideInInspector] public GameObject[] m_displaySelectedUnit_UI { get { return displaySelectedUnit_UI; } }
     
-    [SerializeField] private UnitData_SO[] unitDatas;
+    //[SerializeField] private UnitData_SO[] unitDatas;
+    [SerializeField] private CharacterData[] unitDatas;
     /// <summary>
     /// 유닛 데이터
     /// </summary>
-    [HideInInspector] public UnitData_SO[] m_unitDatas { get { return unitDatas; } }
+    [HideInInspector] public CharacterData[] m_unitDatas { get { return unitDatas; } }
 
-    [SerializeField] private List<UnitData_SO> selectedUnits; 
+    [SerializeField] private List<CharacterData> selectedUnits; 
     /// <summary>
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
-    [HideInInspector] public List<UnitData_SO> m_selectedUnits { get { return selectedUnits; } }
+    [HideInInspector] public List<CharacterData> m_selectedUnits { get { return selectedUnits; } }
         
     public Image[] collectionsImage;
     
@@ -33,7 +34,7 @@ public class StartManager : MonoBehaviour
 
     private void Awake()
     {
-        InitializeCollectionImage();
+       // InitializeCollectionImage();
 
         if (instance == null)
         {
@@ -55,11 +56,12 @@ public class StartManager : MonoBehaviour
     /// <summary>
     /// 컬렉션 탭 SO에 맞춰 이미지 세팅
     /// </summary>
-    private void InitializeCollectionImage()
+    public void InitializeCollectionImage()
     {
+        print(SettingCardInfoManager.instance.charData.Count);
         for (int i = 0; i < collectionsImage.Length; i++)
         {
-            collectionsImage[i].sprite = unitDatas[i].iconSprite;
+            collectionsImage[i].sprite = SettingCardInfoManager.instance.charData[i].img;
             if (collectionsImage[i].sprite != null)
             {
                 collectionsImage[i].ImageTransparent(1f);
@@ -83,12 +85,13 @@ public class StartManager : MonoBehaviour
             }
         }
         Debug.Log(currentDisplayIndex);
-        selectedUnits[currentDisplayIndex] = unitDatas[index];        
+        selectedUnits[currentDisplayIndex] = SettingCardInfoManager.instance.charData[index];
+        
                 
         Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
         unitImage.ImageTransparent(1f);
 
-        unitImage.sprite = unitDatas[index].iconSprite;        
+        unitImage.sprite = SettingCardInfoManager.instance.charData[index].img;        
     }    
     /// <summary>
     /// Collection 탭 유닛 제거

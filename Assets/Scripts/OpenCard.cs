@@ -9,7 +9,7 @@ public class OpenCard : MonoBehaviour
 
     void Start()
     {
-        Invoke("Chanege", 1.2f);
+        //Invoke("Chanege", 1.2f);
     }
 
     public void Chanege()

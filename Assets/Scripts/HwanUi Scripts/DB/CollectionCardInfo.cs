@@ -65,7 +65,7 @@ public class CollectionCardInfo : MonoBehaviour
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} " +
                 $"ORDER BY CARD.cost ASC";
 
-
+            Debug.Log("로그2");
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(selectAllCardInfo, conn))
@@ -74,8 +74,10 @@ public class CollectionCardInfo : MonoBehaviour
                     {
                         while (reader.Read())
                         {
+                            Debug.Log("로그");
                             if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                             {
+                                Debug.Log("로그1");
                                 int id = reader.GetInt32(0);
                                 CharacterData characterData = new CharacterData
                                 {

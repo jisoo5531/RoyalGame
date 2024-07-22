@@ -87,6 +87,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log(chest.totalRemainCard);
         if(clickCount > chest.randomUnits.Count)
         {
             ClosePanel();

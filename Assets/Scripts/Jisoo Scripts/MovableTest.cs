@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class MovableUnit : Unit
+public class MovableTest : Unit
 {
     public float moveSpeed;
     TargetFollowUnit targetFollowUnit;
     public bool isMove = false;
+    public UnitData_SO unitData;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
 
-       // InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        // InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
-        
+        InitializeUnitData(unitData);
     }
     private void Start()
     {

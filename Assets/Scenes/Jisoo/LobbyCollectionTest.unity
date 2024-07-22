@@ -23265,7 +23265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &139938203
 Transform:
   m_ObjectHideFlags: 0
@@ -168702,30 +168702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed7266b42e62384d9dfcf4078df5f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitTitle:
-    unitName: {fileID: 1784488781}
-  unitList:
-    unitImage: {fileID: 2106558437}
-    cardCountFill: {fileID: 1341861740}
-    costText: {fileID: 2006394381}
-    cardCountText: {fileID: 401855428}
-    upArrow: {fileID: 286668086}
-  unitGnT:
-    gradeAndTypeBackground: {fileID: 1781391935}
-    gradeText: {fileID: 499548360}
-    typeText: {fileID: 1717113151}
-  unitDesc:
-    descText: {fileID: 1779579464}
-  unitStatList:
-    unitStats: {fileID: 1891316627}
-    hpOBJ: {fileID: 5124486762521352135, guid: 2cfb84bd3ddaf394bb8d16590714ed48, type: 3}
-    damageOBJ: {fileID: 38715658223873423, guid: 40031f6e330721a4b83472ddcdfab7b0, type: 3}
-    attackSpeedOBJ: {fileID: 7604337958224863527, guid: 53aefdb84e6d2424fb1b1f507263caaf, type: 3}
-    moveSpeedOBJ: {fileID: 6706743421965321636, guid: de4825c5259238a41bf40696e9618146, type: 3}
-    targetOBJ: {fileID: 989547861621353541, guid: 97e45ac6d5c7444409bf5da8d06a1107, type: 3}
-    rangeOBJ: {fileID: 6782336867507783406, guid: 9ad982e7434127a40b6758250a50f737, type: 3}
-    creationTimeOBJ: {fileID: 7071821042335074181, guid: aa63a0c133fbb7443a1b9dabbd1a75fc, type: 3}
-    LifeTimeOBJ: {fileID: 1310601816643109830, guid: 95c50ec87f73b4e42ad1bda49beb9c38, type: 3}
 --- !u!1 &812858388
 GameObject:
   m_ObjectHideFlags: 0
@@ -253373,14 +253349,21 @@ MonoBehaviour:
   gainCards: {fileID: 720618712}
   giftCard: {fileID: 5740226664562040509, guid: 626b30b4b11676c4eac167cf22b164ee, type: 3}
   card_Open: {fileID: 753926199}
+  MJ_MoveCard: {fileID: 0}
+  MJ_ShakeBox: {fileID: 0}
+  unitInfos: []
   unitOBJ:
     unitBackground: {fileID: 945037775}
     unitImage: {fileID: 128586123}
     unitName: {fileID: 220719208}
     unitGrade: {fileID: 1658655557}
+    unitLevel: {fileID: 0}
     unitCardCount: {fileID: 42388168}
     remainCardCount: {fileID: 479317606}
+    unitCurrentCardCount: {fileID: 0}
+  clickCount: 0
   isOpenClick: 0
+  chestCondition: {fileID: 0}
 --- !u!114 &1328427354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253393,7 +253376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8a6b5220b826648b459fe44d35a93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalRemainCard: 0
 --- !u!1 &1341861738
 GameObject:
   m_ObjectHideFlags: 0
@@ -269138,7 +269120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8a6b5220b826648b459fe44d35a93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalRemainCard: 0
 --- !u!4 &1403947151
 Transform:
   m_ObjectHideFlags: 0
@@ -331831,14 +331812,78 @@ MonoBehaviour:
   - {fileID: 515119879}
   - {fileID: 1810892172}
   unitDatas:
-  - {fileID: 11400000, guid: 56ce79c0acca5844bae5e92f3df3e51d, type: 2}
-  - {fileID: 11400000, guid: 6745813281bf4f543803f7734095d082, type: 2}
-  - {fileID: 11400000, guid: 5e89f43f0a4e2184aa397245d6d69d23, type: 2}
-  - {fileID: 11400000, guid: fa857c0ad51f8d643b55f5973a8b31a0, type: 2}
-  - {fileID: 11400000, guid: 3b534a6229fee534eac0ff52b4cb4bb4, type: 2}
-  - {fileID: 11400000, guid: 888a018d7897bd44da56b21d5e7afde9, type: 2}
-  - {fileID: 11400000, guid: 1a6c81e7d6cc8594ca13250fc100ed6f, type: 2}
-  - {fileID: 11400000, guid: 8e4a3e93638bf6a4c9bf51c9b2ce739b, type: 2}
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 2
   selectedUnits: []
   collectionsImage:
   - {fileID: 2071056532}
@@ -331849,6 +331894,7 @@ MonoBehaviour:
   - {fileID: 1706199323}
   - {fileID: 1983575899}
   - {fileID: 1409505219}
+  battleCardList: 
 --- !u!4 &1731596381
 Transform:
   m_ObjectHideFlags: 0

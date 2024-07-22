@@ -1,39 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class ImagePrefab
+{
+    public Sprite levelBackground;
+    public Sprite hpBarFill;
+}
 
 public class RoyalEnemyTest : MonoBehaviour, IDamagable
-{    
+{
+    public ImagePrefab imagePrefab;
+
     public int HP { get; set; }
     public int maxHP { get; set; }
     public GameObject blastEffect;
 
+
     public Canvas unitCanvas;
-    private bool isCanvasOn;
+    public GameObject hpBarOBJ;
+    public Image leverBackground;
+    public Image hpBarFill;
+
+    private bool isHPBarOn;    
 
     private void Awake()
     {
-        maxHP = 10000;
+        maxHP = 100;
         HP = maxHP;
 
-        //unitCanvas = GetComponentInChildren<Canvas>();
+        leverBackground.sprite = imagePrefab.levelBackground;
+        hpBarFill.sprite = imagePrefab.hpBarFill;        
     }
     private void Update()
-    {
-        float yRot = -transform.rotation.y;
-
-        unitCanvas.transform.rotation = Quaternion.Euler(new Vector3(0, yRot, 0));
+    {                
+        unitCanvas.transform.rotation = Quaternion.Euler(0, -transform.rotation.y + 180, 0);
+        
+        hpBarFill.fillAmount = (float)HP / (float)maxHP;
     }
 
     public void GetDamage(int damage)
     {
-        if (isCanvasOn)
+        if (isHPBarOn)
         {
             return;
         }
         else
         {
-            OnCanvas();
+            OnHPBar();
         }
 
         HP -= damage;
@@ -45,8 +61,8 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
         }
     }
 
-    private void OnCanvas()
+    private void OnHPBar()
     {
-        unitCanvas.gameObject.SetActive(true);
+        hpBarOBJ.SetActive(true);        
     }
 }

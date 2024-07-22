@@ -15,7 +15,7 @@ public class UI_Manager : MonoBehaviour
     private List<CharacterData> shuffledUnit;
     [HideInInspector] public List<CharacterData> m_shuffledUnit { get { return shuffledUnit; } }
 
-    private List<AllCardData> UnitDatas = new List<AllCardData>();
+    public List<AllCardData> UnitDatas = new List<AllCardData>();
 
     private List<CharacterData> UI_availableUnit = new List<CharacterData>();
     /// <summary>

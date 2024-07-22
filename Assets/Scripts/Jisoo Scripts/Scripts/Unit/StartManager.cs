@@ -1,3 +1,5 @@
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +16,6 @@ public class StartManager : MonoBehaviour
     /// </summary>
     [HideInInspector] public GameObject[] m_displaySelectedUnit_UI { get { return displaySelectedUnit_UI; } }
     
-    //[SerializeField] private UnitData_SO[] unitDatas;
     [SerializeField] private CharacterData[] unitDatas;
     /// <summary>
     /// 유닛 데이터
@@ -28,6 +29,7 @@ public class StartManager : MonoBehaviour
     [HideInInspector] public List<CharacterData> m_selectedUnits { get { return selectedUnits; } }
         
     public Image[] collectionsImage;
+    public List<int> battleCardList = new List<int>();
     
     
     private int currentDisplayIndex = 0;
@@ -83,10 +85,9 @@ public class StartManager : MonoBehaviour
                 break;
             }
         }
-        Debug.Log(currentDisplayIndex);
+
         selectedUnits[currentDisplayIndex] = SettingCardInfoManager.instance.charData[index];
-        
-                
+        battleCardList.Add(SettingCardInfoManager.instance.charData[index].cardId);
         Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
         unitImage.ImageTransparent(1f);
 
@@ -100,18 +101,38 @@ public class StartManager : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            if (selectedUnits[i] != null && (selectedUnits[i].name == unitDatas[index].name))
+            if (selectedUnits[i] != null && selectedUnits[i].name.Equals(SettingCardInfoManager.instance.charData[index].name))
             {
                 selectedUnits[i] = null;
                 currentDisplayIndex = i;
+                battleCardList.Remove(SettingCardInfoManager.instance.charData[index].cardId);
                 break;
-            }
-        }        
-        
-        Debug.Log($"배열 개수 : {selectedUnits.Count}");
+            }   
+        }           
 
         Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
         unitImage.sprite = null;
         unitImage.ImageTransparent(0f);
     }    
+
+    public void UpdateUserCard(string battleCard)
+    {
+        string updateUserBattleCard = string.Empty;
+        try
+        {
+            updateUserBattleCard = $"UPDATE USER SET currentBattleCard = {battleCard} WHERE userID = {DatabaseManager.Instance.userId}";
+
+            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand(updateUserBattleCard, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            print(ex.Message);
+        }
+    }
 }

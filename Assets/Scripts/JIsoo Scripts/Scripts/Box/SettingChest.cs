@@ -34,16 +34,6 @@ public class SettingChest : MonoBehaviour
         Prince = 7
     }
 
-
-
-
-    //public Image characterImg;
-    //public TMP_Text characterName;
-    //public TMP_Text characterGrade;
-    //public TMP_Text characterLevel;
-    //public TMP_Text characterCurrentCardCount;
-    //public TMP_Text characterMaxCardCount;
-
     /// <summary>
     /// 상자에서 얻은 보상을 담은 딕셔너리.<br/>
     /// <b>Key:</b> 카드 ID - 각 유닛 타입을 나타내는 값.<br/>
@@ -62,11 +52,6 @@ public class SettingChest : MonoBehaviour
     List<int> rareCards;
     List<int> epicCards;
 
-    //private void Awake()
-    //{
-    //    OpenEpicChest();
-    //    PrintRewards();
-    //}
 
     private void Awake()
     {
@@ -157,7 +142,6 @@ public class SettingChest : MonoBehaviour
     private void NormalCard(int amount)
     {
         int randomIndex = Random.Range(0, normalCards.Count);
-        //AddReward(normalCards[randomIndex], Grade.Normal);
 
         AddRandomUnitList(normalCards[randomIndex], amount);
         normalCards.RemoveAt(randomIndex);
@@ -166,7 +150,6 @@ public class SettingChest : MonoBehaviour
     private void RareCard(int amount)
     {
         int randomIndex = Random.Range(0, rareCards.Count);
-        //AddReward(rareCards[randomIndex], Grade.Rare);
         AddRandomUnitList(rareCards[randomIndex], amount);
         rareCards.RemoveAt(randomIndex);
     }
@@ -174,22 +157,10 @@ public class SettingChest : MonoBehaviour
     private void EpicCard(int amount)
     {
         int randomIndex = Random.Range(0, epicCards.Count);
-        //AddReward(epicCards[randomIndex], Grade.Epic);
         AddRandomUnitList(epicCards[randomIndex], amount);
         epicCards.RemoveAt(randomIndex);
     }
 
-    //private void AddReward(int cardID, Grade grade)
-    //{
-    //    if (reward.ContainsKey(cardID))
-    //    {
-    //        reward[cardID] = (grade, reward[cardID].Item2 + 1);
-    //    }
-    //    else
-    //    {
-    //        reward[cardID] = (grade, 1);
-    //    }
-    //}
 
     private void AddRandomUnitList(int cardID, int amount)
     {
@@ -216,30 +187,4 @@ public class SettingChest : MonoBehaviour
         return rewardItem;
     }
 
-    public KeyValuePair<int, (Grade, int)>? OnClickOpenCard(int index)
-    {
-        // reward 딕셔너리를 리스트로 변환
-        List<KeyValuePair<int, (Grade, int)>> rewardList = reward.ToList();
-        Debug.Log(rewardList.Count);
-
-        if (index >= 0 && index < rewardList.Count)
-        {
-            var rewardItem = rewardList[index];
-            Debug.Log($"Grade: {rewardItem.Value.Item1}, Card ID: {rewardItem.Key}, Count: {rewardItem.Value.Item2}");
-            totalRemainCard -= 1;
-            return rewardItem;
-        }
-        else
-        {
-            Debug.Log("Invalid index.");
-            return null;
-        }
-    }
-    private void PrintRewards()
-    {
-        foreach (var item in reward)
-        {
-            Debug.Log($"Grade: {item.Value.Item1}, Card ID: {item.Key}, Count: {item.Value.Item2}");
-        }
-    }
 }

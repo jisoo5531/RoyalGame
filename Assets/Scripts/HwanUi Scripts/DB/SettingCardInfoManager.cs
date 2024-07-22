@@ -75,8 +75,7 @@ public class SettingCardInfoManager : MonoBehaviour
                 {
                     cmd.Parameters.AddWithValue("@amount", upAmount);
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    Console.WriteLine($"{rowsAffected} row(s) updated.");
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

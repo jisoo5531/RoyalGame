@@ -58,7 +58,6 @@ public class StartManager : MonoBehaviour
     /// </summary>
     public void InitializeCollectionImage()
     {
-        print(SettingCardInfoManager.instance.charData.Count);
         for (int i = 0; i < collectionsImage.Length; i++)
         {
             collectionsImage[i].sprite = SettingCardInfoManager.instance.charData[i].img;

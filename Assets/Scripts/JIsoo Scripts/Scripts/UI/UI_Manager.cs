@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using MySql.Data.MySqlClient;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UI_Manager : MonoBehaviour
     private List<CharacterData> shuffledUnit;
     [HideInInspector] public List<CharacterData> m_shuffledUnit { get { return shuffledUnit; } }
 
+    private List<AllCardData> UnitDatas = new List<AllCardData>();
 
     private List<CharacterData> UI_availableUnit = new List<CharacterData>();
     /// <summary>
@@ -73,6 +75,7 @@ public class UI_Manager : MonoBehaviour
 
         StartCoroutine(CheckSpawnUnit());
     }
+
 
     private void InitialUnitSet()
     {

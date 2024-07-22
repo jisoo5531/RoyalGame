@@ -59,7 +59,7 @@ public class CollectionCardInfo : MonoBehaviour
                 $"WHEN MAGIC.level IS NOT NULL THEN MAGIC.level END AS level FROM CARD " +
                 $"LEFT JOIN UNIT ON CARD.cardID = UNIT.cardID AND UNIT.userID = {DatabaseManager.Instance.userId} " +
                 $"LEFT JOIN MAGIC ON CARD.cardID = MAGIC.cardID AND MAGIC.userID = {DatabaseManager.Instance.userId} " +
-                $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardIDMAGIC AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} " +
+                $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} " +
                 $"ORDER BY CARD.cost ASC";
 
 
@@ -69,10 +69,9 @@ public class CollectionCardInfo : MonoBehaviour
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        print("jjjj");
                         while (reader.Read())
                         {
-                            print("iiii");
+                            print("gggggg");
                             int id = reader.GetInt32(0);
                             CharacterData characterData = new CharacterData
                             {
@@ -86,15 +85,7 @@ public class CollectionCardInfo : MonoBehaviour
                                 level = reader.GetInt32(7),
                                 img = CardInfoManager.instance.characterImgs[id - 1],
                             };
-                            //int cardId = reader.GetInt32(1);
-                            //int cost = reader.GetInt32(2);
-                            //string name = reader.GetString(3);
-                            //string grade = reader.GetString(4);
-                            //int currentCardCount = reader.GetInt32(5);
-                            //int maxCardCount = reader.GetInt32(6);
-                            //int level = reader.GetInt32(7);
-                            print("asdf");
-                            SettingCardInfoManager.instance.charData.Add(characterData);
+;                            SettingCardInfoManager.instance.charData.Add(characterData);
                             SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
                             index++;
                         }
@@ -134,10 +125,8 @@ public class CollectionCardInfo : MonoBehaviour
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        print("qqqq");
                         while (reader.Read())
                         {
-                            print("tttt");
                             if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                             {
                                 int id = reader.GetInt32(0);
@@ -153,14 +142,6 @@ public class CollectionCardInfo : MonoBehaviour
                                     level = reader.GetInt32(7),
                                     img = CardInfoManager.instance.characterImgs[id - 1],
                                 };
-                                print("zzzzz");
-                                //int cardId = reader.GetInt32(1);
-                                //int cost = reader.GetInt32(2);
-                                //string name = reader.GetString(3);
-                                //string grade = reader.GetString(4);
-                                //int currentCardCount = reader.GetInt32(5);
-                                //int maxCardCount = reader.GetInt32(6);
-                                //int level = reader.GetInt32(7);
                                 SettingCardInfoManager.instance.charData.Add(characterData);
                                 SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
                                 index++;

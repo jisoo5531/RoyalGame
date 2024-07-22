@@ -91,15 +91,6 @@ public class DatabaseManager : MonoBehaviour
 
     public MySqlConnection DBConnection()
     {
-        //if (connection != null && connection.State == System.Data.ConnectionState.Open)
-        //{
-        //    return new MySqlCommand(query, connection);
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("Connection is not open");
-        //    return null;
-        //}
         MySqlConnection connection = new MySqlConnection(connStr);
         connection.Open();
         return connection;

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Chest : MonoBehaviour
+public class JS_Chest : MonoBehaviour
 {
     public enum Grade
     {

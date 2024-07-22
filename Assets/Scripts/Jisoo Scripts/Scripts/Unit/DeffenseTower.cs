@@ -25,11 +25,11 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
         InitStateMachine();
     }
 
-    protected override void InitializeUnitData(UnitData_SO unit)
+    protected override void InitializeUnitData(UnitData unit)
     {
         base.InitializeUnitData(unit);
 
-        lifeTime = unit.lifeTime;
+        lifeTime = unit.unitInfo.unitStat.lifeTime;
     }
 
     protected override void InitStateMachine()

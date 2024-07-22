@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using System;
 
 [System.Serializable]
 public class OBJ
@@ -13,30 +12,8 @@ public class OBJ
     public Image unitImage;
     public TextMeshProUGUI unitName;
     public TextMeshProUGUI unitGrade;
-    public TMP_Text unitLevel;
     public TextMeshProUGUI unitCardCount;
     public TextMeshProUGUI remainCardCount;
-    public TMP_Text unitCurrentCardCount;
-}
-
-[Serializable]
-public class UnitInfo
-{
-    public int damage;
-    public int hp;
-    public float attackSpeed;
-    public int moveSpeed;
-}
-
-public class CharacterInfo
-{
-    public int characterID { get; set; }
-    public Sprite characterSprite { get; set; }
-    public string CharacterName { get; set; }
-    public string CharacterGrade { get; set; }
-    public int CharacterLevel { get; set; }
-    public int CharacterCurrentCardCount { get; set; }
-    public int CharacterMaxCardCount { get; set; }
 }
 
 public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
@@ -46,28 +23,24 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     public GameObject giftCard;
     public GameObject card_Open;
 
-    public MJ_MoveCard MJ_MoveCard;
+
+    private MJ_MoveCard MJ_MoveCard;
     private MJ_OpenCard MJ_OpenCard;
-    public MJ_ShakeBox MJ_ShakeBox;
+    private MJ_ShakeBox MJ_ShakeBox;
 
-    private Chest chest;
-
-    public UnitInfo[] unitInfos;
+    private JS_Chest chest;
 
     public OBJ unitOBJ;
 
-    private KeyValuePair<int, (Chest.Grade, int)>? reward;
-    public KeyValuePair<CharacterInfo, int> characterInfo;
+    private KeyValuePair<int, (JS_Chest.Grade, int)>? reward;
+    private UnitData uniData = null;
 
-    private UnitData_SO uniData = null;
-
-    public int clickCount = 0;
-    public bool isOpenClick;
-
+    private int clickCount = 0;
+    public bool isOpenClick;    
 
     private void Awake()
     {
-        chest = GetComponent<Chest>();
+        chest = GetComponent<JS_Chest>();
 
         MJ_MoveCard = GetComponentInChildren<MJ_MoveCard>();
         MJ_OpenCard = GetComponentInChildren<MJ_OpenCard>();
@@ -78,41 +51,38 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
             MJ_OpenCard.openChest = this;
         }
         // TODO : 테스트용 노말 상자
-        //chest.OpenEpicChest();
+        chest.OpenEpicChest();
 
-        //isOpenClick = true;
+        isOpenClick = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(clickCount > chest.randomUnits.Count)
-        {
-            ClosePanel();
-            return;
-        }
-        else if (chest.totalRemainCard == 0 || clickCount == chest.randomUnits.Count)
+        if (chest.totalRemainCard == 0)
         {
             DisplayAll();
-            clickCount++;
             return;
         }
 
-        if (MJ_ShakeBox != null)
-        {
-            MJ_ShakeBox.DOAction();
-        }
-        if (MJ_MoveCard != null)
-        {
-            MJ_MoveCard.CardActive();
-        }
+        if (isOpenClick)
+        {            
+            if (MJ_ShakeBox != null)
+            {
+                MJ_ShakeBox.DOAction();
+            }
+            if (MJ_MoveCard != null)
+            {
+                MJ_MoveCard.CardActive();
+            }
 
-        if (chest != null)
-        {
-            characterInfo = chest.GetCharInfo(clickCount);
-            clickCount++;
-            Set_UI();
-        }
+            if (chest != null)
+            {
+                reward = chest.OnClickOpenCard(clickCount);
+                clickCount++;
 
+                Set_UI();
+            }
+        }        
         if (MJ_OpenCard != null)
         {
             Debug.Log("클릭");
@@ -122,29 +92,38 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
     #region UI Set
 
-    public void Set_UI()
+    private void Set_UI()
     {
+        foreach (UnitData unit in GameManager.m_Instance.uniData)
+        {
+            if (unit.cardInfo.unit_ID == reward.Value.Key)
+            {
+                uniData = unit;
+                break;
+            }
+        }
+
         unitOBJ.remainCardCount.text = chest.totalRemainCard.ToString();
 
         Set_Grade();
-        Set_UnitInfo(characterInfo.Value);
+        Set_UnitInfo();
     }
     private void Set_Grade()
     {
         string grade = null;
-        switch (characterInfo.Key.CharacterGrade)
+        switch (uniData.unitInfo.grade)
         {
-            case "일반":
+            case Grade.Normal:
                 unitOBJ.unitBackground.ColorNormal();
                 unitOBJ.unitGrade.ColorBlue();
                 grade = "일반 카드";
                 break;
-            case "희귀":
+            case Grade.Rare:
                 unitOBJ.unitBackground.ColorRare();
                 unitOBJ.unitGrade.ColorRare();
                 grade = "희귀 카드";
                 break;
-            case "영웅":
+            case Grade.Epic:
                 unitOBJ.unitBackground.ColorEpic();
                 unitOBJ.unitGrade.ColorEpic();
                 grade = "영웅 카드";
@@ -154,38 +133,12 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         }
         unitOBJ.unitGrade.text = grade;
     }
-    private void Set_UnitInfo(int amount)
+    private void Set_UnitInfo()
     {
-        unitOBJ.unitImage.sprite = characterInfo.Key.characterSprite;
-        unitOBJ.unitCardCount.text = $"X {amount}";
-        unitOBJ.unitName.text = characterInfo.Key.CharacterName;
-        if (characterInfo.Key.CharacterLevel == 0)
-        {
-            unitOBJ.unitLevel.text = "1레벨";
-        }
-        else
-        {
-            unitOBJ.unitLevel.text = $"{characterInfo.Key.CharacterLevel}레벨";
-        }
-        if (characterInfo.Key.CharacterCurrentCardCount == 0 && characterInfo.Key.CharacterMaxCardCount == 0)
-        {
-            unitOBJ.unitCurrentCardCount.text = "1/2";
-        }
-        else
-        {
-            unitOBJ.unitCurrentCardCount.text = $"{characterInfo.Key.CharacterCurrentCardCount}/{characterInfo.Key.CharacterMaxCardCount}";
-        }
+        unitOBJ.unitImage.sprite = uniData.iconSprite;
+        unitOBJ.unitCardCount.text = $"X{reward.Value.Value.Item2}";
+        unitOBJ.unitName.text = uniData.unitInfo.unitName;
 
-        if (SettingCardInfoManager.instance.IsNewbie())
-        {
-            SettingCardInfoManager.instance.InsertNewCard(characterInfo.Key.characterID,
-                unitInfos[characterInfo.Key.characterID].damage, unitInfos[characterInfo.Key.characterID].hp,
-                unitInfos[characterInfo.Key.characterID].attackSpeed, unitInfos[characterInfo.Key.characterID].moveSpeed);
-        }
-        else
-        {
-            SettingCardInfoManager.instance.UpdateCard(characterInfo.Key.characterID, 11); // 11 수정
-        }
 
         GameObject addResultReward = Instantiate(giftCard, gainCards);
         OpenBoxUnitDisplay displayOBJ = addResultReward.GetComponent<OpenBoxUnitDisplay>();
@@ -199,7 +152,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         displayOBJ.unitImage.sprite = unitOBJ.unitImage.sprite;
         displayOBJ.unitCount.text = unitOBJ.unitCardCount.text;
 
-        //uniData.unit_CurrentCardCount += reward.Value.Value.Item2;
+        uniData.cardInfo.unit_CurrentCardCount += reward.Value.Value.Item2;
     }
 
     #endregion
@@ -207,12 +160,12 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     private void DisplayAll()
     {
         card_Open.SetActive(false);
-        displayAll.SetActive(true);
+        displayAll.SetActive(true);        
     }
     public void ClosePanel()
     {
         displayAll.SetActive(false);
 
-        transform.parent.gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);        
     }
 }

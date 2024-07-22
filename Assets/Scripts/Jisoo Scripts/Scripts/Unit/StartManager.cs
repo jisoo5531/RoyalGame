@@ -14,17 +14,12 @@ public class StartManager : MonoBehaviour
     /// </summary>
     [HideInInspector] public GameObject[] m_displaySelectedUnit_UI { get { return displaySelectedUnit_UI; } }
     
-    [SerializeField] private UnitData_SO[] unitDatas;
-    /// <summary>
-    /// 유닛 데이터
-    /// </summary>
-    [HideInInspector] public UnitData_SO[] m_unitDatas { get { return unitDatas; } }
 
-    [SerializeField] private List<UnitData_SO> selectedUnits; 
+    [SerializeField] private List<UnitData> selectedUnits; 
     /// <summary>
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
-    [HideInInspector] public List<UnitData_SO> m_selectedUnits { get { return selectedUnits; } }
+    [HideInInspector] public List<UnitData> m_selectedUnits { get { return selectedUnits; } }
         
     public Image[] collectionsImage;
     
@@ -50,16 +45,17 @@ public class StartManager : MonoBehaviour
             selectedUnits.Add(null);
         }
         
+        
     }
 
     /// <summary>
-    /// 컬렉션 탭 SO에 맞춰 이미지 세팅
+    /// 컬렉션 탭 유닛 데이터에 맞춰 이미지 세팅
     /// </summary>
     private void InitializeCollectionImage()
-    {
+    {        
         for (int i = 0; i < collectionsImage.Length; i++)
         {
-            collectionsImage[i].sprite = unitDatas[i].iconSprite;
+            collectionsImage[i].sprite = GameManager.m_Instance.uniData[i].iconSprite;
             if (collectionsImage[i].sprite != null)
             {
                 collectionsImage[i].ImageTransparent(1f);
@@ -83,12 +79,12 @@ public class StartManager : MonoBehaviour
             }
         }
         Debug.Log(currentDisplayIndex);
-        selectedUnits[currentDisplayIndex] = unitDatas[index];        
+        selectedUnits[currentDisplayIndex] = GameManager.m_Instance.uniData[index];        
                 
         Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
         unitImage.ImageTransparent(1f);
 
-        unitImage.sprite = unitDatas[index].iconSprite;        
+        unitImage.sprite = GameManager.m_Instance.uniData[index].iconSprite;        
     }    
     /// <summary>
     /// Collection 탭 유닛 제거
@@ -98,7 +94,7 @@ public class StartManager : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            if (selectedUnits[i] != null && (selectedUnits[i].name == unitDatas[index].name))
+            if (selectedUnits[i] != null && (selectedUnits[i].unitInfo.unitName == GameManager.m_Instance.uniData[index].unitInfo.unitName))
             {
                 selectedUnits[i] = null;
                 currentDisplayIndex = i;

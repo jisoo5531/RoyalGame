@@ -6,7 +6,7 @@ public class UnitSpawner : MonoBehaviour
 {
     public static UnitSpawner instance { get; private set; }
 
-    public UnitData_SO selectedUnit;
+    public UnitData selectedUnit;
     public bool isElixirEnough = false;
     public bool spawnComplete = false;
 
@@ -55,7 +55,7 @@ public class UnitSpawner : MonoBehaviour
         Instantiate(selectedUnit.prefab, position, Quaternion.identity);
     }
 
-    public void SelectUnit(UnitData_SO unit)
+    public void SelectUnit(UnitData unit)
     {        
         selectedUnit = unit;
     }

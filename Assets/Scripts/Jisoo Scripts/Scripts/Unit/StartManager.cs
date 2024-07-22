@@ -41,8 +41,6 @@ public class StartManager : MonoBehaviour
 
     private void Awake()
     {
-       // InitializeCollectionImage();
-
         if (instance == null)
         {
             instance = this;
@@ -157,10 +155,6 @@ public class StartManager : MonoBehaviour
 
     }
 
-    public void SelectCost()
-    {
-
-    }
 
     public void UpdateUserCard(string battleCard)
     {

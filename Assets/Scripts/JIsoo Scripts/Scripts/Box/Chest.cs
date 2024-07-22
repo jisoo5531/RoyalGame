@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Chest : MonoBehaviour
+public class JS_Chest : MonoBehaviour
 {
     public enum Grade
     {

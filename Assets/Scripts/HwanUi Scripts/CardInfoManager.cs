@@ -32,28 +32,31 @@ public class CardInfoManager : MonoBehaviour
             allCharacters.Clear();
             string selectCardInfo = $"SELECT cardID, name, grade FROM CARD";
 
-            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
+            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, conn))
                 {
-                    while (reader.Read())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int characterID = reader.GetInt32(0) - 1; 
-                        if (characterID >= 0 && characterID < characterImgs.Length)
+                        while (reader.Read())
                         {
-                            CharacterInfo cardInfo = new CharacterInfo
+                            int characterID = reader.GetInt32(0) - 1;
+                            if (characterID >= 0 && characterID < characterImgs.Length)
                             {
-                                characterID = characterID,
-                                characterSprite = characterImgs[characterID],
-                                CharacterName = reader.GetString(1),
-                                CharacterGrade = reader.GetString(2),
-                            };
-                            allCharacters.Add(cardInfo);
+                                CharacterInfo cardInfo = new CharacterInfo
+                                {
+                                    characterID = characterID,
+                                    characterSprite = characterImgs[characterID],
+                                    CharacterName = reader.GetString(1),
+                                    CharacterGrade = reader.GetString(2),
+                                };
+                                allCharacters.Add(cardInfo);
+                            }
                         }
-                    }
-                    if(openChest != null)
-                    {
-                        openChest.OpenEpicChest();
+                        if (openChest != null)
+                        {
+                            openChest.OpenEpicChest();
+                        }
                     }
                 }
             }
@@ -82,23 +85,26 @@ public class CardInfoManager : MonoBehaviour
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID";
 
 
-            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectCardInfo))
+            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, conn))
                 {
-                    while (reader.Read())
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        CharacterInfo cardInfo = new CharacterInfo
+                        while (reader.Read())
                         {
-                            characterID = reader.GetInt32(0),
-                            characterSprite = characterImgs[reader.GetInt32(0)],
-                            CharacterName = reader.GetString(1),
-                            CharacterGrade = reader.GetString(2),
-                            CharacterCurrentCardCount = reader.GetInt32(3),
-                            CharacterMaxCardCount = reader.GetInt32(4),
-                            CharacterLevel = reader.GetInt32(5)
-                        };
-                        allCharacters.Add(cardInfo);
+                            CharacterInfo cardInfo = new CharacterInfo
+                            {
+                                characterID = reader.GetInt32(0),
+                                characterSprite = characterImgs[reader.GetInt32(0)],
+                                CharacterName = reader.GetString(1),
+                                CharacterGrade = reader.GetString(2),
+                                CharacterCurrentCardCount = reader.GetInt32(3),
+                                CharacterMaxCardCount = reader.GetInt32(4),
+                                CharacterLevel = reader.GetInt32(5)
+                            };
+                            allCharacters.Add(cardInfo);
+                        }
                     }
                 }
             }

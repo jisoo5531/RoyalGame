@@ -89,16 +89,19 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public MySqlCommand DBConnection(string query)
+    public MySqlConnection DBConnection()
     {
-        if (connection != null && connection.State == System.Data.ConnectionState.Open)
-        {
-            return new MySqlCommand(query, connection);
-        }
-        else
-        {
-            Debug.LogWarning("Connection is not open");
-            return null;
-        }
+        //if (connection != null && connection.State == System.Data.ConnectionState.Open)
+        //{
+        //    return new MySqlCommand(query, connection);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Connection is not open");
+        //    return null;
+        //}
+        MySqlConnection connection = new MySqlConnection(connStr);
+        connection.Open();
+        return connection;
     }
 }

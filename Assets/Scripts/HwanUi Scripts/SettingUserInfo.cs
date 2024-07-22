@@ -26,15 +26,17 @@ public class SettingUserInfo : MonoBehaviour
         {
             string selectUserInfo = $"SELECT * FROM USER WHERE userId = {userId}";
 
-            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectUserInfo))
+            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
-
-                if (cmd != null)
+                using (MySqlCommand cmd = new MySqlCommand(selectUserInfo, conn))
                 {
-                    userName.text = GetStringData(cmd, "userName");
-                    trophyAmount.text = GetStringData(cmd, "currentTrophy");
-                    goldAmount.text = GetStringData(cmd, "gold");
-                    jewelAmount.text = GetStringData(cmd, "jewel");
+                    if (cmd != null)
+                    {
+                        userName.text = GetStringData(cmd, "userName");
+                        trophyAmount.text = GetStringData(cmd, "currentTrophy");
+                        goldAmount.text = GetStringData(cmd, "gold");
+                        jewelAmount.text = GetStringData(cmd, "jewel");
+                    }
                 }
             }
         }

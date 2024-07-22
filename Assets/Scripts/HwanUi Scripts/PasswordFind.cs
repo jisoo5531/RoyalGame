@@ -57,15 +57,18 @@ public class PasswordFind : MonoBehaviour
         {
             string selectName = $"SELECT count(*), password FROM USER WHERE userName = '{nickname}'";
 
-            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectName))
+            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
-                cmd.CommandText = selectName;
-                if (cmd != null)
+                using (MySqlCommand cmd = new MySqlCommand(selectName, conn))
                 {
-                    userPassword = GetPassword(cmd);
-                    int rowCount = GetRowCount(cmd);
+                    cmd.CommandText = selectName;
+                    if (cmd != null)
+                    {
+                        userPassword = GetPassword(cmd);
+                        int rowCount = GetRowCount(cmd);
 
-                    return rowCount > 0;
+                        return rowCount > 0;
+                    }
                 }
             }
         }

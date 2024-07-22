@@ -56,6 +56,8 @@ public class Chest : MonoBehaviour
 
     public int totalRemainCard;
 
+    private OnClickOpenChest openChest;
+
     List<int> normalCards;
     List<int> rareCards;
     List<int> epicCards;
@@ -65,6 +67,11 @@ public class Chest : MonoBehaviour
     //    OpenEpicChest();
     //    PrintRewards();
     //}
+
+    private void Awake()
+    {
+        openChest = GetComponent<OnClickOpenChest>();
+    }
 
     public void OpenNormalChest()
     {
@@ -133,6 +140,18 @@ public class Chest : MonoBehaviour
             epicRemainCard--;
         }
         totalRemainCard = randomUnits.Count;
+        if (openChest.MJ_ShakeBox != null)
+        {
+            openChest.MJ_ShakeBox.DOAction();
+        }
+        if (openChest.MJ_MoveCard != null)
+        {
+            openChest.MJ_MoveCard.CardActive();
+        }
+
+        openChest.characterInfo = GetCharInfo(openChest.clickCount);
+        openChest.clickCount++;
+        openChest.Set_UI();
     }
 
     private void NormalCard(int amount)
@@ -192,6 +211,7 @@ public class Chest : MonoBehaviour
         if (index < infoList.Count)
         {
             rewardItem = infoList[index];
+            totalRemainCard -= 1;
         }
         return rewardItem;
     }

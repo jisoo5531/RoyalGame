@@ -69,15 +69,17 @@ public class SignIn : MonoBehaviour
         {
             string userInfoSelect = $"SELECT count(*), userID FROM USER WHERE userName = '{name}' AND password = '{password}'";
 
-            using (MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect))
+            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
-
-                if (cmd != null)
+                using (MySqlCommand cmd = new MySqlCommand(userInfoSelect, conn))
                 {
-                    int result = GetRowCount(cmd);
-                    DatabaseManager.Instance.userId = GetUserId(cmd);
+                    if (cmd != null)
+                    {
+                        int result = GetRowCount(cmd);
+                        DatabaseManager.Instance.userId = GetUserId(cmd);
 
-                    return result > 0;
+                        return result > 0;
+                    }
                 }
             }
         }

@@ -34734,7 +34734,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2009742394}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CardInfoManager, Assembly-CSharp
         m_MethodName: OpenFirstChestClick
         m_Mode: 1
@@ -76687,7 +76687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 615623236}
-  - component: {fileID: 615623235}
+  - component: {fileID: 615623237}
   m_Layer: 0
   m_Name: CollectionCardInfo
   m_TagString: Untagged
@@ -76695,18 +76695,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &615623235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615623234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82513d8805b55264cb40f152d843c891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &615623236
 Transform:
   m_ObjectHideFlags: 0
@@ -76722,6 +76710,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &615623237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615623234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d861868206a56348aadfad3621667be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btnName: {fileID: 753757034}
 --- !u!1 &620314292
 GameObject:
   m_ObjectHideFlags: 0
@@ -117146,7 +117147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917885134}
-  - component: {fileID: 917885133}
+  - component: {fileID: 917885135}
   m_Layer: 0
   m_Name: SettingCardInfoManager
   m_TagString: Untagged
@@ -117154,18 +117155,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &917885133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917885132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92c98a55c82a5ed4f963693cbaaded25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &917885134
 Transform:
   m_ObjectHideFlags: 0
@@ -117181,6 +117170,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917885135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917885132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e88fd36b48cb045a9c0bc2e43cda31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charData: []
+  slots:
+  - {fileID: 2103538407}
+  - {fileID: 1354351532}
+  - {fileID: 455734769}
+  - {fileID: 900810214}
+  - {fileID: 2112843835}
+  - {fileID: 1070454957}
+  - {fileID: 282894680}
+  - {fileID: 1757639818}
 --- !u!1 &922608920
 GameObject:
   m_ObjectHideFlags: 0
@@ -186582,6 +186593,7 @@ MonoBehaviour:
   - {fileID: 259057785}
   - {fileID: 1860444485}
   - {fileID: 2079509770}
+  battleCardList: 
 --- !u!4 &1387830952
 Transform:
   m_ObjectHideFlags: 0
@@ -202449,7 +202461,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 615623235}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CollectionCardInfo, Assembly-CSharp
         m_MethodName: OrderByClick
         m_Mode: 1
@@ -229410,12 +229422,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8800be73315684b8af2b77c8b58c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectionCardInfo: {fileID: 615623235}
-  yellowButton: {fileID: 0}
-  grayButton: {fileID: 0}
-  firstBoxSprite: {fileID: 0}
-  box_Button: {fileID: 0}
-  boxImage: {fileID: 0}
+  collectionCardInfo: {fileID: 615623237}
+  yellowButton: {fileID: 21300000, guid: 4e5364ca807785b4eb6ac67394e8f477, type: 3}
+  grayButton: {fileID: 21300000, guid: 213cb8c56046db944a9bae98b4504847, type: 3}
+  firstBoxSprite: {fileID: 21300000, guid: ef58431f73e1b44479667729a530685a, type: 3}
+  box_Button: {fileID: 235185234}
+  boxImage: {fileID: 530192381}
 --- !u!4 &1573847823
 Transform:
   m_ObjectHideFlags: 0
@@ -287322,7 +287334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2009742395}
-  - component: {fileID: 2009742394}
+  - component: {fileID: 2009742396}
   m_Layer: 0
   m_Name: CardInfoManager
   m_TagString: Untagged
@@ -287330,18 +287342,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2009742394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009742393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f95b15ed94b3904095e5d2ef00ba012, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2009742395
 Transform:
   m_ObjectHideFlags: 0
@@ -287357,6 +287357,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2009742396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009742393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3089a8b937d6c504f8c7cab499e3efe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterImgs:
+  - {fileID: 21300000, guid: 1311cdc2c808d0b438106683a946c287, type: 3}
+  - {fileID: 21300000, guid: a4768e2e339ae574cb2258979c00ad7d, type: 3}
+  - {fileID: 21300000, guid: 233902d0d9bb9054ea67183f3629b1c2, type: 3}
+  - {fileID: 21300000, guid: a48365251b3231e489d4c45b23b32752, type: 3}
+  - {fileID: 21300000, guid: 2b247aebe487cec4b9f63b4c2cc31c2e, type: 3}
+  - {fileID: 21300000, guid: dcdadd92880c3da40a7700c50cddcdde, type: 3}
+  - {fileID: 21300000, guid: 27a9a19878eec244b991a64862449567, type: 3}
+  - {fileID: 21300000, guid: 5c5aecd0624e34447860b7fc3e6055c9, type: 3}
+  openChest: {fileID: 176920821}
 --- !u!1 &2012026110
 GameObject:
   m_ObjectHideFlags: 0

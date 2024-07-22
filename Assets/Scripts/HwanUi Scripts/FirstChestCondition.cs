@@ -26,7 +26,7 @@ public class FirstChestCondition : MonoBehaviour
         // 처음 게임을 들어오면
         if(SettingCardInfoManager.instance.IsNewbie())
         {
-            Debug.Log("체크1");
+            Debug.Log("뉴비");
             // 상자 생성
             boxImage.sprite = firstBoxSprite;
             boxImage.ImageTransparent(1f);
@@ -35,6 +35,7 @@ public class FirstChestCondition : MonoBehaviour
         }
         else
         {
+            Debug.Log("뉴비 아님");
             boxImage.sprite = null;
             boxImage.ImageTransparent(0f);
             box_Button.sprite = grayButton;

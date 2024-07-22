@@ -34,18 +34,21 @@ public class CollectionCardInfo : MonoBehaviour
             btnName.text = "Èñ±Íµµ ¼ø";
             SelectCardOrderByGrade();
             StartManager.m_Instance.InitializeCollectionImage();
+            isCost = false;
         }
         else
         {
             btnName.text = "¿¤¸¯¼­ ¼ø";
             SelectCardOrderbyCost();
             StartManager.m_Instance.InitializeCollectionImage();
+            isCost = true;
         }
     }
 
     public void SelectCardOrderbyCost()
     {
         SettingCardInfoManager.instance.charData.Clear();
+        index = 0;
         try
         {
             string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type," +
@@ -71,23 +74,25 @@ public class CollectionCardInfo : MonoBehaviour
                     {
                         while (reader.Read())
                         {
-                            print("gggggg");
-                            int id = reader.GetInt32(0);
-                            CharacterData characterData = new CharacterData
+                            if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                             {
-                                cardId = id,
-                                cost = reader.GetInt32(1),
-                                name = reader.GetString(2),
-                                grade = reader.GetString(3),
-                                type = reader.GetString(4),
-                                currentCardCount = reader.GetInt32(5),
-                                maxCardCount = reader.GetInt32(6),
-                                level = reader.GetInt32(7),
-                                img = CardInfoManager.instance.characterImgs[id - 1],
-                            };
-;                            SettingCardInfoManager.instance.charData.Add(characterData);
-                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
-                            index++;
+                                int id = reader.GetInt32(0);
+                                CharacterData characterData = new CharacterData
+                                {
+                                    cardId = id,
+                                    cost = reader.GetInt32(1),
+                                    name = reader.GetString(2),
+                                    grade = reader.GetString(3),
+                                    type = reader.GetString(4),
+                                    currentCardCount = reader.GetInt32(5),
+                                    maxCardCount = reader.GetInt32(6),
+                                    level = reader.GetInt32(7),
+                                    img = CardInfoManager.instance.characterImgs[id - 1],
+                                };
+                                SettingCardInfoManager.instance.charData.Add(characterData);
+                                SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
+                                index++;
+                            }
                         }
                     }
                 }
@@ -102,6 +107,7 @@ public class CollectionCardInfo : MonoBehaviour
     public void SelectCardOrderByGrade()
     {
         SettingCardInfoManager.instance.charData.Clear();
+        index = 0;
         try
         {
             string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type, " +

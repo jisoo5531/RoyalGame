@@ -6,6 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class MovableUnit : Unit
 {
     public float moveSpeed;
+    public float detectionRange;
     TargetFollowUnit targetFollowUnit;
     public bool isMove = false;
 
@@ -39,6 +40,7 @@ public class MovableUnit : Unit
     {
         base.InitializeUnitData(unit);
         moveSpeed = unit.moveSpeed;
+        detectionRange = unit.detectionRange;
         SendDamage(unit.damage);
     }
 

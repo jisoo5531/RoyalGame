@@ -35,20 +35,8 @@ public class Collection : MonoBehaviour
         InfoButton.SetActive(true);
         upgradeButton.SetActive(false);
 
-        //unitData = StartManager.m_Instance.m_unitDatas[mySequence];
-        //SettingUI(unitData, cardCountFill, cardCountText, costText);
-    }
-    private void Update()
-    {
-        //CheckAvailableUpgrade(cardCountFill, upArrow, InfoButton, upgradeButton);
-        //SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
 
-    //public void InitUI(int cardID, int currentCard, int maxCard, int cost, string grade, string name, int level)
-    //{
-    //    this.cardId = cardID;
-    //    SettingUI(currentCard, maxCard, cost, cardCountFill, cardCountText, costText);
-    //}
     public void InitUI(CharacterData characterData)
     {
         this.cardId = characterData.cardId;
@@ -57,7 +45,7 @@ public class Collection : MonoBehaviour
 
     public void SettingUI(int currentCard, int maxCard, int cost, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
     {
-        cardCountFill.fillAmount = currentCard / maxCard;
+        cardCountFill.fillAmount = (float)currentCard / maxCard;
         cardCountText.text = $"{currentCard} / {maxCard}";
         costText.text = $"{cost}";
     }

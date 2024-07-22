@@ -59,6 +59,7 @@ public class CardInfoManager : MonoBehaviour
                         }
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)
@@ -107,6 +108,7 @@ public class CardInfoManager : MonoBehaviour
                         }
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)

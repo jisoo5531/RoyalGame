@@ -98,6 +98,7 @@ public class CollectionCardInfo : MonoBehaviour
                         }
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)
@@ -157,6 +158,7 @@ public class CollectionCardInfo : MonoBehaviour
                         }
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)

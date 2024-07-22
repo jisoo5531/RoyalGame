@@ -70,6 +70,7 @@ public class PasswordFind : MonoBehaviour
                         return rowCount > 0;
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)

@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public int maxHP { get; set; }
     public int cost { get; set; }
     public float spawnTime { get; set; }
-    public float attackSpeed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public float attackSpeed { get; set; }
 
     public AttackTarget attackTarget { get; set; }
         

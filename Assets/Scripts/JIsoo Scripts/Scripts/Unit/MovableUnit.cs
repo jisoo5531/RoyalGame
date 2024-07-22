@@ -41,6 +41,7 @@ public class MovableUnit : Unit
         base.InitializeUnitData(unit);
         moveSpeed = unit.moveSpeed;
         detectionRange = unit.detectionRange;
+        
         SendDamage(unit.damage);
     }
 

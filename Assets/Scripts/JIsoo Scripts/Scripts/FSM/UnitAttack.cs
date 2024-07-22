@@ -8,6 +8,7 @@ public class UnitAttack : IState<Unit>
     {
         unit = sender;
         unit.anim.SetTrigger("DoAttack");
+        unit.Attack();
     }
     public void OperateExit(Unit sender)
     {
@@ -17,6 +18,7 @@ public class UnitAttack : IState<Unit>
         if (false == unit.anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             unit.anim.SetTrigger("DoAttack");
+            unit.Attack();
         }
     }
 }

@@ -24,7 +24,7 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
     public Image leverBackground;
     public Image hpBarFill;
 
-    private bool isHPBarOn;    
+    private bool isHPBarOn = false;    
 
     private void Awake()
     {
@@ -42,7 +42,14 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
     }
 
     public void GetDamage(int damage)
-    {
+    {        
+        HP -= damage;
+        if (HP <= 0)
+        {
+            GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+            effect.transform.localScale = transform.localScale;
+            Destroy(gameObject);
+        }
         if (isHPBarOn)
         {
             return;
@@ -51,18 +58,11 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
         {
             OnHPBar();
         }
-
-        HP -= damage;
-        if (HP <= 0)
-        {
-            GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
-            effect.transform.localScale = transform.localScale;
-            Destroy(gameObject);
-        }
     }
 
     private void OnHPBar()
     {
+        isHPBarOn = true;
         hpBarOBJ.SetActive(true);        
     }
 }

@@ -6,6 +6,7 @@ public class Damaging : MonoBehaviour
 {
     public int damage;
     public LayerMask targetLayerMask;
+    public Range rangeType;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,7 +19,11 @@ public class Damaging : MonoBehaviour
         if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
         {
             Debug.Log("Å×½ºÆ®.");
-            damagable.GetDamage(damage);            
+            damagable.GetDamage(damage);
+            if (rangeType == Range.Ranged)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
-{    
+{
 
 
     public int unit_ID;
@@ -25,6 +25,8 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public int cost { get; set; }
     public float spawnTime { get; set; }
     public float attackSpeed { get; set; }
+
+    public Range rangeType;
 
     public AttackTarget attackTarget { get; set; }
         
@@ -61,6 +63,8 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         range = unit.range;
         detectionRange = unit.detectionRange;
         attackTarget = unit.attackTarget;
+
+        rangeType = unit.rangeType;
     }
 
 
@@ -71,9 +75,27 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
             stateMachine.SetState(dicState[state]);
         }
     }
+    public void Attack()
+    {
+        switch (rangeType)
+        {
+            case Range.Melee:
+                break;
+            case Range.Ranged:
+                GetComponent<RangedUnit>().Attack();                
+                break;
+            default:
+                break;
+        }
+    }
 
     public void SendDamage(int damage)
     {
+        if (rangeType == Range.Ranged)
+        {
+            GetComponent<RangedUnit>().damage = damage;
+            return;
+        }
         GetComponentInChildren<Damaging>().damage = damage;
     }
 
@@ -81,8 +103,6 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     {
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;
-
-
 
         // À¯´ÖÀÌ Á×À» ¶§
         if (HP <= 0)

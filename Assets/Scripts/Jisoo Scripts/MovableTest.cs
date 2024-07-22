@@ -10,6 +10,7 @@ public class MovableTest : Unit
     public bool isMove = false;
     public UnitData_SO unitData;
 
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -52,6 +53,7 @@ public class MovableTest : Unit
             DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, this.attackTarget);
             StateTransition(targetFollowUnit.target);
         }
+        transform.LookAt(targetFollowUnit.target);
     }
 
     private void StateTransition(Transform target)

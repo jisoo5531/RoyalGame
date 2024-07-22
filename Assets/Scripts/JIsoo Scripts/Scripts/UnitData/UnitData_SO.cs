@@ -27,7 +27,8 @@ public class UnitData_SO : ScriptableObject
     public Type type;
     
     [Space(20)]
-
+    public Range rangeType;
+    public int rangedSpeed;
     [Tooltip("사정거리")]
     public float range;
     [Tooltip("탐지거리")]
@@ -60,7 +61,9 @@ public class UnitData_SO : ScriptableObject
     public Grade grade;
 
     public Sprite iconSprite;
-    public GameObject prefab;    
+    public GameObject prefab;
+
+    
 
     public int Get_Upgrade_HP()
     {
@@ -81,6 +84,12 @@ public class UnitData_SO : ScriptableObject
         damage += Mathf.RoundToInt((float)damage * 0.3f);
     }
 }
+public enum Range
+{
+    Melee,
+    Ranged
+}
+
 public enum Type
 {
     Unit,

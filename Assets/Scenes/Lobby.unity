@@ -27399,8 +27399,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -27806,8 +27806,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -74561,8 +74561,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -141283,8 +141283,8 @@ RectTransform:
   m_Father: {fileID: 2069783470}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5067611}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -148247,8 +148247,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -163073,14 +163073,78 @@ MonoBehaviour:
   - {fileID: 1177003383}
   - {fileID: 555240668}
   unitDatas:
-  - {fileID: 11400000, guid: 56ce79c0acca5844bae5e92f3df3e51d, type: 2}
-  - {fileID: 11400000, guid: 6745813281bf4f543803f7734095d082, type: 2}
-  - {fileID: 11400000, guid: 5e89f43f0a4e2184aa397245d6d69d23, type: 2}
-  - {fileID: 11400000, guid: fa857c0ad51f8d643b55f5973a8b31a0, type: 2}
-  - {fileID: 11400000, guid: 3b534a6229fee534eac0ff52b4cb4bb4, type: 2}
-  - {fileID: 11400000, guid: 888a018d7897bd44da56b21d5e7afde9, type: 2}
-  - {fileID: 11400000, guid: 1a6c81e7d6cc8594ca13250fc100ed6f, type: 2}
-  - {fileID: 11400000, guid: 8e4a3e93638bf6a4c9bf51c9b2ce739b, type: 2}
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
   selectedUnits: []
   collectionsImage:
   - {fileID: 1297068568}
@@ -210604,8 +210668,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -216485,7 +216549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1449892557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -227640,9 +227704,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -45.2185, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1504575029
 MonoBehaviour:
@@ -280284,8 +280348,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -296816,8 +296880,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -304147,8 +304211,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:

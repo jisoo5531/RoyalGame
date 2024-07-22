@@ -7,6 +7,7 @@ using UnityEngine;
 public class SettingCardInfoManager : MonoBehaviour
 {
     public static SettingCardInfoManager instance;
+    public Dictionary<int, CharacterData> charData = new Dictionary<int, CharacterData>();
     public GameObject[] slots;
 
     private void Awake()

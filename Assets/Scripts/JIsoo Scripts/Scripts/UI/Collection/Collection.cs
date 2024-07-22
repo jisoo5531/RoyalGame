@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Reflection;
 
 public class Collection : MonoBehaviour
 {
@@ -43,10 +44,15 @@ public class Collection : MonoBehaviour
         //SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
 
-    public void InitUI(int cardID, int currentCard, int maxCard, int cost, string grade, string name, int level)
+    //public void InitUI(int cardID, int currentCard, int maxCard, int cost, string grade, string name, int level)
+    //{
+    //    this.cardId = cardID;
+    //    SettingUI(currentCard, maxCard, cost, cardCountFill, cardCountText, costText);
+    //}
+    public void InitUI(CharacterData characterData)
     {
-        this.cardId = cardID;
-        SettingUI(currentCard, maxCard, cost, cardCountFill, cardCountText, costText);
+        this.cardId = characterData.cardId;
+        SettingUI(characterData.currentCardCount, characterData.maxCardCount, characterData.cost, cardCountFill, cardCountText, costText);
     }
 
     public void SettingUI(int currentCard, int maxCard, int cost, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
@@ -88,10 +94,10 @@ public class Collection : MonoBehaviour
     }
     public void OnClickUpgradeButton(int number)
     {
-        Upgrade upgrade = FindObjectOfType<Upgrade>();
+        //Upgrade upgrade = FindObjectOfType<Upgrade>();
 
-        UnitData_SO unitData = StartManager.m_Instance.m_unitDatas[number];
+        CharacterData unitData = SettingCardInfoManager.instance.charData[number];
 
-        upgrade.SetInfo(unitData);
+        //upgrade.SetInfo(unitData);
     }
 }

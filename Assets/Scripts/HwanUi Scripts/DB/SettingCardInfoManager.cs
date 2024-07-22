@@ -77,6 +77,7 @@ public class SettingCardInfoManager : MonoBehaviour
 
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)
@@ -99,6 +100,7 @@ public class SettingCardInfoManager : MonoBehaviour
                     int rowsAffected = cmd.ExecuteNonQuery();
                     Console.WriteLine($"{rowsAffected} row(s) updated.");
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)
@@ -124,6 +126,7 @@ public class SettingCardInfoManager : MonoBehaviour
                         return result < 8;
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)

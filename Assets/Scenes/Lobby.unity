@@ -26867,7 +26867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 132644504}
   - component: {fileID: 132644506}
-  - component: {fileID: 132644505}
+  - component: {fileID: 132644507}
   m_Layer: 5
   m_Name: Box_Open
   m_TagString: Untagged
@@ -26898,19 +26898,6 @@ RectTransform:
   m_AnchoredPosition: {x: 20.22, y: -129.99792}
   m_SizeDelta: {x: 1350, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &132644505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132644503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe8a6b5220b826648b459fe44d35a93c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalRemainCard: 0
 --- !u!114 &132644506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26973,6 +26960,20 @@ MonoBehaviour:
     unitCurrentCardCount: {fileID: 1759896008}
   clickCount: 0
   isOpenClick: 0
+  chestCondition: {fileID: 1023164444}
+--- !u!114 &132644507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132644503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82322c962b0ed7f44900a05cc78b0715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalRemainCard: 0
 --- !u!1 &134147190
 GameObject:
   m_ObjectHideFlags: 0
@@ -27399,8 +27400,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -27806,8 +27807,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -62662,6 +62663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c98a55c82a5ed4f963693cbaaded25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charData: []
   slots:
   - {fileID: 1229784595}
   - {fileID: 181955649}
@@ -74561,8 +74563,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -141283,8 +141285,8 @@ RectTransform:
   m_Father: {fileID: 2069783470}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5067611}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -148247,8 +148249,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -163073,14 +163075,78 @@ MonoBehaviour:
   - {fileID: 1177003383}
   - {fileID: 555240668}
   unitDatas:
-  - {fileID: 11400000, guid: 56ce79c0acca5844bae5e92f3df3e51d, type: 2}
-  - {fileID: 11400000, guid: 6745813281bf4f543803f7734095d082, type: 2}
-  - {fileID: 11400000, guid: 5e89f43f0a4e2184aa397245d6d69d23, type: 2}
-  - {fileID: 11400000, guid: fa857c0ad51f8d643b55f5973a8b31a0, type: 2}
-  - {fileID: 11400000, guid: 3b534a6229fee534eac0ff52b4cb4bb4, type: 2}
-  - {fileID: 11400000, guid: 888a018d7897bd44da56b21d5e7afde9, type: 2}
-  - {fileID: 11400000, guid: 1a6c81e7d6cc8594ca13250fc100ed6f, type: 2}
-  - {fileID: 11400000, guid: 8e4a3e93638bf6a4c9bf51c9b2ce739b, type: 2}
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
+  - cardId: 0
+    name: 
+    cost: 0
+    level: 0
+    grade: 
+    currentCardCount: 0
+    maxCardCount: 0
+    img: {fileID: 0}
+    type: 
   selectedUnits: []
   collectionsImage:
   - {fileID: 1297068568}
@@ -163529,6 +163595,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022513655}
   m_CullTransparentMesh: 1
+--- !u!1 &1023164443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1023164445}
+  - component: {fileID: 1023164444}
+  m_Layer: 0
+  m_Name: FirstChestCondition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1023164444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023164443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8800be73315684b8af2b77c8b58c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectionCardInfo: {fileID: 1879061130}
+--- !u!4 &1023164445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023164443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.5305176, y: 3.2241216, z: -4.1052675}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1029919885
 GameObject:
   m_ObjectHideFlags: 0
@@ -163688,7 +163799,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dcdadd92880c3da40a7700c50cddcdde, type: 3}
   - {fileID: 21300000, guid: 27a9a19878eec244b991a64862449567, type: 3}
   - {fileID: 21300000, guid: 5c5aecd0624e34447860b7fc3e6055c9, type: 3}
-  openChest: {fileID: 132644505}
+  openChest: {fileID: 132644507}
 --- !u!4 &1033044623
 Transform:
   m_ObjectHideFlags: 0
@@ -210604,8 +210715,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -216485,7 +216596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1449892557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -227640,9 +227751,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -45.2185, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1504575029
 MonoBehaviour:
@@ -280284,8 +280395,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -296816,8 +296927,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:
@@ -304147,8 +304258,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+      - m_Target: {fileID: 994242856}
+        m_TargetAssemblyTypeName: StartManager, Assembly-CSharp
         m_MethodName: OnClickUseUnit
         m_Mode: 3
         m_Arguments:

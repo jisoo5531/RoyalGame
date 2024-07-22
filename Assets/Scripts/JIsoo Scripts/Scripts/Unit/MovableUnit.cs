@@ -14,7 +14,7 @@ public class MovableUnit : Unit
         anim = GetComponent<Animator>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
 
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+       // InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
 
     }

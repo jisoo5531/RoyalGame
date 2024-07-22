@@ -15,7 +15,7 @@ public class Magic : MonoBehaviour, ICard, IAttackable
 
     private void Awake()
     {
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+       // InitializeUnitData(UnitSpawner.instance.selectedUnit);
     }
     protected virtual void InitializeUnitData(UnitData_SO unit)
     {

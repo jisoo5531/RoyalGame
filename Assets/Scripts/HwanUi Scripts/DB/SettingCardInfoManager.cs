@@ -7,6 +7,7 @@ using UnityEngine;
 public class SettingCardInfoManager : MonoBehaviour
 {
     public static SettingCardInfoManager instance;
+    public List<CharacterData> charData = new List<CharacterData>();
     public GameObject[] slots;
 
     private void Awake()
@@ -90,7 +91,7 @@ public class SettingCardInfoManager : MonoBehaviour
         string updateUserCard = string.Empty;
         try
         {
-            updateUserCard = $"UPDATE UNIT SET currentCardCount = {amount} WHERE userID = {DatabaseManager.Instance.userId}";
+            updateUserCard = $"UPDATE USER SET currentCardCount = {amount} WHERE userID = {DatabaseManager.Instance.userId}";
 
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {

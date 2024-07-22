@@ -6,16 +6,26 @@ using System.Data;
 using TMPro;
 using UnityEngine;
 
+[Serializable]
+public class CharacterData
+{
+    public int cardId;
+    public string name;
+    public int cost;
+    public int level;
+    public string grade;
+    public int currentCardCount;
+    public int maxCardCount;
+    public Sprite img;
+    public string type;
+}
+
 public class CollectionCardInfo : MonoBehaviour
 {
     private int index = 0;
     private bool isCost = false;
     public TMP_Text btnName;
-
-    void Start()
-    {
-        SelectCardOrderByGrade();
-    }
+    
 
     public void OrderByClick()
     {
@@ -23,19 +33,22 @@ public class CollectionCardInfo : MonoBehaviour
         {
             btnName.text = "Èñ±Íµµ ¼ø";
             SelectCardOrderByGrade();
+            StartManager.m_Instance.InitializeCollectionImage();
         }
         else
         {
             btnName.text = "¿¤¸¯¼­ ¼ø";
             SelectCardOrderbyCost();
+            StartManager.m_Instance.InitializeCollectionImage();
         }
     }
 
     public void SelectCardOrderbyCost()
     {
+        SettingCardInfoManager.instance.charData.Clear();
         try
         {
-            string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, " +
+            string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type," +
                 $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
                 $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
                 $"WHEN MAGIC.currentCardCount IS NOT NULL THEN MAGIC.currentCardCount END AS currentCardCount, " +
@@ -56,16 +69,33 @@ public class CollectionCardInfo : MonoBehaviour
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        print("jjjj");
                         while (reader.Read())
                         {
-                            int cardId = reader.GetInt32(1);
-                            int cost = reader.GetInt32(2);
-                            string name = reader.GetString(3);
-                            string grade = reader.GetString(4);
-                            int currentCardCount = reader.GetInt32(5);
-                            int maxCardCount = reader.GetInt32(6);
-                            int level = reader.GetInt32(7);
-                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(cardId, currentCardCount, maxCardCount, cost, grade, name, level);
+                            print("iiii");
+                            int id = reader.GetInt32(0);
+                            CharacterData characterData = new CharacterData
+                            {
+                                cardId = id,
+                                cost = reader.GetInt32(1),
+                                name = reader.GetString(2),
+                                grade = reader.GetString(3),
+                                type = reader.GetString(4),
+                                currentCardCount = reader.GetInt32(5),
+                                maxCardCount = reader.GetInt32(6),
+                                level = reader.GetInt32(7),
+                                img = CardInfoManager.instance.characterImgs[id - 1],
+                            };
+                            //int cardId = reader.GetInt32(1);
+                            //int cost = reader.GetInt32(2);
+                            //string name = reader.GetString(3);
+                            //string grade = reader.GetString(4);
+                            //int currentCardCount = reader.GetInt32(5);
+                            //int maxCardCount = reader.GetInt32(6);
+                            //int level = reader.GetInt32(7);
+                            print("asdf");
+                            SettingCardInfoManager.instance.charData.Add(characterData);
+                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
                             index++;
                         }
                     }
@@ -80,9 +110,10 @@ public class CollectionCardInfo : MonoBehaviour
 
     public void SelectCardOrderByGrade()
     {
+        SettingCardInfoManager.instance.charData.Clear();
         try
         {
-            string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, " +
+            string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type, " +
                 $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
                 $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
                 $"WHEN MAGIC.currentCardCount IS NOT NULL THEN MAGIC.currentCardCount END AS currentCardCount, " +
@@ -103,19 +134,35 @@ public class CollectionCardInfo : MonoBehaviour
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        print("qqqq");
                         while (reader.Read())
                         {
+                            print("tttt");
                             if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                             {
-                                print(reader.GetInt32(5));
-                                int cardId = reader.GetInt32(1);
-                                int cost = reader.GetInt32(2);
-                                string name = reader.GetString(3);
-                                string grade = reader.GetString(4);
-                                int currentCardCount = reader.GetInt32(5);
-                                int maxCardCount = reader.GetInt32(6);
-                                int level = reader.GetInt32(7);
-                                SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(cardId, currentCardCount, maxCardCount, cost, grade, name, level);
+                                int id = reader.GetInt32(0);
+                                CharacterData characterData = new CharacterData
+                                {
+                                    cardId = id,
+                                    cost = reader.GetInt32(1),
+                                    name = reader.GetString(2),
+                                    grade = reader.GetString(3),
+                                    type = reader.GetString(4),
+                                    currentCardCount = reader.GetInt32(5),
+                                    maxCardCount = reader.GetInt32(6),
+                                    level = reader.GetInt32(7),
+                                    img = CardInfoManager.instance.characterImgs[id - 1],
+                                };
+                                print("zzzzz");
+                                //int cardId = reader.GetInt32(1);
+                                //int cost = reader.GetInt32(2);
+                                //string name = reader.GetString(3);
+                                //string grade = reader.GetString(4);
+                                //int currentCardCount = reader.GetInt32(5);
+                                //int maxCardCount = reader.GetInt32(6);
+                                //int level = reader.GetInt32(7);
+                                SettingCardInfoManager.instance.charData.Add(characterData);
+                                SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
                                 index++;
                             }
                         }

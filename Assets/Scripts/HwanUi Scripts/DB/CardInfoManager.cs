@@ -12,7 +12,7 @@ public class CardInfoManager : MonoBehaviour
 
     public Sprite[] characterImgs;
     public List<CharacterInfo> allCharacters;
-    public Chest openChest;
+    public SettingChest openChest;
 
     private void Awake()
     {

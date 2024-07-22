@@ -50,13 +50,13 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     private MJ_OpenCard MJ_OpenCard;
     public MJ_ShakeBox MJ_ShakeBox;
 
-    private Chest chest;
+    private SettingChest chest;
 
     public UnitInfo[] unitInfos;
 
     public OBJ unitOBJ;
 
-    private KeyValuePair<int, (Chest.Grade, int)>? reward;
+    private KeyValuePair<int, (SettingChest.Grade, int)>? reward;
     public KeyValuePair<CharacterInfo, int> characterInfo;
 
     private UnitData_SO uniData = null;
@@ -64,10 +64,12 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     public int clickCount = 0;
     public bool isOpenClick;
 
+    public FirstChestCondition chestCondition; 
+
 
     private void Awake()
     {
-        chest = GetComponent<Chest>();
+        chest = GetComponent<SettingChest>();
 
         MJ_MoveCard = GetComponentInChildren<MJ_MoveCard>();
         MJ_OpenCard = GetComponentInChildren<MJ_OpenCard>();
@@ -88,10 +90,12 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         if(clickCount > chest.randomUnits.Count)
         {
             ClosePanel();
+            chestCondition.CheckNewbie();
             return;
         }
         else if (chest.totalRemainCard == 0 || clickCount == chest.randomUnits.Count)
         {
+            SettingCardInfoManager.instance.UpdateUserInfo(8);
             DisplayAll();
             clickCount++;
             return;

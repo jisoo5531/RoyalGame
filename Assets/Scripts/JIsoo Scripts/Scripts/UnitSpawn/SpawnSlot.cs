@@ -21,7 +21,7 @@ public class SpawnSlot : MonoBehaviour,
 
     public GameObject dragUnit = null;
 
-    private UnitData unitData;
+    private CharacterData unitData;
     private bool isSpawn = false;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -160,7 +160,7 @@ public class SpawnSlot : MonoBehaviour,
         }
 
         unitData = UI_Manager.m_Instance.m_UI_availableUnit[selectedNumber];
-        GameObject unitPrefab = unitData.prefab;        
+        //GameObject unitPrefab = unitData.prefab;        
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -169,7 +169,7 @@ public class SpawnSlot : MonoBehaviour,
             {
                 if (false == isSpawn)
                 {
-                    dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                    //dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
                     dragUnit.UnitTransparent(0.5f);
 
                     isSpawn = true;

@@ -18,18 +18,18 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
     {
         anim = GetComponent<Animator>();
 
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        //InitializeUnitData(UnitSpawner.instance.selectedUnit);
     }
     private void Start()
     {
         InitStateMachine();
     }
 
-    protected override void InitializeUnitData(UnitData unit)
+    protected override void InitializeUnitData(UnitData_SO unit)
     {
         base.InitializeUnitData(unit);
 
-        lifeTime = unit.unitInfo.unitStat.lifeTime;
+        lifeTime = unit.lifeTime;
     }
 
     protected override void InitStateMachine()

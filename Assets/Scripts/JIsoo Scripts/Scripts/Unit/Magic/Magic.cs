@@ -15,13 +15,13 @@ public class Magic : MonoBehaviour, ICard, IAttackable
 
     private void Awake()
     {
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+       // InitializeUnitData(UnitSpawner.instance.selectedUnit);
     }
-    protected virtual void InitializeUnitData(UnitData unit)
+    protected virtual void InitializeUnitData(UnitData_SO unit)
     {
-        name = unit.unitInfo.unitName;
-        damage = unit.unitInfo.unitStat.damage;
-        range = unit.unitInfo.unitRange.range;
+        name = unit.unitName;
+        damage = unit.damage;
+        range = unit.range;
 
         //coolTime = unit.spawnTime;
     }

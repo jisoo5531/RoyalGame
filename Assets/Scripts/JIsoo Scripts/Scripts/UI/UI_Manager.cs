@@ -11,22 +11,22 @@ public class UI_Manager : MonoBehaviour
     private static UI_Manager instance;
     public static UI_Manager m_Instance { get { return instance; } }
 
-    private List<UnitData> shuffledUnit;
-    [HideInInspector] public List<UnitData> m_shuffledUnit { get { return shuffledUnit; } }
+    private List<CharacterData> shuffledUnit;
+    [HideInInspector] public List<CharacterData> m_shuffledUnit { get { return shuffledUnit; } }
 
 
-    private List<UnitData> UI_availableUnit = new List<UnitData>();
+    private List<CharacterData> UI_availableUnit = new List<CharacterData>();
     /// <summary>
     /// 현재 생성 버튼에 있는 생성 가능 유닛
     /// </summary>
-    [HideInInspector] public List<UnitData> m_UI_availableUnit { get { return UI_availableUnit; } }
+    [HideInInspector] public List<CharacterData> m_UI_availableUnit { get { return UI_availableUnit; } }
 
 
-    private Queue<UnitData> UI_waitUnitsQueue = new Queue<UnitData>();
+    private Queue<CharacterData> UI_waitUnitsQueue = new Queue<CharacterData>();
     /// <summary>
     /// 생성 가능 유닛이 아닌 대기 중인 유닛
     /// </summary>
-    [HideInInspector] public Queue<UnitData> m_UI_waitUnitsQueue { get { return UI_waitUnitsQueue; } }
+    [HideInInspector] public Queue<CharacterData> m_UI_waitUnitsQueue { get { return UI_waitUnitsQueue; } }
 
 
     /// <summary>
@@ -101,13 +101,13 @@ public class UI_Manager : MonoBehaviour
 
                 if (UnitSpawner.instance.spawnComplete)
                 {
-                    UnitData spawnedUnit = UI_availableUnit[selectSlotNumber];
+                    //CharacterData spawnedUnit = UI_availableUnit[selectSlotNumber];
 
-                    elixir.ElixirMinus(spawnedUnit.unitInfo.unitStat.cost);
+                    //elixir.ElixirMinus(spawnedUnit.cost);
 
                     UI_availableUnit.RemoveAt(selectSlotNumber);
                     UI_availableUnit.Insert(selectSlotNumber, UI_waitUnitsQueue.Dequeue());
-                    UI_waitUnitsQueue.Enqueue(spawnedUnit);
+                    //UI_waitUnitsQueue.Enqueue(spawnedUnit);
 
                     GetComponent<UI_DisplayUnit>().UI_ChangeDisplayUnit(UI_availableUnit[selectSlotNumber], selectSlotNumber);
                     selectedSlot = null;
@@ -135,7 +135,7 @@ public class UI_Manager : MonoBehaviour
     /// <returns></returns>
     public bool CheckSpawnPossible(int number)
     {
-        if (elixir.IsSpawnUnitPossible(UI_availableUnit[number].unitInfo.unitStat.cost))
+        if (elixir.IsSpawnUnitPossible(UI_availableUnit[number].cost))
         {
             return true;
         }

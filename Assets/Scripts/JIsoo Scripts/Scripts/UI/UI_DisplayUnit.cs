@@ -8,7 +8,7 @@ public class UI_DisplayUnit : MonoBehaviour
 {
     public Image[] unitImage;
 
-    private List<UnitData> shuffledUnit;
+    private List<CharacterData> shuffledUnit;
 
     private GameObject[] unitSpawnButtons;       // 유닛 생성하기 위해 보여지는 게임 상에 보여지는 이미지
     //private GameObject[] waitUnitsDisplay;       // TODO : 대기 유닛들 (테스트용, 나중에 지우기)
@@ -48,7 +48,7 @@ public class UI_DisplayUnit : MonoBehaviour
                 unitImage[i].fillOrigin = (int)Image.Origin360.Top;
 
 
-                unitImage[i].fillAmount = elixir.currentElixir / UI_Manager.m_Instance.m_UI_availableUnit[i].unitInfo.unitStat.cost;
+                unitImage[i].fillAmount = elixir.currentElixir / UI_Manager.m_Instance.m_UI_availableUnit[i].cost;
                 //unitImage.fillAmount = Mathf.Lerp(unitImage.fillAmount, 1, Time.time);
             }
         }
@@ -72,23 +72,23 @@ public class UI_DisplayUnit : MonoBehaviour
                 //UI_SetDisplayUnit(shuffledUnit[i], UI_Manager.m_Instance.waitUnitsDisplay[i - 4]);
             }
         }
-        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = shuffledUnit[4].iconSprite;
+        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = shuffledUnit[4].img;
     }
     /// <summary>
     /// 유닛 소환때마다 UI 바꾸기
     /// </summary>
     /// <param name="unitData">소환 대상 유닛 정보</param>
     /// <param name="number">몇 번째 버튼에 있는 유닛인지</param>
-    public void UI_ChangeDisplayUnit(UnitData unitData, int number)
+    public void UI_ChangeDisplayUnit(CharacterData unitData, int number)
     {
         //unitSpawnButtons[number].transform.GetChild(1).GetComponent<Image>().sprite = unitData.iconSprite;
         UI_SetDisplayUnit(unitData, number, unitElixirText[number]);
 
-        UnitData nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
-        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = nextUnitData.iconSprite;
+        CharacterData nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
+        UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = nextUnitData.img;
 
         //int index = 0;
-        //foreach (UnitData unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
+        //foreach (UnitData_SO unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
         //{
         //    UI_Manager.m_Instance.waitUnitsDisplay[index++].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unit.iconSprite;
         //}
@@ -100,14 +100,14 @@ public class UI_DisplayUnit : MonoBehaviour
     /// <param name="unitData"></param>
     /// <param name="unitButton"></param>
     /// <param name="elixirText">유닛 코스트</param>
-    private void UI_SetDisplayUnit(UnitData unitData, int number, TextMeshProUGUI elixirText = null)
+    private void UI_SetDisplayUnit(CharacterData unitData, int number, TextMeshProUGUI elixirText = null)
     {
         //GameObject unitUI = unitButton.transform.GetChild(1).gameObject;
-        unitImage[number].sprite = unitData.iconSprite;
+        unitImage[number].sprite = unitData.img;
         //unitButton.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unitData.iconSprite;
         if (elixirText != null)
         {
-            elixirText.text = unitData.unitInfo.unitStat.cost.ToString();
+            elixirText.text = unitData.cost.ToString();
         }
     }
 }

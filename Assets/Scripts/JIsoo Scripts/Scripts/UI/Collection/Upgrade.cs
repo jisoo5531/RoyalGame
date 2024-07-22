@@ -1,380 +1,350 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UI;
+//using TMPro;
 
-[System.Serializable]
-public class UnitTitle
-{
-    public TextMeshProUGUI unitName;
-}
-[System.Serializable]
-public class UnitImage
-{
-    public Image unitImage;
-    public Image cardCountFill;
-    public TextMeshProUGUI costText;
-    public TextMeshProUGUI cardCountText;
-    public Image upArrow;
-}
-[System.Serializable]
-public class GradeAndType
-{
-    public Image gradeAndTypeBackground;
-    public TextMeshProUGUI gradeText;
-    public TextMeshProUGUI typeText;
-}
+//[System.Serializable]
+//public class UnitTitle
+//{
+//    public TextMeshProUGUI unitName;
+//}
+//[System.Serializable]
+//public class UnitImage
+//{
+//    public Image unitImage;
+//    public Image cardCountFill;
+//    public TextMeshProUGUI costText;
+//    public TextMeshProUGUI cardCountText;
+//    public Image upArrow;
+//}
+//[System.Serializable]
+//public class GradeAndType
+//{
+//    public Image gradeAndTypeBackground;
+//    public TextMeshProUGUI gradeText;
+//    public TextMeshProUGUI typeText;
+//}
 
-[System.Serializable]
-public class UnitStat
-{
-    public Transform unitStats;
-    public GameObject hpOBJ;
-    public GameObject damageOBJ;
-    public GameObject attackSpeedOBJ;
-    public GameObject moveSpeedOBJ;
-    public GameObject targetOBJ;
-    public GameObject rangeOBJ;
-    public GameObject creationTimeOBJ;
-    public GameObject LifeTimeOBJ;
-}
-[System.Serializable]
-public class UnitDescription
-{
-    public TextMeshProUGUI descText;
-}
-[System.Serializable]
-public class UpgradeButton
-{
-    public Image background;
-    public TextMeshProUGUI upgradeText;
-    public TextMeshProUGUI upgradeCost;
-    public Image coinImage;
-}
+//[System.Serializable]
+//public class UnitStat
+//{
+//    public Transform unitStats;
+//    public GameObject hpOBJ;
+//    public GameObject damageOBJ;
+//    public GameObject attackSpeedOBJ;
+//    public GameObject moveSpeedOBJ;
+//    public GameObject targetOBJ;
+//    public GameObject rangeOBJ;
+//    public GameObject creationTimeOBJ;
+//    public GameObject LifeTimeOBJ;
+//}
+//[System.Serializable]
+//public class UnitDescription
+//{
+//    public TextMeshProUGUI descText;
+//}
 
-public class Upgrade : MonoBehaviour
-{            
-    public UnitTitle unitTitle;
-    public UnitImage unitList;
-    public GradeAndType unitGnT;
-    public UnitDescription unitDesc;
-    public UnitStat unitStatList;
-    public UpgradeButton upgradeButton;
+//public class Upgrade : MonoBehaviour
+//{            
+//    public UnitTitle unitTitle;
+//    public UnitImage unitList;
+//    public GradeAndType unitGnT;
+//    public UnitDescription unitDesc;
+//    public UnitStat unitStatList;
 
+//    private CharacterData unitData;
 
-    private UnitData unitData;
-
-    private bool availableUpgrade = false;
+//    private bool availableUpgrade = false;
 
     
 
-    public void SetInfo(UnitData unitData)
-    {
-        this.unitData = unitData;
+//    public void SetInfo(CharacterData unitData)
+//    {
+//        this.unitData = unitData;
 
-        SetTitle();
+//        SetTitle();
 
-        SetUnitImage();
+//        SetUnitImage();
 
-        SetUnitGradeAndType();
+//        SetUnitGradeAndType();
 
-        SetDescription();
+//        SetDescription();
 
-        SetCardCountFill();
+//        SetCardCountFill();
 
-        SetStats();
+//        SetStats();        
+//    }
 
-        SetUpgradeButton();
-    }
+//    #region Title
 
-    #region Title
+//    private void SetTitle()
+//    {
+//        unitTitle.unitName.text = $"·¹º§ {unitData.unit_Level} {unitData.unitName}".ToString();
+//    }
 
-    private void SetTitle()
-    {
-        unitTitle.unitName.text = $"·¹º§ {unitData.cardInfo.unit_Level} {unitData.unitInfo.unitName}".ToString();
-    }
+//    #endregion
 
-    #endregion
+//    #region Unit
 
-    #region Unit
+//    private void SetUnitImage()
+//    {
+//        unitList.unitImage.sprite = unitData.img;
+//        unitList.costText.text = unitData.cost.ToString();
+//    }
 
-    private void SetUnitImage()
-    {
-        unitList.unitImage.sprite = unitData.iconSprite;
-        unitList.costText.text = unitData.unitInfo.unitStat.cost.ToString();
-    }
+//    #region CardCount
 
-    #region CardCount
+//    private void SetCardCountFill()
+//    {
+//        Collection collection = FindObjectOfType<Collection>();
 
-    private void SetCardCountFill()
-    {
-        Collection collection = FindObjectOfType<Collection>();
+//        //collection.SettingUI(unitData, unitList.cardCountFill, unitList.cardCountText, unitList.costText);
 
-        collection.SettingUI(unitData, unitList.cardCountFill, unitList.cardCountText, unitList.costText);
+//        if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
+//        {
+//            availableUpgrade = true;
+//        }      
+//        else
+//        {
+//            availableUpgrade = false;
+//        }
+//    }
 
-        if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
-        {
-            availableUpgrade = true;            
-        }      
-        else
-        {
-            availableUpgrade = false;
-        }
-    }
+//    #endregion
 
-    #endregion
+//    #endregion
 
-    #endregion
+//    #region Grade / Type
 
-    #region Grade / Type
+//    private void SetUnitGradeAndType()
+//    {
+//        SetBackground();
+//        Set_GnT_Text();
+//    }
 
-    private void SetUnitGradeAndType()
-    {
-        SetBackground();
-        Set_GnT_Text();
-    }
-
-    private void SetBackground()
-    {
-        switch (unitData.unitInfo.grade)
-        {
-            case Grade.Normal:
-                unitGnT.gradeAndTypeBackground.ColorNormal();
-                break;
-            case Grade.Rare:
-                unitGnT.gradeAndTypeBackground.ColorRare();
-                break;
-            case Grade.Epic:
-                unitGnT.gradeAndTypeBackground.ColorEpic();
-                break;
-            default:
-                break;
-        }
-    }
-    private void Set_GnT_Text()
-    {
-        string gradeText = null;
-        string typeText = null;
-        switch (unitData.unitInfo.grade)
-        {
-            case Grade.Normal:
-                gradeText = "ÀÏ¹Ý";
-                break;
-            case Grade.Rare:
-                gradeText = "Èñ±Í";
-                break;
-            case Grade.Epic:
-                gradeText = "¿µ¿õ";
-                break;
-            default:
-                break;
-        }
-        switch (unitData.unitInfo.type)
-        {
-            case Type.Unit:
-                typeText = "À¯´Ö";
-                break;
-            case Type.Deffense:
-                typeText = "°Ç¹°";
-                break;
-            case Type.Magic:
-                typeText = "¸¶¹ý";
-                break;
-            default:
-                break;
-        }
-        if (gradeText != null)
-        {
-            unitGnT.gradeText.text = gradeText;
-        }
-        if (typeText != null)
-        {
-            unitGnT.typeText.text = typeText;
-        }        
-    }
+//    private void SetBackground()
+//    {
+//        switch (unitData.grade)
+//        {
+//            case "ÀÏ¹Ý":
+//                unitGnT.gradeAndTypeBackground.ColorNormal();
+//                break;
+//            case "Èñ±Í":
+//                unitGnT.gradeAndTypeBackground.ColorRare();
+//                break;
+//            case "¿µ¿õ":
+//                unitGnT.gradeAndTypeBackground.ColorEpic();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//    private void Set_GnT_Text()
+//    {
+//        string gradeText = null;
+//        string typeText = null;
+//        switch (unitData.grade)
+//        {
+//            case "ÀÏ¹Ý":
+//                gradeText = "ÀÏ¹Ý";
+//                break;
+//            case "Èñ±Í":
+//                gradeText = "Èñ±Í";
+//                break;
+//            case "¿µ¿õ":
+//                gradeText = "¿µ¿õ";
+//                break;
+//            default:
+//                break;
+//        }
+//        switch (unitData.type)
+//        {
+//            case Type.Unit:
+//                typeText = "À¯´Ö";
+//                break;
+//            case Type.Deffense:
+//                typeText = "°Ç¹°";
+//                break;
+//            case Type.Magic:
+//                typeText = "¸¶¹ý";
+//                break;
+//            default:
+//                break;
+//        }
+//        if (gradeText != null)
+//        {
+//            unitGnT.gradeText.text = gradeText;
+//        }
+//        if (typeText != null)
+//        {
+//            unitGnT.typeText.text = typeText;
+//        }        
+//    }
 
 
-    #endregion
+//    #endregion
 
-    #region Description
+//    #region Description
 
-    private void SetDescription()
-    {
-        unitDesc.descText.text = unitData.unitInfo.unit_Desc;
-    }
+//    private void SetDescription()
+//    {
+//        unitDesc.descText.text = unitData.unit_Desc;
+//    }
 
-    #endregion
+//    #endregion
 
-    #region Stat
+//    #region Stat
 
-    private void SetStats()
-    {
-        foreach (Transform child in unitStatList.unitStats)
-        {
-            Destroy(child.gameObject);
-        }
+//    private void SetStats()
+//    {
+//        foreach (Transform child in unitStatList.unitStats)
+//        {
+//            Destroy(child.gameObject);
+//        }
 
-        Set_HPObj();
-        Set_DamageObj();
-        Set_AttackSppedObj();
-        Set_MoveSppedObj();
-        Set_TargetObj();
-        Set_RangeObj();
-        Set_CreationTimeObj();
-        Set_LifeTimeObj();
-    }
-    private void Set_HPObj()
-    {
-        if (unitData.unitInfo.type == Type.Magic)
-        {
-            return;
-        }
+//        Set_HPObj();
+//        Set_DamageObj();
+//        Set_AttackSppedObj();
+//        Set_MoveSppedObj();
+//        Set_TargetObj();
+//        Set_RangeObj();
+//        Set_CreationTimeObj();
+//        Set_LifeTimeObj();
+//    }
+//    private void Set_HPObj()
+//    {
+//        if (unitData.type == Type.Magic)
+//        {
+//            return;
+//        }
 
-        GameObject hpStat_OBJ = Instantiate(unitStatList.hpOBJ, unitStatList.unitStats);
-        UI_UpgradeStat uiHp = hpStat_OBJ.GetComponent<UI_UpgradeStat>();
+//        GameObject hpStat_OBJ = Instantiate(unitStatList.hpOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat uiHp = hpStat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (uiHp != null)
-        {
-            uiHp.value.text = unitData.unitInfo.unitStat.maxHp.ToString();
-            uiHp.upgradeValue.text = $"+ {unitData.Get_Upgrade_HP()}";
+//        if (uiHp != null)
+//        {
+//            uiHp.value.text = unitData.maxHp.ToString();
+//            uiHp.upgradeValue.text = $"+ {unitData.Get_Upgrade_HP()}";
 
-            if (availableUpgrade)
-            {
-                uiHp.SetUpgrade();
-            }
-            else
-            {
-                uiHp.SetNotUpgrade();
-            }
-        }
-    }
-    private void Set_DamageObj()
-    {
-        GameObject DamageStat_OBJ = Instantiate(unitStatList.damageOBJ, unitStatList.unitStats);
-        UI_UpgradeStat uiDamage = DamageStat_OBJ.GetComponent<UI_UpgradeStat>();
+//            if (availableUpgrade)
+//            {
+//                uiHp.SetUpgrade();
+//            }
+//            else
+//            {
+//                uiHp.SetNotUpgrade();
+//            }
+//        }
+//    }
+//    private void Set_DamageObj()
+//    {
+//        GameObject DamageStat_OBJ = Instantiate(unitStatList.damageOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat uiDamage = DamageStat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (uiDamage != null)
-        {
-            uiDamage.value.text = unitData.unitInfo.unitStat.damage.ToString();
-            uiDamage.upgradeValue.text = $"+ {unitData.Get_Upgrade_Damage()}";
+//        if (uiDamage != null)
+//        {
+//            uiDamage.value.text = unitData.damage.ToString();
+//            uiDamage.upgradeValue.text = $"+ {unitData.Get_Upgrade_Damage()}";
 
-            if (availableUpgrade)
-            {
-                uiDamage.SetUpgrade();
-            }
-            else
-            {
-                uiDamage.SetNotUpgrade();
-            }
-        }
-    }
-    private void Set_AttackSppedObj()
-    {
-        if (unitData.unitInfo.type == Type.Magic)
-        {
-            return;
-        }
+//            if (availableUpgrade)
+//            {
+//                uiDamage.SetUpgrade();
+//            }
+//            else
+//            {
+//                uiDamage.SetNotUpgrade();
+//            }
+//        }
+//    }
+//    private void Set_AttackSppedObj()
+//    {
+//        if (unitData.type == Type.Magic)
+//        {
+//            return;
+//        }
 
-        GameObject AS_Stat_OBJ = Instantiate(unitStatList.attackSpeedOBJ, unitStatList.unitStats);
-        UI_UpgradeStat ui_AS = AS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        GameObject AS_Stat_OBJ = Instantiate(unitStatList.attackSpeedOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat ui_AS = AS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (ui_AS != null)
-        {
-            ui_AS.value.text = unitData.unitInfo.unitStat.attackSpeed.ToString();
-        }
-    }
+//        if (ui_AS != null)
+//        {
+//            ui_AS.value.text = unitData.attackSpeed.ToString();
+//        }
+//    }
     
-    private void Set_MoveSppedObj()
-    {
-        if (unitData.unitInfo.type == Type.Magic)
-        {
-            return;
-        }
+//    private void Set_MoveSppedObj()
+//    {
+//        if (unitData.type == Type.Magic)
+//        {
+//            return;
+//        }
 
-        GameObject MS_Stat_OBJ = Instantiate(unitStatList.moveSpeedOBJ, unitStatList.unitStats);
-        UI_UpgradeStat ui_MS = MS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        GameObject MS_Stat_OBJ = Instantiate(unitStatList.moveSpeedOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat ui_MS = MS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (ui_MS != null)
-        {
-            ui_MS.value.text = unitData.unitInfo.unitStat.moveSpeed.ToString();
-        }
-    }
+//        if (ui_MS != null)
+//        {
+//            ui_MS.value.text = unitData.moveSpeed.ToString();
+//        }
+//    }
     
-    private void Set_TargetObj()
-    {
-        if (unitData.unitInfo.type == Type.Magic)
-        {
-            return;
-        }
+//    private void Set_TargetObj()
+//    {
+//        if (unitData.type == Type.Magic)
+//        {
+//            return;
+//        }
 
-        GameObject target_Stat_OBJ = Instantiate(unitStatList.targetOBJ, unitStatList.unitStats);
-        UI_UpgradeStat ui_Target = target_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        GameObject target_Stat_OBJ = Instantiate(unitStatList.targetOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat ui_Target = target_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (ui_Target != null)
-        {
-            ui_Target.value.text = unitData.unitInfo.attackTarget.ToString();
-        }
-    }
+//        if (ui_Target != null)
+//        {
+//            ui_Target.value.text = unitData.attackTarget.ToString();
+//        }
+//    }
     
-    private void Set_RangeObj()
-    {
-        if (unitData.unitInfo.type == Type.Magic)
-        {
-            return;
-        }
+//    private void Set_RangeObj()
+//    {
+//        if (unitData.type == Type.Magic)
+//        {
+//            return;
+//        }
 
-        GameObject range_Stat_OBJ = Instantiate(unitStatList.rangeOBJ, unitStatList.unitStats);
-        UI_UpgradeStat ui_Range = range_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        GameObject range_Stat_OBJ = Instantiate(unitStatList.rangeOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat ui_Range = range_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (ui_Range != null)
-        {
-            ui_Range.value.text = unitData.unitInfo.unitRange.range.ToString();
-        }
-    }
+//        if (ui_Range != null)
+//        {
+//            ui_Range.value.text = unitData.range.ToString();
+//        }
+//    }
     
-    private void Set_CreationTimeObj()
-    {
-        GameObject creationTime_Stat_OBJ = Instantiate(unitStatList.creationTimeOBJ, unitStatList.unitStats);
-        UI_UpgradeStat ui_CreationTIme = creationTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//    private void Set_CreationTimeObj()
+//    {
+//        GameObject creationTime_Stat_OBJ = Instantiate(unitStatList.creationTimeOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat ui_CreationTIme = creationTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (ui_CreationTIme != null)
-        {
-            ui_CreationTIme.value.text = unitData.unitInfo.unitStat.spawnTime.ToString();
-        }
-    }
-    private void Set_LifeTimeObj()
-    {
-        if (unitData.unitInfo.type == Type.Unit || unitData.unitInfo.type == Type.Magic)
-        {
-            return;
-        }
-        GameObject LifeTime_Stat_OBJ = Instantiate(unitStatList.LifeTimeOBJ, unitStatList.unitStats);
-        UI_UpgradeStat ui_LifeTIme = LifeTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        if (ui_CreationTIme != null)
+//        {
+//            ui_CreationTIme.value.text = unitData.spawnTime.ToString();
+//        }
+//    }
+//    private void Set_LifeTimeObj()
+//    {
+//        if (unitData.type == Type.Unit || unitData.type == Type.Magic)
+//        {
+//            return;
+//        }
+//        GameObject LifeTime_Stat_OBJ = Instantiate(unitStatList.LifeTimeOBJ, unitStatList.unitStats);
+//        UI_UpgradeStat ui_LifeTIme = LifeTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-        if (ui_LifeTIme != null)
-        {
-            ui_LifeTIme.value.text = unitData.unitInfo.unitStat.lifeTime.ToString();
-        }
-    }
+//        if (ui_LifeTIme != null)
+//        {
+//            ui_LifeTIme.value.text = unitData.lifeTime.ToString();
+//        }
+//    }
 
-    #endregion
-
-    private void SetUpgradeButton()
-    {
-        if (availableUpgrade)
-        {
-            upgradeButton.background.ColorGreen();
-            upgradeButton.upgradeText.ColorWhite();
-            upgradeButton.upgradeCost.ColorWhite();
-            upgradeButton.coinImage.ColorWhite();
-        }
-        else
-        {
-            upgradeButton.background.ColorNormal();
-            upgradeButton.upgradeText.ColorNormal();
-            upgradeButton.upgradeCost.ColorNormal();
-            upgradeButton.coinImage.ColorNormal();
-        }
-    }
-}
+//    #endregion
+//}

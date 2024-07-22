@@ -1,7 +1,9 @@
+using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +32,9 @@ public class StartManager : MonoBehaviour
         
     public Image[] collectionsImage;
     public List<int> battleCardList = new List<int>();
+    public List<int> battleCardCostList = new List<int>();
+    public TMP_Text costAvg;
+    private float avg = 0f;
     
     
     private int currentDisplayIndex = 0;
@@ -75,30 +80,49 @@ public class StartManager : MonoBehaviour
     /// </summary>
     /// <param name="index"></param>
     public void OnClickUseUnit(int index)
-    {        
+    {
+        avg = 0f;
         for (int i = 0; i < 8; i++)
         {
 
             if (selectedUnits[i] == null)
             {
                 currentDisplayIndex = i;
+                selectedUnits[currentDisplayIndex] = SettingCardInfoManager.instance.charData[index];
+                battleCardList.Add(SettingCardInfoManager.instance.charData[index].cardId);
+                battleCardCostList.Add(SettingCardInfoManager.instance.charData[index].cost);
+                for (int j = 0; j< battleCardCostList.Count; j++)
+                {
+                    avg += battleCardCostList[j];
+                }
+                avg /= battleCardCostList.Count;
+                avg = Mathf.Floor(avg * 10.0f) / 10.0f;
+
+                if (avg % 1 != 0)
+                {
+                    costAvg.text = avg.ToString();
+                }
+                else
+                {
+                    costAvg.text = avg.ToString() + ".0";
+                }
+
+                Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+                unitImage.ImageTransparent(1f);
+
+                unitImage.sprite = SettingCardInfoManager.instance.charData[index].img;
                 break;
             }
         }
-
-        selectedUnits[currentDisplayIndex] = SettingCardInfoManager.instance.charData[index];
-        battleCardList.Add(SettingCardInfoManager.instance.charData[index].cardId);
-        Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
-        unitImage.ImageTransparent(1f);
-
-        unitImage.sprite = SettingCardInfoManager.instance.charData[index].img;        
-    }    
+     
+    }       
     /// <summary>
     /// Collection ÅÇ À¯´Ö Á¦°Å
     /// </summary>
     /// <param name="index"></param>
     public void OnClickNotUseUnit(int index)
     {
+        avg = 0f;
         for (int i = 0; i < 8; i++)
         {
             if (selectedUnits[i] != null && selectedUnits[i].name.Equals(SettingCardInfoManager.instance.charData[index].name))
@@ -106,14 +130,37 @@ public class StartManager : MonoBehaviour
                 selectedUnits[i] = null;
                 currentDisplayIndex = i;
                 battleCardList.Remove(SettingCardInfoManager.instance.charData[index].cardId);
+                battleCardCostList.Remove(SettingCardInfoManager.instance.charData[index].cost);
+
+                for (int j = 0; j < battleCardCostList.Count; j++)
+                {
+                    avg += battleCardCostList[j];
+                }
+                avg /= battleCardCostList.Count;
+                avg = Mathf.Floor(avg * 10.0f) / 10.0f;
+
+                if(avg % 1 != 0)
+                {
+                    costAvg.text = avg.ToString();
+                }
+                else
+                {
+                    costAvg.text = avg.ToString()+".0";
+                }
+
+                Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+                unitImage.sprite = null;
+                unitImage.ImageTransparent(0f);
                 break;
             }   
         }           
 
-        Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
-        unitImage.sprite = null;
-        unitImage.ImageTransparent(0f);
-    }    
+    }
+
+    public void SelectCost()
+    {
+
+    }
 
     public void UpdateUserCard(string battleCard)
     {

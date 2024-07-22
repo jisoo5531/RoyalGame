@@ -95,6 +95,7 @@ public class SignUp : MonoBehaviour
                         Debug.LogWarning("데이터 삽입 실패");
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)
@@ -120,6 +121,7 @@ public class SignUp : MonoBehaviour
                         return result > 0;
                     }
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)

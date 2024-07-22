@@ -38,6 +38,7 @@ public class SettingUserInfo : MonoBehaviour
                         jewelAmount.text = GetStringData(cmd, "jewel");
                     }
                 }
+                conn.Close();
             }
         }
         catch(Exception ex)

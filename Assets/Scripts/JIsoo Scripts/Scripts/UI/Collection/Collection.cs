@@ -22,35 +22,38 @@ public class Collection : MonoBehaviour
     public GameObject InfoButton;
     public GameObject upgradeButton;
 
-    private UnitData unitData;
+    private UnitData_SO unitData;
     private int myCurrentCardCount;
     private int myMaxCardCount;
     private int myUnitCost;
+
+    private int cardId;
 
     private void Start()
     {
         InfoButton.SetActive(true);
         upgradeButton.SetActive(false);
 
-        unitData = GameManager.m_Instance.uniData[mySequence];        
-        SettingUI(unitData, cardCountFill, cardCountText, costText);
+        //unitData = StartManager.m_Instance.m_unitDatas[mySequence];
+        //SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
     private void Update()
     {
-        CheckAvailableUpgrade(cardCountFill, upArrow, InfoButton, upgradeButton);
-        SettingUI(unitData, cardCountFill, cardCountText, costText);
+        //CheckAvailableUpgrade(cardCountFill, upArrow, InfoButton, upgradeButton);
+        //SettingUI(unitData, cardCountFill, cardCountText, costText);
     }
 
-    public void SettingUI(UnitData unitData, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
+    public void InitUI(int cardID, int currentCard, int maxCard, int cost, string grade, string name, int level)
     {
-        myCurrentCardCount = unitData.cardInfo.unit_CurrentCardCount;
-        myMaxCardCount = unitData.cardInfo.unit_MaxCardCount;
-        myUnitCost = unitData.unitInfo.unitStat.cost;
+        this.cardId = cardID;
+        SettingUI(currentCard, maxCard, cost, cardCountFill, cardCountText, costText);
+    }
 
-
-        cardCountFill.fillAmount = (float)myCurrentCardCount / (float)myMaxCardCount;
-        cardCountText.text = $"{myCurrentCardCount} / {myMaxCardCount}".ToString();
-        costText.text = $"{myUnitCost}".ToString();
+    public void SettingUI(int currentCard, int maxCard, int cost, Image cardCountFill, TextMeshProUGUI cardCountText, TextMeshProUGUI costText)
+    {
+        cardCountFill.fillAmount = currentCard / maxCard;
+        cardCountText.text = $"{currentCard} / {maxCard}";
+        costText.text = $"{cost}";
     }
     /// <summary>
     /// 카드가 다 모여 업그레이드가 가능하면
@@ -87,7 +90,7 @@ public class Collection : MonoBehaviour
     {
         Upgrade upgrade = FindObjectOfType<Upgrade>();
 
-        UnitData unitData = GameManager.m_Instance.uniData[number];
+        UnitData_SO unitData = StartManager.m_Instance.m_unitDatas[number];
 
         upgrade.SetInfo(unitData);
     }

@@ -51,15 +51,15 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
     }
 
-    protected virtual void InitializeUnitData(UnitData unit)
-    {                
-        name = unit.unitInfo.unitName;
-        HP = unit.unitInfo.unitStat.HP;
-        maxHP = unit.unitInfo.unitStat.maxHp;
-        damage = unit.unitInfo.unitStat.damage;
-        range = unit.unitInfo.unitRange.range;
-        detectionRange = unit.unitInfo.unitRange.detectionRange;
-        attackTarget = unit.unitInfo.attackTarget;
+    protected virtual void InitializeUnitData(UnitData_SO unit)
+    {
+        name = unit.unitName;
+        HP = unit.HP;
+        maxHP = unit.maxHp;
+        damage = unit.damage;
+        range = unit.range;
+        detectionRange = unit.detectionRange;
+        attackTarget = unit.attackTarget;
     }
 
 

@@ -35,11 +35,11 @@ public class MovableUnit : Unit
         }
     }
 
-    protected override void InitializeUnitData(UnitData unit)
+    protected override void InitializeUnitData(UnitData_SO unit)
     {
         base.InitializeUnitData(unit);
-        moveSpeed = unit.unitInfo.unitStat.moveSpeed;
-        SendDamage(unit.unitInfo.unitStat.damage);
+        moveSpeed = unit.moveSpeed;
+        SendDamage(unit.damage);
     }
 
     private void Update()

@@ -11,22 +11,22 @@ public class UI_Manager : MonoBehaviour
     private static UI_Manager instance;
     public static UI_Manager m_Instance { get { return instance; } }
 
-    private List<UnitData> shuffledUnit;
-    [HideInInspector] public List<UnitData> m_shuffledUnit { get { return shuffledUnit; } }
+    private List<UnitData_SO> shuffledUnit;
+    [HideInInspector] public List<UnitData_SO> m_shuffledUnit { get { return shuffledUnit; } }
 
 
-    private List<UnitData> UI_availableUnit = new List<UnitData>();
+    private List<UnitData_SO> UI_availableUnit = new List<UnitData_SO>();
     /// <summary>
     /// 현재 생성 버튼에 있는 생성 가능 유닛
     /// </summary>
-    [HideInInspector] public List<UnitData> m_UI_availableUnit { get { return UI_availableUnit; } }
+    [HideInInspector] public List<UnitData_SO> m_UI_availableUnit { get { return UI_availableUnit; } }
 
 
-    private Queue<UnitData> UI_waitUnitsQueue = new Queue<UnitData>();
+    private Queue<UnitData_SO> UI_waitUnitsQueue = new Queue<UnitData_SO>();
     /// <summary>
     /// 생성 가능 유닛이 아닌 대기 중인 유닛
     /// </summary>
-    [HideInInspector] public Queue<UnitData> m_UI_waitUnitsQueue { get { return UI_waitUnitsQueue; } }
+    [HideInInspector] public Queue<UnitData_SO> m_UI_waitUnitsQueue { get { return UI_waitUnitsQueue; } }
 
 
     /// <summary>
@@ -101,9 +101,9 @@ public class UI_Manager : MonoBehaviour
 
                 if (UnitSpawner.instance.spawnComplete)
                 {
-                    UnitData spawnedUnit = UI_availableUnit[selectSlotNumber];
+                    UnitData_SO spawnedUnit = UI_availableUnit[selectSlotNumber];
 
-                    elixir.ElixirMinus(spawnedUnit.unitInfo.unitStat.cost);
+                    elixir.ElixirMinus(spawnedUnit.cost);
 
                     UI_availableUnit.RemoveAt(selectSlotNumber);
                     UI_availableUnit.Insert(selectSlotNumber, UI_waitUnitsQueue.Dequeue());
@@ -135,7 +135,7 @@ public class UI_Manager : MonoBehaviour
     /// <returns></returns>
     public bool CheckSpawnPossible(int number)
     {
-        if (elixir.IsSpawnUnitPossible(UI_availableUnit[number].unitInfo.unitStat.cost))
+        if (elixir.IsSpawnUnitPossible(UI_availableUnit[number].cost))
         {
             return true;
         }

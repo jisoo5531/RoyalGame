@@ -44,14 +44,6 @@ public class UnitDescription
 {
     public TextMeshProUGUI descText;
 }
-[System.Serializable]
-public class UpgradeButton
-{
-    public Image background;
-    public TextMeshProUGUI upgradeText;
-    public TextMeshProUGUI upgradeCost;
-    public Image coinImage;
-}
 
 public class Upgrade : MonoBehaviour
 {            
@@ -60,16 +52,14 @@ public class Upgrade : MonoBehaviour
     public GradeAndType unitGnT;
     public UnitDescription unitDesc;
     public UnitStat unitStatList;
-    public UpgradeButton upgradeButton;
 
-
-    private UnitData unitData;
+    private UnitData_SO unitData;
 
     private bool availableUpgrade = false;
 
     
 
-    public void SetInfo(UnitData unitData)
+    public void SetInfo(UnitData_SO unitData)
     {
         this.unitData = unitData;
 
@@ -83,16 +73,14 @@ public class Upgrade : MonoBehaviour
 
         SetCardCountFill();
 
-        SetStats();
-
-        SetUpgradeButton();
+        SetStats();        
     }
 
     #region Title
 
     private void SetTitle()
     {
-        unitTitle.unitName.text = $"레벨 {unitData.cardInfo.unit_Level} {unitData.unitInfo.unitName}".ToString();
+        unitTitle.unitName.text = $"레벨 {unitData.unit_Level} {unitData.unitName}".ToString();
     }
 
     #endregion
@@ -102,7 +90,7 @@ public class Upgrade : MonoBehaviour
     private void SetUnitImage()
     {
         unitList.unitImage.sprite = unitData.iconSprite;
-        unitList.costText.text = unitData.unitInfo.unitStat.cost.ToString();
+        unitList.costText.text = unitData.cost.ToString();
     }
 
     #region CardCount
@@ -115,7 +103,7 @@ public class Upgrade : MonoBehaviour
 
         if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
         {
-            availableUpgrade = true;            
+            availableUpgrade = true;
         }      
         else
         {
@@ -137,7 +125,7 @@ public class Upgrade : MonoBehaviour
 
     private void SetBackground()
     {
-        switch (unitData.unitInfo.grade)
+        switch (unitData.grade)
         {
             case Grade.Normal:
                 unitGnT.gradeAndTypeBackground.ColorNormal();
@@ -156,7 +144,7 @@ public class Upgrade : MonoBehaviour
     {
         string gradeText = null;
         string typeText = null;
-        switch (unitData.unitInfo.grade)
+        switch (unitData.grade)
         {
             case Grade.Normal:
                 gradeText = "일반";
@@ -170,7 +158,7 @@ public class Upgrade : MonoBehaviour
             default:
                 break;
         }
-        switch (unitData.unitInfo.type)
+        switch (unitData.type)
         {
             case Type.Unit:
                 typeText = "유닛";
@@ -201,7 +189,7 @@ public class Upgrade : MonoBehaviour
 
     private void SetDescription()
     {
-        unitDesc.descText.text = unitData.unitInfo.unit_Desc;
+        unitDesc.descText.text = unitData.unit_Desc;
     }
 
     #endregion
@@ -226,7 +214,7 @@ public class Upgrade : MonoBehaviour
     }
     private void Set_HPObj()
     {
-        if (unitData.unitInfo.type == Type.Magic)
+        if (unitData.type == Type.Magic)
         {
             return;
         }
@@ -236,7 +224,7 @@ public class Upgrade : MonoBehaviour
 
         if (uiHp != null)
         {
-            uiHp.value.text = unitData.unitInfo.unitStat.maxHp.ToString();
+            uiHp.value.text = unitData.maxHp.ToString();
             uiHp.upgradeValue.text = $"+ {unitData.Get_Upgrade_HP()}";
 
             if (availableUpgrade)
@@ -256,7 +244,7 @@ public class Upgrade : MonoBehaviour
 
         if (uiDamage != null)
         {
-            uiDamage.value.text = unitData.unitInfo.unitStat.damage.ToString();
+            uiDamage.value.text = unitData.damage.ToString();
             uiDamage.upgradeValue.text = $"+ {unitData.Get_Upgrade_Damage()}";
 
             if (availableUpgrade)
@@ -271,7 +259,7 @@ public class Upgrade : MonoBehaviour
     }
     private void Set_AttackSppedObj()
     {
-        if (unitData.unitInfo.type == Type.Magic)
+        if (unitData.type == Type.Magic)
         {
             return;
         }
@@ -281,13 +269,13 @@ public class Upgrade : MonoBehaviour
 
         if (ui_AS != null)
         {
-            ui_AS.value.text = unitData.unitInfo.unitStat.attackSpeed.ToString();
+            ui_AS.value.text = unitData.attackSpeed.ToString();
         }
     }
     
     private void Set_MoveSppedObj()
     {
-        if (unitData.unitInfo.type == Type.Magic)
+        if (unitData.type == Type.Magic)
         {
             return;
         }
@@ -297,13 +285,13 @@ public class Upgrade : MonoBehaviour
 
         if (ui_MS != null)
         {
-            ui_MS.value.text = unitData.unitInfo.unitStat.moveSpeed.ToString();
+            ui_MS.value.text = unitData.moveSpeed.ToString();
         }
     }
     
     private void Set_TargetObj()
     {
-        if (unitData.unitInfo.type == Type.Magic)
+        if (unitData.type == Type.Magic)
         {
             return;
         }
@@ -313,13 +301,13 @@ public class Upgrade : MonoBehaviour
 
         if (ui_Target != null)
         {
-            ui_Target.value.text = unitData.unitInfo.attackTarget.ToString();
+            ui_Target.value.text = unitData.attackTarget.ToString();
         }
     }
     
     private void Set_RangeObj()
     {
-        if (unitData.unitInfo.type == Type.Magic)
+        if (unitData.type == Type.Magic)
         {
             return;
         }
@@ -329,7 +317,7 @@ public class Upgrade : MonoBehaviour
 
         if (ui_Range != null)
         {
-            ui_Range.value.text = unitData.unitInfo.unitRange.range.ToString();
+            ui_Range.value.text = unitData.range.ToString();
         }
     }
     
@@ -340,12 +328,12 @@ public class Upgrade : MonoBehaviour
 
         if (ui_CreationTIme != null)
         {
-            ui_CreationTIme.value.text = unitData.unitInfo.unitStat.spawnTime.ToString();
+            ui_CreationTIme.value.text = unitData.spawnTime.ToString();
         }
     }
     private void Set_LifeTimeObj()
     {
-        if (unitData.unitInfo.type == Type.Unit || unitData.unitInfo.type == Type.Magic)
+        if (unitData.type == Type.Unit || unitData.type == Type.Magic)
         {
             return;
         }
@@ -354,27 +342,9 @@ public class Upgrade : MonoBehaviour
 
         if (ui_LifeTIme != null)
         {
-            ui_LifeTIme.value.text = unitData.unitInfo.unitStat.lifeTime.ToString();
+            ui_LifeTIme.value.text = unitData.lifeTime.ToString();
         }
     }
 
     #endregion
-
-    private void SetUpgradeButton()
-    {
-        if (availableUpgrade)
-        {
-            upgradeButton.background.ColorGreen();
-            upgradeButton.upgradeText.ColorWhite();
-            upgradeButton.upgradeCost.ColorWhite();
-            upgradeButton.coinImage.ColorWhite();
-        }
-        else
-        {
-            upgradeButton.background.ColorNormal();
-            upgradeButton.upgradeText.ColorNormal();
-            upgradeButton.upgradeCost.ColorNormal();
-            upgradeButton.coinImage.ColorNormal();
-        }
-    }
 }

@@ -21,7 +21,7 @@ public class SpawnSlot : MonoBehaviour,
 
     public GameObject dragUnit = null;
 
-    private UnitData unitData;
+    private UnitData_SO unitData;
     private bool isSpawn = false;
 
     public void OnBeginDrag(PointerEventData eventData)

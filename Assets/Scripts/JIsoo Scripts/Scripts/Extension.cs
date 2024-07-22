@@ -72,9 +72,9 @@ public static class Extension
     /// <summary>
     /// 유닛 유형에 맞게 분류
     /// </summary>
-    public static void UnitClassification(this GameObject unit, UnitData unitData)
+    public static void UnitClassification(this GameObject unit, UnitData_SO unitData)
     {
-        if (unitData.unitInfo.type == Type.Unit)
+        if (unitData.type == Type.Unit)
         {
             //// Animator 컴포넌트를 가진 오브젝트에 넣어주기
             //Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
@@ -86,7 +86,7 @@ public static class Extension
 
             unit.AddComponent<MovableUnit>();
         }
-        else if (unitData.unitInfo.type == Type.Deffense)
+        else if (unitData.type == Type.Deffense)
         {
             unit.AddComponent<DeffenseTower>();
         }

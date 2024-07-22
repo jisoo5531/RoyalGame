@@ -111,7 +111,7 @@ public class Upgrade : MonoBehaviour
     {
         Collection collection = FindObjectOfType<Collection>();
 
-        //collection.SettingUI(unitData, unitList.cardCountFill, unitList.cardCountText, unitList.costText);
+        collection.SettingUI(unitData, unitList.cardCountFill, unitList.cardCountText, unitList.costText);
 
         if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
         {

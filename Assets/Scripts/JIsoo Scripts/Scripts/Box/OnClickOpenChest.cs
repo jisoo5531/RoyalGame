@@ -28,11 +28,11 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     private MJ_OpenCard MJ_OpenCard;
     private MJ_ShakeBox MJ_ShakeBox;
 
-    private JS_Chest chest;
+    private Chest chest;
 
     public OBJ unitOBJ;
 
-    private KeyValuePair<int, (JS_Chest.Grade, int)>? reward;
+    private KeyValuePair<int, (Chest.Grade, int)>? reward;
     private UnitData uniData = null;
 
     private int clickCount = 0;
@@ -40,7 +40,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        chest = GetComponent<JS_Chest>();
+        chest = GetComponent<Chest>();
 
         MJ_MoveCard = GetComponentInChildren<MJ_MoveCard>();
         MJ_OpenCard = GetComponentInChildren<MJ_OpenCard>();

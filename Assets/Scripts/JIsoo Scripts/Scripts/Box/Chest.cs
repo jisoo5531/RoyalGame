@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class JS_Chest : MonoBehaviour
+public class Chest : MonoBehaviour
 {
     public enum Grade
     {
@@ -34,16 +32,6 @@ public class JS_Chest : MonoBehaviour
         Prince = 7
     }
 
-
-
-
-    //public Image characterImg;
-    //public TMP_Text characterName;
-    //public TMP_Text characterGrade;
-    //public TMP_Text characterLevel;
-    //public TMP_Text characterCurrentCardCount;
-    //public TMP_Text characterMaxCardCount;
-
     /// <summary>
     /// 상자에서 얻은 보상을 담은 딕셔너리.<br/>
     /// <b>Key:</b> 카드 ID - 각 유닛 타입을 나타내는 값.<br/>
@@ -52,15 +40,8 @@ public class JS_Chest : MonoBehaviour
     /// 두 번째 항목은 해당 카드가 보상으로 몇 번 나왔는지를 나타내는 개수.<br/>
     /// </summary>
     private Dictionary<int, (Grade, int)> reward = new Dictionary<int, (Grade, int)>();
-    public Dictionary<CharacterInfo, int> randomUnits = new Dictionary<CharacterInfo, int>();
 
-    public int totalRemainCard;
-
-    private OnClickOpenChest openChest;
-
-    List<int> normalCards;
-    List<int> rareCards;
-    List<int> epicCards;
+    public int totalRemainCard;    
 
     //private void Awake()
     //{
@@ -68,152 +49,102 @@ public class JS_Chest : MonoBehaviour
     //    PrintRewards();
     //}
 
-    private void Awake()
-    {
-        openChest = GetComponent<OnClickOpenChest>();
-    }
-
     public void OpenNormalChest()
     {
         int normalRemainCard = 3;
-        int rareRemainCard = 1;
+        int rareRemainCard = 1;        
 
         while (normalRemainCard > 0)
         {
-            NormalCard(5);
+            NormalCard();
             normalRemainCard--;
         }
 
         while (rareRemainCard > 0)
         {
-            RareCard(5);
+            RareCard();
             rareRemainCard--;
         }
-        totalRemainCard = randomUnits.Count;
+        totalRemainCard = reward.Count;
     }
 
     public void OpenRareChest()
     {
         int normalRemainCard = 5;
-        int rareRemainCard = 3;
+        int rareRemainCard = 3;        
 
         while (normalRemainCard > 0)
         {
-            NormalCard(5);
+            NormalCard();
             normalRemainCard--;
         }
 
         while (rareRemainCard > 0)
         {
-            RareCard(5);
+            RareCard();
             rareRemainCard--;
         }
 
-        totalRemainCard = randomUnits.Count;
+        totalRemainCard = reward.Count;
     }
 
     public void OpenEpicChest()
     {
-        int normalRemainCard = 3;
-        int rareRemainCard = 3;
-        int epicRemainCard = 2;
-        normalCards = System.Enum.GetValues(typeof(Normal)).Cast<int>().ToList();
-        rareCards = System.Enum.GetValues(typeof(Rare)).Cast<int>().ToList();
-        epicCards = System.Enum.GetValues(typeof(Epic)).Cast<int>().ToList();
-        randomUnits.Clear();
+        int normalRemainCard = 6;
+        int rareRemainCard = 4;
+        int epicRemainCard = 2;        
 
         while (normalRemainCard > 0)
         {
-            NormalCard(1);
+            NormalCard();
             normalRemainCard--;
         }
 
         while (rareRemainCard > 0)
         {
-            RareCard(1);
+            RareCard();
             rareRemainCard--;
         }
 
         while (epicRemainCard > 0)
         {
-            EpicCard(1);
+            EpicCard();
             epicRemainCard--;
         }
-        totalRemainCard = randomUnits.Count;
-        if (openChest.MJ_ShakeBox != null)
-        {
-            openChest.MJ_ShakeBox.DOAction();
-        }
-        if (openChest.MJ_MoveCard != null)
-        {
-            openChest.MJ_MoveCard.CardActive();
-        }
-
-        openChest.characterInfo = GetCharInfo(openChest.clickCount);
-        openChest.clickCount++;
-        openChest.Set_UI();
+        totalRemainCard = reward.Count;
     }
 
-    private void NormalCard(int amount)
+    private void NormalCard()
     {
+        List<int> normalCards = System.Enum.GetValues(typeof(Normal)).Cast<int>().ToList();
         int randomIndex = Random.Range(0, normalCards.Count);
-        //AddReward(normalCards[randomIndex], Grade.Normal);
-
-        AddRandomUnitList(normalCards[randomIndex], amount);
-        normalCards.RemoveAt(randomIndex);
+        AddReward(normalCards[randomIndex], Grade.Normal);
     }
 
-    private void RareCard(int amount)
+    private void RareCard()
     {
+        List<int> rareCards = System.Enum.GetValues(typeof(Rare)).Cast<int>().ToList();
         int randomIndex = Random.Range(0, rareCards.Count);
-        //AddReward(rareCards[randomIndex], Grade.Rare);
-        AddRandomUnitList(rareCards[randomIndex], amount);
-        rareCards.RemoveAt(randomIndex);
+        AddReward(rareCards[randomIndex], Grade.Rare);
     }
 
-    private void EpicCard(int amount)
+    private void EpicCard()
     {
+        List<int> epicCards = System.Enum.GetValues(typeof(Epic)).Cast<int>().ToList();
         int randomIndex = Random.Range(0, epicCards.Count);
-        //AddReward(epicCards[randomIndex], Grade.Epic);
-        AddRandomUnitList(epicCards[randomIndex], amount);
-        epicCards.RemoveAt(randomIndex);
+        AddReward(epicCards[randomIndex], Grade.Epic);
     }
 
-    //private void AddReward(int cardID, Grade grade)
-    //{
-    //    if (reward.ContainsKey(cardID))
-    //    {
-    //        reward[cardID] = (grade, reward[cardID].Item2 + 1);
-    //    }
-    //    else
-    //    {
-    //        reward[cardID] = (grade, 1);
-    //    }
-    //}
-
-    private void AddRandomUnitList(int cardID, int amount)
+    private void AddReward(int cardID, Grade grade)
     {
-        for (int i = 0; i < CardInfoManager.instance.allCharacters.Count; i++)
+        if (reward.ContainsKey(cardID))
         {
-            if (cardID == CardInfoManager.instance.allCharacters[i].characterID)
-            {
-                randomUnits.Add(CardInfoManager.instance.allCharacters[i], amount);
-                break;
-            }
+            reward[cardID] = (grade, reward[cardID].Item2 + 1);
         }
-    }
-
-    public KeyValuePair<CharacterInfo, int> GetCharInfo(int index)
-    {
-        List<KeyValuePair<CharacterInfo, int>> infoList = randomUnits.ToList();
-        KeyValuePair<CharacterInfo, int> rewardItem = default;
-
-        if (index < infoList.Count)
+        else
         {
-            rewardItem = infoList[index];
-            totalRemainCard -= 1;
+            reward[cardID] = (grade, 1);
         }
-        return rewardItem;
     }
 
     public KeyValuePair<int, (Grade, int)>? OnClickOpenCard(int index)
@@ -238,7 +169,7 @@ public class JS_Chest : MonoBehaviour
     private void PrintRewards()
     {
         foreach (var item in reward)
-        {
+        {            
             Debug.Log($"Grade: {item.Value.Item1}, Card ID: {item.Key}, Count: {item.Value.Item2}");
         }
     }

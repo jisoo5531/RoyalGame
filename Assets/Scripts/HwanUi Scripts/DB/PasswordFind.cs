@@ -19,6 +19,7 @@ public class PasswordFind : MonoBehaviour
     public GameObject findPassword;
 
     public GameObject signInUI;
+    public GameObject signUpUI;
     #endregion
 
     void Update()
@@ -30,11 +31,27 @@ public class PasswordFind : MonoBehaviour
     {
         return nicknameLength >= 4;
     }
+    public void FindPasswordFail_SignInClick()
+    {
+        signInUI.SetActive(true);
+        findPasswordFail_UI.SetActive(false);
+    }
+    public void FindPasswordSuccess_SignInClick()
+    {
+        signInUI.SetActive(true);
+        findPasswordSuccess_UI.SetActive(false);
+    }
     public void FindPassword_SignInClick()
     {
         nickname.text = string.Empty;
         signInUI.SetActive(true);
         findPassword.SetActive(false);
+    }
+
+    public void SignUpClick()
+    {
+        signUpUI.SetActive(true);
+        findPasswordFail_UI.SetActive(false);
     }
 
     public void FindPasswordClick()
@@ -55,8 +72,9 @@ public class PasswordFind : MonoBehaviour
     {
         try
         {
-            string selectName = $"SELECT count(*), password FROM USER WHERE userName = '{nickname}'";
+            string selectName = string.Format("SELECT count(*), password FROM USER WHERE userName = '{0}'", nickname);
 
+<<<<<<< HEAD:Assets/Scripts/HwanUi Scripts/DB/PasswordFind.cs
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(selectName, conn))
@@ -70,6 +88,16 @@ public class PasswordFind : MonoBehaviour
                         return rowCount > 0;
                     }
                 }
+=======
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectName);
+            cmd.CommandText = selectName;
+            if (cmd != null)
+            {
+                userPassword = GetPassword(cmd);
+                int rowCount = GetRowCount(cmd);
+
+                return rowCount > 0;
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo):Assets/Scripts/HwanUi Scripts/PasswordFind.cs
             }
         }
         catch (Exception ex)

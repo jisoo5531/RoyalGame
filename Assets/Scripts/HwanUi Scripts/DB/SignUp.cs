@@ -59,10 +59,14 @@ public class SignUp : MonoBehaviour
     {
         try
         {
-            string insertQuery = $"INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
+            //string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
+            //    "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
+            //    "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount)";
+            string insertQuery = "INSERT INTO USER (userName, password, battleCount, victoryCount, defeatCount, maxTrophy, currentTrophy, gold, " +
             "jewel, maxCardCount, currentCardCount) VALUES (@userName, @password, @battleCount, @victoryCount, @defeatCount, @maxTrophy, " +
             "@currentTrophy, @gold, @jewel, @maxCardCount, @currentCardCount); SELECT LAST_INSERT_ID();";
 
+<<<<<<< HEAD:Assets/Scripts/HwanUi Scripts/DB/SignUp.cs
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
@@ -95,6 +99,36 @@ public class SignUp : MonoBehaviour
                         Debug.LogWarning("데이터 삽입 실패");
                     }
                 }
+=======
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(insertQuery);
+
+            if (cmd != null)
+            {
+                cmd.Parameters.AddWithValue("@userName", name);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@battleCount", 0);
+                cmd.Parameters.AddWithValue("@victoryCount", 0);
+                cmd.Parameters.AddWithValue("@defeatCount", 0);
+                cmd.Parameters.AddWithValue("@maxTrophy", 0);
+                cmd.Parameters.AddWithValue("@currentTrophy", 0);
+                cmd.Parameters.AddWithValue("@gold", 0);
+                cmd.Parameters.AddWithValue("@jewel", 0);
+                cmd.Parameters.AddWithValue("@maxCardCount", 8);
+                cmd.Parameters.AddWithValue("@currentCardCount", 0);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        DatabaseManager.Instance.userId = reader.GetInt32(0);
+                        Debug.Log("데이터 삽입 성공");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("데이터 삽입 실패");
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo):Assets/Scripts/HwanUi Scripts/SignUp.cs
             }
         }
         catch (Exception ex)
@@ -107,8 +141,9 @@ public class SignUp : MonoBehaviour
     {
         try
         {
-            string nameSelect = $"SELECT count(*) FROM USER WHERE userName = '{name}'";
+            string nameSelect = string.Format("SELECT count(*) FROM USER WHERE userName = '{0}'", name);
 
+<<<<<<< HEAD:Assets/Scripts/HwanUi Scripts/DB/SignUp.cs
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(nameSelect, conn))
@@ -120,6 +155,15 @@ public class SignUp : MonoBehaviour
                         return result > 0;
                     }
                 }
+=======
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(nameSelect);
+
+            if (cmd != null)
+            {
+                int result = GetRowCount(cmd);
+
+                return result > 0;
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo):Assets/Scripts/HwanUi Scripts/SignUp.cs
             }
         }
         catch (Exception ex)

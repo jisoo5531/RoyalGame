@@ -67,8 +67,9 @@ public class SignIn : MonoBehaviour
     {
         try
         {
-            string userInfoSelect = $"SELECT count(*), userID FROM USER WHERE userName = '{name}' AND password = '{password}'";
+            string userInfoSelect = string.Format("SELECT count(*), userID FROM USER WHERE userName = '{0}' AND password = '{1}'", name, password);
 
+<<<<<<< HEAD:Assets/Scripts/HwanUi Scripts/DB/SignIn.cs
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(userInfoSelect, conn))
@@ -81,6 +82,16 @@ public class SignIn : MonoBehaviour
                         return result > 0;
                     }
                 }
+=======
+            MySqlCommand cmd = DatabaseManager.Instance.DBConnection(userInfoSelect);
+
+            if (cmd != null)
+            {
+                int result = GetRowCount(cmd);
+                DatabaseManager.Instance.userId = GetUserId(cmd);
+
+                return result > 0;
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo):Assets/Scripts/HwanUi Scripts/SignIn.cs
             }
         }
         catch (Exception ex)

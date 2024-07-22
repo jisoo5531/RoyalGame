@@ -1,5 +1,4 @@
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,10 +21,9 @@ public class SettingUserInfo : MonoBehaviour
 
     private void SelectUser(int userId)
     {
-        try
-        {
-            string selectUserInfo = $"SELECT * FROM USER WHERE userId = {userId}";
+        string selectUserInfo = string.Format("SELECT * FROM USER WHERE userId = {0}", userId);
 
+<<<<<<< HEAD:Assets/Scripts/HwanUi Scripts/DB/SettingUserInfo.cs
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(selectUserInfo, conn))
@@ -41,8 +39,16 @@ public class SettingUserInfo : MonoBehaviour
             }
         }
         catch(Exception ex)
+=======
+        MySqlCommand cmd = DatabaseManager.Instance.DBConnection(selectUserInfo);
+
+        if (cmd != null)
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo):Assets/Scripts/HwanUi Scripts/SettingUserInfo.cs
         {
-            print(ex.Message);
+            userName.text = GetStringData(cmd, "userName");
+            trophyAmount.text = GetStringData(cmd, "currentTrophy");
+            goldAmount.text = GetStringData(cmd, "gold");
+            jewelAmount.text = GetStringData(cmd, "jewel");
         }
     }
     string GetStringData(MySqlCommand cmd, string column)

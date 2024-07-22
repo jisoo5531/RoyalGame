@@ -26857,6 +26857,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+<<<<<<< HEAD
 --- !u!1 &132644503
 GameObject:
   m_ObjectHideFlags: 0
@@ -26973,6 +26974,8 @@ MonoBehaviour:
     unitCurrentCardCount: {fileID: 1759896008}
   clickCount: 0
   isOpenClick: 0
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &134147190
 GameObject:
   m_ObjectHideFlags: 0
@@ -39643,7 +39646,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1750671089}
-  - {fileID: 2134072105}
+  - {fileID: 1949014241}
   m_Father: {fileID: 193729701}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39695,6 +39698,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 223802059}
   m_OnClick:
     m_PersistentCalls:
+<<<<<<< HEAD
       m_Calls:
       - m_Target: {fileID: 1761858524}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -39720,6 +39724,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+=======
+      m_Calls: []
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!114 &223802059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39740,7 +39747,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 804461bef59b141dba258fc997c8ca15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23d2f9d15f15a43c5bf2c57de1a27879, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55484,6 +55491,144 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+<<<<<<< HEAD
+=======
+--- !u!1 &255840524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255840525}
+  - component: {fileID: 255840527}
+  - component: {fileID: 255840526}
+  m_Layer: 0
+  m_Name: Text (TMP) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &255840525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255840524}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1692697198}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_SizeDelta: {x: 221.19995, y: 66.70801}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &255840526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255840524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uCEEC\uB809\uC158"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: fff18702b1540f34ebe60b966000a273, type: 2}
+  m_sharedMaterial: {fileID: -6401154965462303832, guid: fff18702b1540f34ebe60b966000a273, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 55
+  m_fontSizeBase: 55
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &255840527
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255840524}
+  m_CullTransparentMesh: 1
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &256777033
 GameObject:
   m_ObjectHideFlags: 0
@@ -68394,6 +68539,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393823940}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &400883567
 GameObject:
   m_ObjectHideFlags: 0
@@ -68733,6 +68879,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412235302}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &414521535
 GameObject:
   m_ObjectHideFlags: 0
@@ -74732,7 +74880,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457059029}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &465063199
+=======
+--- !u!1 &457276500
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74740,6 +74892,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 465063200}
   - component: {fileID: 465063204}
   - component: {fileID: 465063203}
@@ -74747,17 +74900,29 @@ GameObject:
   - component: {fileID: 465063201}
   m_Layer: 5
   m_Name: Fx_Spread_Star04
+=======
+  - component: {fileID: 457276501}
+  - component: {fileID: 457276503}
+  - component: {fileID: 457276502}
+  m_Layer: 5
+  m_Name: Equip_Slot (14)
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!224 &465063200
+=======
+--- !u!224 &457276501
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 465063199}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -74775,11 +74940,29 @@ RectTransform:
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465063201
+=======
+  m_GameObject: {fileID: 457276500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1822396236}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1091.5999, y: -1204}
+  m_SizeDelta: {x: 227.973, y: 313.0594}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &457276502
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 465063199}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -74789,19 +74972,45 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 963fa6a4145db4478960e2c9a18b2762, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+=======
+  m_GameObject: {fileID: 457276500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   fixedTime: 1
   use3dRotation: 0
 --- !u!222 &465063202
+=======
+  m_Sprite: {fileID: 21300000, guid: ce074144a8f7b47508cffe4445e20fb5, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &457276503
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 465063199}
   m_CullTransparentMesh: 0
 --- !u!199 &465063203
@@ -79605,6 +79814,11 @@ ParticleSystem:
         m_RotationOrder: 4
     vectorLabel1_3: W
 --- !u!1 &479714352
+=======
+  m_GameObject: {fileID: 457276500}
+  m_CullTransparentMesh: 0
+--- !u!1 &478147561
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106059,10 +106273,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896967418}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1575566668}
+        m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
+        m_MethodName: MenuClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -134323,6 +134537,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &788331086
 GameObject:
   m_ObjectHideFlags: 0
@@ -139507,6 +139722,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805736398}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &809788111
 GameObject:
   m_ObjectHideFlags: 0
@@ -139661,6 +139878,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -196.3}
   m_SizeDelta: {x: 200, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
 --- !u!114 &814529243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139767,6 +139985,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814529241}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &818048606
 GameObject:
   m_ObjectHideFlags: 0
@@ -139850,31 +140070,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 818048609}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1510113101}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 143389073}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &818048609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139913,6 +140109,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818048606}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &820309521
 GameObject:
   m_ObjectHideFlags: 0
@@ -139990,6 +140187,9 @@ CanvasRenderer:
   m_GameObject: {fileID: 820309521}
   m_CullTransparentMesh: 0
 --- !u!1 &829843218
+=======
+--- !u!1 &838084999
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141250,6 +141450,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885762204}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &888889962
 GameObject:
   m_ObjectHideFlags: 0
@@ -141613,6 +141814,9 @@ CanvasRenderer:
   m_GameObject: {fileID: 904613901}
   m_CullTransparentMesh: 1
 --- !u!1 &908080376
+=======
+--- !u!1 &907425248
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148184,6 +148388,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971332744}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &972125051
 GameObject:
   m_ObjectHideFlags: 0
@@ -148405,6 +148610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b6a82e573dd734ab4837a57bc246bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &982639943
 GameObject:
   m_ObjectHideFlags: 0
@@ -164422,6 +164629,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061759526}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &1061860425
 GameObject:
   m_ObjectHideFlags: 0
@@ -164668,6 +164876,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1067556521
 GameObject:
   m_ObjectHideFlags: 0
@@ -164815,6 +165025,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067556521}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1067580624
 GameObject:
   m_ObjectHideFlags: 0
@@ -165427,6 +165638,8 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1084073057
 GameObject:
   m_ObjectHideFlags: 0
@@ -167334,17 +167547,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 143389073}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1575566668}
+        m_TargetAssemblyTypeName: ButtonInteraction, Assembly-CSharp
+        m_MethodName: UserInfoClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1173299123
 MonoBehaviour:
@@ -167384,6 +167597,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173299120}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1177003383
 GameObject:
   m_ObjectHideFlags: 0
@@ -172426,6 +172640,9 @@ ParticleSystem:
         m_RotationOrder: 4
     vectorLabel1_3: W
 --- !u!1 &1192278175
+=======
+--- !u!1 &1189514682
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173361,6 +173578,7 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1229784595}
   m_CullTransparentMesh: 0
 --- !u!224 &1229784601
@@ -173462,6 +173680,9 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230046905}
+=======
+  m_GameObject: {fileID: 1229963071}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_CullTransparentMesh: 1
 --- !u!1 &1230052057
 GameObject:
@@ -178400,7 +178621,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232790798}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1239659637
+=======
+--- !u!1 &1233147709
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178408,9 +178633,58 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1239659638}
   - component: {fileID: 1239659640}
   - component: {fileID: 1239659639}
+=======
+  - component: {fileID: 1233147710}
+  m_Layer: 0
+  m_Name: Collection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1233147710
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233147709}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 163007373}
+  - {fileID: 2020688448}
+  - {fileID: 1692697198}
+  - {fileID: 562991082}
+  - {fileID: 1898140277}
+  - {fileID: 812895634}
+  - {fileID: 1375210275}
+  m_Father: {fileID: 1958993187}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -91.293}
+  m_SizeDelta: {x: 1350, y: 897.42}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1244985261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1244985262}
+  - component: {fileID: 1244985264}
+  - component: {fileID: 1244985263}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -178418,33 +178692,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!224 &1239659638
+=======
+--- !u!224 &1244985262
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1239659637}
+=======
+  m_GameObject: {fileID: 1244985261}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+<<<<<<< HEAD
   m_Father: {fileID: 132644504}
+=======
+  m_Father: {fileID: 654518906}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
   m_AnchoredPosition: {x: -9.9292, y: 4.6399}
   m_SizeDelta: {x: 1373.9185, y: 1095.2798}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1239659639
+=======
+  m_AnchoredPosition: {x: 0.4684, y: 12.0047}
+  m_SizeDelta: {x: 174.785, y: 237.8456}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1244985263
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1239659637}
+=======
+  m_GameObject: {fileID: 1244985261}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -178458,7 +178755,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 7423c70e8f2b61f419c17783114e896f, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 5c5aecd0624e34447860b7fc3e6055c9, type: 3}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -178468,12 +178769,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!222 &1239659640
+=======
+--- !u!222 &1244985264
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1239659637}
   m_CullTransparentMesh: 1
 --- !u!1 &1249342925
@@ -178542,6 +178848,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa6c0f85b2a56f4ba37452da3ef7491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  m_GameObject: {fileID: 1244985261}
+  m_CullTransparentMesh: 1
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1257668495
 GameObject:
   m_ObjectHideFlags: 0
@@ -188772,6 +189082,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+<<<<<<< HEAD
 --- !u!1 &1270915399
 GameObject:
   m_ObjectHideFlags: 0
@@ -193686,6 +193997,8 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000015259, y: -100.5132}
   m_SizeDelta: {x: 1350, y: 696.3837}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1287002896
 GameObject:
   m_ObjectHideFlags: 0
@@ -193762,6 +194075,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287002896}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1292620816
 GameObject:
   m_ObjectHideFlags: 0
@@ -194108,6 +194422,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301650076}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1322543240
 GameObject:
   m_ObjectHideFlags: 0
@@ -194243,6 +194559,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322543240}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &1322737959
 GameObject:
   m_ObjectHideFlags: 0
@@ -194320,6 +194637,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322737959}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1326148413
 GameObject:
   m_ObjectHideFlags: 0
@@ -210460,7 +210779,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4837426246629242446, guid: 4780eda7786af5548a3e60ead252951d, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 13
+=======
+      value: 11
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
       objectReference: {fileID: 0}
     - target: {fileID: 4837426246629242446, guid: 4780eda7786af5548a3e60ead252951d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -216318,7 +216641,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442365805}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1445513686
+=======
+--- !u!1 &1443294548
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216326,9 +216653,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1445513687}
   - component: {fileID: 1445513689}
   - component: {fileID: 1445513688}
+=======
+  - component: {fileID: 1443294549}
+  - component: {fileID: 1443294551}
+  - component: {fileID: 1443294550}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -216336,47 +216669,79 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!224 &1445513687
+=======
+--- !u!224 &1443294549
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1445513686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+=======
+  m_GameObject: {fileID: 1443294548}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+<<<<<<< HEAD
   m_Father: {fileID: 1667308317}
+=======
+  m_Father: {fileID: 1874401026}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 0.93, y: 7.9079}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1445513688
+=======
+  m_AnchoredPosition: {x: -2.2, y: -2.1}
+  m_SizeDelta: {x: 85, y: 89}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1443294550
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1445513686}
+=======
+  m_GameObject: {fileID: 1443294548}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
+<<<<<<< HEAD
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+=======
+  m_Color: {r: 0.4627451, g: 0.78039217, b: 1, a: 1}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d90e0f970eb474d3bb0260566c2061c2, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 35ac832b69b35457cb25a7f05c8fdead, type: 3}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -216386,14 +216751,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< HEAD
 --- !u!222 &1445513689
+=======
+--- !u!222 &1443294551
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1445513686}
   m_CullTransparentMesh: 1
+=======
+  m_GameObject: {fileID: 1443294548}
+  m_CullTransparentMesh: 0
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1445749477
 GameObject:
   m_ObjectHideFlags: 0
@@ -227332,7 +227706,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492632931}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1500311961
+=======
+--- !u!1 &1499981988
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227340,26 +227718,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1500311962}
   m_Layer: 5
   m_Name: Unit Image
+=======
+  - component: {fileID: 1499981989}
+  - component: {fileID: 1499981991}
+  - component: {fileID: 1499981990}
+  m_Layer: 5
+  m_Name: Equip_Slot (7)
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!224 &1500311962
+=======
+--- !u!224 &1499981989
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1500311961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+=======
+  m_GameObject: {fileID: 1499981988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD
   - {fileID: 1115358548}
   - {fileID: 1913401535}
   m_Father: {fileID: 281205529}
@@ -227370,6 +227766,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 31.7648}
   m_SizeDelta: {x: 0, y: -63.5297}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+  - {fileID: 1897074910}
+  m_Father: {fileID: 1375210275}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 262, y: -528.2}
+  m_SizeDelta: {x: 227.973, y: 313.0594}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1499981990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499981988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: ccca3a10c39d04c6c9a0e6a35e048bbb, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1499981991
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499981988}
+  m_CullTransparentMesh: 0
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1501198672
 GameObject:
   m_ObjectHideFlags: 0
@@ -227886,6 +228331,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
 --- !u!1 &1515715285
 GameObject:
   m_ObjectHideFlags: 0
@@ -233069,6 +233515,8 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -196.3}
   m_SizeDelta: {x: 200, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1524161414
 GameObject:
   m_ObjectHideFlags: 0
@@ -233145,6 +233593,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524161414}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1525139439
 GameObject:
   m_ObjectHideFlags: 0
@@ -233538,6 +233987,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Box: {fileID: 1530308496}
   Card: {fileID: 979923674}
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1544042145
 GameObject:
   m_ObjectHideFlags: 0
@@ -239924,6 +240375,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575823304}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &1580287587
 GameObject:
   m_ObjectHideFlags: 0
@@ -240060,6 +240512,9 @@ CanvasRenderer:
   m_GameObject: {fileID: 1580287587}
   m_CullTransparentMesh: 1
 --- !u!1 &1589421966
+=======
+--- !u!1 &1601767703
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246013,6 +246468,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655941336}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1663529149
 GameObject:
   m_ObjectHideFlags: 0
@@ -246236,6 +246692,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667308316}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1675168470
 GameObject:
   m_ObjectHideFlags: 0
@@ -252860,6 +253318,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750671088}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &1759896006
 GameObject:
   m_ObjectHideFlags: 0
@@ -253589,6 +254048,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1782094715
 GameObject:
   m_ObjectHideFlags: 0
@@ -264465,6 +264926,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863320465}
   m_CullTransparentMesh: 0
+<<<<<<< HEAD
 --- !u!1 &1873594563
 GameObject:
   m_ObjectHideFlags: 0
@@ -269355,6 +269817,9 @@ ParticleSystem:
         m_RotationOrder: 4
     vectorLabel1_3: W
 --- !u!1 &1874381167
+=======
+--- !u!1 &1874401025
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269486,6 +269951,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1879061129
 GameObject:
   m_ObjectHideFlags: 0
@@ -269895,6 +270361,8 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -100.51318}
   m_SizeDelta: {x: 1350, y: 696.3837}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1896967418
 GameObject:
   m_ObjectHideFlags: 0
@@ -290777,6 +291245,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946120732}
   m_CullTransparentMesh: 0
+--- !u!1 &1949014240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1949014241}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1949014241
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949014240}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2040420100}
+  m_Father: {fileID: 223802057}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000071526, y: 30.9058}
+  m_SizeDelta: {x: 200, y: 177.6609}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1950022672
 GameObject:
   m_ObjectHideFlags: 0
@@ -290996,7 +291501,6 @@ RectTransform:
   - {fileID: 143389074}
   - {fileID: 328611190}
   - {fileID: 856440798}
-  - {fileID: 1761858525}
   - {fileID: 1412231189}
   m_Father: {fileID: 8216344}
   m_RootOrder: 0
@@ -295952,6 +296456,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+<<<<<<< HEAD
 --- !u!1 &1966902382
 GameObject:
   m_ObjectHideFlags: 0
@@ -296164,6 +296669,8 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+=======
+>>>>>>> parent of 9a9a2329 (Merge branch 'main' into Jisoo)
 --- !u!1 &1976283873
 GameObject:
   m_ObjectHideFlags: 0
@@ -297330,6 +297837,128 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043300240}
+  m_CullTransparentMesh: 1
+--- !u!1 &2040420099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2040420100}
+  - component: {fileID: 2040420103}
+  - component: {fileID: 2040420102}
+  - component: {fileID: 2040420101}
+  m_Layer: 5
+  m_Name: Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2040420100
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040420099}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2134072105}
+  m_Father: {fileID: 1949014241}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.0012073517}
+  m_SizeDelta: {x: 200, y: 177.66}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2040420101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040420099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2040420102}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2040420102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040420099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2040420103
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040420099}
   m_CullTransparentMesh: 1
 --- !u!1 &2045846717
 GameObject:
@@ -304445,17 +305074,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134072104}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 223802057}
-  m_RootOrder: 1
+  m_Father: {fileID: 2040420100}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 16.346985}
+  m_AnchoredPosition: {x: 0, y: -14.56}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2134072106
@@ -304478,7 +305107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 026ee88daafe748899bc4eb7335776e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 209e0eb770bd94bc4ac1cf106de18eb7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

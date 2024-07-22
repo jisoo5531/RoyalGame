@@ -217,4 +217,23 @@ public static class Extension
             (uiElement as TMP_Text).color = color;
         }
     }
+    
+    public static void ColorYellow<T>(this T uiElement)
+    {
+        Color color = new Color(255f / 255f, 207f / 255f, 0f / 255f);
+
+        if (uiElement is Image)
+        {
+            (uiElement as Image).color = color;
+        }
+        else if (uiElement is Text)
+        {
+            (uiElement as Text).color = color;
+        }
+        else if (uiElement is TMP_Text)
+        {
+            (uiElement as TMP_Text).color = color;
+        }
+    }
+    
 }

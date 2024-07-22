@@ -52,7 +52,8 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        Loading.LoadScene("Lobby");
+        //Loading.LoadScene("Lobby");
+        Loading.LoadScene("Lobby 1");
     }
 }
 

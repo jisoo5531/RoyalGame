@@ -440,6 +440,7 @@ GameObject:
   - component: {fileID: 241768327971323687}
   - component: {fileID: 628802620234354283}
   - component: {fileID: 5593123480686039759}
+  - component: {fileID: 2513110389074146971}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -536,6 +537,19 @@ MonoBehaviour:
   targetCollider: {fileID: 0}
   isAttack: 0
   isMove: 0
+--- !u!114 &2513110389074146971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997537084498369677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7c9c868df0566429b3f4c0cb489e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitCanvas: {fileID: 4496706936496516980}
 --- !u!1 &997537084498371393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,7 +1901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6684863219293211929
 RectTransform:
   m_ObjectHideFlags: 0

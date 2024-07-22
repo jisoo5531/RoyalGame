@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
-{
+{    
+
 
     public int unit_ID;
     [HideInInspector] public Animator anim;
@@ -73,13 +74,15 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        //GetComponentInChildren<Damaging>().damage = damage;
+        GetComponentInChildren<Damaging>().damage = damage;
     }
 
     public void GetDamage(int damage)
     {
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;
+
+
 
         // À¯´ÖÀÌ Á×À» ¶§
         if (HP <= 0)

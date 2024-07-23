@@ -9,10 +9,12 @@ public class RangedUnit : MonoBehaviour
     public LayerMask targetLayerMask;
     public int damage;
     public Transform target;
+    public float distance;
 
     private void Update()
     {
         target = GetComponent<TargetFollowUnit>().target;
+        distance = Vector3.Distance(target.position, transform.position);
     }
 
     public void Attack()

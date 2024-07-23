@@ -35018,7 +35018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4837426246629242446, guid: 4780eda7786af5548a3e60ead252951d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0014648
+      value: 0.000033336
       objectReference: {fileID: 0}
     - target: {fileID: 4837426246629242446, guid: 4780eda7786af5548a3e60ead252951d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -40754,6 +40754,8 @@ MonoBehaviour:
   upArrow: {fileID: 467653336}
   cardCountText: {fileID: 1330698600}
   costText: {fileID: 1247002898}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 744177731}
   upgradeButton: {fileID: 22492691}
 --- !u!114 &282894682
@@ -63865,6 +63867,8 @@ MonoBehaviour:
   upArrow: {fileID: 910021701}
   cardCountText: {fileID: 1276050394}
   costText: {fileID: 1224099830}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 2108995356}
   upgradeButton: {fileID: 1912176673}
 --- !u!114 &455734771
@@ -116674,6 +116678,8 @@ MonoBehaviour:
   upArrow: {fileID: 750507334}
   cardCountText: {fileID: 1830999926}
   costText: {fileID: 1982263254}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 995968433}
   upgradeButton: {fileID: 234814716}
 --- !u!114 &900810216
@@ -150532,6 +150538,8 @@ MonoBehaviour:
   upArrow: {fileID: 504082170}
   cardCountText: {fileID: 1283979711}
   costText: {fileID: 278419658}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 1827594081}
   upgradeButton: {fileID: 666733224}
 --- !u!114 &1070454959
@@ -185269,6 +185277,8 @@ MonoBehaviour:
   upArrow: {fileID: 759480908}
   cardCountText: {fileID: 1985202601}
   costText: {fileID: 1695009139}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 1410214987}
   upgradeButton: {fileID: 676592134}
 --- !u!114 &1354351534
@@ -186594,6 +186604,8 @@ MonoBehaviour:
   - {fileID: 1860444485}
   - {fileID: 2079509770}
   battleCardList: 
+  battleCardCostList: 
+  costAvg: {fileID: 0}
 --- !u!4 &1387830952
 Transform:
   m_ObjectHideFlags: 0
@@ -252530,6 +252542,8 @@ MonoBehaviour:
   upArrow: {fileID: 78701080}
   cardCountText: {fileID: 2078952367}
   costText: {fileID: 1437540150}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 947737054}
   upgradeButton: {fileID: 1809008268}
 --- !u!114 &1757639821
@@ -308186,6 +308200,8 @@ MonoBehaviour:
   upArrow: {fileID: 1780716088}
   cardCountText: {fileID: 794528555}
   costText: {fileID: 2037881158}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 843642500}
   upgradeButton: {fileID: 721225569}
 --- !u!114 &2103538409
@@ -308639,6 +308655,8 @@ MonoBehaviour:
   upArrow: {fileID: 1819720369}
   cardCountText: {fileID: 133203876}
   costText: {fileID: 690505892}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
   InfoButton: {fileID: 573991912}
   upgradeButton: {fileID: 373704348}
 --- !u!114 &2112843837

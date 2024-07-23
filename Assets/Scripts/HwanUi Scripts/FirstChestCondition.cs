@@ -24,6 +24,7 @@ public class FirstChestCondition : MonoBehaviour
     {
         if(SettingCardInfoManager.instance.IsNewbie())
         {
+            box_Button.gameObject.GetComponent<Button>().interactable = true;
             boxImage.sprite = firstBoxSprite;
             boxImage.ImageTransparent(1f);
 
@@ -31,6 +32,7 @@ public class FirstChestCondition : MonoBehaviour
         }
         else
         {
+            box_Button.gameObject.GetComponent<Button>().interactable = false;
             boxImage.sprite = null;
             boxImage.ImageTransparent(0f);
             box_Button.sprite = grayButton;

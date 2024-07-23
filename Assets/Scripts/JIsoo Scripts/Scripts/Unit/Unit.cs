@@ -31,6 +31,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public AttackTarget attackTarget { get; set; }
         
     #endregion
+    
 
     protected enum UnitState
     {
@@ -100,9 +101,10 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }
 
     public void GetDamage(int damage)
-    {
+    {        
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;
+        
 
         // À¯´ÖÀÌ Á×À» ¶§
         if (HP <= 0)

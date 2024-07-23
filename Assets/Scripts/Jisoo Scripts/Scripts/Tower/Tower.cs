@@ -10,7 +10,7 @@ public class Tower : MonoBehaviour, IDamagable
     public GameObject onTopUnit;
     public virtual void GetDamage(int damage)
     {
-        //onTopUnit.GetComponent<RoyalEnemyTest>().GetDamage(damage);
+        onTopUnit.GetComponent<RoyalEnemyTest>().GetDamage(damage);
 
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;

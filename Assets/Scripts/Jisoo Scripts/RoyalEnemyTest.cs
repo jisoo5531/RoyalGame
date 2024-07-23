@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 적일 땐 빨간 색으로 바꾸기
 [System.Serializable]
 public class ImagePrefab
 {
@@ -16,8 +17,9 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
 
     public int HP { get; set; }
     public int maxHP { get; set; }
-    public GameObject blastEffect;
 
+    // 유닛 죽을 때 엘릭서 터지는 파티클
+    public GameObject blastEffect;
 
     public Canvas unitCanvas;
     public GameObject hpBarOBJ;
@@ -41,6 +43,7 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
         hpBarFill.fillAmount = (float)HP / (float)maxHP;
     }
 
+    
     public void GetDamage(int damage)
     {        
         HP -= damage;
@@ -50,6 +53,7 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
             effect.transform.localScale = transform.localScale;
             Destroy(gameObject);
         }
+        
         if (isHPBarOn)
         {
             return;
@@ -59,7 +63,7 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
             OnHPBar();
         }
     }
-
+    // 맞으면 HPBar On
     private void OnHPBar()
     {
         isHPBarOn = true;

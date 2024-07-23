@@ -24,12 +24,15 @@ public class KingCannon : MonoBehaviour
 
         Debug.Log(target == null);
 
-        Vector3 dir = (target.position - transform.position).normalized;
+        if (target != null)
+        {
+            Vector3 dir = (target.position - transform.position).normalized;
 
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
-        transform.rotation = lookRotation;
+            Quaternion lookRotation = Quaternion.LookRotation(dir);
+            transform.rotation = lookRotation;
 
-        Attack();
+            Attack();
+        }        
     }
     public void Attack()
     {

@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitCanvasInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Canvas unitCanvas;
+    public GameObject hpBarOBJ;
+    public Image levelBackground;
+    public Image hpBarFill;
+
+    public bool isHpBarOn = false;
+
+    private void Update()
     {
-        
+        unitCanvas.transform.rotation = Quaternion.Euler(0, -transform.rotation.y + 180, 0);
+
+        //hpBarFill.fillAmount = (float)HP / (float)maxHP;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnHPBar()
     {
-        
+        isHpBarOn = true;
+        hpBarOBJ.SetActive(true);
     }
 }

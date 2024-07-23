@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedUnit : MonoBehaviour
-{
-    EpicToonFX.ETFXProjectileScript magicProjectile;
-
-
+{    
     public GameObject projectilePrefab;
     public Transform pStart_trans;
     public LayerMask targetLayerMask;

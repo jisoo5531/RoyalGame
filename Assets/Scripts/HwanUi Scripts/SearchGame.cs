@@ -6,31 +6,45 @@ using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine;
 using MySql.Data.MySqlClient;
+using System.Text;
 
 public class SearchGame : MonoBehaviourPunCallbacks
 {
     public GameObject lobbyUI;
     public GameObject matchingUI;
 
+    public GameObject warningUI;
+
     public void MatchingClick()
     {
-
+        StringBuilder battleCard = new StringBuilder();
         try
         {
             if (StartManager.m_Instance.battleCardList.Count < 8)
             {
-                // 팝업창
+                warningUI.SetActive(true);
                 return;
             }
             lobbyUI.SetActive(false);
             matchingUI.SetActive(true);
+
+            for(int i = 0; i< StartManager.m_Instance.battleCardList.Count; i++)
+            {
+                battleCard.Append(StartManager.m_Instance.battleCardList[i]);
+                if(i < StartManager.m_Instance.battleCardList.Count - 1)
+                {
+                    battleCard.Append(",");
+                }
+            }
+
+            StartManager.m_Instance.UpdateUserCard(battleCard.ToString());
 
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 2;
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", 300 } };
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" };
 
-            string roomName = "test";
+            string roomName = "royale";
 
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
@@ -39,6 +53,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
             Debug.LogException(ex);
         }
     }
+
     public override void OnJoinedRoom()
     {
         print("입장 성공");
@@ -49,11 +64,11 @@ public class SearchGame : MonoBehaviourPunCallbacks
     {
         try
         {
-            print($"{newPlayer.NickName}가 방에 입장했습니다");
 
             if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                PhotonNetwork.LoadLevel("Battle");
+                Loading.LoadScene("Lobby", true);
+                //PhotonNetwork.LoadLevel("Battle");
             }
         }
         catch(Exception ex)

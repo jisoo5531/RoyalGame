@@ -30,7 +30,6 @@ public class DEFENSETOWERInfoData : AllCardData
     public float attackSpeed;
     public int hp;
     public float spawnTime;
-    public float detectRange;
     public int lifeTime;
 }
 

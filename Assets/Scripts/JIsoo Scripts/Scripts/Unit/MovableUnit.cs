@@ -6,7 +6,6 @@ using static UnityEngine.GraphicsBuffer;
 public class MovableUnit : Unit
 {
     public float moveSpeed;
-    public float detectionRange;
     TargetFollowUnit targetFollowUnit;
     public bool isMove = false;
 

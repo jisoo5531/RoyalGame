@@ -25,6 +25,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public float spawnTime { get; set; }
     public float attackSpeed { get; set; }
 
+
     public AttackTarget attackTarget { get; set; }
         
     #endregion

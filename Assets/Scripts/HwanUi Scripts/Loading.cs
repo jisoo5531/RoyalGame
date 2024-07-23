@@ -1,11 +1,13 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Loading : MonoBehaviour
+public class Loading : MonoBehaviourPunCallbacks
 {
     public static string nextScene;
 
@@ -15,14 +17,17 @@ public class Loading : MonoBehaviour
     [SerializeField]
     TMP_Text loadText;
 
+    static bool isInGame = false;
+
     private void Start()
     {
         StartCoroutine(LoadScene());
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(string sceneName, bool isGameStart)
     {
         nextScene = sceneName;
+        isInGame = isGameStart;
         SceneManager.LoadScene("Loading");
     }
 
@@ -61,12 +66,29 @@ public class Loading : MonoBehaviour
 
                     if (progressBar.value >= 1.0f)
                     {
-                        yield return new WaitForSeconds(0.5f);
-                        op.allowSceneActivation = true;
-                        yield break;
+                        if(isInGame)
+                        {
+                            photonView.RPC("AllPlayersReady", RpcTarget.All);
+                            yield break;
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(0.5f);
+                            op.allowSceneActivation = true;
+                            yield break;
+                        }
                     }
                 }
             }
+        }
+    }
+
+    [PunRPC]
+    void AllPlayersReady()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(nextScene);
         }
     }
 }

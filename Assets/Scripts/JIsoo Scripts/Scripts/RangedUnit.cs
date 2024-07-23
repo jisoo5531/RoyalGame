@@ -11,24 +11,19 @@ public class RangedUnit : MonoBehaviour
     public Transform pStart_trans;
     public LayerMask targetLayerMask;
     public int damage;
+    public Transform target;
 
-    private void Awake()
+    private void Update()
     {
-        if (projectilePrefab.TryGetComponent<EpicToonFX.ETFXProjectileScript>(out EpicToonFX.ETFXProjectileScript magic))
-        {
-            magic.magicTrans = pStart_trans;
-        }        
+        target = GetComponent<TargetFollowUnit>().target;
     }
 
     public void Attack()
-    {
-        Transform target = GetComponent<TargetFollowUnit>().target;
-
+    {        
         GameObject projectile = Instantiate(projectilePrefab, pStart_trans);
 
-        Projectile projectileComponent = projectile.AddComponent<Projectile>();
-        projectileComponent.forward = pStart_trans.forward;
-        projectileComponent.target = target;
+        Projectile projectileComponent = projectile.AddComponent<Projectile>();        
+        projectileComponent.targetPos = target.position;
 
         Damaging damagingComponent = projectile.AddComponent<Damaging>();
         damagingComponent.target = target;

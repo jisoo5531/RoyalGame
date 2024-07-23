@@ -8,9 +8,9 @@ public class Tower : MonoBehaviour, IDamagable
     public int maxHP { get; set; }    
 
     public GameObject onTopUnit;
-    public void GetDamage(int damage)
+    public virtual void GetDamage(int damage)
     {
-        onTopUnit.GetComponent<RoyalEnemyTest>().GetDamage(damage);
+        //onTopUnit.GetComponent<RoyalEnemyTest>().GetDamage(damage);
 
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;

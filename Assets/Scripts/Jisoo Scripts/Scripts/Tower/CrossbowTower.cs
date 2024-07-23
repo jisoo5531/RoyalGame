@@ -6,7 +6,7 @@ public class CrossbowTower : Tower
 {
     private void Start()
     {
-        maxHP = 5000;
+        maxHP = 1000;
         HP = maxHP;
 
         onTopUnit.GetComponent<RoyalEnemyTest>().maxHP = maxHP;

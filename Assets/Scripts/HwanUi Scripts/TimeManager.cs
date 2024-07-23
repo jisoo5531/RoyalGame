@@ -7,7 +7,7 @@ using TMPro;
 public class TimeManager : MonoBehaviourPunCallbacks
 {
     public static TimeManager instance;
-    private float timer;
+    private double startTime;
     private float countdownDuration = 2f;
     private float gameCountdownDuration = 180f;
     public TMP_Text gametimeUI;
@@ -20,30 +20,26 @@ public class TimeManager : MonoBehaviourPunCallbacks
     {
         instance = this;
     }
+
     private void Start()
     {
-        photonView.RPC("CountdownBeforeStartGame", RpcTarget.All);
-        //CountdownBeforeStartGame();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startTime = PhotonNetwork.Time + countdownDuration; // 게임 시작 시간 설정
+            photonView.RPC("SetStartTime", RpcTarget.All, startTime);
+        }
     }
-
-    public void CountdownBeforeGame()
-    {
-        //photonView.RPC("CountdownBeforeStartGame", RpcTarget.All);
-        CountdownBeforeStartGame();
-    }
-
 
     [PunRPC]
-    private void CountdownBeforeStartGame()
+    private void SetStartTime(double networkStartTime)
     {
-        timer = (float)PhotonNetwork.Time;
-        StartCoroutine(CountdownTimer());
+        startTime = networkStartTime;
+        StartCoroutine(CountdownBeforeStartGame());
     }
 
-    private IEnumerator CountdownTimer()
+    private IEnumerator CountdownBeforeStartGame()
     {
-        float endTime = timer + countdownDuration;
-        while (PhotonNetwork.Time < endTime)
+        while (PhotonNetwork.Time < startTime)
         {
             yield return null;
         }
@@ -59,26 +55,26 @@ public class TimeManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void StartGameCountdown()
     {
-        timer = Time.time;
         StartCoroutine(GameCountDown());
     }
 
     private IEnumerator GameCountDown()
     {
-        while (Time.time < timer + gameCountdownDuration)
+        double endTime = startTime + gameCountdownDuration;
+        while (PhotonNetwork.Time < endTime)
         {
-            float remainingTime = timer + gameCountdownDuration - Time.time;
-            int secondsRemaining = Mathf.CeilToInt(remainingTime);
+            double remainingTime = endTime - PhotonNetwork.Time;
+            int secondsRemaining = Mathf.CeilToInt((float)remainingTime);
 
             if (secondsRemaining >= 60f)
             {
-                min = (int)secondsRemaining / 60;
+                min = secondsRemaining / 60;
                 sec = secondsRemaining % 60;
                 gametimeUI.text = min + " : " + (int)sec;
             }
-            if (secondsRemaining < 60f)
+            else
             {
-                gametimeUI.text = "0 : " + (int)secondsRemaining;
+                gametimeUI.text = "0 : " + secondsRemaining;
             }
 
             if (secondsRemaining <= 0)

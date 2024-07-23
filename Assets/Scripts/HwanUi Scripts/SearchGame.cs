@@ -39,14 +39,14 @@ public class SearchGame : MonoBehaviourPunCallbacks
 
             StartManager.m_Instance.UpdateUserCard(battleCard.ToString());
 
+
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 2;
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", 300 } };
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" };
 
-            string roomName = "royale";
+            string roomName = "default";
 
-            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
         catch (Exception ex)
@@ -57,7 +57,6 @@ public class SearchGame : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        print("입장 성공");
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -95,5 +94,6 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.LogWarning(message);
+        //CreateRoom();
     }
 }

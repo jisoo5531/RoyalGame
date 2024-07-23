@@ -8,7 +8,6 @@ public class FirstChestCondition : MonoBehaviour
     private void Start()
     {
         CheckNewbie();
-        print("oooooo");
     }
     public void CheckNewbie()
     {
@@ -18,7 +17,6 @@ public class FirstChestCondition : MonoBehaviour
         }
         else
         {
-            print("asdf");
             collectionCardInfo.SelectCardOrderByGrade();
             StartManager.m_Instance.InitializeCollectionImage();
         }

@@ -39,7 +39,7 @@ public class UnitSpawner : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Map"))
                     {
-                        //Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
+                        Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
                         SpawnUnit(hit.point);
 
                         spawnComplete = true;

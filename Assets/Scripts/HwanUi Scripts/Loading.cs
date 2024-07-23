@@ -72,7 +72,7 @@ public class Loading : MonoBehaviourPunCallbacks
                         {
                             if (PhotonNetwork.IsMasterClient)
                             {
-                                PhotonNetwork.LoadLevel(nextScene);
+                                photonView.RPC("StartGameOnAllClients", RpcTarget.All, nextScene);
                             }
                         }
                         yield break;
@@ -80,5 +80,11 @@ public class Loading : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+
+    [PunRPC]
+    private void StartGameOnAllClients(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

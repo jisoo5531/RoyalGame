@@ -28,10 +28,10 @@ public class SearchGame : MonoBehaviourPunCallbacks
             lobbyUI.SetActive(false);
             matchingUI.SetActive(true);
 
-            for(int i = 0; i< StartManager.m_Instance.battleCardList.Count; i++)
+            for (int i = 0; i < StartManager.m_Instance.battleCardList.Count; i++)
             {
                 battleCard.Append(StartManager.m_Instance.battleCardList[i]);
-                if(i < StartManager.m_Instance.battleCardList.Count - 1)
+                if (i < StartManager.m_Instance.battleCardList.Count - 1)
                 {
                     battleCard.Append(",");
                 }
@@ -46,6 +46,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
 
             string roomName = "royale";
 
+            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
         catch (Exception ex)
@@ -64,76 +65,23 @@ public class SearchGame : MonoBehaviourPunCallbacks
     {
         try
         {
-
             if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                Loading.LoadScene("Lobby", true);
-                //PhotonNetwork.LoadLevel("Battle");
+                photonView.RPC("LoadScene", RpcTarget.All);
             }
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             print(ex.Message);
         }
-        //int newPlayerTrophy = GetPlayerTrophy(newPlayer.UserId);
-
-        //int[] trophies = new int[PhotonNetwork.CurrentRoom.PlayerCount];
-        //int i = 0;
-        //foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
-        //{
-        //    trophies[i++] = GetPlayerTrophy(player.NickName);
-        //}
-
-        //bool isAllowed = true;
-        //foreach (int trophy in trophies)
-        //{
-        //    if (Mathf.Abs(trophy - newPlayerTrophy) > 100)
-        //    {
-        //        isAllowed = false;
-        //        break;
-        //    }
-        //}
-
-        //if (isAllowed)
-        //{
-        //    if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        //    {
-        //        PhotonNetwork.LoadLevel("Battle");
-        //    }
-        //}
-        //else
-        //{
-        //    newPlayer.kick
-        //    PhotonNetwork.CurrentRoom.RemovePlayer(player);
-        //}
     }
 
-    //private int GetPlayerTrophy(string userName)
-    //{
-    //    int trophy = 0;
-
-    //    using (MySqlConnection connection = DatabaseManager.Instance.DBConnection())
-    //    {
-    //        connection.Open();
-
-    //        string query = "SELECT currentTrophy FROM USER WHERE userName = @userName";
-    //        using (MySqlCommand command = new MySqlCommand(query, connection))
-    //        {
-    //            command.Parameters.AddWithValue("@userName", userName);
-    //            using (MySqlDataReader reader = command.ExecuteReader())
-    //            {
-    //                if (reader.Read())
-    //                {
-    //                    trophy = reader.GetInt32(0);
-    //                }
-    //            }
-    //        }
-
-    //        connection.Close();
-    //    }
-
-    //    return trophy;
-    //}
+    [PunRPC]
+    private void LoadScene()
+    {
+        Loading.LoadScene("Battle", true);
+    }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {

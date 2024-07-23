@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    #region pubilc º¯¼ö
+    public static GameManager instance;
+
     public Transform firstCamera;
     public Transform secondCamera;
 
@@ -13,8 +16,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject cameraPrefab;
     public GameObject lightPrefab;
+
+    public GameObject vsUI;
+    #endregion
     private void Awake()
     {
+        instance = this;
+
         if (photonView.IsMine)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
@@ -27,4 +35,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void Start()
+    {
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+            //TimeManager.instance.CountdownBeforeGame();
+       // }
+    }
+
+    public void GameStart()
+    {
+        vsUI.SetActive(false);
+    }
 }

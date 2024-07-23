@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class SettingCardInfoManager : MonoBehaviour
 {
+    #region public º¯¼ö
     public static SettingCardInfoManager instance;
     public List<CharacterData> charData = new List<CharacterData>();
     public GameObject[] slots;
+    #endregion
 
     private void Awake()
     {

@@ -58,6 +58,18 @@ public class StartManager : MonoBehaviour
         
     }
 
+    public void InitList()
+    {
+        battleCardList.Clear();
+        battleCardCostList.Clear();
+        selectedUnits.Clear();
+
+        for (int i = 0; i < 8; i++)
+        {
+            selectedUnits.Add(null);
+        }
+    }
+
     /// <summary>
     /// 컬렉션 탭 SO에 맞춰 이미지 세팅
     /// </summary>

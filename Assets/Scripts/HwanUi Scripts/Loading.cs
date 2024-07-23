@@ -17,7 +17,7 @@ public class Loading : MonoBehaviourPunCallbacks
     [SerializeField]
     TMP_Text loadText;
 
-    static bool isInGame = false;
+    public static bool isBattle;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class Loading : MonoBehaviourPunCallbacks
     public static void LoadScene(string sceneName, bool isGameStart)
     {
         nextScene = sceneName;
-        isInGame = isGameStart;
+        isBattle = isGameStart;
         SceneManager.LoadScene("Loading");
     }
 
@@ -66,29 +66,19 @@ public class Loading : MonoBehaviourPunCallbacks
 
                     if (progressBar.value >= 1.0f)
                     {
-                        if(isInGame)
+                        yield return new WaitForSeconds(0.3f);
+                        op.allowSceneActivation = true;
+                        if (isBattle)
                         {
-                            photonView.RPC("AllPlayersReady", RpcTarget.All);
-                            yield break;
+                            if (PhotonNetwork.IsMasterClient)
+                            {
+                                PhotonNetwork.LoadLevel(nextScene);
+                            }
                         }
-                        else
-                        {
-                            yield return new WaitForSeconds(0.5f);
-                            op.allowSceneActivation = true;
-                            yield break;
-                        }
+                        yield break;
                     }
                 }
             }
-        }
-    }
-
-    [PunRPC]
-    void AllPlayersReady()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel(nextScene);
         }
     }
 }

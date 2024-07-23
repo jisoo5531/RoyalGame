@@ -29,18 +29,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject[] myTowers;
     public GameObject[] enemyTowers;
+
+    public Material[] allyMaterial;
+    public MeshRenderer[] allyTowerMaterial;
+    public Renderer[] allyUnitMaterial;
+
+    public MeshRenderer[] enemyTowerMaterial;
+    public Renderer[] enemyUnitMaterial;
     #endregion
     private void Awake()
     {
         instance = this;
-
-        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
-        {
-            if (pair.Value == PhotonNetwork.LocalPlayer)
-            {
-                PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
-            }
-        }
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -62,6 +61,32 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerTrophy[i].text = SelectTrophy(player.NickName).ToString();
             playerNames[i].text = player.NickName;
         }
+    }
+
+    private void Start()
+    {
+        try
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
+            }
+        }
+        catch (Exception ex)
+        {
+            print(ex.Message);
+        }
+    }
+
+    public bool PositionCheck()
+    {
+        int localNum = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        if (localNum % 2 == 0)
+            return true;
+
+
+        return false;
     }
 
     private int SelectTrophy(string name)

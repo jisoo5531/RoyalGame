@@ -29,7 +29,6 @@ public class CollectionCardInfo : MonoBehaviour
 
     public void OrderByClick()
     {
-        print("zzzz");
         if(isCost)
         {
             btnName.text = "Èñ±Íµµ ¼ø";

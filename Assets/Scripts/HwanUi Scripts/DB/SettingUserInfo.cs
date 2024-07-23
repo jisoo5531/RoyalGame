@@ -13,6 +13,14 @@ public class SettingUserInfo : MonoBehaviour
 
     public TMP_Text userName;
     public TMP_Text trophyAmount;
+
+    public TMP_Text detailUserName;
+    public TMP_Text maxTrophyCount;
+    public TMP_Text currentTrophyCount;
+    public TMP_Text battleCount;
+    public TMP_Text haveCardCount;
+    public TMP_Text victoryCount;
+    public TMP_Text defeatCount;
     #endregion
 
     private void Awake()
@@ -33,9 +41,16 @@ public class SettingUserInfo : MonoBehaviour
                     if (cmd != null)
                     {
                         userName.text = GetStringData(cmd, "userName");
+                        detailUserName.text = GetStringData(cmd, "userName");
                         trophyAmount.text = GetStringData(cmd, "currentTrophy");
+                        currentTrophyCount.text = GetStringData(cmd, "currentTrophy");
+                        maxTrophyCount.text = GetStringData(cmd, "maxTrophy");
                         goldAmount.text = GetStringData(cmd, "gold");
                         jewelAmount.text = GetStringData(cmd, "jewel");
+                        battleCount.text = GetStringData(cmd, "battleCount");
+                        haveCardCount.text = $"{GetStringData(cmd, "currentCardCount")} / {GetStringData(cmd, "maxCardCount")}";
+                        victoryCount.text = GetStringData(cmd, "victoryCount");
+                        defeatCount.text = GetStringData(cmd, "defeatCount");
                     }
                 }
                 conn.Close();

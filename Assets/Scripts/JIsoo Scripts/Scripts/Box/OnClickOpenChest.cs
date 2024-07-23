@@ -56,10 +56,8 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
     public OBJ unitOBJ;
 
-    private KeyValuePair<int, (SettingChest.Grade, int)>? reward;
     public KeyValuePair<CharacterInfo, int> characterInfo;
 
-    private UnitData_SO uniData = null;
 
     public int clickCount = 0;
     public bool isOpenClick;

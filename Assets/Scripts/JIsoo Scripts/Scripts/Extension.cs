@@ -40,7 +40,7 @@ public static class Extension
     /// <param name="alpha">alpha값 조절</param>
     public static void UnitTransparent(this GameObject unitPrefab, float alpha)
     {
-        Renderer[] renderers = unitPrefab.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = unitPrefab.GetComponentsInChildren<Renderer>(); // 오류
 
         foreach (Renderer renderer in renderers)
         {
@@ -72,7 +72,7 @@ public static class Extension
     /// <summary>
     /// 유닛 유형에 맞게 분류
     /// </summary>
-    public static void UnitClassification(this GameObject unit, CharacterData unitData)
+    public static void UnitClassification(this GameObject unit, AllCardData unitData)
     {
         if (unitData.type == "유닛")
         {

@@ -6,7 +6,7 @@ public class UnitSpawner : MonoBehaviour
 {
     public static UnitSpawner instance { get; private set; }
 
-    public CharacterData selectedUnit;
+    public AllCardData selectedUnit;
     public bool isElixirEnough = false;
     public bool spawnComplete = false;
 
@@ -39,7 +39,7 @@ public class UnitSpawner : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Map"))
                     {
-                        //Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
+                        Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
                         SpawnUnit(hit.point);
 
                         spawnComplete = true;
@@ -52,10 +52,10 @@ public class UnitSpawner : MonoBehaviour
     }
     public void SpawnUnit(Vector3 position)
     {
-        //Instantiate(selectedUnit.prefab, position, Quaternion.identity);
+        Instantiate(selectedUnit.prefab, position, Quaternion.identity);
     }
 
-    public void SelectUnit(CharacterData unit)
+    public void SelectUnit(AllCardData unit)
     {        
         selectedUnit = unit;
     }

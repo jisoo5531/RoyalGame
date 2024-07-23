@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +16,8 @@ public class SignIn : MonoBehaviour
 
     public GameObject signUpUI;
     public GameObject findPasswordUI;
+
+    public GameObject SignInFailUI;
     #endregion
 
     private void Start()
@@ -60,7 +61,10 @@ public class SignIn : MonoBehaviour
         }
         else
         {
-            print("회원 정보가 없거나, 아이디 혹은 비밀번호가 잘못 되었습니다.");
+            nickname.text = string.Empty;
+            password.text = string.Empty;
+            SignInFailUI.SetActive(true);
+            this.gameObject.SetActive(false);
         }
     }
 

@@ -8,7 +8,7 @@ public class UI_DisplayUnit : MonoBehaviour
 {
     public Image[] unitImage;
 
-    private List<CharacterData> shuffledUnit;
+    private List<AllCardData> shuffledUnit;
 
     private GameObject[] unitSpawnButtons;       // 유닛 생성하기 위해 보여지는 게임 상에 보여지는 이미지
     //private GameObject[] waitUnitsDisplay;       // TODO : 대기 유닛들 (테스트용, 나중에 지우기)
@@ -79,12 +79,12 @@ public class UI_DisplayUnit : MonoBehaviour
     /// </summary>
     /// <param name="unitData">소환 대상 유닛 정보</param>
     /// <param name="number">몇 번째 버튼에 있는 유닛인지</param>
-    public void UI_ChangeDisplayUnit(CharacterData unitData, int number)
+    public void UI_ChangeDisplayUnit(AllCardData unitData, int number)
     {
         //unitSpawnButtons[number].transform.GetChild(1).GetComponent<Image>().sprite = unitData.iconSprite;
         UI_SetDisplayUnit(unitData, number, unitElixirText[number]);
 
-        CharacterData nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
+        AllCardData nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
         UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = nextUnitData.img;
 
         //int index = 0;
@@ -100,7 +100,7 @@ public class UI_DisplayUnit : MonoBehaviour
     /// <param name="unitData"></param>
     /// <param name="unitButton"></param>
     /// <param name="elixirText">유닛 코스트</param>
-    private void UI_SetDisplayUnit(CharacterData unitData, int number, TextMeshProUGUI elixirText = null)
+    private void UI_SetDisplayUnit(AllCardData unitData, int number, TextMeshProUGUI elixirText = null)
     {
         //GameObject unitUI = unitButton.transform.GetChild(1).gameObject;
         unitImage[number].sprite = unitData.img;

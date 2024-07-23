@@ -5,7 +5,6 @@ using UnityEngine;
 public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 {
 
-
     public int unit_ID;
     [HideInInspector] public Animator anim;
 
@@ -26,12 +25,10 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public float spawnTime { get; set; }
     public float attackSpeed { get; set; }
 
-    public Range rangeType;
 
     public AttackTarget attackTarget { get; set; }
         
     #endregion
-    
 
     protected enum UnitState
     {
@@ -64,8 +61,6 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         range = unit.range;
         detectionRange = unit.detectionRange;
         attackTarget = unit.attackTarget;
-
-        rangeType = unit.rangeType;
     }
 
 
@@ -76,35 +71,16 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
             stateMachine.SetState(dicState[state]);
         }
     }
-    public void Attack()
-    {
-        switch (rangeType)
-        {
-            case Range.Melee:
-                break;
-            case Range.Ranged:
-                GetComponent<RangedUnit>().Attack();                
-                break;
-            default:
-                break;
-        }
-    }
 
     public void SendDamage(int damage)
     {
-        if (rangeType == Range.Ranged)
-        {
-            GetComponent<RangedUnit>().damage = damage;
-            return;
-        }
-        GetComponentInChildren<Damaging>().damage = damage;
+        //GetComponentInChildren<Damaging>().damage = damage;
     }
 
     public void GetDamage(int damage)
-    {        
+    {
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;
-        
 
         // À¯´ÖÀÌ Á×À» ¶§
         if (HP <= 0)
@@ -114,7 +90,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }    
     private void Death()
     {        
-        GameObject effect = Instantiate(EffectManager.instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        GameObject effect = Instantiate(EffectManager.m_Instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
         effect.transform.localScale = transform.localScale;
         Destroy(gameObject);
     }

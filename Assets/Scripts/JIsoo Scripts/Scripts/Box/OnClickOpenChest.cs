@@ -91,6 +91,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         if(clickCount > chest.randomUnits.Count)
         {
             ClosePanel();
+            print("kkkk");
             chestCondition.CheckNewbie();
             return;
         }

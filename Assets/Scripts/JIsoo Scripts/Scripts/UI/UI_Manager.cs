@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MySql.Data.MySqlClient;
+using Photon.Pun.Demo.Cockpit;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -12,23 +13,23 @@ public class UI_Manager : MonoBehaviour
     private static UI_Manager instance;
     public static UI_Manager m_Instance { get { return instance; } }
 
-    private List<CharacterData> shuffledUnit;
-    [HideInInspector] public List<CharacterData> m_shuffledUnit { get { return shuffledUnit; } }
+    private List<AllCardData> shuffledUnit;
+    [HideInInspector] public List<AllCardData> m_shuffledUnit { get { return shuffledUnit; } }
 
-    private List<AllCardData> UnitDatas = new List<AllCardData>();
+    public List<AllCardData> UnitDatas = new List<AllCardData>();
 
-    private List<CharacterData> UI_availableUnit = new List<CharacterData>();
+    private List<AllCardData> UI_availableUnit = new List<AllCardData>();
     /// <summary>
     /// 현재 생성 버튼에 있는 생성 가능 유닛
     /// </summary>
-    [HideInInspector] public List<CharacterData> m_UI_availableUnit { get { return UI_availableUnit; } }
+    [HideInInspector] public List<AllCardData> m_UI_availableUnit { get { return UI_availableUnit; } }
 
 
-    private Queue<CharacterData> UI_waitUnitsQueue = new Queue<CharacterData>();
+    private Queue<AllCardData> UI_waitUnitsQueue = new Queue<AllCardData>();
     /// <summary>
     /// 생성 가능 유닛이 아닌 대기 중인 유닛
     /// </summary>
-    [HideInInspector] public Queue<CharacterData> m_UI_waitUnitsQueue { get { return UI_waitUnitsQueue; } }
+    [HideInInspector] public Queue<AllCardData> m_UI_waitUnitsQueue { get { return UI_waitUnitsQueue; } }
 
 
     /// <summary>
@@ -60,12 +61,34 @@ public class UI_Manager : MonoBehaviour
 
     private UI_Elixir elixir;
 
+    private SettingUnit settingUnit;
+    public Sprite[] unitSprites;
+    public GameObject[] unitPrefab;
+
     #endregion
     private void Awake()
     {
         instance = this;
 
-        shuffledUnit = StartManager.m_Instance.m_selectedUnits;
+        settingUnit = GetComponent<SettingUnit>();
+
+        for (int i = 0; i< StartManager.m_Instance.battleCardList.Count; i++)
+        {
+            if (StartManager.m_Instance.battleCardList[i] != 3 && StartManager.m_Instance.battleCardList[i] != 8)
+            {
+                settingUnit.SelectUnitData(DatabaseManager.Instance.userId, StartManager.m_Instance.battleCardList[i]);
+            }
+            else if(StartManager.m_Instance.battleCardList[i] == 3)
+            {
+                settingUnit.SelectMagicData(DatabaseManager.Instance.userId, StartManager.m_Instance.battleCardList[i]);
+            }
+            else if (StartManager.m_Instance.battleCardList[i] == 8)
+            {
+                settingUnit.SelectTowerData(DatabaseManager.Instance.userId, StartManager.m_Instance.battleCardList[i]);
+            }
+        }
+
+        shuffledUnit = UnitDatas;
         shuffledUnit.Shuffle();
 
         elixir = GetComponent<UI_Elixir>();

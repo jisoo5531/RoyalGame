@@ -1,11 +1,14 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Loading : MonoBehaviour
+public class Loading : MonoBehaviourPunCallbacks
 {
     public static string nextScene;
 
@@ -15,14 +18,17 @@ public class Loading : MonoBehaviour
     [SerializeField]
     TMP_Text loadText;
 
+    public static bool isBattle;
+
     private void Start()
     {
         StartCoroutine(LoadScene());
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(string sceneName, bool isGameStart)
     {
         nextScene = sceneName;
+        isBattle = isGameStart;
         SceneManager.LoadScene("Loading");
     }
 
@@ -61,12 +67,24 @@ public class Loading : MonoBehaviour
 
                     if (progressBar.value >= 1.0f)
                     {
-                        yield return new WaitForSeconds(0.5f);
+                        yield return new WaitForSeconds(0.3f);
                         op.allowSceneActivation = true;
+                        if (isBattle)
+                        {
+                            if (PhotonNetwork.IsMasterClient)
+                            {
+                                StartGameOnAllClients(nextScene);
+                            }
+                        }
                         yield break;
                     }
                 }
             }
         }
+    }
+
+    private void StartGameOnAllClients(string sceneName)
+    {
+        PhotonNetwork.LoadLevel(sceneName);
     }
 }

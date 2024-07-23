@@ -58,6 +58,18 @@ public class StartManager : MonoBehaviour
         
     }
 
+    public void InitList()
+    {
+        battleCardList.Clear();
+        battleCardCostList.Clear();
+        selectedUnits.Clear();
+
+        for (int i = 0; i < 8; i++)
+        {
+            selectedUnits.Add(null);
+        }
+    }
+
     /// <summary>
     /// 컬렉션 탭 SO에 맞춰 이미지 세팅
     /// </summary>
@@ -123,7 +135,7 @@ public class StartManager : MonoBehaviour
         avg = 0f;
         for (int i = 0; i < 8; i++)
         {
-            if (selectedUnits[i] != null && selectedUnits[i].name.Equals(SettingCardInfoManager.instance.charData[index].name))
+            if (selectedUnits[i] != null && selectedUnits[i].name != null && selectedUnits[i].name.Equals(SettingCardInfoManager.instance.charData[index].name))
             {
                 selectedUnits[i] = null;
                 currentDisplayIndex = i;
@@ -155,13 +167,12 @@ public class StartManager : MonoBehaviour
 
     }
 
-
     public void UpdateUserCard(string battleCard)
     {
         string updateUserBattleCard = string.Empty;
         try
         {
-            updateUserBattleCard = $"UPDATE USER SET currentBattleCard = {battleCard} WHERE userID = {DatabaseManager.Instance.userId}";
+            updateUserBattleCard = $"UPDATE USER SET currentBattleCard = '{battleCard}' WHERE userID = {DatabaseManager.Instance.userId}";
 
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {

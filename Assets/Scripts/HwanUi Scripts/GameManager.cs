@@ -34,17 +34,23 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         instance = this;
 
+        foreach (KeyValuePair<int, Player> pair in PhotonNetwork.CurrentRoom.Players)
+        {
+            if (pair.Value == PhotonNetwork.LocalPlayer)
+            {
+                PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
+            }
+        }
+
         if (PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
             Instantiate(lightPrefab, firstLight.position, firstLight.rotation);
-            PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
         }
         else
         {
             Instantiate(cameraPrefab, secondCamera.position, secondCamera.rotation);
             Instantiate(lightPrefab, secondLight.position, secondLight.rotation);
-            PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
         }
 
         int[] playerKeys = PhotonNetwork.CurrentRoom.Players.Keys.ToArray();

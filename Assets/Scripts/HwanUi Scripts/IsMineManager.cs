@@ -6,6 +6,5 @@ public class IsMineManager : MonoBehaviour
 {
     private void Awake()
     {
-        
     }
 }

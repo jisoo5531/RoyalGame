@@ -1,113 +1,113 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.UI;
-//using TMPro;
+//using system.collections;
+//using system.collections.generic;
+//using unityengine;
+//using unityengine.ui;
+//using tmpro;
 
-//[System.Serializable]
-//public class UnitTitle
+//[system.serializable]
+//public class unittitle
 //{
-//    public TextMeshProUGUI unitName;
+//    public textmeshprougui unitname;
 //}
-//[System.Serializable]
-//public class UnitImage
+//[system.serializable]
+//public class unitimage
 //{
-//    public Image unitImage;
-//    public Image cardCountFill;
-//    public TextMeshProUGUI costText;
-//    public TextMeshProUGUI cardCountText;
-//    public Image upArrow;
+//    public image unitimage;
+//    public image cardcountfill;
+//    public textmeshprougui costtext;
+//    public textmeshprougui cardcounttext;
+//    public image uparrow;
 //}
-//[System.Serializable]
-//public class GradeAndType
+//[system.serializable]
+//public class gradeandtype
 //{
-//    public Image gradeAndTypeBackground;
-//    public TextMeshProUGUI gradeText;
-//    public TextMeshProUGUI typeText;
-//}
-
-//[System.Serializable]
-//public class UnitStat
-//{
-//    public Transform unitStats;
-//    public GameObject hpOBJ;
-//    public GameObject damageOBJ;
-//    public GameObject attackSpeedOBJ;
-//    public GameObject moveSpeedOBJ;
-//    public GameObject targetOBJ;
-//    public GameObject rangeOBJ;
-//    public GameObject creationTimeOBJ;
-//    public GameObject LifeTimeOBJ;
-//}
-//[System.Serializable]
-//public class UnitDescription
-//{
-//    public TextMeshProUGUI descText;
+//    public image gradeandtypebackground;
+//    public textmeshprougui gradetext;
+//    public textmeshprougui typetext;
 //}
 
-//public class Upgrade : MonoBehaviour
-//{            
-//    public UnitTitle unitTitle;
-//    public UnitImage unitList;
-//    public GradeAndType unitGnT;
-//    public UnitDescription unitDesc;
-//    public UnitStat unitStatList;
+//[system.serializable]
+//public class unitstat
+//{
+//    public transform unitstats;
+//    public gameobject hpobj;
+//    public gameobject damageobj;
+//    public gameobject attackspeedobj;
+//    public gameobject movespeedobj;
+//    public gameobject targetobj;
+//    public gameobject rangeobj;
+//    public gameobject creationtimeobj;
+//    public gameobject lifetimeobj;
+//}
+//[system.serializable]
+//public class unitdescription
+//{
+//    public textmeshprougui desctext;
+//}
 
-//    private CharacterData unitData;
+//public class upgrade : monobehaviour
+//{
+//    public unittitle unittitle;
+//    public unitimage unitlist;
+//    public gradeandtype unitgnt;
+//    public unitdescription unitdesc;
+//    public unitstat unitstatlist;
 
-//    private bool availableUpgrade = false;
+//    private characterdata unitdata;
 
-    
+//    private bool availableupgrade = false;
 
-//    public void SetInfo(CharacterData unitData)
+
+
+//    public void setinfo(characterdata unitdata)
 //    {
-//        this.unitData = unitData;
+//        this.unitdata = unitdata;
 
-//        SetTitle();
+//        settitle();
 
-//        SetUnitImage();
+//        setunitimage();
 
-//        SetUnitGradeAndType();
+//        setunitgradeandtype();
 
-//        SetDescription();
+//        setdescription();
 
-//        SetCardCountFill();
+//        setcardcountfill();
 
-//        SetStats();        
+//        setstats();
 //    }
 
-//    #region Title
+//    #region title
 
-//    private void SetTitle()
+//    private void settitle()
 //    {
-//        unitTitle.unitName.text = $"·¹º§ {unitData.unit_Level} {unitData.unitName}".ToString();
+//        unittitle.unitname.text = $"·¹º§ {unitdata.unit_level} {unitdata.unitname}".tostring();
 //    }
 
 //    #endregion
 
-//    #region Unit
+//    #region unit
 
-//    private void SetUnitImage()
+//    private void setunitimage()
 //    {
-//        unitList.unitImage.sprite = unitData.img;
-//        unitList.costText.text = unitData.cost.ToString();
+//        unitlist.unitimage.sprite = unitdata.img;
+//        unitlist.costtext.text = unitdata.cost.tostring();
 //    }
 
-//    #region CardCount
+//    #region cardcount
 
-//    private void SetCardCountFill()
+//    private void setcardcountfill()
 //    {
-//        Collection collection = FindObjectOfType<Collection>();
+//        collection collection = findobjectoftype<collection>();
 
-//        //collection.SettingUI(unitData, unitList.cardCountFill, unitList.cardCountText, unitList.costText);
+//        //collection.settingui(unitdata, unitlist.cardcountfill, unitlist.cardcounttext, unitlist.costtext);
 
-//        if (true == collection.CheckAvailableUpgrade(unitList.cardCountFill, unitList.upArrow))
+//        if (true == collection.checkavailableupgrade(unitlist.cardcountfill, unitlist.uparrow))
 //        {
-//            availableUpgrade = true;
-//        }      
+//            availableupgrade = true;
+//        }
 //        else
 //        {
-//            availableUpgrade = false;
+//            availableupgrade = false;
 //        }
 //    }
 
@@ -115,234 +115,234 @@
 
 //    #endregion
 
-//    #region Grade / Type
+//    #region grade / type
 
-//    private void SetUnitGradeAndType()
+//    private void setunitgradeandtype()
 //    {
-//        SetBackground();
-//        Set_GnT_Text();
+//        setbackground();
+//        set_gnt_text();
 //    }
 
-//    private void SetBackground()
+//    private void setbackground()
 //    {
-//        switch (unitData.grade)
+//        switch (unitdata.grade)
 //        {
 //            case "ÀÏ¹Ý":
-//                unitGnT.gradeAndTypeBackground.ColorNormal();
+//                unitgnt.gradeandtypebackground.colornormal();
 //                break;
 //            case "Èñ±Í":
-//                unitGnT.gradeAndTypeBackground.ColorRare();
+//                unitgnt.gradeandtypebackground.colorrare();
 //                break;
 //            case "¿µ¿õ":
-//                unitGnT.gradeAndTypeBackground.ColorEpic();
+//                unitgnt.gradeandtypebackground.colorepic();
 //                break;
 //            default:
 //                break;
 //        }
 //    }
-//    private void Set_GnT_Text()
+//    private void set_gnt_text()
 //    {
-//        string gradeText = null;
-//        string typeText = null;
-//        switch (unitData.grade)
+//        string gradetext = null;
+//        string typetext = null;
+//        switch (unitdata.grade)
 //        {
 //            case "ÀÏ¹Ý":
-//                gradeText = "ÀÏ¹Ý";
+//                gradetext = "ÀÏ¹Ý";
 //                break;
 //            case "Èñ±Í":
-//                gradeText = "Èñ±Í";
+//                gradetext = "Èñ±Í";
 //                break;
 //            case "¿µ¿õ":
-//                gradeText = "¿µ¿õ";
+//                gradetext = "¿µ¿õ";
 //                break;
 //            default:
 //                break;
 //        }
-//        switch (unitData.type)
+//        switch (unitdata.type)
 //        {
-//            case Type.Unit:
-//                typeText = "À¯´Ö";
+//            case type.unit:
+//                typetext = "À¯´Ö";
 //                break;
-//            case Type.Deffense:
-//                typeText = "°Ç¹°";
+//            case type.deffense:
+//                typetext = "°Ç¹°";
 //                break;
-//            case Type.Magic:
-//                typeText = "¸¶¹ý";
+//            case type.magic:
+//                typetext = "¸¶¹ý";
 //                break;
 //            default:
 //                break;
 //        }
-//        if (gradeText != null)
+//        if (gradetext != null)
 //        {
-//            unitGnT.gradeText.text = gradeText;
+//            unitgnt.gradetext.text = gradetext;
 //        }
-//        if (typeText != null)
+//        if (typetext != null)
 //        {
-//            unitGnT.typeText.text = typeText;
-//        }        
+//            unitgnt.typetext.text = typetext;
+//        }
 //    }
 
 
 //    #endregion
 
-//    #region Description
+//    #region description
 
-//    private void SetDescription()
+//    private void setdescription()
 //    {
-//        unitDesc.descText.text = unitData.unit_Desc;
+//        unitdesc.desctext.text = unitdata.unit_desc;
 //    }
 
 //    #endregion
 
-//    #region Stat
+//    #region stat
 
-//    private void SetStats()
+//    private void setstats()
 //    {
-//        foreach (Transform child in unitStatList.unitStats)
+//        foreach (transform child in unitstatlist.unitstats)
 //        {
-//            Destroy(child.gameObject);
+//            destroy(child.gameobject);
 //        }
 
-//        Set_HPObj();
-//        Set_DamageObj();
-//        Set_AttackSppedObj();
-//        Set_MoveSppedObj();
-//        Set_TargetObj();
-//        Set_RangeObj();
-//        Set_CreationTimeObj();
-//        Set_LifeTimeObj();
+//        set_hpobj();
+//        set_damageobj();
+//        set_attacksppedobj();
+//        set_movesppedobj();
+//        set_targetobj();
+//        set_rangeobj();
+//        set_creationtimeobj();
+//        set_lifetimeobj();
 //    }
-//    private void Set_HPObj()
+//    private void set_hpobj()
 //    {
-//        if (unitData.type == Type.Magic)
+//        if (unitdata.type == type.magic)
 //        {
 //            return;
 //        }
 
-//        GameObject hpStat_OBJ = Instantiate(unitStatList.hpOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat uiHp = hpStat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject hpstat_obj = instantiate(unitstatlist.hpobj, unitstatlist.unitstats);
+//        ui_upgradestat uihp = hpstat_obj.getcomponent<ui_upgradestat>();
 
-//        if (uiHp != null)
+//        if (uihp != null)
 //        {
-//            uiHp.value.text = unitData.maxHp.ToString();
-//            uiHp.upgradeValue.text = $"+ {unitData.Get_Upgrade_HP()}";
+//            uihp.value.text = unitdata.maxhp.tostring();
+//            uihp.upgradevalue.text = $"+ {unitdata.get_upgrade_hp()}";
 
-//            if (availableUpgrade)
+//            if (availableupgrade)
 //            {
-//                uiHp.SetUpgrade();
+//                uihp.setupgrade();
 //            }
 //            else
 //            {
-//                uiHp.SetNotUpgrade();
+//                uihp.setnotupgrade();
 //            }
 //        }
 //    }
-//    private void Set_DamageObj()
+//    private void set_damageobj()
 //    {
-//        GameObject DamageStat_OBJ = Instantiate(unitStatList.damageOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat uiDamage = DamageStat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject damagestat_obj = instantiate(unitstatlist.damageobj, unitstatlist.unitstats);
+//        ui_upgradestat uidamage = damagestat_obj.getcomponent<ui_upgradestat>();
 
-//        if (uiDamage != null)
+//        if (uidamage != null)
 //        {
-//            uiDamage.value.text = unitData.damage.ToString();
-//            uiDamage.upgradeValue.text = $"+ {unitData.Get_Upgrade_Damage()}";
+//            uidamage.value.text = unitdata.damage.tostring();
+//            uidamage.upgradevalue.text = $"+ {unitdata.get_upgrade_damage()}";
 
-//            if (availableUpgrade)
+//            if (availableupgrade)
 //            {
-//                uiDamage.SetUpgrade();
+//                uidamage.setupgrade();
 //            }
 //            else
 //            {
-//                uiDamage.SetNotUpgrade();
+//                uidamage.setnotupgrade();
 //            }
 //        }
 //    }
-//    private void Set_AttackSppedObj()
+//    private void set_attacksppedobj()
 //    {
-//        if (unitData.type == Type.Magic)
+//        if (unitdata.type == type.magic)
 //        {
 //            return;
 //        }
 
-//        GameObject AS_Stat_OBJ = Instantiate(unitStatList.attackSpeedOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat ui_AS = AS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject as_stat_obj = instantiate(unitstatlist.attackspeedobj, unitstatlist.unitstats);
+//        ui_upgradestat ui_as = as_stat_obj.getcomponent<ui_upgradestat>();
 
-//        if (ui_AS != null)
+//        if (ui_as != null)
 //        {
-//            ui_AS.value.text = unitData.attackSpeed.ToString();
+//            ui_as.value.text = unitdata.attackspeed.tostring();
 //        }
 //    }
-    
-//    private void Set_MoveSppedObj()
+
+//    private void set_movesppedobj()
 //    {
-//        if (unitData.type == Type.Magic)
+//        if (unitdata.type == type.magic)
 //        {
 //            return;
 //        }
 
-//        GameObject MS_Stat_OBJ = Instantiate(unitStatList.moveSpeedOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat ui_MS = MS_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject ms_stat_obj = instantiate(unitstatlist.movespeedobj, unitstatlist.unitstats);
+//        ui_upgradestat ui_ms = ms_stat_obj.getcomponent<ui_upgradestat>();
 
-//        if (ui_MS != null)
+//        if (ui_ms != null)
 //        {
-//            ui_MS.value.text = unitData.moveSpeed.ToString();
+//            ui_ms.value.text = unitdata.movespeed.tostring();
 //        }
 //    }
-    
-//    private void Set_TargetObj()
+
+//    private void set_targetobj()
 //    {
-//        if (unitData.type == Type.Magic)
+//        if (unitdata.type == type.magic)
 //        {
 //            return;
 //        }
 
-//        GameObject target_Stat_OBJ = Instantiate(unitStatList.targetOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat ui_Target = target_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject target_stat_obj = instantiate(unitstatlist.targetobj, unitstatlist.unitstats);
+//        ui_upgradestat ui_target = target_stat_obj.getcomponent<ui_upgradestat>();
 
-//        if (ui_Target != null)
+//        if (ui_target != null)
 //        {
-//            ui_Target.value.text = unitData.attackTarget.ToString();
+//            ui_target.value.text = unitdata.attacktarget.tostring();
 //        }
 //    }
-    
-//    private void Set_RangeObj()
+
+//    private void set_rangeobj()
 //    {
-//        if (unitData.type == Type.Magic)
+//        if (unitdata.type == type.magic)
 //        {
 //            return;
 //        }
 
-//        GameObject range_Stat_OBJ = Instantiate(unitStatList.rangeOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat ui_Range = range_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject range_stat_obj = instantiate(unitstatlist.rangeobj, unitstatlist.unitstats);
+//        ui_upgradestat ui_range = range_stat_obj.getcomponent<ui_upgradestat>();
 
-//        if (ui_Range != null)
+//        if (ui_range != null)
 //        {
-//            ui_Range.value.text = unitData.range.ToString();
+//            ui_range.value.text = unitdata.range.tostring();
 //        }
 //    }
-    
-//    private void Set_CreationTimeObj()
-//    {
-//        GameObject creationTime_Stat_OBJ = Instantiate(unitStatList.creationTimeOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat ui_CreationTIme = creationTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
 
-//        if (ui_CreationTIme != null)
+//    private void set_creationtimeobj()
+//    {
+//        gameobject creationtime_stat_obj = instantiate(unitstatlist.creationtimeobj, unitstatlist.unitstats);
+//        ui_upgradestat ui_creationtime = creationtime_stat_obj.getcomponent<ui_upgradestat>();
+
+//        if (ui_creationtime != null)
 //        {
-//            ui_CreationTIme.value.text = unitData.spawnTime.ToString();
+//            ui_creationtime.value.text = unitdata.spawntime.tostring();
 //        }
 //    }
-//    private void Set_LifeTimeObj()
+//    private void set_lifetimeobj()
 //    {
-//        if (unitData.type == Type.Unit || unitData.type == Type.Magic)
+//        if (unitdata.type == type.unit || unitdata.type == type.magic)
 //        {
 //            return;
 //        }
-//        GameObject LifeTime_Stat_OBJ = Instantiate(unitStatList.LifeTimeOBJ, unitStatList.unitStats);
-//        UI_UpgradeStat ui_LifeTIme = LifeTime_Stat_OBJ.GetComponent<UI_UpgradeStat>();
+//        gameobject lifetime_stat_obj = instantiate(unitstatlist.lifetimeobj, unitstatlist.unitstats);
+//        ui_upgradestat ui_lifetime = lifetime_stat_obj.getcomponent<ui_upgradestat>();
 
-//        if (ui_LifeTIme != null)
+//        if (ui_lifetime != null)
 //        {
-//            ui_LifeTIme.value.text = unitData.lifeTime.ToString();
+//            ui_lifetime.value.text = unitdata.lifetime.tostring();
 //        }
 //    }
 

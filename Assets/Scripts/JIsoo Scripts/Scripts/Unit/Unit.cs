@@ -112,7 +112,7 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }    
     private void Death()
     {        
-        GameObject effect = Instantiate(EffectManager.m_Instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        GameObject effect = Instantiate(EffectManager.instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
         effect.transform.localScale = transform.localScale;
         Destroy(gameObject);
     }

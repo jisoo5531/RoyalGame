@@ -2,9 +2,11 @@
 using System.Collections;
 
 namespace EpicToonFX
-{
+{    
     public class ETFXProjectileScript : MonoBehaviour
     {
+        public Transform magicTrans;
+
         public GameObject impactParticle; // Effect spawned when projectile hits a collider
         public GameObject projectileParticle; // Effect attached to the gameobject as child
         public GameObject muzzleParticle; // Effect instantly spawned when gameobject is spawned
@@ -15,11 +17,12 @@ namespace EpicToonFX
 
         void Start()
         {
-            projectileParticle = Instantiate(projectileParticle, transform.position, transform.rotation) as GameObject;
+            //projectileParticle = Instantiate(projectileParticle, transform.position, transform.rotation) as GameObject;
+            projectileParticle = Instantiate(projectileParticle, magicTrans.position, magicTrans.rotation) as GameObject;
             projectileParticle.transform.parent = transform;
             if (muzzleParticle)
             {
-                muzzleParticle = Instantiate(muzzleParticle, transform.position, transform.rotation) as GameObject;
+                muzzleParticle = Instantiate(muzzleParticle, magicTrans.position, magicTrans.rotation) as GameObject;
                 Destroy(muzzleParticle, 1.5f); // 2nd parameter is lifetime of effect in seconds
             }
         }

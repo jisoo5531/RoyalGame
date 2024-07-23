@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EffectManager : MonoBehaviour
-{
-    private static EffectManager instance;
-    public static EffectManager m_Instance { get; }
+{    
+    public static EffectManager instance;
     
     public GameObject deathEffect;
 

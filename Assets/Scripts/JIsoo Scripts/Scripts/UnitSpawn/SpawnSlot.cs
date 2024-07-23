@@ -95,7 +95,6 @@ public class SpawnSlot : MonoBehaviour,
         //iconImage.rectTransform.anchoredPosition = Vector2.zero;
         iconImage.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-
         dragUnit = null;
         isSpawn = false;
     }

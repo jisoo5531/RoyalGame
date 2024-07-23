@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -72,7 +73,7 @@ public class Loading : MonoBehaviourPunCallbacks
                         {
                             if (PhotonNetwork.IsMasterClient)
                             {
-                                photonView.RPC("StartGameOnAllClients", RpcTarget.All, nextScene);
+                                StartGameOnAllClients(nextScene);
                             }
                         }
                         yield break;
@@ -82,9 +83,8 @@ public class Loading : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
     private void StartGameOnAllClients(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        PhotonNetwork.LoadLevel(sceneName);
     }
 }

@@ -26,20 +26,25 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public TMP_Text[] playerNames;
     public TMP_Text[] playerTrophy;
+
+    public GameObject[] myTowers;
+    public GameObject[] enemyTowers;
     #endregion
     private void Awake()
     {
         instance = this;
 
-        if (photonView.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
             Instantiate(lightPrefab, firstLight.position, firstLight.rotation);
+            PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
         }
         else
         {
             Instantiate(cameraPrefab, secondCamera.position, secondCamera.rotation);
             Instantiate(lightPrefab, secondLight.position, secondLight.rotation);
+            PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
         }
 
         int[] playerKeys = PhotonNetwork.CurrentRoom.Players.Keys.ToArray();

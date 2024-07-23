@@ -25,7 +25,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            startTime = PhotonNetwork.Time + countdownDuration; // 게임 시작 시간 설정
+            startTime = PhotonNetwork.Time + countdownDuration;
             photonView.RPC("SetStartTime", RpcTarget.All, startTime);
         }
     }

@@ -22,12 +22,8 @@ public class FirstChestCondition : MonoBehaviour
     }
     public void CheckNewbie()
     {
-        Debug.Log("체크");
-        // 처음 게임을 들어오면
         if(SettingCardInfoManager.instance.IsNewbie())
         {
-            Debug.Log("뉴비");
-            // 상자 생성
             boxImage.sprite = firstBoxSprite;
             boxImage.ImageTransparent(1f);
 
@@ -35,12 +31,10 @@ public class FirstChestCondition : MonoBehaviour
         }
         else
         {
-            Debug.Log("뉴비 아님");
             boxImage.sprite = null;
             boxImage.ImageTransparent(0f);
             box_Button.sprite = grayButton;
 
-            // 상자 없애기
             collectionCardInfo.SelectCardOrderByGrade();
             StartManager.m_Instance.InitializeCollectionImage();
         }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Damaging : MonoBehaviour
 {
     public int damage;
+
+    public Transform target;
     public LayerMask targetLayerMask;
     public Range rangeType;
 
@@ -19,11 +21,17 @@ public class Damaging : MonoBehaviour
         if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
         {
             Debug.Log("Å×½ºÆ®.");
-            damagable.GetDamage(damage);
             if (rangeType == Range.Ranged)
-            {
-                Destroy(gameObject);
+            {                
+                if (other.gameObject.name == target.gameObject.name)
+                {
+                    damagable.GetDamage(damage);
+                    Destroy(gameObject);
+                }                
+                return;
             }
+
+            damagable.GetDamage(damage);
         }
     }
 }

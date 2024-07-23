@@ -8,13 +8,19 @@ public class RangedUnit : MonoBehaviour
     public Transform projectile_trans;
     public LayerMask targetLayerMask;
     public int damage;
+    
 
     public void Attack()
-    {  
+    {
+        Transform target = GetComponent<TargetFollowUnit>().target;
+
         GameObject projectile = Instantiate(projectilePrefab, projectile_trans);
-        projectile.AddComponent<Projectile>().forward = projectile_trans.forward;
+        Projectile projectileComponent = projectile.AddComponent<Projectile>();
+        projectileComponent.forward = projectile_trans.forward;
+        projectileComponent.target = target;
 
         Damaging damagingComponent = projectile.AddComponent<Damaging>();
+        damagingComponent.target = target;
         damagingComponent.rangeType = Range.Ranged;
         damagingComponent.damage = damage;
         damagingComponent.targetLayerMask = targetLayerMask;

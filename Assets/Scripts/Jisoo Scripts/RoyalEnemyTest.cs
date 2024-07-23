@@ -28,7 +28,7 @@ public class RoyalEnemyTest : MonoBehaviour, IDamagable
 
     private void Awake()
     {
-        maxHP = 100;
+        maxHP = 10000;
         HP = maxHP;
 
         leverBackground.sprite = imagePrefab.levelBackground;

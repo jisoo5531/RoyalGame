@@ -26,7 +26,6 @@ public class ClickMagic : MonoBehaviour
 
     private void SpawnFireBall()
     {        
-
         GameObject fireball = Instantiate(fireBallPrefab, startTrans);
         Projectile fireballProjectile = fireball.AddComponent<Projectile>();
         fireballProjectile.targetPos = clickPos;

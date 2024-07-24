@@ -21,7 +21,10 @@ public class RangedUnit : MonoBehaviour
 
     private void Update()
     {
-        target = targetFollowUnit.target;
+        if (targetFollowUnit != null)
+        {
+            target = targetFollowUnit.target;
+        }
         //distance = Vector3.Distance(target.position, transform.position);
     }
 
@@ -30,7 +33,7 @@ public class RangedUnit : MonoBehaviour
         if (target != null)
         {
             GameObject projectile = Instantiate(projectilePrefab, pStart_trans);
-            projectile.layer = gameObject.layer;
+            projectile.layer = gameObject.layer + 2;
             Projectile projectileComponent = projectile.AddComponent<Projectile>();
             projectileComponent.targetPos = target.position;
 

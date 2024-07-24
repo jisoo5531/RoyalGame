@@ -12,6 +12,8 @@ public class TimeManager : MonoBehaviourPunCallbacks
     private float gameCountdownDuration = 180f;
     public TMP_Text gametimeUI;
     public TMP_Text overTimeUI;
+    private AudioSource audioSource;
+
 
     public bool isGameStart = false;
 
@@ -21,6 +23,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -29,7 +32,13 @@ public class TimeManager : MonoBehaviourPunCallbacks
         {
             startTime = PhotonNetwork.Time + countdownDuration;
             photonView.RPC("SetStartTime", RpcTarget.All, startTime);
+            SoundStart();
         }
+    }
+
+    private void SoundStart()
+    {
+        audioSource.Play();
     }
 
     [PunRPC]

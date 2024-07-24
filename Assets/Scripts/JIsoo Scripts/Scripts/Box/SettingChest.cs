@@ -109,21 +109,18 @@ public class SettingChest : MonoBehaviour
 
         while (normalRemainCard > 0)
         {
-            Debug.Log("1");
             NormalCard(1);
             normalRemainCard--;
         }
 
         while (rareRemainCard > 0)
         {
-            Debug.Log("2");
             RareCard(1);
             rareRemainCard--;
         }
 
         while (epicRemainCard > 0)
         {
-            Debug.Log("3");
             EpicCard(1);
             epicRemainCard--;
         }

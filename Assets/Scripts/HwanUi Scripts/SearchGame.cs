@@ -45,7 +45,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", 300 } };
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" };
 
-            string roomName = "room3";
+            string roomName = "roomTest";
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
         catch (Exception ex)

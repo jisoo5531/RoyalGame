@@ -1,23 +1,31 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedUnit : MonoBehaviour
+public class RangedUnit : MonoBehaviourPunCallbacks
 {    
     public GameObject projectilePrefab;
     public Transform pStart_trans;
     public LayerMask targetLayerMask;
     public int damage;
     public Transform target;
+    private Unit unit;
 
+    private void Start()
+    {
+        unit = this.transform.root.GetComponent<Unit>();
+        damage = unit.damage;
+    }
     private void Update()
     {
         target = GetComponent<TargetFollowUnit>().target;
     }
 
     public void Attack()
-    {        
-        GameObject projectile = Instantiate(projectilePrefab, pStart_trans);
+    {
+        string pfbName = projectilePrefab.name;
+        GameObject projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.identity);
 
         Projectile projectileComponent = projectile.AddComponent<Projectile>();        
         projectileComponent.targetPos = target.position;

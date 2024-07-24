@@ -10,6 +10,13 @@ public class Damaging : MonoBehaviour
     public LayerMask targetLayerMask;
     public Range rangeType;
     public Type unitType;
+    private Unit unit;
+
+    private void Start()
+    {
+        unit = this.transform.root.GetComponent<Unit>();
+        damage = unit.damage;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,7 +45,7 @@ public class Damaging : MonoBehaviour
             Debug.Log("Å×½ºÆ®.");
             if (rangeType == Range.Ranged)
             {                
-                if (other.gameObject.name == target.gameObject.name)
+                if (other.gameObject.name.Equals(target.gameObject.name))
                 {
                     damagable.GetDamage(damage);
                     Destroy(gameObject);

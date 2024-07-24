@@ -25,11 +25,13 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
         InitStateMachine();
     }
 
-    protected override void InitializeUnitData(UnitData_SO unit)
+    protected override void InitializeUnitData(AllCardData unit)
     {
         base.InitializeUnitData(unit);
-
-        lifeTime = unit.lifeTime;
+        if (unit is DEFENSETOWERInfoData defenseTowerInfo)
+        {
+            lifeTime = defenseTowerInfo.lifeTime;
+        }
     }
 
     protected override void InitStateMachine()
@@ -38,7 +40,10 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
     }
     private void Update()
     {
-        UpdateLifeTime();
+        if (photonView.IsMine)
+        {
+            UpdateLifeTime();
+        }
     }
 
 

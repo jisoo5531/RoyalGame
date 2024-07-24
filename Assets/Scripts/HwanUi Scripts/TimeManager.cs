@@ -13,6 +13,8 @@ public class TimeManager : MonoBehaviourPunCallbacks
     public TMP_Text gametimeUI;
     public TMP_Text overTimeUI;
 
+    public bool isGameStart = false;
+
     int min;
     float sec;
 
@@ -34,7 +36,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
     private void SetStartTime(double networkStartTime)
     {
         startTime = networkStartTime;
-        StartCoroutine(CountdownBeforeStartGame());
+        StartCoroutine(CountdownBeforeStartGame());   
     }
 
     private IEnumerator CountdownBeforeStartGame()
@@ -43,9 +45,16 @@ public class TimeManager : MonoBehaviourPunCallbacks
         {
             yield return null;
         }
+        photonView.RPC("NotifyGameStart", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void NotifyGameStart()
+    {
         GameManager.instance.GameStart();
         Countdown();
     }
+
 
     public void Countdown()
     {
@@ -65,7 +74,6 @@ public class TimeManager : MonoBehaviourPunCallbacks
         {
             double remainingTime = endTime - PhotonNetwork.Time;
             int secondsRemaining = Mathf.CeilToInt((float)remainingTime);
-
             if (secondsRemaining >= 60f)
             {
                 min = secondsRemaining / 60;

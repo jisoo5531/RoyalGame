@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -6,7 +7,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 #region 박환의
-public class TargetFollowUnit : MonoBehaviour
+public class TargetFollowUnit : MonoBehaviourPunCallbacks
 {
     #region public 변수
     public Transform target = null;

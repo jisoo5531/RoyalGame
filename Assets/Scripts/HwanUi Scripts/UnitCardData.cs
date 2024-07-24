@@ -13,6 +13,7 @@ public class AllCardData
     public float range;
     public Sprite img;
     public string type;
+    public string desc;
     public GameObject prefab;
 }
 
@@ -23,6 +24,7 @@ public class UnitInfoData : AllCardData
     public int hp;
     public float spawnTime;
     public float detectRange;
+    public string target;
 }
 
 public class DEFENSETOWERInfoData : AllCardData
@@ -31,6 +33,7 @@ public class DEFENSETOWERInfoData : AllCardData
     public int hp;
     public float spawnTime;
     public int lifeTime;
+    public string target;
 }
 
 public class MAGICInfoData : AllCardData

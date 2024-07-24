@@ -142,21 +142,30 @@ public class StartManager : MonoBehaviour
                 battleCardList.Remove(SettingCardInfoManager.instance.charData[index].cardId);
                 battleCardCostList.Remove(SettingCardInfoManager.instance.charData[index].cost);
 
-                for (int j = 0; j < battleCardCostList.Count; j++)
+                if (battleCardCostList.Count > 0)
                 {
-                    avg += battleCardCostList[j];
-                }
-                avg /= battleCardCostList.Count;
-                avg = Mathf.Floor(avg * 10.0f) / 10.0f;
+                    for (int j = 0; j < battleCardCostList.Count; j++)
+                    {
+                        avg += battleCardCostList[j];
+                    }
+                    avg /= battleCardCostList.Count;
+                    avg = Mathf.Floor(avg * 10.0f) / 10.0f;
 
-                if(avg % 1 != 0)
-                {
-                    costAvg.text = avg.ToString();
+                    if (avg % 1 != 0)
+                    {
+                        costAvg.text = avg.ToString();
+                    }
+                    else
+                    {
+                        costAvg.text = avg.ToString() + ".0";
+                    }
                 }
                 else
                 {
-                    costAvg.text = avg.ToString()+".0";
+                    avg = 0f;
+                    costAvg.text = avg.ToString() + ".0";
                 }
+
 
                 Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
                 unitImage.sprite = null;

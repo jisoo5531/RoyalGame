@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Org.BouncyCastle.Asn1;
 
 public static class Extension
 {
@@ -40,10 +41,11 @@ public static class Extension
     /// <param name="alpha">alpha값 조절</param>
     public static void UnitTransparent(this GameObject unitPrefab, float alpha)
     {
-        Renderer[] renderers = unitPrefab.GetComponentsInChildren<Renderer>(); // 오류
+        Renderer[] renderers = unitPrefab.GetComponentsInChildren<Renderer>();
 
         foreach (Renderer renderer in renderers)
         {
+            renderer.material = GameManager.instance.allyMaterial[1];
             // 각 Renderer의 Material 가져오기
             Material material = renderer.material;
 
@@ -74,7 +76,7 @@ public static class Extension
     /// </summary>
     public static void UnitClassification(this GameObject unit, AllCardData unitData)
     {
-        if (unitData.type == "유닛")
+        if (unitData.type.Equals("유닛"))
         {
             //// Animator 컴포넌트를 가진 오브젝트에 넣어주기
             //Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
@@ -82,11 +84,11 @@ public static class Extension
             //foreach (var unitAnim in unitsAnim)
             //{
             //    unitAnim.gameObject.AddComponent<MovableUnit>();
+            //    unitAnim.gameObject.AddComponent<MovableUnit>();
             //}
-
             unit.AddComponent<MovableUnit>();
         }
-        else if (unitData.type == "방어타워")
+        else if (unitData.type.Equals("방어타워"))
         {
             unit.AddComponent<DeffenseTower>();
         }

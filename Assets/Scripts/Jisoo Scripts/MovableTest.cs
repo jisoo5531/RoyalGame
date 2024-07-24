@@ -18,7 +18,7 @@ public class MovableTest : Unit
 
         // InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
-        InitializeUnitData(unitData);
+       // InitializeUnitData(unitData);
     }
     private void Start()
     {
@@ -37,12 +37,12 @@ public class MovableTest : Unit
         }
     }
 
-    protected override void InitializeUnitData(UnitData_SO unit)
-    {
-        base.InitializeUnitData(unit);
-        moveSpeed = unit.moveSpeed;
-        SendDamage(unit.damage);
-    }
+    //protected override void InitializeUnitData(UnitData_SO unit)
+    //{
+    //    base.InitializeUnitData(unit);
+    //    moveSpeed = unit.moveSpeed;
+    //    SendDamage(unit.damage);
+    //}
 
     private void Update()
     {
@@ -50,7 +50,7 @@ public class MovableTest : Unit
 
         if (!targetFollowUnit.isAttack)
         {
-            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, this.attackTarget);
+            //DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, this.attackTarget);
             StateTransition(targetFollowUnit.target);
         }
         transform.LookAt(targetFollowUnit.target);

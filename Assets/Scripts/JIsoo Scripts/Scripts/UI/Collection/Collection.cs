@@ -25,6 +25,10 @@ public class Collection : MonoBehaviour
     public GameObject InfoButton;
     public GameObject upgradeButton;
 
+    [Space(20)]
+    public SettingUnit settingUnit;
+    public Upgrade upgrade;
+
     private int cardId;
 
     private void Start()
@@ -37,6 +41,7 @@ public class Collection : MonoBehaviour
     public void InitUI(CharacterData characterData)
     {
         this.cardId = characterData.cardId;
+
         SettingUI(characterData.currentCardCount, characterData.maxCardCount, characterData.cost, characterData.name, characterData.level, cardCountFill, cardCountText, costText, nameText, levelText);
     }
 
@@ -79,12 +84,19 @@ public class Collection : MonoBehaviour
             return false;
         }
     }
-    public void OnClickUpgradeButton(int number)
+    public void OnClickUpgradeButton()
     {
-        //Upgrade upgrade = FindObjectOfType<Upgrade>();
-
-        CharacterData unitData = SettingCardInfoManager.instance.charData[number];
-
-        //upgrade.SetInfo(unitData);
+        if(cardId != 3 && cardId != 8)
+        {
+            upgrade.Setinfo(settingUnit.GetUnitData(DatabaseManager.Instance.userId, cardId));
+        }
+        else if(cardId == 3)
+        {
+            upgrade.Setinfo(settingUnit.GetMagicData(DatabaseManager.Instance.userId, cardId));
+        }
+        else if(cardId == 8)
+        {
+            upgrade.Setinfo(settingUnit.GetTowerData(DatabaseManager.Instance.userId, cardId));
+        }
     }
 }

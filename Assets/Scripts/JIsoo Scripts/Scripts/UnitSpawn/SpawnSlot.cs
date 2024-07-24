@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Photon.Pun;
+using Unity.VisualScripting;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 유닛 드래그, 클릭을 통한 생성
 /// </summary>
-public class SpawnSlot : MonoBehaviour,
+public class SpawnSlot : MonoBehaviourPunCallbacks,
     IBeginDragHandler, IDragHandler, IEndDragHandler,
     IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -23,6 +26,9 @@ public class SpawnSlot : MonoBehaviour,
 
     private AllCardData unitData;
     private bool isSpawn = false;
+    private string unitName;
+
+    public UnitSpawner unitSpawner;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -73,13 +79,38 @@ public class SpawnSlot : MonoBehaviour,
             UnitSpawner.instance.spawnComplete = true;
 
             // TODO : 유닛 유형(유닛, 방어타워) 등에 맞게 수정
-            dragUnit.UnitClassification(unitData);
 
-            dragUnit.UnitTransparent(1f);
-            if(dragUnit.TryGetComponent<MovableUnit>(out MovableUnit mu))
+            GameObject unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
+            unit.UnitTransparent(1f);
+            unit.UnitClassification(unitData);
+
+            unit.layer = 11;
+            foreach (Transform child in unit.transform)
             {
-                mu.isMove = true;
+                child.gameObject.layer = 11;
             }
+
+            Destroy(dragUnit);
+
+            if (unitData is UnitInfoData unitInfo)
+            {
+                if (unit.TryGetComponent<MovableUnit>(out MovableUnit mu))
+                {
+                    mu.moveDelay = unitInfo.spawnTime;
+                    mu.isMove = false;
+                    mu.isSpawn = true;
+                }
+            }
+            else if (unitData is DEFENSETOWERInfoData defenseTowerInfo)
+            {
+                if (unit.TryGetComponent<MovableUnit>(out MovableUnit mu))
+                {
+                    mu.moveDelay = defenseTowerInfo.spawnTime;
+                    mu.isMove = false;
+                    mu.isSpawn = true;
+                }
+            }
+            IsMineManager.instance.AddUnit(unit.GetComponent<PhotonView>().ViewID);
 
             UnitSpawner.instance.selectedUnit = null;
         }
@@ -88,16 +119,14 @@ public class SpawnSlot : MonoBehaviour,
 
         iconImage.gameObject.SetActive(true);
 
-        //iconImage.rectTransform.SetParent(transform);
         iconImage.GetComponent<RectTransform>().SetParent(transform);
         iconImage.GetComponent<RectTransform>().SetSiblingIndex(0);
 
-        //iconImage.rectTransform.anchoredPosition = Vector2.zero;
         iconImage.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-        dragUnit = null;
         isSpawn = false;
     }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -159,18 +188,18 @@ public class SpawnSlot : MonoBehaviour,
         }
 
         unitData = UI_Manager.m_Instance.m_UI_availableUnit[selectedNumber];
-        GameObject unitPrefab = unitData.prefab;        
+        GameObject unitPrefab = unitData.prefab;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
-        {               
+        {
             if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
             {
                 if (false == isSpawn)
                 {
                     dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
                     dragUnit.UnitTransparent(0.5f);
-
+                    unitName = unitPrefab.name;
                     isSpawn = true;
                 }
                 dragUnit.transform.position = hit.point;

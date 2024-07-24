@@ -11,7 +11,6 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
 
     #region º¯¼ö
 
-    public float detectionRange;
     //public float coolTime;    
 
     public string name { get; set; }
@@ -26,9 +25,10 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     public float spawnTime { get; set; }
     public float attackSpeed { get; set; }
 
+    public string attackTarget { get; set; }
+
     public Range rangeType;
 
-    public AttackTarget attackTarget { get; set; }
 
     #endregion
 
@@ -55,17 +55,25 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
         stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
     }
 
-    protected virtual void InitializeUnitData(UnitData_SO unit)
+    protected virtual void InitializeUnitData(AllCardData unit)
     {
-        name = unit.unitName;
-        HP = unit.HP;
-        maxHP = unit.maxHp;
+        name = unit.cardName;
+
+        if (unit is UnitInfoData unitInfo)
+        {
+            maxHP = unitInfo.hp;
+            attackTarget = unitInfo.target;
+        }
+        else if (unit is DEFENSETOWERInfoData defenseTowerInfo)
+        {
+            maxHP = defenseTowerInfo.hp;
+            attackTarget = defenseTowerInfo.target;
+        }
+        HP = maxHP;
         damage = unit.damage;
         range = unit.range;
-        detectionRange = unit.detectionRange;
-        attackTarget = unit.attackTarget;
 
-        rangeType = unit.rangeType;
+
     }
 
 
@@ -78,22 +86,21 @@ public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
     }
     public void Attack()
     {
-        switch (rangeType)
+        if(range < 10)
         {
-            case Range.Melee:
-                break;
-            case Range.Ranged:
-                GetComponent<RangedUnit>().Attack();
-                break;
-            default:
-                break;
+
+        }
+        else if(range >= 10)
+        {
+            GetComponent<RangedUnit>().Attack();
         }
     }
 
     public void SendDamage(int damage)
     {
-        if (rangeType == Range.Ranged)
+        if (range >= 10)
         {
+            print(GetComponent<RangedUnit>() == null);
             GetComponent<RangedUnit>().damage = damage;
             return;
         }

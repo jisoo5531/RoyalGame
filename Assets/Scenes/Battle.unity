@@ -1577,13 +1577,13 @@ MonoBehaviour:
   - {fileID: 85447915}
   unitSprites:
   - {fileID: 21300000, guid: 1311cdc2c808d0b438106683a946c287, type: 3}
-  - {fileID: 21300000, guid: a4768e2e339ae574cb2258979c00ad7d, type: 3}
+  - {fileID: 21300000, guid: 3b74c089cf6dc93408b905ec30f10617, type: 3}
   - {fileID: 21300000, guid: 233902d0d9bb9054ea67183f3629b1c2, type: 3}
   - {fileID: 21300000, guid: a48365251b3231e489d4c45b23b32752, type: 3}
-  - {fileID: 21300000, guid: 2b247aebe487cec4b9f63b4c2cc31c2e, type: 3}
+  - {fileID: 21300000, guid: c2463f6ca00b94941a9d5e35fa044d69, type: 3}
   - {fileID: 21300000, guid: dcdadd92880c3da40a7700c50cddcdde, type: 3}
   - {fileID: 21300000, guid: 27a9a19878eec244b991a64862449567, type: 3}
-  - {fileID: 21300000, guid: 5c5aecd0624e34447860b7fc3e6055c9, type: 3}
+  - {fileID: 21300000, guid: cb4f6517e7a37e347b56536954780578, type: 3}
   unitPrefab:
   - {fileID: 997537084498369677, guid: 482278479f6073d46b8bcca83fd6e6f7, type: 3}
   - {fileID: 8846955532090451774, guid: 0413788304a31574a9af12cf52104f2b, type: 3}
@@ -3898,6 +3898,7 @@ MonoBehaviour:
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
+  unitSpawner: {fileID: 0}
 --- !u!1001 &302715704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10847,6 +10848,7 @@ MonoBehaviour:
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
+  unitSpawner: {fileID: 0}
 --- !u!1 &918060814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1106741066563502, guid: 341b429a3478ae64493e7744c90631c7, type: 3}
@@ -13806,6 +13808,7 @@ MonoBehaviour:
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
+  unitSpawner: {fileID: 0}
 --- !u!1 &1242962996
 GameObject:
   m_ObjectHideFlags: 0
@@ -14710,6 +14713,7 @@ MonoBehaviour:
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
+  unitSpawner: {fileID: 0}
 --- !u!1 &1415247724
 GameObject:
   m_ObjectHideFlags: 0

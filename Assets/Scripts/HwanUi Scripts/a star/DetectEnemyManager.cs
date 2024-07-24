@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class DetectEnemyManager : MonoBehaviour
 {
@@ -41,25 +42,30 @@ public class DetectEnemyManager : MonoBehaviour
         return -1;
     }
 
-    public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove, AttackTarget thisAttackTarget)
+    public void FirstMovePath(Transform character, TargetFollowUnit targetFollowUnit)
+    {
+        PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+        targetFollowUnit.isMove = true;
+    }
+
+    public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove, string thisAttackTarget)
     {
         int towerIndex = CheckEnemyDistance(character, towerArr);
         int unitIndex = -1;
 
-        if (thisAttackTarget == AttackTarget.All)
+        if (!thisAttackTarget.Equals("건물"))
         {
             unitIndex = CheckEnemyDistance(character, enemyUnitArr);
         }
 
         Transform enemyTarget = null;
         float enemyDistance = float.MaxValue;
-
         if (towerArr[towerIndex] != null)
         {
             enemyTarget = towerArr[towerIndex].transform;
             enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
 
-            if(targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
+            if (targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
             {
                 targetFollowUnit.target = enemyTarget;
                 targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();

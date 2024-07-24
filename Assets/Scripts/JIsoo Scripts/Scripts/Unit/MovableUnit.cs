@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +7,25 @@ using static UnityEngine.GraphicsBuffer;
 public class MovableUnit : Unit
 {
     public float moveSpeed;
+    public float detectionRange;
     TargetFollowUnit targetFollowUnit;
+    public bool initialWaitDone = false;
     public bool isMove = false;
+    public double moveDelay;
+    public bool isSpawn = false;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
 
-       // InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
-        
+
     }
     private void Start()
     {
+        spawnTime = (float)PhotonNetwork.Time;
         InitStateMachine();
     }
 
@@ -35,23 +41,39 @@ public class MovableUnit : Unit
         }
     }
 
-    protected override void InitializeUnitData(UnitData_SO unit)
+    protected override void InitializeUnitData(AllCardData unit)
     {
         base.InitializeUnitData(unit);
-        moveSpeed = unit.moveSpeed;
-        detectionRange = unit.detectionRange;
-        
+        if (unit is UnitInfoData unitInfo)
+        {
+            moveSpeed = unitInfo.moveSpeed;
+            detectionRange = unitInfo.detectRange;
+        }
+
         SendDamage(unit.damage);
     }
 
     private void Update()
     {
-        stateMachine.DoOperateUpdate();
-
-        if (!targetFollowUnit.isAttack)
+        if (isSpawn)
         {
-            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, this.attackTarget);
-            StateTransition(targetFollowUnit.target);
+            if (!initialWaitDone && (PhotonNetwork.Time - spawnTime) >= moveDelay)
+            {
+                isMove = true;
+                DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
+                initialWaitDone = true;
+            }
+            stateMachine.DoOperateUpdate();
+
+            if (!targetFollowUnit.isAttack)
+            {
+                DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
+
+                if (isMove)
+                {
+                    StateTransition(targetFollowUnit.target);
+                }
+            }
         }
     }
 

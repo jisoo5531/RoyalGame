@@ -11,8 +11,8 @@ public class SettingUnit : MonoBehaviour
         string selectData = string.Empty;
 
         selectData = $"SELECT CARD.cardID, CARD.name, CARD.cost, CARD.grade, CARD.range, CARD.detectRange, " +
-            $"UNIT.level, UNIT.damage, CARD.type, UNIT.attackSpeed, UNIT.moveSpeed, UNIT.hp, UNIT.spawnTime " +
-            $"FROM USER, CARD, UNIT WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND USER.userID = UNIT.userID AND CARD.cardID = UNIT.cardID";
+            $"UNIT.level, UNIT.damage, CARD.type, UNIT.attackSpeed, UNIT.moveSpeed, UNIT.hp, UNIT.spawnTime, " +
+            $"CARD.targeting FROM USER, CARD, UNIT WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND USER.userID = UNIT.userID AND CARD.cardID = UNIT.cardID";
 
         using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
         {
@@ -38,6 +38,7 @@ public class SettingUnit : MonoBehaviour
                             moveSpeed = reader.GetInt32(10),
                             hp = reader.GetInt32(11),
                             spawnTime = reader.GetInt32(12),
+                            target = reader.GetString(13),
                             img = UI_Manager.m_Instance.unitSprites[cardId - 1],
                             prefab = UI_Manager.m_Instance.unitPrefab[cardId - 1],
                         };
@@ -56,7 +57,7 @@ public class SettingUnit : MonoBehaviour
         selectData = $"SELECT CARD.cardID, CARD.name, CARD.cost, CARD.grade, " +
             $"CARD.range, DEFENSE_TOWER.level, DEFENSE_TOWER.damage, CARD.type, " +
             $"DEFENSE_TOWER.attackSpeed,  DEFENSE_TOWER.hp, " +
-            $"DEFENSE_TOWER.spawnTime, DEFENSE_TOWER.lifeTime FROM " +
+            $"DEFENSE_TOWER.spawnTime, DEFENSE_TOWER.lifeTime, CARD.targeting FROM " +
             $"USER, CARD, DEFENSE_TOWER WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND " +
             $"USER.userID = DEFENSE_TOWER.userID AND CARD.cardID = DEFENSE_TOWER.cardID";
 
@@ -83,6 +84,7 @@ public class SettingUnit : MonoBehaviour
                             hp = reader.GetInt32(9),
                             spawnTime = reader.GetFloat(10),
                             lifeTime = reader.GetInt32(11),
+                            target = reader.GetString(12),
                             img = UI_Manager.m_Instance.unitSprites[cardId - 1],
                             prefab = UI_Manager.m_Instance.unitPrefab[cardId - 1]
                         };

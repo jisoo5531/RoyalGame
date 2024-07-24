@@ -17,7 +17,6 @@ public class PathFinding : MonoBehaviour
 
     public void StartFindPath(Vector3 startPos, Vector3 targetPos)
     {
-        Debug.Log("Start finding path"); // 디버그 로그 추가
         StartCoroutine(FindPath(startPos, targetPos));
     }
 
@@ -36,23 +35,19 @@ public class PathFinding : MonoBehaviour
             HashSet<Node> closedSet = new HashSet<Node>();
             openSet.Add(startNode);
 
-            print("ㅣㅣㅣㅣㅣ");
             while (openSet.Count > 0)
             {
                 Node currentNode = openSet.RemoveFirst();
                 closedSet.Add(currentNode);
 
-                print(currentNode + ",  " + targetNode);
                 if (currentNode == targetNode)
                 {
-                    print("성공");
                     pathSuccess = true;
                     break;
                 }
 
                 foreach (Node neighbour in grid.GetNeighbours(currentNode))
                 {
-                    print("1.  "+neighbour);
                     if (!neighbour.walkable || closedSet.Contains(neighbour))
                         continue;
 

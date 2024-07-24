@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         instance = this;
 
-        if (PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
             Instantiate(lightPrefab, firstLight.position, firstLight.rotation);

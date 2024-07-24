@@ -15,17 +15,17 @@ public class StateMachine<T>
     }
     public void SetState(IState<T> state)
     {
-        Debug.Log("SetState : " + state);
+       // Debug.Log("SetState : " + state);
 
         if (m_Sender == null)
         {
-            Debug.LogError("m_sender ERROR");
+           // Debug.LogError("m_sender ERROR");
             return;
         }
 
         if (currrentState == state)
         {
-            Debug.LogWarningFormat("Same State : ", state);
+            //Debug.LogWarningFormat("Same State : ", state);
             return;
         }
         if (currrentState != null)

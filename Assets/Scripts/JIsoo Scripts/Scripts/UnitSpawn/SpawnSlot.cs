@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Photon.Pun;
 using Unity.VisualScripting;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 유닛 드래그, 클릭을 통한 생성
@@ -109,6 +110,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                     mu.isSpawn = true;
                 }
             }
+            IsMineManager.instance.AddUnit(unit.GetComponent<PhotonView>().ViewID);
 
             UnitSpawner.instance.selectedUnit = null;
         }
@@ -117,16 +119,13 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
         iconImage.gameObject.SetActive(true);
 
-        //iconImage.rectTransform.SetParent(transform);
         iconImage.GetComponent<RectTransform>().SetParent(transform);
         iconImage.GetComponent<RectTransform>().SetSiblingIndex(0);
 
-        //iconImage.rectTransform.anchoredPosition = Vector2.zero;
         iconImage.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
         isSpawn = false;
     }
-
 
 
     public void OnPointerClick(PointerEventData eventData)

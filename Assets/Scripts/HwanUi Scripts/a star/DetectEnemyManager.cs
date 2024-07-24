@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,10 @@ public class DetectEnemyManager : MonoBehaviour
 {
     #region public 변수
     public static DetectEnemyManager instance;
-    public GameObject[] towerArr;
-    public GameObject[] enemyUnitArr;
+
+    public List<GameObject> towerList = new List<GameObject>();
+    public List<GameObject> enemyList = new List<GameObject>();
+
     public Transform enemyTower;
     #endregion
 
@@ -20,24 +24,31 @@ public class DetectEnemyManager : MonoBehaviour
         instance = this;
     }
 
-    public int CheckEnemyDistance(Transform currentTransform, GameObject[] detectObj)
+    public int CheckEnemyDistance(Transform currentTransform, List<GameObject> enemyList)
     {
         float minDistance = 700f;
         int objIndex = 0;
 
-        if (detectObj.Length > 0)
+        try
         {
-            for (int i = 0; i < detectObj.Length; i++)
+            if (enemyList.Count > 0)
             {
-                float distance = Vector3.Distance(detectObj[i].transform.position, currentTransform.position);
-
-                if (minDistance > distance)
+                for (int i = 0; i < enemyList.Count; i++)
                 {
-                    minDistance = distance;
-                    objIndex = i;
+                    float distance = Vector3.Distance(enemyList[i].transform.position, currentTransform.position);
+
+                    if (minDistance > distance)
+                    {
+                        minDistance = distance;
+                        objIndex = i;
+                    }
                 }
+                return objIndex;
             }
-            return objIndex;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
         }
         return -1;
     }
@@ -50,23 +61,51 @@ public class DetectEnemyManager : MonoBehaviour
 
     public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove, string thisAttackTarget)
     {
-        int towerIndex = CheckEnemyDistance(character, towerArr);
-        int unitIndex = -1;
-
-        if (!thisAttackTarget.Equals("건물"))
+        try
         {
-            unitIndex = CheckEnemyDistance(character, enemyUnitArr);
-        }
+            int towerIndex = CheckEnemyDistance(character, towerList);
+            int unitIndex = -1;
 
-        Transform enemyTarget = null;
-        float enemyDistance = float.MaxValue;
-        if (towerArr[towerIndex] != null)
-        {
-            enemyTarget = towerArr[towerIndex].transform;
-            enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
-
-            if (targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
+            if (!thisAttackTarget.Equals("건물"))
             {
+                unitIndex = CheckEnemyDistance(character, enemyList);
+            }
+
+            Transform enemyTarget = null;
+            float enemyDistance = float.MaxValue;
+            if (towerList[towerIndex] != null)
+            {
+                enemyTarget = towerList[towerIndex].transform;
+                enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
+
+                if (targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
+                {
+                    targetFollowUnit.target = enemyTarget;
+                    targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
+
+                    if (isMove)
+                    {
+                        PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
+                        targetFollowUnit.isMove = true;
+                    }
+                    return;
+                }
+            }
+
+            if (unitIndex != -1)
+            {
+                Transform enemyUnitTarget = enemyList[unitIndex].transform;
+                float enemyUnitDistance = Vector3.Distance(enemyUnitTarget.position, character.position);
+                if (enemyDistance >= enemyUnitDistance)
+                {
+                    enemyTarget = enemyUnitTarget;
+                    enemyDistance = enemyUnitDistance;
+                }
+            }
+
+            if (enemyTarget != null && enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
+            {
+                print(enemyTarget);
                 targetFollowUnit.target = enemyTarget;
                 targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
@@ -75,32 +114,11 @@ public class DetectEnemyManager : MonoBehaviour
                     PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
                     targetFollowUnit.isMove = true;
                 }
-                return;
             }
         }
-
-        if (unitIndex != -1)
+        catch (Exception ex)
         {
-            Transform enemyUnitTarget = enemyUnitArr[unitIndex].transform;
-            float enemyUnitDistance = Vector3.Distance(enemyUnitTarget.position, character.position);
-            if (enemyDistance >= enemyUnitDistance)
-            {
-                enemyTarget = enemyUnitTarget;
-                enemyDistance = enemyUnitDistance;
-            }
-        }
-
-        if (enemyTarget != null && enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
-        {
-            print(enemyTarget);
-            targetFollowUnit.target = enemyTarget;
-            targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
-
-            if (isMove)
-            {
-                PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-                targetFollowUnit.isMove = true;
-            }
+            Debug.LogError(ex.Message);
         }
     }
 }

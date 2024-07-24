@@ -40,7 +40,10 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
     }
     private void Update()
     {
-        UpdateLifeTime();
+        if (photonView.IsMine)
+        {
+            UpdateLifeTime();
+        }
     }
 
 

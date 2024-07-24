@@ -3561,12 +3561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8281d57ca9beaf44c807d40b20d27a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerArr:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyUnitArr:
-  - {fileID: 8846955532308385466}
+  towerList: []
+  enemyList: []
   enemyTower: {fileID: 8846955532308594288}
 --- !u!4 &241939330
 Transform:

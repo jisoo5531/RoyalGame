@@ -6,7 +6,13 @@ using System.Linq;
 
 public class IsMineManager : MonoBehaviourPunCallbacks
 {
+    public static IsMineManager instance;
     public GameObject[] tower;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         if (photonView.IsMine)
@@ -15,13 +21,13 @@ public class IsMineManager : MonoBehaviourPunCallbacks
             {
                 tower = GameManager.instance.myTowers.ToArray();
                 SettingAlly();
-                DetectEnemyManager.instance.towerArr = GameManager.instance.enemyTowers.ToArray();
+                DetectEnemyManager.instance.towerList = GameManager.instance.enemyTowers.ToList();
             }
             else
             {
                 tower = GameManager.instance.enemyTowers.ToArray();
                 SettingEnemy();
-                DetectEnemyManager.instance.towerArr = GameManager.instance.myTowers.ToArray();
+                DetectEnemyManager.instance.towerList = GameManager.instance.myTowers.ToList();
             }
         }
     }
@@ -69,6 +75,23 @@ public class IsMineManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < GameManager.instance.enemyUnitMaterial.Length; i++)
         {
             GameManager.instance.enemyUnitMaterial[i].material = GameManager.instance.allyMaterial[1];
+        }
+    }
+
+    public void AddUnit(int id)
+    {
+        photonView.RPC("OnCharacterCreated", RpcTarget.Others, id);
+    }
+
+
+    [PunRPC]
+    public void OnCharacterCreated(int viewID)
+    {
+        PhotonView characterView = PhotonView.Find(viewID);
+        if (characterView != null)
+        {
+            GameObject character = characterView.gameObject;
+            DetectEnemyManager.instance.enemyList.Add(character);
         }
     }
 }

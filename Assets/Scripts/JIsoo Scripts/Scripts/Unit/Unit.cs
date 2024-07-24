@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour, ICard, IAttackable, IDamagable
+public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 {
 
 

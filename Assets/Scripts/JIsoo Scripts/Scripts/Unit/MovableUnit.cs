@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,25 +56,32 @@ public class MovableUnit : Unit
 
     private void Update()
     {
-        if (isSpawn)
+        try
         {
-            if (!initialWaitDone && (PhotonNetwork.Time - spawnTime) >= moveDelay)
+            if (isSpawn && photonView.IsMine)
             {
-                isMove = true;
-                DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
-                initialWaitDone = true;
-            }
-            stateMachine.DoOperateUpdate();
-
-            if (!targetFollowUnit.isAttack)
-            {
-                DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
-
-                if (isMove)
+                if (!initialWaitDone && (PhotonNetwork.Time - spawnTime) >= moveDelay)
                 {
-                    StateTransition(targetFollowUnit.target);
+                    isMove = true;
+                    DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
+                    initialWaitDone = true;
+                }
+                stateMachine.DoOperateUpdate();
+
+                if (!targetFollowUnit.isAttack)
+                {
+                    DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
+
+                    if (isMove)
+                    {
+                        StateTransition(targetFollowUnit.target);
+                    }
                 }
             }
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError(ex.Message);
         }
     }
 

@@ -17,7 +17,7 @@ public class IsMineManager : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (!PhotonNetwork.IsMasterClient)
             {
                 tower = GameManager.instance.myTowers.ToArray();
                 SettingAlly();

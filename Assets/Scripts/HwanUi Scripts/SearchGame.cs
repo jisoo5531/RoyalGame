@@ -45,29 +45,28 @@ public class SearchGame : MonoBehaviourPunCallbacks
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", 300 } };
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" };
 
-            string roomName = "default";
-
+            string roomName = "room3";
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
         catch (Exception ex)
         {
-            Debug.LogException(ex);
+            Debug.LogError(ex.Message);
         }
     }
-
     public override void OnJoinedRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
+        photonView.RPC("LoadScene", RpcTarget.All);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         try
         {
-            if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                photonView.RPC("LoadScene", RpcTarget.All);
-            }
+            //if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            //{
+            //    photonView.RPC("LoadScene", RpcTarget.All);
+            //}
 
         }
         catch (Exception ex)

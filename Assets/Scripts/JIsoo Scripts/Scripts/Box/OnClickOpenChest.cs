@@ -83,7 +83,6 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         if(clickCount > chest.randomUnits.Count)
         {
             ClosePanel();
-            print("kkkk");
             chestCondition.CheckNewbie();
             return;
         }
@@ -190,8 +189,6 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         displayOBJ.backGround.color = unitOBJ.unitBackground.color;
         displayOBJ.unitImage.sprite = unitOBJ.unitImage.sprite;
         displayOBJ.unitCount.text = unitOBJ.unitCardCount.text;
-
-        //uniData.unit_CurrentCardCount += reward.Value.Value.Item2;
     }
 
     #endregion

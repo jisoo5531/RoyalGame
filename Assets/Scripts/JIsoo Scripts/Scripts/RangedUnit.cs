@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class RangedUnit : MonoBehaviour
 {    
+
     public GameObject projectilePrefab;
-    public Transform pStart_trans;
+    public Transform pStart_trans;    
     public LayerMask targetLayerMask;
     public int damage;
     public Transform target;
-    public float distance;
+    //public float distance;
 
+    
     private void Update()
     {
         target = GetComponent<TargetFollowUnit>().target;
-        distance = Vector3.Distance(target.position, transform.position);
+        //distance = Vector3.Distance(target.position, transform.position);
     }
 
     public void Attack()
     {        
         GameObject projectile = Instantiate(projectilePrefab, pStart_trans);
-
+        projectile.layer = gameObject.layer;
         Projectile projectileComponent = projectile.AddComponent<Projectile>();        
         projectileComponent.targetPos = target.position;
 

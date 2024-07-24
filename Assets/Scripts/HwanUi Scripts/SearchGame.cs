@@ -58,16 +58,17 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
+        photonView.RPC("LoadScene", RpcTarget.All);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         try
         {
-            if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                photonView.RPC("LoadScene", RpcTarget.All);
-            }
+            //if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            //{
+            //    photonView.RPC("LoadScene", RpcTarget.All);
+            //}
 
         }
         catch (Exception ex)

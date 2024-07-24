@@ -94,7 +94,7 @@ public static class Extension
         }
         else
         {
-            unit.AddComponent<Magic>();
+            unit.AddComponent<Fireball>();
         }
     }
     public static void ColorNormal<T>(this T uiElement)

@@ -28,6 +28,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     private bool isSpawn = false;
     private string unitName;
 
+    public Vector3 spawnPoint;
+
     public UnitSpawner unitSpawner;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -113,6 +115,9 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             IsMineManager.instance.AddUnit(unit.GetComponent<PhotonView>().ViewID);
 
             UnitSpawner.instance.selectedUnit = null;
+
+            Debug.Log($"생성 위치 {spawnPoint}");
+            
         }
 
         UI_Manager.m_Instance.selectedSlot = null;
@@ -195,6 +200,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         {
             if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
             {
+                spawnPoint = hit.point;
                 if (false == isSpawn)
                 {
                     dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);

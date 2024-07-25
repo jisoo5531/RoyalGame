@@ -7,7 +7,8 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 {
 
 
-    public int unit_ID;
+    public int unit_ID; 
+    private bool isAttacking = false;
     [HideInInspector] public Animator anim;
 
     #region º¯¼ö
@@ -53,7 +54,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
         dicState.Add(UnitState.Idle, idle);
         dicState.Add(UnitState.Attack, attack);
 
-        stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle]);
+        stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle], attackSpeed);
     }
 
     protected virtual void InitializeUnitData(AllCardData unit)
@@ -64,6 +65,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
         {
             maxHP = unitInfo.hp;
             attackTarget = unitInfo.target;
+            attackSpeed = unitInfo.attackSpeed;
         }
         else if (unit is DEFENSETOWERInfoData defenseTowerInfo)
         {
@@ -82,7 +84,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     {
         if (dicState.ContainsKey(state))
         {
-            stateMachine.SetState(dicState[state]);
+            stateMachine.SetState(dicState[state], attackSpeed);
         }
     }
     public void Attack()

@@ -887,7 +887,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2776468731441834203}
-  m_Material: {fileID: 13400000, guid: 39627a830e672cb4aab8dbbc21d6c62f, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.56
@@ -988,10 +988,10 @@ MonoBehaviour:
     Name: isMove
   - Type: 9
     SynchronizeType: 1
-    Name: DoAttack
-  - Type: 9
-    SynchronizeType: 1
     Name: Death
+  - Type: 4
+    SynchronizeType: 0
+    Name: isAttack
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4694306710321462239, guid: fe37b2465a30ea64d8dcbe3a7ba4db6d, type: 3}
-  pStart_trans: {fileID: 0}
+  pStart_trans: {fileID: 6647678873975730710}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 1536

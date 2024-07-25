@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
 using UnityEngine.TextCore.Text;
-using UnityEditor.PackageManager;
 
 [System.Serializable]
 public class Unittitle
@@ -67,6 +66,7 @@ public class Upgrade : MonoBehaviour
     public int damage;
     public int tower_damage;
     public int hp;
+    public int upgradeCost;
 
     private void UpgradeUnit(bool isUpgrade)
     {
@@ -138,9 +138,11 @@ public class Upgrade : MonoBehaviour
 
         unitlist.cardcountfill.fillAmount = (float)unitdata.currentCardCount / unitdata.maxCardCount;
 
-        int cost = (1000 * unitdata.level) * 5;
+        int cost = (1000 * ((unitdata.level - 1) * 5)) + 1000;
+        upgradeCost = cost;
         unitlist.upgradeCost.text = $"업그레이드\n{cost}";
 
+        unitlist.upgradeBtn.interactable = StartManager.m_Instance.gold >= cost;
     }
 
     #endregion

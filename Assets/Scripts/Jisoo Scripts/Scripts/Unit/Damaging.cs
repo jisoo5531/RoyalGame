@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,13 @@ public class Damaging : MonoBehaviour
 
     private void Start()
     {
-        unit = this.transform.root.GetComponent<Unit>();
-        damage = unit.damage;
+        PhotonView pv = this.transform.root.GetComponent<PhotonView>();
+
+        if (pv != null && pv.IsMine)
+        {
+            unit = this.transform.root.GetComponent<Unit>();
+            damage = unit.damage;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -54,6 +54,12 @@ public class Collection : MonoBehaviour
         costText.text = $"{cost}";
         nameText.text = name;
         levelText.text = $"레벨 {level}";
+
+        if (currentCard < maxCard)
+        {
+            cardCountFill.ColorSky();
+            upArrow.ColorSky();
+        }
     }
 
     public void CheckCardCount()
@@ -64,7 +70,7 @@ public class Collection : MonoBehaviour
     /// <summary>
     /// 카드가 다 모여 업그레이드가 가능하면
     /// </summary>
-    public bool CheckAvailableUpgrade(int currentCardCount, int maxCardCount, Image upArrow, GameObject InfoButton = null, GameObject upgradeButton = null)
+    public bool CheckAvailableUpgrade(int currentCardCount, int maxCardCount, Image upArrow)
     {
         if (currentCardCount >= maxCardCount)
         {

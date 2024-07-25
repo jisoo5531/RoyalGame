@@ -14,6 +14,7 @@ public class MovableUnit : Unit
     public bool isMove = false;
     public double moveDelay;
     public bool isSpawn = false;
+    private float attackSpeed;
 
     RangedUnit rangedUnit;
     Damaging damaging;
@@ -54,6 +55,7 @@ public class MovableUnit : Unit
         {
             moveSpeed = unitInfo.moveSpeed;
             detectionRange = unitInfo.detectRange;
+            attackSpeed = unitInfo.attackSpeed;
         }
         if(rangedUnit != null)
         {
@@ -105,10 +107,10 @@ public class MovableUnit : Unit
             return;
 
         float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= range)
+        if (distance <= detectionRange)
         {
             targetFollowUnit.isAttack = true;
-            SetState(UnitState.Attack);
+            SetState(UnitState.Attack, );
         }
         else
         {

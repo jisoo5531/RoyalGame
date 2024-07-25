@@ -4,14 +4,16 @@ public class UnitMove : IState<Unit>
 {
     private Unit unit;    
 
-    public void OperateEnter(Unit sender)
+    public void OperateEnter(Unit sender, float speed)
     {
         unit = sender;
+        unit.anim.speed = speed;
         unit.anim.SetBool("isMove", true);
 
     }
-    public void OperateExit(Unit sender)
+    public void OperateExit(Unit sender, float speed)
     {
+        unit.anim.speed = speed;
         unit.anim.SetBool("isMove", false);
         
     }

@@ -28,6 +28,8 @@ public class UpgrdeUnitSpec : MonoBehaviour
     public TextMeshProUGUI addHpText;
     public TextMeshProUGUI addTowerDamageText;
     public TextMeshProUGUI addDamageText;
+
+    public SettingUserInfo userInfo;
     #endregion
 
 
@@ -68,10 +70,12 @@ public class UpgrdeUnitSpec : MonoBehaviour
 
     public void UpgradeClick()
     {
-        UpdateUnitData(upgrade.damage, upgrade.tower_damage, upgrade.hp);
+        int upgradeCost = upgrade.upgradeCost;
+        UpdateUnitData(upgrade.damage, upgrade.tower_damage, upgrade.hp, upgradeCost);
     }
 
-    public void UpdateUnitData(int damageAmount, int towerDamageAmount, int hpAmount)
+
+    public void UpdateUnitData(int damageAmount, int towerDamageAmount, int hpAmount, int goldAmount)
     {
         string updateUnit = string.Empty;
         int id = 0;
@@ -131,6 +135,8 @@ public class UpgrdeUnitSpec : MonoBehaviour
                                 hpText.text = defenseTowerInfo.hp.ToString();
                             }
                             addHpText.text = $"+ {hpAmount}";
+                            StartManager.m_Instance.gold -= goldAmount;
+                            userInfo.goldAmount.text = StartManager.m_Instance.gold.ToString();
 
                             hpUI.SetActive(true);
                             towerDamageUI.SetActive(false);

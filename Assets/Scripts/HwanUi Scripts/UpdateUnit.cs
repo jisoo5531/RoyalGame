@@ -25,6 +25,7 @@ public class UpdateUnit : MonoBehaviour, IPointerClickHandler
         {
             upgrade.Setinfo(settingUnit.GetTowerData(DatabaseManager.Instance.userId, upgrade.collection.cardId), false);
         }
+        SelectUnitInfo();
         upgradeUI.SetActive(false);
     }
 

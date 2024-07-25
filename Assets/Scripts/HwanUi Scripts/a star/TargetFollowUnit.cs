@@ -39,7 +39,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
             {
                 newPath[i].y = transform.position.y;
             }
-            print("¿‘¿Â");
             path = newPath;
             targetIndex = 0;
             StopCoroutine("FollowPath");

@@ -6,15 +6,15 @@ public class UnitIdle : IState<Unit>
 {
     private Unit unit;
 
-    public void OperateEnter(Unit sender)
+    public void OperateEnter(Unit sender, float speed)
     {
         unit = sender;
     }
-    public void OperateExit(Unit sender)
+    public void OperateExit(Unit sender, float speed)
     {        
     }
     public void OperateUpdate(Unit sender)
     {
-        Debug.Log("Idle ป๓ลย");
+
     }
 }

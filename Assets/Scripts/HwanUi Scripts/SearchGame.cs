@@ -56,7 +56,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-       // photonView.RPC("LoadScene", RpcTarget.All);
+        //photonView.RPC("LoadScene", RpcTarget.All);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)  
@@ -78,7 +78,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
     [PunRPC]
     private void LoadScene()
     {
-        Loading.LoadScene("BattleTest2", true);
+        Loading.LoadScene("Battle", true);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClickMagic : MonoBehaviour
 {
+    public GameObject fireballRange;
     public GameObject fireBallPrefab;
     public Transform startTrans;
     public Transform targetTrans;
@@ -16,7 +17,9 @@ public class ClickMagic : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
-            {                                
+            {
+                GameObject FireRange =  Instantiate(fireballRange, hit.point, fireballRange.transform.rotation);
+                Destroy(FireRange, 1f);
                 clickPos = hit.point;
                 clickPos.y = -1;
                 SpawnFireBall();

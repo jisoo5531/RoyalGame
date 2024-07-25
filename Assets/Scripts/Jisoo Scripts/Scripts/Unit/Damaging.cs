@@ -19,10 +19,12 @@ public class Damaging : MonoBehaviour
         {
             if (rangeType == Range.Ranged)
             {
+
                 Destroy(gameObject);
             }
             return;
         }
+        
 
         if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
         {
@@ -48,6 +50,13 @@ public class Damaging : MonoBehaviour
             }
 
             damagable.GetDamage(damage);
+        }
+
+        if (unitType == Type.Magic)
+        {
+            transform.parent.GetComponent<MagicTest>().OnCollider();
+            Destroy(gameObject);
+            return;
         }
     }
 }

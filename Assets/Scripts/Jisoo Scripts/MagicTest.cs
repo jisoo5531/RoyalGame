@@ -14,6 +14,7 @@ public class MagicTest : MonoBehaviour, ICard, IAttackable
     public float attackSpeed { get; set; }
 
     public UnitData_SO unitData;
+    public SphereCollider sphereCollider;
 
     private void Awake()
     {
@@ -37,5 +38,13 @@ public class MagicTest : MonoBehaviour, ICard, IAttackable
     public void SendDamage(int damage)
     {
         GetComponent<Damaging>().damage = damage;
+    }
+
+    public void OnCollider()
+    {
+        Debug.Log("µÆ³ª");
+        sphereCollider.enabled = true;
+        //sphereCollider.gameObject.SetActive(true);
+        Destroy(gameObject);
     }
 }

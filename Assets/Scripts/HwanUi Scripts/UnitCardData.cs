@@ -13,8 +13,6 @@ public class AllCardData
     public float range;
     public Sprite img;
     public string type;
-    public int currentCardCount;
-    public int maxCardCount;
     public string desc;
     public GameObject prefab;
 }

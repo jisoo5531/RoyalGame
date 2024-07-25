@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public MeshRenderer[] enemyTowerMaterial;
     public Renderer[] enemyUnitMaterial;
-
-    public GridController grid;
     #endregion
     private void Awake()
     {

@@ -56,17 +56,17 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        //photonView.RPC("LoadScene", RpcTarget.All);
+        photonView.RPC("LoadScene", RpcTarget.All);
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)  
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         try
         {
-            if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                photonView.RPC("LoadScene", RpcTarget.All);
-            }
+            //if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            //{
+            //    photonView.RPC("LoadScene", RpcTarget.All);
+            //}
 
         }
         catch (Exception ex)
@@ -78,7 +78,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
     [PunRPC]
     private void LoadScene()
     {
-        Loading.LoadScene("Battle", true);
+        Loading.LoadScene("BattleTest2", true);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -93,5 +93,6 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.LogWarning(message);
+        //CreateRoom();
     }
 }

@@ -35,9 +35,6 @@ public class StartManager : MonoBehaviour
     public List<int> battleCardCostList = new List<int>();
     public TMP_Text costAvg;
     private float avg = 0f;
-
-    public int gold = 0;
-    public int jewel = 0;
     
     
     private int currentDisplayIndex = 0;
@@ -184,7 +181,7 @@ public class StartManager : MonoBehaviour
         string updateUserBattleCard = string.Empty;
         try
         {
-            updateUserBattleCard = $"UPDATE USER SET currentBattleCard = '{battleCard}', gold = {gold}, jewel = {jewel} WHERE userID = {DatabaseManager.Instance.userId}";
+            updateUserBattleCard = $"UPDATE USER SET currentBattleCard = '{battleCard}' WHERE userID = {DatabaseManager.Instance.userId}";
 
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
             {

@@ -30,6 +30,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject[] myTowers;
     public GameObject[] enemyTowers;
 
+    public Transform[] myTowersHp;
+    public Transform[] enemyTowersHp;
+
+    public Transform[] AllyTowerHpInAlly;
+    public Transform[] EnemyTowerHpInAlly;
+
+    public Transform[] AllyTowerHpInEnemy;
+    public Transform[] EnemyTowerHpInEnemy;
+
+    public Sprite[] hpSprite;
+
     public Material[] allyMaterial;
     public MeshRenderer[] allyTowerMaterial;
     public Renderer[] allyUnitMaterial;
@@ -42,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
-
+        print("asdf");
         if (!PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
@@ -69,6 +80,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         try
         {
+            print("xxx");
             if (PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);

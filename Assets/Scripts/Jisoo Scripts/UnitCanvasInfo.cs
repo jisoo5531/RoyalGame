@@ -60,7 +60,7 @@ public class UnitCanvasInfo : MonoBehaviour, IDamagable
     {
         unitCanvas.transform.rotation = Quaternion.Euler(0, -transform.rotation.y + 180, 0);
 
-        hpBarFill.fillAmount = (float)HP / (float)maxHP;
+        //hpBarFill.fillAmount = (float)HP / (float)maxHP;
     }
 
     

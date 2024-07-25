@@ -10,13 +10,7 @@ public class RangedUnit : MonoBehaviourPunCallbacks
     public LayerMask targetLayerMask;
     public int damage;
     public Transform target;
-    private Unit unit;
 
-    private void Start()
-    {
-        unit = this.transform.root.GetComponent<Unit>();
-        damage = unit.damage;
-    }
     private void Update()
     {
         target = GetComponent<TargetFollowUnit>().target;

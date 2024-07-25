@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
 
 [System.Serializable]
 public class Unittitle
@@ -32,10 +33,12 @@ public class Unitstat
     public Transform unitstats;
     public GameObject hpobj;
     public GameObject damageobj;
+    public GameObject towerDamageobj;
     public GameObject attackspeedobj;
     public GameObject movespeedobj;
     public GameObject targetobj;
     public GameObject rangeobj;
+    public GameObject radiusobj;
     public GameObject creationtimeobj;
     public GameObject lifetimeobj;
 }
@@ -54,10 +57,26 @@ public class Upgrade : MonoBehaviour
     public Unitstat unitstatlist;
 
     private AllCardData unitdata;
+    public Collection collection;
 
     private bool availableupgrade = false;
 
+    private void Start()
+    {
+        UpdateCardCountClick();
+    }
 
+    public void UpdateCardCountClick()
+    {
+        if (collection.CheckAvailableUpgrade(unitdata.currentCardCount, unitdata.maxCardCount, unitlist.uparrow))
+        {
+            availableupgrade = true;
+        }
+        else
+        {
+            availableupgrade = false;
+        }
+    }
 
     public void Setinfo(AllCardData unitdata)
     {
@@ -97,25 +116,17 @@ public class Upgrade : MonoBehaviour
 
     private void Setcardcountfill()
     {
-        Collection collection = FindObjectOfType<Collection>();
+        unitlist.cardcounttext.text = $"{unitdata.currentCardCount} / {unitdata.maxCardCount}";
 
-        //collection.Settingui(unitdata, unitlist.cardcountfill, unitlist.cardcounttext, unitlist.costtext);
+        unitlist.cardcountfill.fillAmount = (float)unitdata.currentCardCount / unitdata.maxCardCount;
 
-        if (true == collection.CheckAvailableUpgrade(unitlist.cardcountfill, unitlist.uparrow))
-        {
-            availableupgrade = true;
-        }
-        else
-        {
-            availableupgrade = false;
-        }
     }
 
     #endregion
 
-    #endregion
+        #endregion
 
-    #region grade / type
+        #region grade / type
 
     private void Setunitgradeandtype()
     {
@@ -205,6 +216,7 @@ public class Upgrade : MonoBehaviour
 
         Set_hpobj();
         Set_damageobj();
+        Set_TowerDamageobj();
         Set_attacksppedobj();
         Set_movesppedobj();
         Set_targetobj();
@@ -253,7 +265,6 @@ public class Upgrade : MonoBehaviour
         if (uidamage != null)
         {
             uidamage.value.text = unitdata.damage.ToString();
-            //uidamage.upgradeValue.text = $"+ {unitdata.get_upgrade_damage()}";
 
             if (availableupgrade)
             {
@@ -264,6 +275,34 @@ public class Upgrade : MonoBehaviour
                 uidamage.SetNotUpgrade();
             }
         }
+    }
+
+
+    private void Set_TowerDamageobj()
+    {
+        if (unitdata.type.Equals("마법"))
+        {
+            GameObject damagestat_obj = Instantiate(unitstatlist.towerDamageobj, unitstatlist.unitstats);
+            UI_UpgradeStat uidamage = damagestat_obj.GetComponent<UI_UpgradeStat>();
+
+            if (uidamage != null)
+            {
+                if (unitdata is MAGICInfoData magicInfo)
+                {
+                    uidamage.value.text = magicInfo.tower_Damage.ToString();
+                }
+
+                if (availableupgrade)
+                {
+                    uidamage.SetUpgrade();
+                }
+                else
+                {
+                    uidamage.SetNotUpgrade();
+                }
+            }
+        }
+
     }
     private void Set_attacksppedobj()
     {
@@ -334,20 +373,33 @@ public class Upgrade : MonoBehaviour
     {
         if (unitdata.type.Equals("마법"))
         {
-            return;
+            GameObject range_stat_obj = Instantiate(unitstatlist.radiusobj, unitstatlist.unitstats);
+            UI_UpgradeStat ui_radius = range_stat_obj.GetComponent<UI_UpgradeStat>();
+
+            if (ui_radius != null)
+            {
+                ui_radius.value.text = unitdata.range.ToString();
+            }
         }
-
-        GameObject range_stat_obj = Instantiate(unitstatlist.rangeobj, unitstatlist.unitstats);
-        UI_UpgradeStat ui_range = range_stat_obj.GetComponent<UI_UpgradeStat>();
-
-        if (ui_range != null)
+        else
         {
-            ui_range.value.text = unitdata.range.ToString();
+            GameObject range_stat_obj = Instantiate(unitstatlist.rangeobj, unitstatlist.unitstats);
+            UI_UpgradeStat ui_range = range_stat_obj.GetComponent<UI_UpgradeStat>();
+
+            if (ui_range != null)
+            {
+                ui_range.value.text = unitdata.range.ToString();
+            }
         }
     }
 
     private void Set_creationtimeobj()
     {
+        if (unitdata.type.Equals("마법"))
+        {
+            return;
+        }
+
         GameObject creationtime_stat_obj = Instantiate(unitstatlist.creationtimeobj, unitstatlist.unitstats);
         UI_UpgradeStat ui_creationtime = creationtime_stat_obj.GetComponent<UI_UpgradeStat>();
 

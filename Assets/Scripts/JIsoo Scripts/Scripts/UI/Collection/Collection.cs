@@ -56,9 +56,9 @@ public class Collection : MonoBehaviour
     /// <summary>
     /// 카드가 다 모여 업그레이드가 가능하면
     /// </summary>
-    public bool CheckAvailableUpgrade(Image cardCountFill, Image upArrow, GameObject InfoButton = null, GameObject upgradeButton = null)
+    public bool CheckAvailableUpgrade(int currentCardCount, int maxCardCount, Image upArrow, GameObject InfoButton = null, GameObject upgradeButton = null)
     {
-        if (cardCountFill.fillAmount >= 1f)
+        if (currentCardCount >= maxCardCount)
         {
             cardCountFill.ColorGreen();
             upArrow.ColorGreen();
@@ -86,7 +86,8 @@ public class Collection : MonoBehaviour
     }
     public void OnClickUpgradeButton()
     {
-        if(cardId != 3 && cardId != 8)
+        upgrade.collection = this;
+        if (cardId != 3 && cardId != 8)
         {
             upgrade.Setinfo(settingUnit.GetUnitData(DatabaseManager.Instance.userId, cardId));
         }

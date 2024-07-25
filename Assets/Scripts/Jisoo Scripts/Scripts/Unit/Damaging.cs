@@ -17,7 +17,7 @@ public class Damaging : MonoBehaviour
         Debug.Log($"{gameObject.name} ÀÌ ¹º°¡ ¸ÂÇû´Ù");
         if ((targetLayerMask | (1 << other.gameObject.layer)) != targetLayerMask)
         {
-            if (rangeType == Range.Ranged)
+            if (rangeType == Range.Ranged && unitType != Type.Magic)
             {
 
                 Destroy(gameObject);
@@ -32,7 +32,7 @@ public class Damaging : MonoBehaviour
             {
                 damagable.GetDamage(damage);
 
-                Destroy(gameObject);
+                Destroy(gameObject, 2f);
 
                 return;
             }
@@ -50,13 +50,6 @@ public class Damaging : MonoBehaviour
             }
 
             damagable.GetDamage(damage);
-        }
-
-        if (unitType == Type.Magic)
-        {
-            transform.parent.GetComponent<MagicTest>().OnCollider();
-            Destroy(gameObject);
-            return;
         }
     }
 }

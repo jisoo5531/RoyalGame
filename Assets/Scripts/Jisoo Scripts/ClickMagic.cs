@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClickMagic : MonoBehaviour
 {
+    public GameObject explosion;
     public GameObject fireballRange;
     public GameObject fireBallPrefab;
     public Transform startTrans;
@@ -29,8 +30,9 @@ public class ClickMagic : MonoBehaviour
 
     private void SpawnFireBall()
     {        
-        GameObject fireball = Instantiate(fireBallPrefab, startTrans);
-        Projectile fireballProjectile = fireball.AddComponent<Projectile>();
+        GameObject fireball = Instantiate(fireBallPrefab, clickPos, fireBallPrefab.transform.rotation);
+        fireball.transform.GetChild(0).transform.position = startTrans.position;
+        Projectile fireballProjectile = fireball.transform.GetChild(0).gameObject.AddComponent<Projectile>();
         fireballProjectile.targetPos = clickPos;
     }
 }

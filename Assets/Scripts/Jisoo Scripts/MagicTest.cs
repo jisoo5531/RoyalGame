@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MagicTest : MonoBehaviour, ICard, IAttackable
 {
+
     public int cardLevel { get; set; }
     public int currentCardCount { get; set; }
     public int maxCardCount { get; set; }
@@ -42,9 +43,19 @@ public class MagicTest : MonoBehaviour, ICard, IAttackable
 
     public void OnCollider()
     {
+        ExplosionParticle();
+
         Debug.Log("µÆ³ª");
         sphereCollider.enabled = true;
+        Debug.Log(sphereCollider.enabled == true);
         //sphereCollider.gameObject.SetActive(true);
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
+    }
+    private void ExplosionParticle()
+    {
+        ClickMagic clickMagic = FindAnyObjectByType<ClickMagic>();
+        Vector3 position = clickMagic.clickPos;
+        GameObject ex = Instantiate(clickMagic.explosion, position, clickMagic.explosion.transform.rotation);
+        Destroy(ex, 1f);
     }
 }

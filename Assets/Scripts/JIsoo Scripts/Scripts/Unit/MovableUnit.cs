@@ -14,7 +14,6 @@ public class MovableUnit : Unit
     public bool isMove = false;
     public double moveDelay;
     public bool isSpawn = false;
-    private float attackSpeed;
 
     RangedUnit rangedUnit;
     Damaging damaging;
@@ -28,7 +27,7 @@ public class MovableUnit : Unit
 
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
-    }   
+    }
     private void Start()
     {
         spawnTime = (float)PhotonNetwork.Time;
@@ -56,12 +55,12 @@ public class MovableUnit : Unit
             detectionRange = unitInfo.detectRange;
             attackSpeed = unitInfo.attackSpeed;
         }
-        if(rangedUnit != null)
+        if (rangedUnit != null)
         {
             rangedUnit.damage = this.damage;
         }
 
-        if(damaging != null)
+        if (damaging != null)
         {
             damaging.damage = this.damage;
         }
@@ -71,34 +70,33 @@ public class MovableUnit : Unit
 
     private void Update()
     {
-        try
+        if (isSpawn && photonView.IsMine)
         {
-            if (isSpawn && photonView.IsMine)
+            if (!initialWaitDone && (PhotonNetwork.Time - spawnTime) >= moveDelay)
             {
-                if (!initialWaitDone && (PhotonNetwork.Time - spawnTime) >= moveDelay)
-                {
-                    isMove = true;
-                    DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
-                    initialWaitDone = true;
-                }
-                stateMachine.DoOperateUpdate();
+                isMove = true;
+                DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
+                initialWaitDone = true;
+            }
+            stateMachine.DoOperateUpdate();
 
-                if (!targetFollowUnit.isAttack)
-                {
-                    DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
+            if (!targetFollowUnit.isAttack)
+            {
+                DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
 
-                    if (isMove)
-                    {
-                        StateTransition(targetFollowUnit.target);
-                    }
+                if (isMove)
+                {
+                    StateTransition(targetFollowUnit.target);
                 }
             }
+            else
+            {
+                Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+            }
         }
-        catch(Exception ex)
-        {
-            Debug.LogError(ex.Message);
-        }
-    }
+    }   
 
     private void StateTransition(Transform target)
     {
@@ -110,10 +108,23 @@ public class MovableUnit : Unit
         {
             targetFollowUnit.isAttack = true;
             SetState(UnitState.Attack, attackSpeed);
+            // UpdateAnimationSpeed(attackSpeed);
         }
         else
         {
             SetState(UnitState.Move, 0.8f);
+            // UpdateAnimationSpeed(0.8f);
         }
     }
+    //public void UpdateAnimationSpeed(float speed)
+    //{
+    //    anim.speed = speed;
+    //    photonView.RPC("SyncAnimationSpeed", RpcTarget.Others, speed);
+    //}
+
+    //[PunRPC]
+    //public void SyncAnimationSpeed(float speed)
+    //{
+    //    anim.speed = speed;
+    //}
 }

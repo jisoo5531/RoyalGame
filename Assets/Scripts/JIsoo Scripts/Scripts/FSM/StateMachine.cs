@@ -30,7 +30,7 @@ public class StateMachine<T>
         }
         if (currrentState != null)
         {
-            currrentState.OperateExit(m_Sender, 1);
+            currrentState.OperateExit(m_Sender);
         }
 
         currrentState = state;

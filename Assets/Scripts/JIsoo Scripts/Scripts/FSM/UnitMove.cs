@@ -11,9 +11,9 @@ public class UnitMove : IState<Unit>
         unit.anim.SetBool("isMove", true);
 
     }
-    public void OperateExit(Unit sender, float speed)
+    public void OperateExit(Unit sender)
     {
-        unit.anim.speed = speed;
+        unit.anim.speed = 1;
         unit.anim.SetBool("isMove", false);
         
     }

@@ -10,7 +10,7 @@ public class UnitIdle : IState<Unit>
     {
         unit = sender;
     }
-    public void OperateExit(Unit sender, float speed)
+    public void OperateExit(Unit sender)
     {        
     }
     public void OperateUpdate(Unit sender)

@@ -7,8 +7,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 {
 
 
-    public int unit_ID; 
-    private bool isAttacking = false;
+    public int unit_ID;
     [HideInInspector] public Animator anim;
 
     #region º¯¼ö
@@ -87,6 +86,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
             stateMachine.SetState(dicState[state], speed);
         }
     }
+
     public void Attack()
     {
         if(range < 14)

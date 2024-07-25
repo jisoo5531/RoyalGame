@@ -30,6 +30,12 @@ public class IsMineManager : MonoBehaviourPunCallbacks
                 DetectEnemyManager.instance.towerList = GameManager.instance.myTowers.ToList();
             }
             GameManager.instance.grid.CreateGrid();
+            GameObject[] slots = GameObject.FindGameObjectsWithTag("Spawn");
+            for (int i = 0; i < slots.Length; i++)
+            {
+                var slot = slots[i].GetComponent<SpawnSlot>();
+                slot.isMineManager = this;
+            }
         }
     }
 

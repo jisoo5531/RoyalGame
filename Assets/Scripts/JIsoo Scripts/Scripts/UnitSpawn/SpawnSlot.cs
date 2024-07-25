@@ -29,6 +29,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     private string unitName;
 
     public UnitSpawner unitSpawner;
+    public IsMineManager isMineManager;
 
     public void OnBeginDrag(PointerEventData eventData)
     {

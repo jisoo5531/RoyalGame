@@ -18,16 +18,16 @@ public class RangedUnit : MonoBehaviourPunCallbacks
 
     public void Attack()
     {
-        string pfbName = projectilePrefab.name;
-        GameObject projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.identity);
+        //string pfbName = projectilePrefab.name;
+        //GameObject projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.identity);
 
-        Projectile projectileComponent = projectile.AddComponent<Projectile>();        
-        projectileComponent.targetPos = target.position;
+        //Projectile projectileComponent = projectile.AddComponent<Projectile>();        
+        //projectileComponent.targetPos = target.position;
 
-        Damaging damagingComponent = projectile.AddComponent<Damaging>();
-        damagingComponent.target = target;
-        damagingComponent.rangeType = Range.Ranged;
-        damagingComponent.damage = damage;
-        damagingComponent.targetLayerMask = targetLayerMask;
+        //Damaging damagingComponent = projectile.AddComponent<Damaging>();
+        //damagingComponent.target = target;
+        //damagingComponent.rangeType = Range.Ranged;
+        //damagingComponent.damage = damage;
+        //damagingComponent.targetLayerMask = targetLayerMask;
     }
 }

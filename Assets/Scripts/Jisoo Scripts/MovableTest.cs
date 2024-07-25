@@ -16,8 +16,6 @@ public class MovableTest : Unit
         anim = GetComponent<Animator>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
 
-
-        range = 20;
         // InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
        // InitializeUnitData(unitData);
@@ -55,8 +53,6 @@ public class MovableTest : Unit
             //DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, this.attackTarget);
             StateTransition(targetFollowUnit.target);
         }
-
-        // TODO : target을 바라볼 떄
         transform.LookAt(targetFollowUnit.target);
     }
 

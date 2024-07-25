@@ -9,8 +9,8 @@ public class CrossbowTower : Tower
         maxHP = 1000;
         HP = maxHP;
 
-        onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;
-        onTopUnit.GetComponent<UnitCanvasInfo>().HP = HP;
+        onTopUnit.GetComponent<RoyalEnemyTest>().maxHP = maxHP;
+        onTopUnit.GetComponent<RoyalEnemyTest>().HP = HP;
 
     }
 }

@@ -32,7 +32,7 @@ public static class Extension
     {
         Color tempColor = image.color;
         tempColor.a = alpha;
-        image.color = tempColor;        
+        image.color = tempColor;
     }
     /// <summary>
     /// 유닛 투명도 조절
@@ -46,29 +46,35 @@ public static class Extension
         foreach (Renderer renderer in renderers)
         {
             renderer.material = GameManager.instance.allyMaterial[1];
+            Debug.Log(renderer.material.name);
             // 각 Renderer의 Material 가져오기
             Material material = renderer.material;
 
             // Shader가 Standard가 아닌 경우 Standard로 변경
-            if (material.shader.name != "Standard")
+            if (alpha > 0.6f)
+            {
+                material.shader = Shader.Find("Legacy Shaders/Diffuse");
+            }
+            else
             {
                 material.shader = Shader.Find("Standard");
+
+                // "Transparent" 렌더링 모드 설정
+                material.SetFloat("_Mode", 2);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                material.SetInt("_ZWrite", 0);
+                material.DisableKeyword("_ALPHATEST_ON");
+                material.EnableKeyword("_ALPHABLEND_ON");
+                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                material.renderQueue = 3000;
             }
 
-            // "Transparent" 렌더링 모드 설정
-            material.SetFloat("_Mode", 3);
-            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            material.SetInt("_ZWrite", 0);
-            material.DisableKeyword("_ALPHATEST_ON");
-            material.EnableKeyword("_ALPHABLEND_ON");
-            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            material.renderQueue = 3000;
-
             // 투명도 조절
-            Color color = material.color;
-            color.a = alpha;
-            material.color = color;
+            //Color color = material.color;
+            //color.a = alpha;
+            renderer.material = material;
+            Debug.Log(renderer.material.color.a + ",  " + renderer.material.color);
         }
     }
     /// <summary>
@@ -94,12 +100,12 @@ public static class Extension
         }
         else
         {
-            unit.AddComponent<Fireball>();
+            unit.AddComponent<Magic>();
         }
     }
     public static void ColorNormal<T>(this T uiElement)
     {
-        Color color = new Color(154f / 255f, 154f / 255f, 154f / 255f);        
+        Color color = new Color(154f / 255f, 154f / 255f, 154f / 255f);
 
         if (uiElement is Image)
         {
@@ -113,7 +119,7 @@ public static class Extension
         {
             (uiElement as TMP_Text).color = color;
         }
-    }    
+    }
     public static void ColorRare<T>(this T uiElement)
     {
         Color color = new Color(255f / 255f, 166f / 255f, 57f / 255f);
@@ -219,7 +225,7 @@ public static class Extension
             (uiElement as TMP_Text).color = color;
         }
     }
-    
+
     public static void ColorYellow<T>(this T uiElement)
     {
         Color color = new Color(255f / 255f, 207f / 255f, 0f / 255f);
@@ -237,5 +243,5 @@ public static class Extension
             (uiElement as TMP_Text).color = color;
         }
     }
-    
+
 }

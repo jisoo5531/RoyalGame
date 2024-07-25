@@ -17,6 +17,17 @@ public class SettingCardInfoManager : MonoBehaviour
         instance = this;
     }
 
+    public void CheckCardCount()
+    {
+        if (!IsNewbie())
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].GetComponent<Collection>().CheckCardCount();
+            }
+        }
+    }
+
     public void InsertNewCard(int index, int damage, int hp, float attackSpeed, int moveSpeed)
     {
         string insertCard = string.Empty;
@@ -24,15 +35,15 @@ public class SettingCardInfoManager : MonoBehaviour
         {
             if (index != 2 && index != 7)
             {
-                insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, {damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 1, 2, 1)";
+                insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, {damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 3, 2, 1)";
             }
             else if (index == 2)
             {
-                insertCard = $"INSERT INTO MAGIC(userID, cardID, Level, currentCardCount, maxCardCount, unit_Damage, tower_Damage) VALUES(@userId, @cardID, 1, 1, 2, 310, 100)";
+                insertCard = $"INSERT INTO MAGIC(userID, cardID, Level, currentCardCount, maxCardCount, unit_Damage, tower_Damage) VALUES(@userId, @cardID, 1, 3, 2, 310, 100)";
             }
             else if (index == 7)
             {
-                insertCard = $"INSERT INTO DEFENSE_TOWER(userID, cardID, damage, level, hp, lifeTime, currentCardCount, maxCardCount, spawnTime, attackSpeed) VALUES(@userId, @cardID, 26, 1, 1000, 30, 1, 2, 3.5, 1.6)";
+                insertCard = $"INSERT INTO DEFENSE_TOWER(userID, cardID, damage, level, hp, lifeTime, currentCardCount, maxCardCount, spawnTime, attackSpeed) VALUES(@userId, @cardID, 26, 1, 1000, 30, 3, 2, 3.5, 1.6)";
             }
 
             using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
@@ -41,13 +52,13 @@ public class SettingCardInfoManager : MonoBehaviour
                 {
                     cmd.CommandText = insertCard;
                     cmd.Parameters.AddWithValue("@userId", DatabaseManager.Instance.userId);
-                    cmd.Parameters.AddWithValue("@cardID", index+1);
+                    cmd.Parameters.AddWithValue("@cardID", index + 1);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             print(ex.Message);
         }

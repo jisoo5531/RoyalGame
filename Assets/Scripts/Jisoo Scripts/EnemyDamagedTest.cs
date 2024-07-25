@@ -9,7 +9,7 @@ public class EnemyDamagedTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            enemy.GetComponent<UnitCanvasInfo>().GetDamage(10);
+            enemy.GetComponent<RoyalEnemyTest>().GetDamage(10);
         }
     }
 }

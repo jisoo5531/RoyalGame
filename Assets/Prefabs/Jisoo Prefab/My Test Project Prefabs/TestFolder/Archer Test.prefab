@@ -6915,6 +6915,7 @@ GameObject:
   - component: {fileID: 8211161992693254700}
   - component: {fileID: 8211161992693254701}
   - component: {fileID: 8129448028174318160}
+  - component: {fileID: 6865127716878841295}
   - component: {fileID: 8211161992693254703}
   m_Layer: 0
   m_Name: Archer Test
@@ -6985,7 +6986,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807652302416248156}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b778833f937d9b4b932666fdd448b93, type: 3}
   m_Name: 
@@ -7012,6 +7013,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &6865127716878841295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807652302416248156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28b0650d90d20d41bcf54e9639c7046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit_ID: 0
+  anim: {fileID: 0}
+  detectionRange: 0
+  rangeType: 0
+  moveSpeed: 0
+  isMove: 0
+  unitData: {fileID: 11400000, guid: 56ce79c0acca5844bae5e92f3df3e51d, type: 2}
 --- !u!114 &8211161992693254703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7025,7 +7045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4694306710321462239, guid: 77fb97db02ebdc54dad4c2cbddf2973a, type: 3}
-  pStart_trans: {fileID: 731643354222352070}
+  pStart_trans: {fileID: 0}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 2147483648

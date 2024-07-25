@@ -78,7 +78,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
     [PunRPC]
     private void LoadScene()
     {
-        Loading.LoadScene("BattleTest", true);
+        Loading.LoadScene("Battle", true);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

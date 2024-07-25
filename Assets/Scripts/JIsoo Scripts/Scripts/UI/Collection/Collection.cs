@@ -105,11 +105,11 @@ public class Collection : MonoBehaviour
         {
             upgrade.Setinfo(settingUnit.GetUnitData(DatabaseManager.Instance.userId, cardId), isCanUpgrade);
         }
-        else if(cardId == 3)
+        else if (cardId == 3)
         {
             upgrade.Setinfo(settingUnit.GetMagicData(DatabaseManager.Instance.userId, cardId), isCanUpgrade);
         }
-        else if(cardId == 8)
+        else if (cardId == 8)
         {
             upgrade.Setinfo(settingUnit.GetTowerData(DatabaseManager.Instance.userId, cardId), isCanUpgrade);
         }

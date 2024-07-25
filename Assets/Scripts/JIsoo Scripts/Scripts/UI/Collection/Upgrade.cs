@@ -142,7 +142,7 @@ public class Upgrade : MonoBehaviour
         upgradeCost = cost;
         unitlist.upgradeCost.text = $"업그레이드\n{cost}";
 
-        unitlist.upgradeBtn.interactable = StartManager.m_Instance.gold >= cost;
+        //unitlist.upgradeBtn.interactable = StartManager.m_Instance.gold >= cost;
     }
 
     #endregion

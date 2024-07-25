@@ -29,8 +29,7 @@ public class SettingUnit : MonoBehaviour
                             cardName = reader.GetString(1),
                             cost = reader.GetInt32(2),
                             grade = reader.GetString(3),
-                            //range = reader.GetFloat(4),
-                            range = 20f,
+                            range = reader.GetFloat(4),
                             detectRange = reader.GetFloat(5),
                             level = reader.GetInt32(6),
                             damage = reader.GetInt32(7),
@@ -144,7 +143,7 @@ public class SettingUnit : MonoBehaviour
 
         selectData = $"SELECT CARD.cardID, CARD.name, CARD.cost, CARD.grade, CARD.range, CARD.detectRange, " +
             $"UNIT.level, UNIT.damage, CARD.type, UNIT.attackSpeed, UNIT.moveSpeed, UNIT.hp, UNIT.spawnTime, CARD.cardDesc, " +
-            $"CARD.targeting FROM USER, CARD, UNIT WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND USER.userID = UNIT.userID AND CARD.cardID = UNIT.cardID";
+            $"CARD.targeting, UNIT.currentCardCount, UNIT.maxCardCount FROM USER, CARD, UNIT WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND USER.userID = UNIT.userID AND CARD.cardID = UNIT.cardID";
 
         using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
         {
@@ -172,6 +171,8 @@ public class SettingUnit : MonoBehaviour
                             spawnTime = reader.GetInt32(12),
                             desc = reader.GetString(13),
                             target = reader.GetString(14),
+                            currentCardCount = reader.GetInt32(15),
+                            maxCardCount = reader.GetInt32(16),
                             img = CardInfoManager.instance.characterImgs[cardId - 1]
                         };
                         return cardInfo;
@@ -190,7 +191,7 @@ public class SettingUnit : MonoBehaviour
         selectData = $"SELECT CARD.cardID, CARD.name, CARD.cost, CARD.grade, " +
             $"CARD.range, DEFENSE_TOWER.level, DEFENSE_TOWER.damage, CARD.type, " +
             $"DEFENSE_TOWER.attackSpeed,  DEFENSE_TOWER.hp, " +
-            $"DEFENSE_TOWER.spawnTime, DEFENSE_TOWER.lifeTime, CARD.cardDesc, CARD.targeting FROM " +
+            $"DEFENSE_TOWER.spawnTime, DEFENSE_TOWER.lifeTime, CARD.cardDesc, CARD.targeting, DEFENSE_TOWER.currentCardCount, DEFENSE_TOWER.maxCardCount FROM " +
             $"USER, CARD, DEFENSE_TOWER WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND " +
             $"USER.userID = DEFENSE_TOWER.userID AND CARD.cardID = DEFENSE_TOWER.cardID";
 
@@ -219,6 +220,8 @@ public class SettingUnit : MonoBehaviour
                             lifeTime = reader.GetInt32(11),
                             desc = reader.GetString(12),
                             target = reader.GetString(13),
+                            currentCardCount = reader.GetInt32(14),
+                            maxCardCount = reader.GetInt32(15),
                             img = CardInfoManager.instance.characterImgs[cardId - 1]
                         };
                         return cardInfo;
@@ -236,7 +239,7 @@ public class SettingUnit : MonoBehaviour
 
         selectData = $"SELECT CARD.cardID, CARD.name, CARD.cost, " +
             $"CARD.grade, CARD.range, MAGIC.level, MAGIC.unit_Damage, " +
-            $"MAGIC.tower_Damage, CARD.type, CARD.cardDesc FROM USER, CARD, " +
+            $"MAGIC.tower_Damage, CARD.type, CARD.cardDesc, MAGIC.currentCardCount, MAGIC.maxCardCount FROM USER, CARD, " +
             $"MAGIC WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND USER.userID = MAGIC.userID " +
             $"AND CARD.cardID = MAGIC.cardID";
 
@@ -261,6 +264,8 @@ public class SettingUnit : MonoBehaviour
                             tower_Damage = reader.GetInt32(7),
                             type = reader.GetString(8),
                             desc = reader.GetString(9),
+                            currentCardCount = reader.GetInt32(10),
+                            maxCardCount = reader.GetInt32(11),
                             img = CardInfoManager.instance.characterImgs[cardId - 1]
                         };
                         return cardInfo;

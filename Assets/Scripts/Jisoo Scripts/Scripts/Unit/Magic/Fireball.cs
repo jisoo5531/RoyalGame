@@ -31,7 +31,7 @@ public class Fireball : MonoBehaviour, ICard, IAttackable
 
     private void SpawnFireBall()
     {
-        fireBall.SpawnFireBall();
+        fireBall.SpawnFireBall(gameObject);
     }
 
     protected virtual void InitializeUnitData(UnitData_SO unit)

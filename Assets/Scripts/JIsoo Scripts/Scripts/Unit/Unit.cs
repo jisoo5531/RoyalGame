@@ -124,6 +124,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     {
         GameObject effect = Instantiate(EffectManager.instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
         effect.transform.localScale = transform.localScale;
+        Destroy(effect, 1f);
         Destroy(gameObject);
     }
 }

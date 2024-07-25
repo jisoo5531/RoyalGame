@@ -30,11 +30,11 @@ public class ClickMagic : MonoBehaviour
         //}
     }
 
-    public void SpawnFireBall()
-    {                
-        transform.GetChild(0).transform.position = startTrans.position;
+    public void SpawnFireBall(GameObject fireball)
+    {
+        fireball.transform.GetChild(0).transform.position = startTrans.position;
 
-        Projectile fireballProjectile = transform.GetChild(0).gameObject.AddComponent<Projectile>();
+        Projectile fireballProjectile = fireball.transform.GetChild(0).gameObject.AddComponent<Projectile>();
         fireballProjectile.targetPos = spawnPos;
     }
 }

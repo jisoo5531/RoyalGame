@@ -790,6 +790,8 @@ GameObject:
   - component: {fileID: 3993301697071658409}
   - component: {fileID: 3993301697070874405}
   - component: {fileID: 3993301697069356087}
+  - component: {fileID: 6828621172877118953}
+  - component: {fileID: 6658407843131349725}
   m_Layer: 10
   m_Name: Prince Lance Lv1
   m_TagString: Untagged
@@ -862,6 +864,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6828621172877118953
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3993301697071762475}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8771589, y: 0.48975807, z: 0.48975876}
+  m_Center: {x: -0.8201734, y: 0.0000003674961, z: -0.00000037527298}
+--- !u!114 &6658407843131349725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3993301697071762475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ec1d2644282e244bdde93c7fe53185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  target: {fileID: 0}
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 1536
+  rangeType: 0
+  unitType: 0
 --- !u!1 &3993301697071763345
 GameObject:
   m_ObjectHideFlags: 0

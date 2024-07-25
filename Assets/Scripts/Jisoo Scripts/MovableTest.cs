@@ -51,25 +51,25 @@ public class MovableTest : Unit
         if (!targetFollowUnit.isAttack)
         {
             //DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, this.attackTarget);
-            StateTransition(targetFollowUnit.target);
+            //StateTransition(targetFollowUnit.target);
         }
         transform.LookAt(targetFollowUnit.target);
     }
 
-    private void StateTransition(Transform target)
-    {
-        if (DetectEnemyManager.instance == null || target == null)
-            return;
+    //private void StateTransition(Transform target)
+    //{
+    //    if (DetectEnemyManager.instance == null || target == null)
+    //        return;
 
-        float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= range)
-        {
-            targetFollowUnit.isAttack = true;
-            SetState(UnitState.Attack);
-        }
-        else
-        {
-            SetState(UnitState.Move);
-        }
-    }
+    //    float distance = Vector3.Distance(target.position, transform.position);
+    //    if (distance <= range)
+    //    {
+    //        targetFollowUnit.isAttack = true;
+    //        SetState(UnitState.Attack);
+    //    }
+    //    else
+    //    {
+    //        SetState(UnitState.Move);
+    //    }
+    //}
 }

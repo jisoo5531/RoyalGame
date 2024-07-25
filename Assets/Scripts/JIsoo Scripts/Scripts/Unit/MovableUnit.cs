@@ -28,8 +28,7 @@ public class MovableUnit : Unit
 
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
-
-    }
+    }   
     private void Start()
     {
         spawnTime = (float)PhotonNetwork.Time;
@@ -107,14 +106,14 @@ public class MovableUnit : Unit
             return;
 
         float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= detectionRange)
+        if (distance <= range)
         {
             targetFollowUnit.isAttack = true;
-            SetState(UnitState.Attack, );
+            SetState(UnitState.Attack, attackSpeed);
         }
         else
         {
-            SetState(UnitState.Move);
+            SetState(UnitState.Move, 0.8f);
         }
     }
 }

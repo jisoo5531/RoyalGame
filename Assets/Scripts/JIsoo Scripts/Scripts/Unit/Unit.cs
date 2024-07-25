@@ -60,7 +60,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     protected virtual void InitializeUnitData(AllCardData unit)
     {
         name = unit.cardName;
-
+        attackSpeed = 1f;
         if (unit is UnitInfoData unitInfo)
         {
             maxHP = unitInfo.hp;
@@ -80,20 +80,20 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     }
 
 
-    protected void SetState(UnitState state)
+    protected void SetState(UnitState state, float speed)
     {
         if (dicState.ContainsKey(state))
         {
-            stateMachine.SetState(dicState[state], attackSpeed);
+            stateMachine.SetState(dicState[state], speed);
         }
     }
     public void Attack()
     {
-        if(range < 10)
+        if(range < 14)
         {
 
         }
-        else if(range >= 10)
+        else if(range >= 14)
         {
             GetComponent<RangedUnit>().Attack();
         }
@@ -101,7 +101,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 
     public void SendDamage(int damage)
     {
-        if (range >= 10)
+        if (range >= 14)
         {
             print(GetComponent<RangedUnit>() == null);
             GetComponent<RangedUnit>().damage = damage;

@@ -8,9 +8,15 @@ public class Tower : MonoBehaviour, IDamagable
     public int maxHP { get; set; }    
 
     public GameObject onTopUnit;
+    private void Start()
+    {
+        onTopUnit.GetComponent<TowerHP>().hp = HP;
+    }
+
     public virtual void GetDamage(int damage)
     {
         onTopUnit.GetComponent<UnitCanvasInfo>().GetDamage(damage);
+        onTopUnit.GetComponent<TowerHP>().hp = HP;
 
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         HP -= damage;

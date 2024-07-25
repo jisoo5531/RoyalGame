@@ -28,7 +28,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     private bool isSpawn = false;
     private string unitName;
 
-    public Vector3 spawnPoint;
+    public static Vector3 spawnPoint;
 
     public UnitSpawner unitSpawner;
 
@@ -204,6 +204,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                 if (false == isSpawn)
                 {
                     dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+
                     dragUnit.UnitTransparent(0.5f);
                     unitName = unitPrefab.name;
                     isSpawn = true;

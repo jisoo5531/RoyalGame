@@ -14,19 +14,24 @@ public class Fireball : MonoBehaviour, ICard, IAttackable
     public float attackSpeed { get; set; }
 
     public Vector3 clickPos;
+    private ClickMagic fireBall;
 
     private void Awake()
     {
+        fireBall = FindObjectOfType<ClickMagic>();
         // InitializeUnitData(UnitSpawner.instance.selectedUnit);
-
+        SendDamage(damage);
+        
+    }
+    private void Start()
+    {
         clickPos.y = -1;
         SpawnFireBall();
     }
 
     private void SpawnFireBall()
     {
-        Projectile fireballProjectile = gameObject.AddComponent<Projectile>();
-        fireballProjectile.targetPos = clickPos;
+        fireBall.SpawnFireBall();
     }
 
     protected virtual void InitializeUnitData(UnitData_SO unit)
@@ -41,6 +46,6 @@ public class Fireball : MonoBehaviour, ICard, IAttackable
 
     public void SendDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        //GetComponent<Damaging>().damage = damage;
     }
 }

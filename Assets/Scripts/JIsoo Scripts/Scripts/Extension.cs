@@ -43,33 +43,37 @@ public static class Extension
     {
         Renderer[] renderers = unitPrefab.GetComponentsInChildren<Renderer>();
 
-        foreach (Renderer renderer in renderers)
+        if (renderers != null)
         {
-            renderer.material = GameManager.instance.allyMaterial[1];
-            // 각 Renderer의 Material 가져오기
-            Material material = renderer.material;
-
-            // Shader가 Standard가 아닌 경우 Standard로 변경
-            if (material.shader.name != "Standard")
+            foreach (Renderer renderer in renderers)
             {
-                material.shader = Shader.Find("Standard");
+                renderer.material = GameManager.instance.allyMaterial[1];
+                // 각 Renderer의 Material 가져오기
+                Material material = renderer.material;
+
+                // Shader가 Standard가 아닌 경우 Standard로 변경
+                if (material.shader.name != "Standard")
+                {
+                    material.shader = Shader.Find("Standard");
+                }
+
+                // "Transparent" 렌더링 모드 설정
+                material.SetFloat("_Mode", 3);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                material.SetInt("_ZWrite", 0);
+                material.DisableKeyword("_ALPHATEST_ON");
+                material.EnableKeyword("_ALPHABLEND_ON");
+                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                material.renderQueue = 3000;
+
+                // 투명도 조절
+                Color color = material.color;
+                color.a = alpha;
+                material.color = color;
             }
-
-            // "Transparent" 렌더링 모드 설정
-            material.SetFloat("_Mode", 3);
-            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            material.SetInt("_ZWrite", 0);
-            material.DisableKeyword("_ALPHATEST_ON");
-            material.EnableKeyword("_ALPHABLEND_ON");
-            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            material.renderQueue = 3000;
-
-            // 투명도 조절
-            Color color = material.color;
-            color.a = alpha;
-            material.color = color;
         }
+        
     }
     /// <summary>
     /// 유닛 유형에 맞게 분류
@@ -95,6 +99,7 @@ public static class Extension
         else
         {
             unit.AddComponent<Fireball>();
+
         }
     }
     public static void ColorNormal<T>(this T uiElement)

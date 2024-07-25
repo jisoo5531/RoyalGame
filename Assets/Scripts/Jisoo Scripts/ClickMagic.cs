@@ -14,25 +14,27 @@ public class ClickMagic : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                GameObject FireRange =  Instantiate(fireballRange, hit.point, fireballRange.transform.rotation);
-                Destroy(FireRange, 1f);
-                spawnPos = hit.point;
-                spawnPos.y = -1;
-                SpawnFireBall();
-            }
-        }
+        spawnPos = SpawnSlot.spawnPoint;
+        spawnPos.y = -1;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    if (Physics.Raycast(ray, out RaycastHit hit))
+        //    {
+        //        GameObject FireRange =  Instantiate(fireballRange, hit.point, fireballRange.transform.rotation);
+        //        Destroy(FireRange, 1f);
+        //        spawnPos = hit.point;
+        //        spawnPos.y = -1;
+        //        SpawnFireBall();
+        //    }
+        //}
     }
 
-    private void SpawnFireBall()
-    {        
-        GameObject fireball = Instantiate(fireBallPrefab, spawnPos, fireBallPrefab.transform.rotation);
-        fireball.transform.GetChild(0).transform.position = startTrans.position;
-        Projectile fireballProjectile = fireball.transform.GetChild(0).gameObject.AddComponent<Projectile>();
+    public void SpawnFireBall()
+    {                
+        transform.GetChild(0).transform.position = startTrans.position;
+
+        Projectile fireballProjectile = transform.GetChild(0).gameObject.AddComponent<Projectile>();
         fireballProjectile.targetPos = spawnPos;
     }
 }

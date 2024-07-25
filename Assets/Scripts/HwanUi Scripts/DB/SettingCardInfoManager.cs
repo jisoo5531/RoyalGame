@@ -17,6 +17,17 @@ public class SettingCardInfoManager : MonoBehaviour
         instance = this;
     }
 
+    public void CheckCardCount()
+    {
+        if (!IsNewbie())
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].GetComponent<Collection>().CheckCardCount();
+            }
+        }
+    }
+
     public void InsertNewCard(int index, int damage, int hp, float attackSpeed, int moveSpeed)
     {
         string insertCard = string.Empty;
@@ -41,13 +52,13 @@ public class SettingCardInfoManager : MonoBehaviour
                 {
                     cmd.CommandText = insertCard;
                     cmd.Parameters.AddWithValue("@userId", DatabaseManager.Instance.userId);
-                    cmd.Parameters.AddWithValue("@cardID", index+1);
+                    cmd.Parameters.AddWithValue("@cardID", index + 1);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             print(ex.Message);
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using JetBrains.Annotations;
+using UnityEngine.TextCore.Text;
+using UnityEditor.PackageManager;
 
 [System.Serializable]
 public class Unittitle
@@ -17,7 +19,9 @@ public class Unitimage
     public Image cardcountfill;
     public TextMeshProUGUI costtext;
     public TextMeshProUGUI cardcounttext;
+    public TextMeshProUGUI upgradeCost;
     public Image uparrow;
+    public Button upgradeBtn;
 }
 [System.Serializable]
 public class Gradeandtype
@@ -56,19 +60,37 @@ public class Upgrade : MonoBehaviour
     public unitdescription unitdesc;
     public Unitstat unitstatlist;
 
-    private AllCardData unitdata;
+    public AllCardData unitdata;
     public Collection collection;
 
     private bool availableupgrade = false;
+    public int damage;
+    public int tower_damage;
+    public int hp;
 
-    private void Start()
+    private void UpgradeUnit(bool isUpgrade)
     {
-        UpdateCardCountClick();
+        if (isUpgrade)
+        {
+            unitlist.cardcountfill.ColorGreen();
+            unitlist.uparrow.ColorGreen();
+
+            unitlist.upgradeBtn.interactable = true;
+        }
+        else
+        {
+            unitlist.cardcountfill.ColorSky();
+            unitlist.uparrow.ColorSky();
+
+            unitlist.upgradeBtn.interactable = false;
+        }
     }
 
-    public void UpdateCardCountClick()
+    public void Setinfo(AllCardData unitdata, bool isCanUpgrade)
     {
-        if (collection.CheckAvailableUpgrade(unitdata.currentCardCount, unitdata.maxCardCount, unitlist.uparrow))
+        this.unitdata = unitdata;
+
+        if (isCanUpgrade)
         {
             availableupgrade = true;
         }
@@ -76,11 +98,7 @@ public class Upgrade : MonoBehaviour
         {
             availableupgrade = false;
         }
-    }
-
-    public void Setinfo(AllCardData unitdata)
-    {
-        this.unitdata = unitdata;
+        UpgradeUnit(isCanUpgrade);
 
         Settitle();
 
@@ -120,13 +138,16 @@ public class Upgrade : MonoBehaviour
 
         unitlist.cardcountfill.fillAmount = (float)unitdata.currentCardCount / unitdata.maxCardCount;
 
+        int cost = (1000 * unitdata.level) * 5;
+        unitlist.upgradeCost.text = $"업그레이드\n{cost}";
+
     }
 
     #endregion
 
-        #endregion
+    #endregion
 
-        #region grade / type
+    #region grade / type
 
     private void Setunitgradeandtype()
     {
@@ -239,17 +260,17 @@ public class Upgrade : MonoBehaviour
             if (unitdata is UnitInfoData unitInfo)
             {
                 uihp.value.text = unitInfo.hp.ToString();
-                //uihp.upgradeValue.text = $"+ {unitdata.get_upgrade_hp()}";
+                hp = Mathf.FloorToInt(unitInfo.hp * 0.1f);
             }
             else if (unitdata is DEFENSETOWERInfoData defenseTowerInfo)
             {
                 uihp.value.text = defenseTowerInfo.hp.ToString();
-                //uihp.upgradeValue.text = $"+ {unitdata.get_upgrade_hp()}";
+                hp = Mathf.FloorToInt(defenseTowerInfo.hp * 0.1f);
             }
 
             if (availableupgrade)
             {
-                uihp.SetUpgrade();
+                uihp.SetUpgrade(hp);
             }
             else
             {
@@ -266,9 +287,10 @@ public class Upgrade : MonoBehaviour
         {
             uidamage.value.text = unitdata.damage.ToString();
 
+            damage = Mathf.FloorToInt(unitdata.damage * 0.1f);
             if (availableupgrade)
             {
-                uidamage.SetUpgrade();
+                uidamage.SetUpgrade(damage);
             }
             else
             {
@@ -290,11 +312,12 @@ public class Upgrade : MonoBehaviour
                 if (unitdata is MAGICInfoData magicInfo)
                 {
                     uidamage.value.text = magicInfo.tower_Damage.ToString();
+                    tower_damage = Mathf.FloorToInt(magicInfo.tower_Damage * 0.1f);
                 }
 
                 if (availableupgrade)
                 {
-                    uidamage.SetUpgrade();
+                    uidamage.SetUpgrade(tower_damage);
                 }
                 else
                 {

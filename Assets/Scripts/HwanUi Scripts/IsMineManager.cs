@@ -29,6 +29,13 @@ public class IsMineManager : MonoBehaviourPunCallbacks
                 SettingEnemy();
                 DetectEnemyManager.instance.towerList = GameManager.instance.myTowers.ToList();
             }
+            GameManager.instance.grid.CreateGrid();
+            GameObject[] slots = GameObject.FindGameObjectsWithTag("Spawn");
+            for (int i = 0; i < slots.Length; i++)
+            {
+                var slot = slots[i].GetComponent<SpawnSlot>();
+                slot.isMineManager = this;
+            }
         }
     }
 
@@ -54,6 +61,8 @@ public class IsMineManager : MonoBehaviourPunCallbacks
             GameManager.instance.allyUnitMaterial[i].material = GameManager.instance.allyMaterial[1];
         }
     }
+
+    //public void 
 
     private void SettingEnemy()
     {

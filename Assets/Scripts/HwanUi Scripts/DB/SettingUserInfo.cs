@@ -28,6 +28,12 @@ public class SettingUserInfo : MonoBehaviour
         SelectUser(DatabaseManager.Instance.userId);
     }
 
+    private void Start()
+    {
+        StartManager.m_Instance.gold = int.Parse(goldAmount.text);
+        StartManager.m_Instance.jewel = int.Parse(jewelAmount.text);
+    }
+
     private void SelectUser(int userId)
     {
         try

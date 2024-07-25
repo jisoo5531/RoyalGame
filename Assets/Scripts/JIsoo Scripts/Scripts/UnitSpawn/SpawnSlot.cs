@@ -31,6 +31,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     public static Vector3 spawnPoint;
 
     public UnitSpawner unitSpawner;
+    public IsMineManager isMineManager;
 
     public void OnBeginDrag(PointerEventData eventData)
     {

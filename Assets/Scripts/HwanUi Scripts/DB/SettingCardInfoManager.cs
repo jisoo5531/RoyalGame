@@ -24,7 +24,7 @@ public class SettingCardInfoManager : MonoBehaviour
         {
             if (index != 2 && index != 7)
             {
-                insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, {damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 1, 2, 1)";
+                insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, {damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 3, 2, 1)";
             }
             else if (index == 2)
             {

@@ -34,13 +34,10 @@ public class GridController : MonoBehaviour
             walkableMask.value |= region.terrainMask.value;
             walkableRegionsDictionary.Add((int)Mathf.Log(region.terrainMask.value, 2), region.terrainPenalty);
         }
-
-        CreateGrid();
     }
-
     public int MaxSize => gridSizeX * gridSizeY;
 
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;

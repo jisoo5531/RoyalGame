@@ -9,7 +9,7 @@ public class ClickMagic : MonoBehaviour
     public GameObject fireBallPrefab;
     public Transform startTrans;
     public Transform targetTrans;
-    public Vector3 clickPos;
+    public Vector3 spawnPos;
 
     // Update is called once per frame
     private void Update()
@@ -21,8 +21,8 @@ public class ClickMagic : MonoBehaviour
             {
                 GameObject FireRange =  Instantiate(fireballRange, hit.point, fireballRange.transform.rotation);
                 Destroy(FireRange, 1f);
-                clickPos = hit.point;
-                clickPos.y = -1;
+                spawnPos = hit.point;
+                spawnPos.y = -1;
                 SpawnFireBall();
             }
         }
@@ -30,9 +30,9 @@ public class ClickMagic : MonoBehaviour
 
     private void SpawnFireBall()
     {        
-        GameObject fireball = Instantiate(fireBallPrefab, clickPos, fireBallPrefab.transform.rotation);
+        GameObject fireball = Instantiate(fireBallPrefab, spawnPos, fireBallPrefab.transform.rotation);
         fireball.transform.GetChild(0).transform.position = startTrans.position;
         Projectile fireballProjectile = fireball.transform.GetChild(0).gameObject.AddComponent<Projectile>();
-        fireballProjectile.targetPos = clickPos;
+        fireballProjectile.targetPos = spawnPos;
     }
 }

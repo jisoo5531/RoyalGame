@@ -54,7 +54,7 @@ public class MagicTest : MonoBehaviour, ICard, IAttackable
     private void ExplosionParticle()
     {
         ClickMagic clickMagic = FindAnyObjectByType<ClickMagic>();
-        Vector3 position = clickMagic.clickPos;
+        Vector3 position = clickMagic.spawnPos;
         GameObject ex = Instantiate(clickMagic.explosion, position, clickMagic.explosion.transform.rotation);
         Destroy(ex, 1f);
     }

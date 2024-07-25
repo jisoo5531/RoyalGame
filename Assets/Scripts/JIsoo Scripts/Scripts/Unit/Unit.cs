@@ -101,6 +101,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     {
         if (range >= 10)
         {
+            Debug.Log("¿ø°Å¸®?");
             print(GetComponent<RangedUnit>() == null);
             GetComponent<RangedUnit>().damage = damage;
             return;

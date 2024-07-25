@@ -29,19 +29,22 @@ public class CollectionCardInfo : MonoBehaviour
 
     public void OrderByClick()
     {
-        if(isCost)
+        if (!SettingCardInfoManager.instance.IsNewbie())
         {
-            btnName.text = "Èñ±Íµµ ¼ø";
-            SelectCardOrderByGrade();
-            StartManager.m_Instance.InitializeCollectionImage();
-            isCost = false;
-        }
-        else
-        {
-            btnName.text = "¿¤¸¯¼­ ¼ø";
-            SelectCardOrderbyCost();
-            StartManager.m_Instance.InitializeCollectionImage();
-            isCost = true;
+            if (isCost)
+            {
+                btnName.text = "Èñ±Íµµ ¼ø";
+                SelectCardOrderByGrade();
+                StartManager.m_Instance.InitializeCollectionImage();
+                isCost = false;
+            }
+            else
+            {
+                btnName.text = "¿¤¸¯¼­ ¼ø";
+                SelectCardOrderbyCost();
+                StartManager.m_Instance.InitializeCollectionImage();
+                isCost = true;
+            }
         }
     }
 

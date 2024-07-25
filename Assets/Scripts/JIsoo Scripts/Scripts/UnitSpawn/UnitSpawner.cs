@@ -39,6 +39,7 @@ public class UnitSpawner : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Map"))
                     {
+                        print("»ý¼º");
                         Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
                         SpawnUnit(hit.point);
 

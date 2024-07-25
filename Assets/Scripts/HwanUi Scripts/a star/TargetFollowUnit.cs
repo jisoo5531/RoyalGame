@@ -39,7 +39,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
             {
                 newPath[i].y = transform.position.y;
             }
-
             path = newPath;
             targetIndex = 0;
             StopCoroutine("FollowPath");
@@ -81,7 +80,7 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            rb.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
     }

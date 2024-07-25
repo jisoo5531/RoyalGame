@@ -8,12 +8,12 @@ public class StateMachine<T>
 
     public IState<T> currrentState { get; set; }
 
-    public StateMachine(T sender, IState<T> state)
+    public StateMachine(T sender, IState<T> state, float speed)
     {
         m_Sender = sender;
-        SetState(state);
+        SetState(state, speed);
     }
-    public void SetState(IState<T> state)
+    public void SetState(IState<T> state, float speed)
     {
        // Debug.Log("SetState : " + state);
 
@@ -37,7 +37,7 @@ public class StateMachine<T>
 
         if (currrentState != null)
         {
-            currrentState.OperateEnter(m_Sender);
+            currrentState.OperateEnter(m_Sender, speed);
         }
 
         Debug.Log("SetNextState : " + state);

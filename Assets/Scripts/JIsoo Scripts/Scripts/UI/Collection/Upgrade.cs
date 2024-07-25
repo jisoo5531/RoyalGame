@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using JetBrains.Annotations;
-using UnityEngine.TextCore.Text;
-using UnityEditor.PackageManager;
 
 [System.Serializable]
 public class Unittitle
@@ -19,9 +16,7 @@ public class Unitimage
     public Image cardcountfill;
     public TextMeshProUGUI costtext;
     public TextMeshProUGUI cardcounttext;
-    public TextMeshProUGUI upgradeCost;
     public Image uparrow;
-    public Button upgradeBtn;
 }
 [System.Serializable]
 public class Gradeandtype
@@ -37,12 +32,10 @@ public class Unitstat
     public Transform unitstats;
     public GameObject hpobj;
     public GameObject damageobj;
-    public GameObject towerDamageobj;
     public GameObject attackspeedobj;
     public GameObject movespeedobj;
     public GameObject targetobj;
     public GameObject rangeobj;
-    public GameObject radiusobj;
     public GameObject creationtimeobj;
     public GameObject lifetimeobj;
 }
@@ -60,45 +53,15 @@ public class Upgrade : MonoBehaviour
     public unitdescription unitdesc;
     public Unitstat unitstatlist;
 
-    public AllCardData unitdata;
-    public Collection collection;
+    private AllCardData unitdata;
 
     private bool availableupgrade = false;
-    public int damage;
-    public int tower_damage;
-    public int hp;
 
-    private void UpgradeUnit(bool isUpgrade)
-    {
-        if (isUpgrade)
-        {
-            unitlist.cardcountfill.ColorGreen();
-            unitlist.uparrow.ColorGreen();
 
-            unitlist.upgradeBtn.interactable = true;
-        }
-        else
-        {
-            unitlist.cardcountfill.ColorSky();
-            unitlist.uparrow.ColorSky();
 
-            unitlist.upgradeBtn.interactable = false;
-        }
-    }
-
-    public void Setinfo(AllCardData unitdata, bool isCanUpgrade)
+    public void Setinfo(AllCardData unitdata)
     {
         this.unitdata = unitdata;
-
-        if (isCanUpgrade)
-        {
-            availableupgrade = true;
-        }
-        else
-        {
-            availableupgrade = false;
-        }
-        UpgradeUnit(isCanUpgrade);
 
         Settitle();
 
@@ -134,13 +97,18 @@ public class Upgrade : MonoBehaviour
 
     private void Setcardcountfill()
     {
-        unitlist.cardcounttext.text = $"{unitdata.currentCardCount} / {unitdata.maxCardCount}";
+        Collection collection = FindObjectOfType<Collection>();
 
-        unitlist.cardcountfill.fillAmount = (float)unitdata.currentCardCount / unitdata.maxCardCount;
+        //collection.Settingui(unitdata, unitlist.cardcountfill, unitlist.cardcounttext, unitlist.costtext);
 
-        int cost = (1000 * unitdata.level) * 5;
-        unitlist.upgradeCost.text = $"업그레이드\n{cost}";
-
+        if (true == collection.CheckAvailableUpgrade(unitlist.cardcountfill, unitlist.uparrow))
+        {
+            availableupgrade = true;
+        }
+        else
+        {
+            availableupgrade = false;
+        }
     }
 
     #endregion
@@ -237,7 +205,6 @@ public class Upgrade : MonoBehaviour
 
         Set_hpobj();
         Set_damageobj();
-        Set_TowerDamageobj();
         Set_attacksppedobj();
         Set_movesppedobj();
         Set_targetobj();
@@ -260,17 +227,17 @@ public class Upgrade : MonoBehaviour
             if (unitdata is UnitInfoData unitInfo)
             {
                 uihp.value.text = unitInfo.hp.ToString();
-                hp = Mathf.FloorToInt(unitInfo.hp * 0.1f);
+                //uihp.upgradeValue.text = $"+ {unitdata.get_upgrade_hp()}";
             }
             else if (unitdata is DEFENSETOWERInfoData defenseTowerInfo)
             {
                 uihp.value.text = defenseTowerInfo.hp.ToString();
-                hp = Mathf.FloorToInt(defenseTowerInfo.hp * 0.1f);
+                //uihp.upgradeValue.text = $"+ {unitdata.get_upgrade_hp()}";
             }
 
             if (availableupgrade)
             {
-                uihp.SetUpgrade(hp);
+                uihp.SetUpgrade();
             }
             else
             {
@@ -286,46 +253,17 @@ public class Upgrade : MonoBehaviour
         if (uidamage != null)
         {
             uidamage.value.text = unitdata.damage.ToString();
+            //uidamage.upgradeValue.text = $"+ {unitdata.get_upgrade_damage()}";
 
-            damage = Mathf.FloorToInt(unitdata.damage * 0.1f);
             if (availableupgrade)
             {
-                uidamage.SetUpgrade(damage);
+                uidamage.SetUpgrade();
             }
             else
             {
                 uidamage.SetNotUpgrade();
             }
         }
-    }
-
-
-    private void Set_TowerDamageobj()
-    {
-        if (unitdata.type.Equals("마법"))
-        {
-            GameObject damagestat_obj = Instantiate(unitstatlist.towerDamageobj, unitstatlist.unitstats);
-            UI_UpgradeStat uidamage = damagestat_obj.GetComponent<UI_UpgradeStat>();
-
-            if (uidamage != null)
-            {
-                if (unitdata is MAGICInfoData magicInfo)
-                {
-                    uidamage.value.text = magicInfo.tower_Damage.ToString();
-                    tower_damage = Mathf.FloorToInt(magicInfo.tower_Damage * 0.1f);
-                }
-
-                if (availableupgrade)
-                {
-                    uidamage.SetUpgrade(tower_damage);
-                }
-                else
-                {
-                    uidamage.SetNotUpgrade();
-                }
-            }
-        }
-
     }
     private void Set_attacksppedobj()
     {
@@ -396,33 +334,20 @@ public class Upgrade : MonoBehaviour
     {
         if (unitdata.type.Equals("마법"))
         {
-            GameObject range_stat_obj = Instantiate(unitstatlist.radiusobj, unitstatlist.unitstats);
-            UI_UpgradeStat ui_radius = range_stat_obj.GetComponent<UI_UpgradeStat>();
-
-            if (ui_radius != null)
-            {
-                ui_radius.value.text = unitdata.range.ToString();
-            }
+            return;
         }
-        else
-        {
-            GameObject range_stat_obj = Instantiate(unitstatlist.rangeobj, unitstatlist.unitstats);
-            UI_UpgradeStat ui_range = range_stat_obj.GetComponent<UI_UpgradeStat>();
 
-            if (ui_range != null)
-            {
-                ui_range.value.text = unitdata.range.ToString();
-            }
+        GameObject range_stat_obj = Instantiate(unitstatlist.rangeobj, unitstatlist.unitstats);
+        UI_UpgradeStat ui_range = range_stat_obj.GetComponent<UI_UpgradeStat>();
+
+        if (ui_range != null)
+        {
+            ui_range.value.text = unitdata.range.ToString();
         }
     }
 
     private void Set_creationtimeobj()
     {
-        if (unitdata.type.Equals("마법"))
-        {
-            return;
-        }
-
         GameObject creationtime_stat_obj = Instantiate(unitstatlist.creationtimeobj, unitstatlist.unitstats);
         UI_UpgradeStat ui_creationtime = creationtime_stat_obj.GetComponent<UI_UpgradeStat>();
 

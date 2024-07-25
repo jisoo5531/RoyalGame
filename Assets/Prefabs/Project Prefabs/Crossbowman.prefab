@@ -668,7 +668,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5776229682569557242}
+  - component: {fileID: 6192541918964879554}
   - component: {fileID: 1839234281}
+  - component: {fileID: 1839234280}
   - component: {fileID: 6183281384754698291}
   m_Layer: 0
   m_Name: Crossbowman
@@ -694,6 +696,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6192541918964879554
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4791464028835521985}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
+  m_Controller: {fileID: 9100000, guid: e2f312f4d124641469e45a2492b92be4, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!136 &1839234281
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -708,6 +731,24 @@ CapsuleCollider:
   m_Height: 1.78
   m_Direction: 1
   m_Center: {x: 0, y: 0.86, z: 0}
+--- !u!114 &1839234280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4791464028835521985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b778833f937d9b4b932666fdd448b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 0
+  range: 0
+  targetCollider: {fileID: 0}
+  isAttack: 0
+  isMove: 0
 --- !u!54 &6183281384754698291
 Rigidbody:
   m_ObjectHideFlags: 0

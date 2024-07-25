@@ -29,9 +29,7 @@ public class Collection : MonoBehaviour
     public SettingUnit settingUnit;
     public Upgrade upgrade;
 
-    public int cardId;
-    private CharacterData characterInfo;
-    private bool isCanUpgrade = false;
+    private int cardId;
 
     private void Start()
     {
@@ -43,7 +41,7 @@ public class Collection : MonoBehaviour
     public void InitUI(CharacterData characterData)
     {
         this.cardId = characterData.cardId;
-        characterInfo = characterData;
+
         SettingUI(characterData.currentCardCount, characterData.maxCardCount, characterData.cost, characterData.name, characterData.level, cardCountFill, cardCountText, costText, nameText, levelText);
     }
 
@@ -55,18 +53,12 @@ public class Collection : MonoBehaviour
         nameText.text = name;
         levelText.text = $"레벨 {level}";
     }
-
-    public void CheckCardCount()
-    {
-        isCanUpgrade = CheckAvailableUpgrade(characterInfo.currentCardCount, characterInfo.maxCardCount, upArrow);
-    }
-
     /// <summary>
     /// 카드가 다 모여 업그레이드가 가능하면
     /// </summary>
-    public bool CheckAvailableUpgrade(int currentCardCount, int maxCardCount, Image upArrow, GameObject InfoButton = null, GameObject upgradeButton = null)
+    public bool CheckAvailableUpgrade(Image cardCountFill, Image upArrow, GameObject InfoButton = null, GameObject upgradeButton = null)
     {
-        if (currentCardCount >= maxCardCount)
+        if (cardCountFill.fillAmount >= 1f)
         {
             cardCountFill.ColorGreen();
             upArrow.ColorGreen();
@@ -94,18 +86,17 @@ public class Collection : MonoBehaviour
     }
     public void OnClickUpgradeButton()
     {
-        upgrade.collection = this;
-        if (cardId != 3 && cardId != 8)
+        if(cardId != 3 && cardId != 8)
         {
-            upgrade.Setinfo(settingUnit.GetUnitData(DatabaseManager.Instance.userId, cardId), isCanUpgrade);
+            upgrade.Setinfo(settingUnit.GetUnitData(DatabaseManager.Instance.userId, cardId));
         }
         else if(cardId == 3)
         {
-            upgrade.Setinfo(settingUnit.GetMagicData(DatabaseManager.Instance.userId, cardId), isCanUpgrade);
+            upgrade.Setinfo(settingUnit.GetMagicData(DatabaseManager.Instance.userId, cardId));
         }
         else if(cardId == 8)
         {
-            upgrade.Setinfo(settingUnit.GetTowerData(DatabaseManager.Instance.userId, cardId), isCanUpgrade);
+            upgrade.Setinfo(settingUnit.GetTowerData(DatabaseManager.Instance.userId, cardId));
         }
     }
 }

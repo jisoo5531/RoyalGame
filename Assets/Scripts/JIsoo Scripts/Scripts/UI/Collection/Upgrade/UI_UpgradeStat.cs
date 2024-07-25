@@ -17,13 +17,12 @@ public class UI_UpgradeStat : MonoBehaviour
         background = GetComponent<Image>();
     }
 
-    public void SetUpgrade(int amount)
+    public void SetUpgrade()
     {
         upgradePanel.SetActive(true);        
 
         background.ColorGreen();
-        upgradeValue.ColorGreen();
-        upgradeValue.text = $"+ {amount}";
+        upgradeValue.ColorGreen();        
     }    
     public void SetNotUpgrade()
     {

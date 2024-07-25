@@ -15,15 +15,10 @@ public class MovableUnit : Unit
     public double moveDelay;
     public bool isSpawn = false;
 
-    RangedUnit rangedUnit;
-    Damaging damaging;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
-        rangedUnit = GetComponent<RangedUnit>();
-        damaging = GetComponentInChildren<Damaging>();
 
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
@@ -54,15 +49,6 @@ public class MovableUnit : Unit
         {
             moveSpeed = unitInfo.moveSpeed;
             detectionRange = unitInfo.detectRange;
-        }
-        if(rangedUnit != null)
-        {
-            rangedUnit.damage = this.damage;
-        }
-
-        if(damaging != null)
-        {
-            damaging.damage = this.damage;
         }
 
         SendDamage(unit.damage);

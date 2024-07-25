@@ -1,4 +1,3 @@
-using Photon.Pun.Demo.Cockpit;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,10 +24,7 @@ public class FirstChestCondition : MonoBehaviour
     {
         if(SettingCardInfoManager.instance.IsNewbie())
         {
-            for(int i = 0; i<SettingCardInfoManager.instance.slots.Length; i++)
-            {
-                SettingCardInfoManager.instance.slots[i].SetActive(false);
-            }
+            box_Button.gameObject.GetComponent<Button>().interactable = true;
             boxImage.sprite = firstBoxSprite;
             boxImage.ImageTransparent(1f);
 
@@ -36,10 +32,7 @@ public class FirstChestCondition : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < SettingCardInfoManager.instance.slots.Length; i++)
-            {
-                SettingCardInfoManager.instance.slots[i].SetActive(true);
-            }
+            box_Button.gameObject.GetComponent<Button>().interactable = false;
             boxImage.sprite = null;
             boxImage.ImageTransparent(0f);
             box_Button.sprite = grayButton;

@@ -14,8 +14,6 @@ public class AllCardData
     public Sprite img;
     public string type;
     public string desc;
-    public int currentCardCount;
-    public int maxCardCount;
     public GameObject prefab;
 }
 

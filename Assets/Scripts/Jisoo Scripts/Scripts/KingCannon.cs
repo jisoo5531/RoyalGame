@@ -22,8 +22,6 @@ public class KingCannon : MonoBehaviour
         target = followUnit.target;
         rangedUnit.target = target;
 
-        Debug.Log(target == null);
-
         if (target != null)
         {
             Vector3 dir = (target.position - transform.position).normalized;

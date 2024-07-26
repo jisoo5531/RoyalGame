@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class IsMineManager : MonoBehaviourPunCallbacks
 {
     public static IsMineManager instance;
     public GameObject[] tower;
+    private bool isCrate = false;
+    private GameObject[] towers;
 
     private void Awake()
     {
@@ -15,20 +18,29 @@ public class IsMineManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
+        towers = new GameObject[GameManager.instance.enemyTowers.Length];
         if (photonView.IsMine)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-                tower = GameManager.instance.myTowers.ToArray();
-                SettingAlly();
-                DetectEnemyManager.instance.towerList = GameManager.instance.enemyTowers.ToList();
+                for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
+                {
+                    string name = GameManager.instance.enemyTowers[i].name;
+                    GameObject tower = PhotonNetwork.Instantiate(name, GameManager.instance.myTowersTranform[i].position, Quaternion.identity);
+                    GameManager.instance.currentAllyTowers[i] = tower;
+                }
+
             }
             else
             {
-                tower = GameManager.instance.enemyTowers.ToArray();
-                SettingEnemy();
-                DetectEnemyManager.instance.towerList = GameManager.instance.myTowers.ToList();
+                for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
+                {
+                    string name = GameManager.instance.enemyTowers[i].name;
+                    GameObject tower = PhotonNetwork.Instantiate(name, GameManager.instance.enemyTowersTranform[i].position, Quaternion.Euler(0, 180, 0));
+                    GameManager.instance.currentAllyTowers[i] = tower;
+                }
             }
+
             GameManager.instance.grid.CreateGrid();
             GameObject[] slots = GameObject.FindGameObjectsWithTag("Spawn");
             for (int i = 0; i < slots.Length; i++)
@@ -39,29 +51,79 @@ public class IsMineManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void Update()
+    {
+        if (!isCrate && tower.Length < 3)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                tower = GameManager.instance.currentAllyTowers.ToArray();
+                SettingAlly();
+                DetectEnemyManager.instance.towerList = GameManager.instance.currentEnemyTowers.ToList();
+            }
+            else
+            {
+                tower = GameManager.instance.currentEnemyTowers.ToArray();
+                SettingEnemy();
+                DetectEnemyManager.instance.towerList = GameManager.instance.currentAllyTowers.ToList();
+            }
+            int targetLayer = LayerMask.NameToLayer("target");
+            GameObject[] targets = FindObjectsInLayer(targetLayer);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameManager.instance.currentEnemyTowers = targets;
+            }
+            else
+            {
+                GameManager.instance.currentAllyTowers = targets;
+            }
+            isCrate = true;
+        }
+    }
+
+    private GameObject[] FindObjectsInLayer(int layer)
+    {
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>(true);
+        var filteredObjects = new List<GameObject>();
+
+        foreach (var obj in allObjects)
+        {
+            if (obj.layer == layer)
+            {
+                filteredObjects.Add(obj);
+            }
+        }
+
+        return filteredObjects.ToArray();
+    }
+
     private void SettingAlly()
     {
         for (int i = 0; i < tower.Length; i++)
         {
             tower[i].layer = 6;
 
-            foreach (Transform child in tower[i].transform)
+            foreach (Transform towerChild in tower[i].transform)
             {
-                child.gameObject.layer = 6;
+                towerChild.gameObject.layer = 6;
             }
         }
 
-        for (int i = 0; i < GameManager.instance.allyTowerMaterial.Length; i++)
+        for (int i = 0; i < tower.Length; i++)
         {
-            GameManager.instance.allyTowerMaterial[i].material = GameManager.instance.allyMaterial[0];
+            tower[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
         }
 
-        for (int i = 0; i < GameManager.instance.allyUnitMaterial.Length; i++)
+        Transform child = tower[0].transform;
+
+        foreach (Transform mat in child.transform)
         {
-            GameManager.instance.allyUnitMaterial[i].material = GameManager.instance.allyMaterial[1];
+            if (mat.TryGetComponent<Renderer>(out Renderer renderer))
+            {
+                renderer.material = GameManager.instance.allyMaterial[1];
+            }
         }
     }
-
 
     private void SettingEnemy()
     {
@@ -69,20 +131,25 @@ public class IsMineManager : MonoBehaviourPunCallbacks
         {
             tower[i].layer = 6;
 
-            foreach (Transform child in tower[i].transform)
+            foreach (Transform towerChild in tower[i].transform)
             {
-                child.gameObject.layer = 6;
+                towerChild.gameObject.layer = 6;
             }
         }
 
-        for (int i = 0; i < GameManager.instance.enemyTowerMaterial.Length; i++)
+        for (int i = 0; i < tower.Length; i++)
         {
-            GameManager.instance.enemyTowerMaterial[i].material = GameManager.instance.allyMaterial[0];
+            tower[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
         }
 
-        for (int i = 0; i < GameManager.instance.enemyUnitMaterial.Length; i++)
+        Transform child = tower[0].transform;
+
+        foreach (Transform mat in child.transform)
         {
-            GameManager.instance.enemyUnitMaterial[i].material = GameManager.instance.allyMaterial[1];
+            if (mat.TryGetComponent<Renderer>(out Renderer renderer))
+            {
+                renderer.material = GameManager.instance.allyMaterial[1];
+            }
         }
     }
 

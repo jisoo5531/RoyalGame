@@ -6,7 +6,7 @@ public class CrossbowTower : Tower
 {
     private void Start()
     {
-        maxHP = 1000;
+        maxHP = 500;
         HP = maxHP;
 
         onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;

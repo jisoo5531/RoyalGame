@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class AllyImagePrefab
 }
 
 
-public class UnitCanvasInfo : MonoBehaviour, IDamagable
+public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 {
     public EnemyImagePrefab EnemyPrefab;
     public AllyImagePrefab allyPrefab;
@@ -63,14 +64,8 @@ public class UnitCanvasInfo : MonoBehaviour, IDamagable
     {
         Debug.Log(HP+",  "+damage);
 
-        HP -= damage;
-        if (HP <= 0)
-        {
-            GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
-            effect.transform.localScale = transform.localScale;
-            Destroy(gameObject);
-        }
-        
+        photonView.RPC("CheckHp", RpcTarget.All, damage);
+
         if (isHPBarOn)
         {
             return;
@@ -80,6 +75,19 @@ public class UnitCanvasInfo : MonoBehaviour, IDamagable
             OnHPBar();
         }
     }
+
+    [PunRPC]
+    private void CheckHp(int damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+        {
+            GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+            effect.transform.localScale = transform.localScale;
+            Destroy(gameObject);
+        }
+    }
+
     // ¸ÂÀ¸¸é HPBar On
     private void OnHPBar()
     {

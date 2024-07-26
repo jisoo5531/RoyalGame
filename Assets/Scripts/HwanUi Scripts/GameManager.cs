@@ -1,9 +1,11 @@
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Utilities.IO.Pem;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -27,8 +29,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     public TMP_Text[] playerNames;
     public TMP_Text[] playerTrophy;
 
-    public GameObject[] myTowers;
     public GameObject[] enemyTowers;
+
+    public GameObject[] currentAllyTowers = new GameObject[3];
+    public GameObject[] currentEnemyTowers = new GameObject[3];
+
+    public Transform[] myTowersTranform;
+    public Transform[] enemyTowersTranform;
 
     public Transform[] myTowersHp;
     public Transform[] enemyTowersHp;
@@ -42,11 +49,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Sprite[] hpSprite;
 
     public Material[] allyMaterial;
-    public MeshRenderer[] allyTowerMaterial;
-    public Renderer[] allyUnitMaterial;
-
-    public MeshRenderer[] enemyTowerMaterial;
-    public Renderer[] enemyUnitMaterial;
 
     public GridController grid;
 
@@ -76,15 +78,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerNames[i].text = player.NickName;
         }
     }
-
     private void Start()
     {
         try
         {
             if (PhotonNetwork.IsConnected)
             {
-                GameObject isMine = PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
-                isMineManager = isMine.GetComponent<IsMineManager>();
+                GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
+                isMineManager = mineManager.GetComponent<IsMineManager>();
             }
         }
         catch (Exception ex)

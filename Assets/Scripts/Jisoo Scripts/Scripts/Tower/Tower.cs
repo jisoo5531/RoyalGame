@@ -1,18 +1,27 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour, IDamagable
+public class Tower : MonoBehaviourPunCallbacks, IDamagable
 {
     public int HP { get; set; }
     public int maxHP { get; set; }    
 
     public GameObject onTopUnit;
+
     public virtual void GetDamage(int damage)
     {
         onTopUnit.GetComponent<UnitCanvasInfo>().GetDamage(damage);
 
         Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
+
+        photonView.RPC("RPC_Death", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    private void RPC_Death(int damage)
+    {
         HP -= damage;
 
         // À¯´ÖÀÌ Á×À» ¶§

@@ -127,7 +127,6 @@ public class StartManager : MonoBehaviour
                 break;
             }
         }
-     
     }       
     /// <summary>
     /// Collection ÅÇ À¯´Ö Á¦°Å

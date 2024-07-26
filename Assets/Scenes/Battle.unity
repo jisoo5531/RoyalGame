@@ -4201,7 +4201,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303302735}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &307384878
+=======
+--- !u!1 &309635473
+>>>>>>> Stashed changes
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4209,22 +4213,34 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< Updated upstream
   - component: {fileID: 307384879}
   - component: {fileID: 307384881}
   - component: {fileID: 307384880}
   m_Layer: 5
   m_Name: Image
+=======
+  - component: {fileID: 309635474}
+  m_Layer: 0
+  m_Name: AllyCro2
+>>>>>>> Stashed changes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< Updated upstream
 --- !u!224 &307384879
 RectTransform:
+=======
+--- !u!4 &309635474
+Transform:
+>>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 307384878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -4277,6 +4293,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307384878}
   m_CullTransparentMesh: 1
+=======
+  m_GameObject: {fileID: 309635473}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.130844, y: -3.1381698, z: 25.061405}
+  m_LocalScale: {x: 1.099491, y: 1.099491, z: 1.3451414}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 817662104}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> Stashed changes
 --- !u!1 &310159876 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1917308456298122, guid: a58630313e0f32e4f9b876dbc6d37657, type: 3}
@@ -5058,7 +5085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &375481635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5077,7 +5104,7 @@ RectTransform:
   - {fileID: 580536399}
   - {fileID: 730173913}
   m_Father: {fileID: 1577487592}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -17952,7 +17979,6 @@ RectTransform:
   m_Children:
   - {fileID: 160887456}
   - {fileID: 388970970}
-  - {fileID: 307384879}
   - {fileID: 1576867157}
   - {fileID: 375481635}
   m_Father: {fileID: 0}

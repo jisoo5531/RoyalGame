@@ -39,6 +39,55 @@ public class IsMineManager : MonoBehaviourPunCallbacks
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    private void Update()
+    {
+        if (!isCrate && tower.Length < 3)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                tower = GameManager.instance.currentAllyTowers.ToArray();
+                SettingAlly();
+                DetectEnemyManager.instance.towerList = GameManager.instance.currentEnemyTowers.ToList();
+            }
+            else
+            {
+                tower = GameManager.instance.currentEnemyTowers.ToArray();
+                SettingEnemy();
+                DetectEnemyManager.instance.towerList = GameManager.instance.currentAllyTowers.ToList();
+            }
+            int targetLayer = LayerMask.NameToLayer("EnemyTower");
+            GameObject[] targets = FindObjectsInLayer(targetLayer);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                GameManager.instance.currentEnemyTowers = targets;
+            }
+            else
+            {
+                GameManager.instance.currentAllyTowers = targets;
+            }
+            isCrate = true;
+        }
+    }
+
+    private GameObject[] FindObjectsInLayer(int layer)
+    {
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("EnemyTower");
+        var filteredObjects = new List<GameObject>();
+
+        foreach (var obj in allObjects)
+        {
+            if (obj.layer == layer)
+            {
+                filteredObjects.Add(obj);
+            }
+        }
+
+        return filteredObjects.ToArray();
+    }
+
+>>>>>>> Stashed changes
     private void SettingAlly()
     {
         for (int i = 0; i < tower.Length; i++)

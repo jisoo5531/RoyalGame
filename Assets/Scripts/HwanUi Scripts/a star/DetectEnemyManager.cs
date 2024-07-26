@@ -35,12 +35,15 @@ public class DetectEnemyManager : MonoBehaviour
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    float distance = Vector3.Distance(enemyList[i].transform.position, currentTransform.position);
-
-                    if (minDistance > distance)
+                    if (enemyList[i] != null)
                     {
-                        minDistance = distance;
-                        objIndex = i;
+                        float distance = Vector3.Distance(enemyList[i].transform.position, currentTransform.position);
+
+                        if (minDistance > distance)
+                        {
+                            minDistance = distance;
+                            objIndex = i;
+                        }
                     }
                 }
                 return objIndex;
@@ -105,12 +108,12 @@ public class DetectEnemyManager : MonoBehaviour
 
             if (enemyTarget != null && enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
             {
-                print(enemyTarget);
                 targetFollowUnit.target = enemyTarget;
                 targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
                 if (isMove)
                 {
+                    Debug.Log("¿Ãµø§©§æ§©§æ§©§æ");
                     PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
                     targetFollowUnit.isMove = true;
                 }

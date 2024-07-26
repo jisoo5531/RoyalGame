@@ -40,13 +40,11 @@ public class StateMachine<T>
             currrentState.OperateEnter(m_Sender, speed);
         }
 
-        Debug.Log("SetNextState : " + state);
     }
     public void DoOperateUpdate()
     {
         if (m_Sender == null)
         {
-            Debug.LogError("Invalid m_Sender");
             return;
         }
         currrentState.OperateUpdate(m_Sender);

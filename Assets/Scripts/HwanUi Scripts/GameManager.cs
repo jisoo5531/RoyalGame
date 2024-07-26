@@ -49,12 +49,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Renderer[] enemyUnitMaterial;
 
     public GridController grid;
-
-    public IsMineManager isMineManager;
     #endregion
     private void Awake()
     {
         instance = this;
+        print("asdf");
         if (!PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
@@ -81,10 +80,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         try
         {
+            print("xxx");
             if (PhotonNetwork.IsConnected)
             {
-                GameObject isMine = PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
-                isMineManager = isMine.GetComponent<IsMineManager>();
+                PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
             }
         }
         catch (Exception ex)

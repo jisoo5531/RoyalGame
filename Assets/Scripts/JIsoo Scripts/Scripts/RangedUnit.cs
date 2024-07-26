@@ -20,8 +20,8 @@ public class RangedUnit : MonoBehaviourPunCallbacks
     {
         //string pfbName = projectilePrefab.name;
         //GameObject projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.identity);
-        //Debug.Log(projectile == null);
-        //Projectile projectileComponent = projectile.AddComponent<Projectile>();
+
+        //Projectile projectileComponent = projectile.AddComponent<Projectile>();        
         //projectileComponent.targetPos = target.position;
 
         //Damaging damagingComponent = projectile.AddComponent<Damaging>();

@@ -62,6 +62,7 @@ public class IsMineManager : MonoBehaviourPunCallbacks
         }
     }
 
+    //public void 
 
     private void SettingEnemy()
     {
@@ -102,40 +103,4 @@ public class IsMineManager : MonoBehaviourPunCallbacks
             DetectEnemyManager.instance.enemyList.Add(character);
         }
     }
-
-
-    public void RemoveUnit(int id)
-    {
-        photonView.RPC("OnCharacterRemove", RpcTarget.Others, id);
-    }
-
-    [PunRPC]
-    public void OnCharacterRemove(int viewID)
-    {
-        PhotonView characterView = PhotonView.Find(viewID);
-        if (characterView != null)
-        {
-            GameObject character = characterView.gameObject;
-            DetectEnemyManager.instance.enemyList.Remove(character);
-        }
-    }
-
-    //public void DestroyUnit(int id)
-    //{
-    //    PhotonView characterView = PhotonView.Find(id);
-    //    if (characterView != null)
-    //    {
-    //        GameObject character = characterView.gameObject;
-    //        DetectEnemyManager.instance.enemyList.Remove(character);
-    //    }
-    //}
-
-
-    //[PunRPC]
-    //private void UnitDestroy(Vector3 trans)
-    //{
-    //    effect.transform.localScale = trans;
-    //    Destroy(effect, 1f);
-    //    Destroy(gameObject);
-    //}
 }

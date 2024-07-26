@@ -35,7 +35,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     {
         if (pathSuccessful)
         {
-            Debug.Log("asdf");
             for (int i = 0; i < newPath.Length; i++)
             {
                 newPath[i].y = transform.position.y;
@@ -53,7 +52,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
         while (true)
         {
-            Debug.Log("ttt");
             if (Vector3.Distance(transform.position, currentWaypoint) < 1.5)
             {
                 targetIndex++;
@@ -66,7 +64,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
             if (isAttack)
             {
-                Debug.Log("gggg");
                 yield break;
             }
 
@@ -83,7 +80,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
             }
-            Debug.Log("www");
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }

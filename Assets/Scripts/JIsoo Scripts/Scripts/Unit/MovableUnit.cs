@@ -17,7 +17,6 @@ public class MovableUnit : Unit
 
     RangedUnit rangedUnit;
     Damaging damaging;
-    UnitCanvasInfo canvasInfo;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class MovableUnit : Unit
         targetFollowUnit = GetComponent<TargetFollowUnit>();
         rangedUnit = GetComponent<RangedUnit>();
         damaging = GetComponentInChildren<Damaging>();
-        canvasInfo = GetComponent<UnitCanvasInfo>();
 
         InitializeUnitData(UnitSpawner.instance.selectedUnit);
 
@@ -66,10 +64,7 @@ public class MovableUnit : Unit
         {
             damaging.damage = this.damage;
         }
-        canvasInfo.maxHP = this.HP;
-        canvasInfo.HP = this.HP;
-        Debug.Log("hp:  " + HP);
-        //canvasInfo.HP = canvasInfo.maxHP;
+
         SendDamage(unit.damage);
     }
 
@@ -96,21 +91,9 @@ public class MovableUnit : Unit
             }
             else
             {
-                if (targetFollowUnit.target != null)
-                {
-                    Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-                }
-                else
-                {
-                    DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
-
-                    if (isMove)
-                    {
-                        StateTransition(targetFollowUnit.target);
-                    }
-                }
+                Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
             }
         }
     }   

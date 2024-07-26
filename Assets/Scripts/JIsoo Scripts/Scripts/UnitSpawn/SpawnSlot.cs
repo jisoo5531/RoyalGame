@@ -84,6 +84,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             // TODO : 유닛 유형(유닛, 방어타워) 등에 맞게 수정
 
             GameObject unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
+            unit.UnitTransparent(1f);
             unit.UnitClassification(unitData);
 
             unit.layer = 11;
@@ -116,6 +117,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
             UnitSpawner.instance.selectedUnit = null;
 
+            Debug.Log($"생성 위치 {spawnPoint}");
             
         }
 

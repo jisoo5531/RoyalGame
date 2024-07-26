@@ -9,6 +9,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 
     public int unit_ID;
     [HideInInspector] public Animator anim;
+    GameObject effect;
 
     #region 변수
 
@@ -89,11 +90,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 
     public void Attack()
     {
-        if(range < 14)
-        {
-
-        }
-        else if(range >= 14)
+        if(range >= 14)
         {
             GetComponent<RangedUnit>().Attack();
         }
@@ -111,12 +108,18 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
         GetComponentInChildren<Damaging>().damage = damage;
     }
 
+    [PunRPC]
+    private void RPC_damage(int damage)
+    {
+        this.HP -= damage;
+    }
+
     public void GetDamage(int damage)
     {
+        print(damage+",  "+HP);
         Debug.Log($"{gameObject.name} 맞았다");
-        HP -= damage;
-
-
+        Debug.Log("hp: " + damage + ",  " + HP);
+        photonView.RPC("RPC_damage", RpcTarget.All, damage);
         // 유닛이 죽을 때
         if (HP <= 0)
         {
@@ -125,9 +128,21 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     }
     private void Death()
     {
-        GameObject effect = Instantiate(EffectManager.instance.deathEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        string effectStr = EffectManager.instance.deathEffect.name;
+        effect = PhotonNetwork.Instantiate(effectStr, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
         effect.transform.localScale = transform.localScale;
+        //photonView.RPC("UnitDestroy", RpcTarget.All, transform.localScale);
         Destroy(effect, 1f);
         Destroy(gameObject);
+        IsMineManager isMIne = GameManager.instance.isMineManager;
+        isMIne.RemoveUnit(GetComponent<PhotonView>().ViewID);
     }
+
+    //[PunRPC]
+    //private void UnitDestroy(Vector3 trans)
+    //{
+    //    effect.transform.localScale = trans;
+    //    Destroy(effect, 1f);
+    //    Destroy(gameObject);
+    //}
 }

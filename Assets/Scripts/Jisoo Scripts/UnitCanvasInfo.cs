@@ -34,13 +34,8 @@ public class UnitCanvasInfo : MonoBehaviour, IDamagable
     public Image levelBackground;
     public Image hpBarFill;
 
-    private bool isHPBarOn = false;    
+    private bool isHPBarOn = false;
 
-    private void Awake()
-    {
-        maxHP = 10000;
-        HP = maxHP;                        
-    }
     private void Start()
     {
         // Ally
@@ -65,7 +60,9 @@ public class UnitCanvasInfo : MonoBehaviour, IDamagable
 
     
     public void GetDamage(int damage)
-    {        
+    {
+        Debug.Log(HP+",  "+damage);
+
         HP -= damage;
         if (HP <= 0)
         {

@@ -15,11 +15,11 @@ public class PrincessTowerUnit : MonoBehaviour
 
     private void Update()
     {
-        attackTime -= Time.deltaTime;
-        if (attackTime <= 0f)
-        {
-            ranged.Attack();
-            attackTime = 1f;
-        }
+        //attackTime -= Time.deltaTime;
+        //if (attackTime <= 0f)
+        //{
+        //    ranged.Attack();
+        //    attackTime = 1f;
+        //}
     }
 }

@@ -27,7 +27,7 @@ public class KingTower : Tower
             if (tower == null)
             {
                 isOnCannon = true;
-                AppearCannon();
+                //AppearCannon();
             }
         }
     }

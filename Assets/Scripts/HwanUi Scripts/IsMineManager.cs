@@ -12,7 +12,8 @@ public class IsMineManager : MonoBehaviourPunCallbacks
 {
     public static IsMineManager instance;
     private bool isCrate = false;
-    private GameObject[] towers;
+    public GameObject[] towers;
+    public GameObject[] sadf;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class IsMineManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        towers = new GameObject[GameManager.instance.enemyTowers.Length];
+        towers = new GameObject[3];
 
         if (PhotonNetwork.IsConnected && photonView.IsMine)
         {
@@ -45,7 +46,7 @@ public class IsMineManager : MonoBehaviourPunCallbacks
             for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
             {
                 string name = GameManager.instance.enemyTowers[i].name;
-                GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
+                GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.Euler(0, 180, 0));
                 towers[i] = tower;
             }
         }
@@ -59,37 +60,26 @@ public class IsMineManager : MonoBehaviourPunCallbacks
                 towers[i] = tower;
             }
         }
+        photonView.RPC("AddEnemyTower", RpcTarget.Others);
     }
 
     private void Update()
     {
         if (photonView.IsMine && !isCrate && towers.Length > 2)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                GameManager.instance.currentAllyTowers = towers;
-                SettingAlly();
-                DetectEnemyManager.instance.towerList = AddEnemtyTower(GameManager.instance.currentEnemyTowers).ToList();
-            }
-            else
-            {
-                GameManager.instance.currentEnemyTowers = towers;
-                SettingAlly();
-                DetectEnemyManager.instance.towerList = AddEnemtyTower(GameManager.instance.currentAllyTowers).ToList();
-            }
-
+            GameManager.instance.currentAllyTowers = towers;
+            SettingAlly();
             isCrate = true;
         }
     }
 
-    private GameObject[] AddEnemtyTower(GameObject[] towers)
+    [PunRPC]
+    private void AddEnemyTower()
     {
-        GameObject[] enemyTowers = GameObject.FindGameObjectsWithTag("EnemyTower");
-
-        towers = enemyTowers;
-
-        return towers;
+        GameManager.instance.currentEnemyTowers = GameObject.FindGameObjectsWithTag("EnemyTower");
+        DetectEnemyManager.instance.towerList = GameManager.instance.currentEnemyTowers.ToList();
     }
+
 
     private void SettingAlly()
     {
@@ -107,15 +97,12 @@ public class IsMineManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < towers.Length; i++)
         {
             towers[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
-        }
 
-        Transform child = towers[0].transform;
+            Renderer[] child = towers[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
 
-        foreach (Transform mat in child.transform)
-        {
-            if (mat.TryGetComponent(out Renderer renderer))
+            foreach (Renderer mat in child)
             {
-                renderer.material = GameManager.instance.allyMaterial[1];
+                mat.material = GameManager.instance.allyMaterial[1];
             }
         }
     }

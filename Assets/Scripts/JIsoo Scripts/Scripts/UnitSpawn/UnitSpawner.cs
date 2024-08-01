@@ -40,11 +40,10 @@ public class UnitSpawner : MonoBehaviour
                     if (hit.collider.CompareTag("Map"))
                     {
                         Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
-                        //SpawnUnit(hit.point);
 
                         spawnComplete = true;
-                        selectedUnit = null;    // Reset selected unit after spawning
-                        isElixirEnough = false; // Reset "
+                        selectedUnit = null;
+                        isElixirEnough = false;
                     }
                 }
             }

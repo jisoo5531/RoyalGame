@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public TMP_Text[] playerTrophy;
 
     public GameObject[] enemyTowers;
-    public GameObject[] allyTowers;
 
     public GameObject[] currentAllyTowers = new GameObject[3];
     public GameObject[] currentEnemyTowers = new GameObject[3];

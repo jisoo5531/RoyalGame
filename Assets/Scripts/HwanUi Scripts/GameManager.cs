@@ -105,55 +105,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if(IsFirstPlayer())
         {
-            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager1", Vector3.one, Quaternion.identity);
+            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
             isMineManager = mineManager.GetComponent<IsMineManager>();
         }
         else
         {
-            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager2", Vector3.one, Quaternion.identity);
+            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
             isMineManager = mineManager.GetComponent<IsMineManager>();
         }
 
     }
-
-    [PunRPC]
-    private void CreateMineManager()
-    {
-        GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
-        isMineManager = mineManager.GetComponent<IsMineManager>();
-    }
-
-    //private void Start()
-    //{
-    //    try
-    //    {
-    //        if (PhotonNetwork.IsConnected)
-    //        {
-    //            if (PhotonNetwork.IsMasterClient)
-    //            {
-    //                CreateMineManager();
-    //                // 다른 클라이언트에게 객체 생성 요청
-    //                photonView.RPC("RPC_CreateMineManager", RpcTarget.Others);
-    //            }
-    //        }
-    //    }
-    //    catch (System.Exception ex)
-    //    {
-    //        Debug.LogError(ex.Message);
-    //    }
-    //}
-
-    //[PunRPC]
-    //void RPC_CreateMineManager()
-    //{
-    //    CreateMineManager();
-    //}
-
-    //private void CreateMineManager()
-    //{
-    //    GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
-    //    isMineManager = mineManager.GetComponent<IsMineManager>();
-    //}
 
     private bool IsFirstPlayer()
     {

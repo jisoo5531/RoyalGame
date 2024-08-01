@@ -129,6 +129,7 @@ public class Upgrade : MonoBehaviour
         unitlist.unitimage.sprite = unitdata.img;
         unitlist.costtext.text = unitdata.cost.ToString();
     }
+    #endregion
 
     #region cardcount
 
@@ -142,11 +143,9 @@ public class Upgrade : MonoBehaviour
         upgradeCost = cost;
         unitlist.upgradeCost.text = $"업그레이드\n{cost}";
 
-        //unitlist.upgradeBtn.interactable = StartManager.m_Instance.gold >= cost;
+        unitlist.upgradeBtn.interactable = StartManager.m_Instance.gold >= cost;
     }
-
-    #endregion
-
+        
     #endregion
 
     #region grade / type

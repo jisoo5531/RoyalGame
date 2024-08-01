@@ -10,36 +10,37 @@ using UnityEngine.UI;
 public class StartManager : MonoBehaviour
 {
     private static StartManager instance;
-    public static StartManager m_Instance { get { return instance; } }        
-    
+    public static StartManager m_Instance { get { return instance; } }
+
     [SerializeField] private GameObject[] displaySelectedUnit_UI;
     /// <summary>
     /// 배틀덱의 8개의 선택한 유닛들
     /// </summary>
     [HideInInspector] public GameObject[] m_displaySelectedUnit_UI { get { return displaySelectedUnit_UI; } }
-    
+
     [SerializeField] private CharacterData[] unitDatas;
     /// <summary>
     /// 유닛 데이터
     /// </summary>
     [HideInInspector] public CharacterData[] m_unitDatas { get { return unitDatas; } }
 
-    [SerializeField] private List<CharacterData> selectedUnits; 
+    [SerializeField] private List<CharacterData> selectedUnits;
     /// <summary>
     /// 인스펙터 창으로 테스트하기 위해 보여지는 선택 유닛들
     /// </summary>
     [HideInInspector] public List<CharacterData> m_selectedUnits { get { return selectedUnits; } }
-        
+
     public Image[] collectionsImage;
     public List<int> battleCardList = new List<int>();
     public List<int> battleCardCostList = new List<int>();
     public TMP_Text costAvg;
+    public Button orderByBtn;
     private float avg = 0f;
 
     public int gold = 0;
     public int jewel = 0;
-    
-    
+
+
     private int currentDisplayIndex = 0;
 
     private void Awake()
@@ -47,7 +48,7 @@ public class StartManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);            
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -58,7 +59,7 @@ public class StartManager : MonoBehaviour
         {
             selectedUnits.Add(null);
         }
-        
+
     }
 
     public void InitList()
@@ -84,7 +85,7 @@ public class StartManager : MonoBehaviour
             if (collectionsImage[i].sprite != null)
             {
                 collectionsImage[i].ImageTransparent(1f);
-            }            
+            }
         }
     }
 
@@ -104,7 +105,7 @@ public class StartManager : MonoBehaviour
                 selectedUnits[currentDisplayIndex] = SettingCardInfoManager.instance.charData[index];
                 battleCardList.Add(SettingCardInfoManager.instance.charData[index].cardId);
                 battleCardCostList.Add(SettingCardInfoManager.instance.charData[index].cost);
-                for (int j = 0; j< battleCardCostList.Count; j++)
+                for (int j = 0; j < battleCardCostList.Count; j++)
                 {
                     avg += battleCardCostList[j];
                 }
@@ -127,7 +128,15 @@ public class StartManager : MonoBehaviour
                 break;
             }
         }
-    }       
+        if (battleCardCostList.Count > 0)
+        {
+            orderByBtn.interactable = false;
+        }
+        else
+        {
+            orderByBtn.interactable = true;
+        }
+    }
     /// <summary>
     /// Collection 탭 유닛 제거
     /// </summary>
@@ -161,11 +170,13 @@ public class StartManager : MonoBehaviour
                     {
                         costAvg.text = avg.ToString() + ".0";
                     }
+                    orderByBtn.interactable = false;
                 }
                 else
                 {
                     avg = 0f;
                     costAvg.text = avg.ToString() + ".0";
+                    orderByBtn.interactable = true;
                 }
 
 
@@ -173,8 +184,8 @@ public class StartManager : MonoBehaviour
                 unitImage.sprite = null;
                 unitImage.ImageTransparent(0f);
                 break;
-            }   
-        }           
+            }
+        }
 
     }
 

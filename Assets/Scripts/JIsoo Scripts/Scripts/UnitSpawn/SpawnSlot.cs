@@ -112,7 +112,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                     mu.isSpawn = true;
                 }
             }
-            IsMineManager.instance.AddUnit(unit.GetComponent<PhotonView>().ViewID);
+            //IsMineManager.instance.AddUnit(unit.GetComponent<PhotonView>().ViewID);
 
             UnitSpawner.instance.selectedUnit = null;
 

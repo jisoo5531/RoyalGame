@@ -60,6 +60,12 @@ public class Collection : MonoBehaviour
             cardCountFill.ColorSky();
             upArrow.ColorSky();
         }
+        else
+        {
+            cardCountFill.ColorGreen();
+            upArrow.ColorGreen();
+        }
+        CheckCardCount();
     }
 
     public void CheckCardCount()

@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SubsystemsImplementation;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public TMP_Text[] playerTrophy;
 
     public GameObject[] enemyTowers;
+    public GameObject[] allyTowers;
 
     public GameObject[] currentAllyTowers = new GameObject[3];
     public GameObject[] currentEnemyTowers = new GameObject[3];
@@ -53,16 +55,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GridController grid;
 
     public IsMineManager isMineManager;
+    public IsMineManager isMineManagerPrefab;
+
     #endregion
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         if (!PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
             Instantiate(lightPrefab, firstLight.position, firstLight.rotation);
         }
-        else
+        else if (PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, secondCamera.position, secondCamera.rotation);
             Instantiate(lightPrefab, secondLight.position, secondLight.rotation);
@@ -84,8 +92,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.IsConnected)
             {
-                GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
-                isMineManager = mineManager.GetComponent<IsMineManager>();
+                CreateManager();
             }
         }
         catch (Exception ex)
@@ -94,15 +101,71 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public bool PositionCheck()
+    private void CreateManager()
     {
-        int localNum = PhotonNetwork.LocalPlayer.ActorNumber;
+        if(IsFirstPlayer())
+        {
+            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager1", Vector3.one, Quaternion.identity);
+            isMineManager = mineManager.GetComponent<IsMineManager>();
+        }
+        else
+        {
+            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager2", Vector3.one, Quaternion.identity);
+            isMineManager = mineManager.GetComponent<IsMineManager>();
+        }
 
-        if (localNum % 2 == 0)
-            return true;
+    }
 
+    [PunRPC]
+    private void CreateMineManager()
+    {
+        GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
+        isMineManager = mineManager.GetComponent<IsMineManager>();
+    }
 
-        return false;
+    //private void Start()
+    //{
+    //    try
+    //    {
+    //        if (PhotonNetwork.IsConnected)
+    //        {
+    //            if (PhotonNetwork.IsMasterClient)
+    //            {
+    //                CreateMineManager();
+    //                // 다른 클라이언트에게 객체 생성 요청
+    //                photonView.RPC("RPC_CreateMineManager", RpcTarget.Others);
+    //            }
+    //        }
+    //    }
+    //    catch (System.Exception ex)
+    //    {
+    //        Debug.LogError(ex.Message);
+    //    }
+    //}
+
+    //[PunRPC]
+    //void RPC_CreateMineManager()
+    //{
+    //    CreateMineManager();
+    //}
+
+    //private void CreateMineManager()
+    //{
+    //    GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
+    //    isMineManager = mineManager.GetComponent<IsMineManager>();
+    //}
+
+    private bool IsFirstPlayer()
+    {
+        int num = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        return num % 2 == 0;
+    }
+
+    [PunRPC]
+    void RPC_ManagerInstantiate()
+    {
+        PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
     }
 
     private int SelectTrophy(string name)

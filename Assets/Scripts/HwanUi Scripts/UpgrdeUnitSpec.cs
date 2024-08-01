@@ -71,6 +71,7 @@ public class UpgrdeUnitSpec : MonoBehaviour
     public void UpgradeClick()
     {
         int upgradeCost = upgrade.upgradeCost;
+
         UpdateUnitData(upgrade.damage, upgrade.tower_damage, upgrade.hp, upgradeCost);
     }
 

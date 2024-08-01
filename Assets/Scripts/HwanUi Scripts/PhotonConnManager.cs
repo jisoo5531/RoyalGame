@@ -13,6 +13,8 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     public string userName = string.Empty;
 
+    private readonly string gameVersion = "1";
+
     private void Awake()
     {
         instance = this;
@@ -20,6 +22,7 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     public void Connection()
     {
+        PhotonNetwork.GameVersion = gameVersion;
         PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "kr";
         PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = "75d8d2d9-2e37-43cc-895d-c607d2fe84e1";
         PhotonNetwork.ConnectUsingSettings();

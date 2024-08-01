@@ -14,7 +14,6 @@ public class OpenCard : MonoBehaviour
 
     public void Chanege()
     {
-        Debug.Log("Â¥ÀÜ");
-            GameObject.Find("Box").transform.Find("Card_Open").gameObject.SetActive(true);
+        GameObject.Find("Box").transform.Find("Card_Open").gameObject.SetActive(true);
     }
 }

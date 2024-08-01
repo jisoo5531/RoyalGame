@@ -6,13 +6,10 @@ using UnityEngine.UI;
 public class FirstChestCondition : MonoBehaviour
 {
     public CollectionCardInfo collectionCardInfo;
-    // 노란색 배경
     public Sprite yellowButton;
-    // 회색 배경
     public Sprite grayButton;
-    // 뉴비 상자 이미지
     public Sprite firstBoxSprite;
-
+    public GameObject collectionObj;
     public Image box_Button;
     public Image boxImage;
 
@@ -27,8 +24,8 @@ public class FirstChestCondition : MonoBehaviour
             box_Button.gameObject.GetComponent<Button>().interactable = true;
             boxImage.sprite = firstBoxSprite;
             boxImage.ImageTransparent(1f);
-
             box_Button.sprite = yellowButton;
+            collectionObj.SetActive(false);
         }
         else
         {
@@ -36,7 +33,7 @@ public class FirstChestCondition : MonoBehaviour
             boxImage.sprite = null;
             boxImage.ImageTransparent(0f);
             box_Button.sprite = grayButton;
-
+            collectionObj.SetActive(true);
             collectionCardInfo.SelectCardOrderByGrade();
             StartManager.m_Instance.InitializeCollectionImage();
         }

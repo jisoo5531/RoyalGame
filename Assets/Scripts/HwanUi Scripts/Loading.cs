@@ -69,13 +69,13 @@ public class Loading : MonoBehaviourPunCallbacks
                     {
                         yield return new WaitForSeconds(0.3f);
                         op.allowSceneActivation = true;
-                        if (isBattle)
-                        {
-                            if (PhotonNetwork.IsMasterClient)
-                            {
-                                StartGameOnAllClients(nextScene);
-                            }
-                        }
+                        //if (isBattle)
+                        //{
+                        //    if (PhotonNetwork.IsMasterClient)
+                        //    {
+                        //        StartGameOnAllClients(nextScene);
+                        //    }
+                        //}
                         yield break;
                     }
                 }
@@ -85,6 +85,7 @@ public class Loading : MonoBehaviourPunCallbacks
 
     private void StartGameOnAllClients(string sceneName)
     {
-        PhotonNetwork.LoadLevel(sceneName);
+        //PhotonNetwork.LoadLevel(sceneName);
+        //SceneManager.LoadScene(sceneName);
     }
 }

@@ -59,6 +59,12 @@ public class SearchGame : MonoBehaviourPunCallbacks
         //photonView.RPC("LoadScene", RpcTarget.All);
     }
 
+    [PunRPC]
+    private void LoadScene()
+    {
+        Loading.LoadScene("Battle", true);
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)  
     {
         try
@@ -75,11 +81,6 @@ public class SearchGame : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
-    private void LoadScene()
-    {
-        Loading.LoadScene("Battle", true);
-    }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using Org.BouncyCastle.Asn1.X509;
+using System;
+using System.Reflection;
 
 public class IsMineManager : MonoBehaviourPunCallbacks
 {
     public static IsMineManager instance;
-    public GameObject[] tower;
     private bool isCrate = false;
     private GameObject[] towers;
 
@@ -19,134 +21,99 @@ public class IsMineManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         towers = new GameObject[GameManager.instance.enemyTowers.Length];
-        if (photonView.IsMine)
+
+        if (PhotonNetwork.IsConnected && photonView.IsMine)
         {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
-                {
-                    string name = GameManager.instance.enemyTowers[i].name;
-                    GameObject tower = PhotonNetwork.Instantiate(name, GameManager.instance.myTowersTranform[i].position, Quaternion.identity);
-                    GameManager.instance.currentAllyTowers[i] = tower;
-                }
+            CreateTower();
+        }
 
-            }
-            else
-            {
-                for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
-                {
-                    string name = GameManager.instance.enemyTowers[i].name;
-                    GameObject tower = PhotonNetwork.Instantiate(name, GameManager.instance.enemyTowersTranform[i].position, Quaternion.Euler(0, 180, 0));
-                    GameManager.instance.currentAllyTowers[i] = tower;
-                }
-            }
+        GameManager.instance.grid.CreateGrid();
+        GameObject[] slots = GameObject.FindGameObjectsWithTag("Spawn");
+        for (int i = 0; i < slots.Length; i++)
+        {
+            var slot = slots[i].GetComponent<SpawnSlot>();
+            slot.isMineManager = this;
+        }
+    }
 
-            GameManager.instance.grid.CreateGrid();
-            GameObject[] slots = GameObject.FindGameObjectsWithTag("Spawn");
-            for (int i = 0; i < slots.Length; i++)
+    private void CreateTower()
+    {
+        Transform[] towerPos;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            towerPos = GameManager.instance.enemyTowersTranform;
+            for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
             {
-                var slot = slots[i].GetComponent<SpawnSlot>();
-                slot.isMineManager = this;
+                string name = GameManager.instance.enemyTowers[i].name;
+                GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
+                towers[i] = tower;
+            }
+        }
+        else
+        {
+            towerPos = GameManager.instance.myTowersTranform;
+            for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
+            {
+                string name = GameManager.instance.enemyTowers[i].name;
+                GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
+                towers[i] = tower;
             }
         }
     }
 
     private void Update()
     {
-        if (!isCrate && tower.Length < 3)
+        if (photonView.IsMine && !isCrate && towers.Length > 2)
         {
-            if (!PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient)
             {
-                tower = GameManager.instance.currentAllyTowers.ToArray();
+                GameManager.instance.currentAllyTowers = towers;
                 SettingAlly();
-                DetectEnemyManager.instance.towerList = GameManager.instance.currentEnemyTowers.ToList();
+                DetectEnemyManager.instance.towerList = AddEnemtyTower(GameManager.instance.currentEnemyTowers).ToList();
             }
             else
             {
-                tower = GameManager.instance.currentEnemyTowers.ToArray();
-                SettingEnemy();
-                DetectEnemyManager.instance.towerList = GameManager.instance.currentAllyTowers.ToList();
+                GameManager.instance.currentEnemyTowers = towers;
+                SettingAlly();
+                DetectEnemyManager.instance.towerList = AddEnemtyTower(GameManager.instance.currentAllyTowers).ToList();
             }
-            int targetLayer = LayerMask.NameToLayer("target");
-            GameObject[] targets = FindObjectsInLayer(targetLayer);
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                GameManager.instance.currentEnemyTowers = targets;
-            }
-            else
-            {
-                GameManager.instance.currentAllyTowers = targets;
-            }
+
             isCrate = true;
         }
     }
 
-    private GameObject[] FindObjectsInLayer(int layer)
+    private GameObject[] AddEnemtyTower(GameObject[] towers)
     {
-        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>(true);
-        var filteredObjects = new List<GameObject>();
+        GameObject[] enemyTowers = GameObject.FindGameObjectsWithTag("EnemyTower");
 
-        foreach (var obj in allObjects)
-        {
-            if (obj.layer == layer)
-            {
-                filteredObjects.Add(obj);
-            }
-        }
+        towers = enemyTowers;
 
-        return filteredObjects.ToArray();
+        return towers;
     }
 
     private void SettingAlly()
     {
-        for (int i = 0; i < tower.Length; i++)
+        for (int i = 0; i < towers.Length; i++)
         {
-            tower[i].layer = 6;
+            towers[i].layer = 6;
+            towers[i].tag = "AllyTower";
 
-            foreach (Transform towerChild in tower[i].transform)
+            foreach (Transform towerChild in towers[i].transform)
             {
                 towerChild.gameObject.layer = 6;
             }
         }
 
-        for (int i = 0; i < tower.Length; i++)
+        for (int i = 0; i < towers.Length; i++)
         {
-            tower[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
+            towers[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
         }
 
-        Transform child = tower[0].transform;
+        Transform child = towers[0].transform;
 
         foreach (Transform mat in child.transform)
         {
-            if (mat.TryGetComponent<Renderer>(out Renderer renderer))
-            {
-                renderer.material = GameManager.instance.allyMaterial[1];
-            }
-        }
-    }
-
-    private void SettingEnemy()
-    {
-        for (int i = 0; i < tower.Length; i++)
-        {
-            tower[i].layer = 6;
-
-            foreach (Transform towerChild in tower[i].transform)
-            {
-                towerChild.gameObject.layer = 6;
-            }
-        }
-
-        for (int i = 0; i < tower.Length; i++)
-        {
-            tower[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
-        }
-
-        Transform child = tower[0].transform;
-
-        foreach (Transform mat in child.transform)
-        {
-            if (mat.TryGetComponent<Renderer>(out Renderer renderer))
+            if (mat.TryGetComponent(out Renderer renderer))
             {
                 renderer.material = GameManager.instance.allyMaterial[1];
             }

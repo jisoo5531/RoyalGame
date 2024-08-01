@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using MySql.Data.MySqlClient;
 using Photon.Pun.Demo.Cockpit;
+using Photon.Pun;
 
-public class UI_Manager : MonoBehaviour
+public class UI_Manager : MonoBehaviourPunCallbacks
 {
     #region 전역변수
 
@@ -64,6 +65,7 @@ public class UI_Manager : MonoBehaviour
     private SettingUnit settingUnit;
     public Sprite[] unitSprites;
     public GameObject[] unitPrefab;
+    public IsMineManager isMineManagerPrefab;
 
     #endregion
     private void Awake()

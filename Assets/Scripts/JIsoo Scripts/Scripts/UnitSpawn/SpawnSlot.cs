@@ -72,8 +72,15 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             UnitSpawner.instance.spawnComplete = true;
 
             // TODO : 유닛 유형(유닛, 방어타워) 등에 맞게 수정
-
-            GameObject unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
+            GameObject unit = null;
+            if (IsFirstPlayer())
+            {
+                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.Euler(0, 180, 0));
+            }
             unit.UnitClassification(unitData);
 
             unit.layer = 11;
@@ -119,6 +126,13 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         iconImage.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
         isSpawn = false;
+    }
+
+    private bool IsFirstPlayer()
+    {
+        int num = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        return num % 2 == 0;
     }
 
 
@@ -191,7 +205,14 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                 spawnPoint = hit.point;
                 if (false == isSpawn)
                 {
-                    dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                    if (IsFirstPlayer())
+                    {
+                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                    }
+                    else
+                    {
+                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.Euler(0, 180, 0));
+                    }
                     dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.cardName;
                     dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.level.ToString();
                     unitName = unitPrefab.name;

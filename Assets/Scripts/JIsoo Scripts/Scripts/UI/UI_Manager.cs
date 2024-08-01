@@ -65,7 +65,6 @@ public class UI_Manager : MonoBehaviourPunCallbacks
     private SettingUnit settingUnit;
     public Sprite[] unitSprites;
     public GameObject[] unitPrefab;
-    public IsMineManager isMineManagerPrefab;
 
     #endregion
     private void Awake()

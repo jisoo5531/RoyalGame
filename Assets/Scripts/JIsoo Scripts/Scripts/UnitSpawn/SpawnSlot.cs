@@ -75,11 +75,11 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             GameObject unit = null;
             if (IsFirstPlayer())
             {
-                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
+                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.Euler(0, 180, 0));
             }
             else
             {
-                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.Euler(0, 180, 0));
+                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
             }
             unit.UnitClassification(unitData);
 
@@ -207,14 +207,14 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                 {
                     if (IsFirstPlayer())
                     {
-                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.Euler(0, 180, 0));
                     }
                     else
                     {
-                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.Euler(0, 180, 0));
+                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
                     }
                     dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.cardName;
-                    dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.level.ToString();
+                    dragUnit.GetComponent<DragUnitInfo>().unitLevel.text = $"Lv. {unitData.level}";
                     unitName = unitPrefab.name;
                     isSpawn = true;
                 }

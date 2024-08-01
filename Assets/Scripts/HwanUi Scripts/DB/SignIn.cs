@@ -20,6 +20,8 @@ public class SignIn : MonoBehaviour
     public GameObject SignInFailUI;
     #endregion
 
+    private bool isClick = false;
+
     private void Start()
     {
         loginBtn.interactable = false;
@@ -27,7 +29,10 @@ public class SignIn : MonoBehaviour
 
     void Update()
     {
-        loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
+        if (!isClick)
+        {
+            loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
+        }
     }
 
     public void SignUpClick()
@@ -55,6 +60,7 @@ public class SignIn : MonoBehaviour
         if (CheckUserInfo(nickname.text, password.text))
         {
             print("로그인 되었습니다");
+            isClick = true;
             loginBtn.interactable = false;
             PhotonConnManager.instance.userName = nickname.text;
             PhotonConnManager.instance.Connection();

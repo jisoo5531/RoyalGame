@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 2751147492392653883}
   - component: {fileID: 8768060026011982882}
   m_Layer: 0
-  m_Name: TT_Ballista_lvl1
+  m_Name: CrossbowTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1140,8 +1140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3.01}
-  m_SizeDelta: {x: 7.25, y: 3}
+  m_AnchoredPosition: {x: -1.65, y: 3.01}
+  m_SizeDelta: {x: 9.3318, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5878783086213722371
 CanvasRenderer:
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uCC98\n"
+  m_text: "\uB300\uD615 \uC11D\uAD81"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fff18702b1540f34ebe60b966000a273, type: 2}
   m_sharedMaterial: {fileID: -6401154965462303832, guid: fff18702b1540f34ebe60b966000a273, type: 2}
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -3.826229, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

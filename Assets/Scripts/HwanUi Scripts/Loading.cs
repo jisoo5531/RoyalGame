@@ -10,7 +10,8 @@ using UnityEngine.UI;
 
 public class Loading : MonoBehaviourPunCallbacks
 {
-    public static string nextScene;
+    public static Loading instance;
+    public static string nextScene = string.Empty;
 
     [SerializeField]
     Slider progressBar;
@@ -20,23 +21,41 @@ public class Loading : MonoBehaviourPunCallbacks
 
     public static bool isBattle;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
-        StartCoroutine(LoadScene());
+        if (nextScene != string.Empty)
+        {
+            StartCoroutine(LoadScene());
+        }
+    }
+
+    public static void LoadNextScene(string sceneName)
+    {
+
     }
 
     public static void LoadScene(string sceneName, bool isGameStart)
     {
+        //nextScene = sceneName;
+        //isBattle = isGameStart;
+        SceneManager.LoadScene("Loading");
+    }
+
+    public void InitScene(string sceneName, bool isGameStart)
+    {
         nextScene = sceneName;
         isBattle = isGameStart;
-        SceneManager.LoadScene("Loading");
     }
 
     IEnumerator LoadScene()
     {
-        yield return null;
-
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
+
         op.allowSceneActivation = false;
 
         float timer = 0.0f;

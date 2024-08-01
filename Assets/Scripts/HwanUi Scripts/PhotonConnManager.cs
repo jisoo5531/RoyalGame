@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class PhotonConnManager : MonoBehaviourPunCallbacks
 {
     public static PhotonConnManager instance;
+    public Animator fadeIn;
 
     public string userName = string.Empty;
 
@@ -57,7 +58,20 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        Loading.LoadScene("Lobby", false);
+        fadeIn.SetTrigger("FadeIn");
+        //StartCoroutine(PreloadLoadingScene());
+    }
+
+    IEnumerator PreloadLoadingScene()
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync("Loading");
+        op.allowSceneActivation = false;
+
+        yield return new WaitForSeconds(0.35f);
+
+        op.allowSceneActivation = true;
+        SceneManager.LoadScene("Loading");
+        //Loading.LoadScene("Lobby", false);
     }
 }
 

@@ -15,7 +15,10 @@ public class SignUp : MonoBehaviour
     public Button loginBtn;
 
     public GameObject signInUI;
+
     #endregion
+
+    private bool isClick = false;
 
     private void Start()
     {
@@ -24,7 +27,10 @@ public class SignUp : MonoBehaviour
 
     void Update()
     {
-        loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
+        if (!isClick)
+        {
+            loginBtn.interactable = CheckTextLength(nickname.text.Length, password.text.Length);
+        }
     }
     public void SignInClick()
     {
@@ -44,6 +50,7 @@ public class SignUp : MonoBehaviour
         if (!CheckDuplicateName(nickname.text))
         {
             InsertUserData(nickname.text, password.text);
+            isClick = true;
             loginBtn.interactable = false;
             PhotonConnManager.instance.userName = nickname.text;
             PhotonConnManager.instance.Connection();

@@ -2657,9 +2657,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3993301697071622475}
   - component: {fileID: 3993301697064523347}
-  - component: {fileID: 5525976261047048427}
   - component: {fileID: 592256653072153509}
   - component: {fileID: 29894672021986184}
+  - component: {fileID: 2061028304}
   m_Layer: 0
   m_Name: Prince
   m_TagString: Untagged
@@ -2707,24 +2707,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5525976261047048427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3993301697071915455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b778833f937d9b4b932666fdd448b93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 0
-  range: 0
-  targetCollider: {fileID: 0}
-  isAttack: 0
-  isMove: 0
 --- !u!136 &592256653072153509
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2753,8 +2735,22 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &2061028304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3993301697071915455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fcdd389dc043a4dbae88331ffa5e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: {fileID: 4264512273453337168}
+  unitLevel: {fileID: 7307131952292636193}
 --- !u!1 &4130066902418794742
 GameObject:
   m_ObjectHideFlags: 0

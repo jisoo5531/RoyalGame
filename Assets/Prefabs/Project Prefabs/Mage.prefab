@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1347658482453279392}
   - component: {fileID: 2603025340999835594}
   - component: {fileID: 289563920}
-  - component: {fileID: 289563918}
   - component: {fileID: 5713716477788014323}
+  - component: {fileID: 4583079615052462664}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -72,24 +72,6 @@ CapsuleCollider:
   m_Height: 1.84
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &289563918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347658482453279393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b778833f937d9b4b932666fdd448b93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 0
-  range: 0
-  targetCollider: {fileID: 0}
-  isAttack: 0
-  isMove: 0
 --- !u!54 &5713716477788014323
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -104,8 +86,22 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4583079615052462664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347658482453279393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fcdd389dc043a4dbae88331ffa5e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: {fileID: 2495379662853456675}
+  unitLevel: {fileID: 237769330923670648}
 --- !u!1 &2423817944746674145
 GameObject:
   m_ObjectHideFlags: 0

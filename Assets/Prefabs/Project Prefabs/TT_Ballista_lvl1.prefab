@@ -57,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2751147492385209331}
   - component: {fileID: 2751147492392653883}
+  - component: {fileID: 8768060026011982882}
   m_Layer: 0
   m_Name: TT_Ballista_lvl1
   m_TagString: Untagged
@@ -104,6 +105,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8768060026011982882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2751147492385236883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fcdd389dc043a4dbae88331ffa5e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: {fileID: 7724504661550583002}
+  unitLevel: {fileID: 1855906592848697126}
 --- !u!1 &2751147492385236895
 GameObject:
   m_ObjectHideFlags: 0

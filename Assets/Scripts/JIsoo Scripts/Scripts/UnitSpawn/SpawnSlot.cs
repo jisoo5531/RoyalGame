@@ -15,7 +15,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public LayerMask targetLayer;
-    //public Image iconImage;
     public GameObject iconImage;
     public GameObject SelectedOutLine;
 
@@ -40,22 +39,15 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         if (false == UI_Manager.m_Instance.CheckSpawnPossible(selectedNumber))
         {
             return;
-        }
-        // 이미지 드래그 시작        
+        }   
 
         UI_Manager.m_Instance.ActiveSlotOutLine();
         iconImage.GetComponent<RectTransform>().SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
-        //iconImage.rectTransform.SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
         UI_Manager.m_Instance.selectedSlot = this;
-
-        //Debug.Log($"드래그 시작 {selectedNumber}");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // 이미지 드래그        
-        //Debug.Log($"현재 {eventData.position}");
-
         if (false == UI_Manager.m_Instance.CheckSpawnPossible(selectedNumber))
         {
             return;
@@ -63,7 +55,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
         MoveImage(eventData);
 
-        // 드래그 중 이미지가 아닌 유닛 프리팹으로 옮기기
         MoveModel(eventData);
 
     }
@@ -74,8 +65,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         {
             return;
         }
-
-        // 드래그 끝났을 때 포지션이 맵이면 생성        
+      
         if (true == isSpawn)
         {
             UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
@@ -170,7 +160,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         iconImage.gameObject.SetActive(true);
 
         iconImage.GetComponent<RectTransform>().position = eventData.position;
-        //iconImage.rectTransform.position = eventData.position;
     }
 
     /// <summary>
@@ -203,8 +192,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                 if (false == isSpawn)
                 {
                     dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
-
-                    dragUnit.UnitTransparent(0.5f);
+                    dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.cardName;
+                    dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.level.ToString();
                     unitName = unitPrefab.name;
                     isSpawn = true;
                 }

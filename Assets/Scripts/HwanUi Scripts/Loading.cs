@@ -10,8 +10,7 @@ using UnityEngine.UI;
 
 public class Loading : MonoBehaviourPunCallbacks
 {
-    public static Loading instance;
-    public static string nextScene = string.Empty;
+    public static string nextScene;
 
     [SerializeField]
     Slider progressBar;
@@ -19,52 +18,32 @@ public class Loading : MonoBehaviourPunCallbacks
     [SerializeField]
     TMP_Text loadText;
 
-    public static bool isBattle;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {
-        if (nextScene != string.Empty)
-        {
-            StartCoroutine(LoadScene());
-        }
+        StartCoroutine(LoadScene());
     }
 
-    public static void LoadNextScene(string sceneName)
-    {
-
-    }
-
-    public static void LoadScene(string sceneName, bool isGameStart)
-    {
-        //nextScene = sceneName;
-        //isBattle = isGameStart;
-        SceneManager.LoadScene("Loading");
-    }
-
-    public void InitScene(string sceneName, bool isGameStart)
+    public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
-        isBattle = isGameStart;
+        SceneManager.LoadScene("Loading");
     }
 
     IEnumerator LoadScene()
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
+        //yield return null;
 
+        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
 
         float timer = 0.0f;
         bool isHalfway = false;
+
         while (!op.isDone)
         {
-            yield return null;
-
             timer += Time.deltaTime / 5f;
+
             if (!isHalfway)
             {
                 progressBar.value = Mathf.Lerp(progressBar.value, 0.51f, timer * 2f);
@@ -86,19 +65,14 @@ public class Loading : MonoBehaviourPunCallbacks
 
                     if (progressBar.value >= 1.0f)
                     {
-                        yield return new WaitForSeconds(0.3f);
+                        yield return new WaitForSeconds(0.1f);
                         op.allowSceneActivation = true;
-                        //if (isBattle)
-                        //{
-                        //    if (PhotonNetwork.IsMasterClient)
-                        //    {
-                        //        StartGameOnAllClients(nextScene);
-                        //    }
-                        //}
                         yield break;
                     }
                 }
             }
+
+            yield return null;
         }
     }
 

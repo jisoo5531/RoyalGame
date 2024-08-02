@@ -7,6 +7,7 @@ using System.Data.Common;
 using UnityEngine;
 using MySql.Data.MySqlClient;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class SearchGame : MonoBehaviourPunCallbacks
 {
@@ -56,23 +57,23 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        photonView.RPC("LoadScene", RpcTarget.All);
+        //photonView.RPC("LoadScene", RpcTarget.All);
     }
 
     [PunRPC]
     private void LoadScene()
     {
-        Loading.LoadScene("Battle", true);
+        Loading.LoadScene("Battle");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)  
     {
         try
         {
-            //if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            //{
-            //    photonView.RPC("LoadScene", RpcTarget.All);
-            //}
+            if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                photonView.RPC("LoadScene", RpcTarget.All);
+            }
 
         }
         catch (Exception ex)

@@ -58,20 +58,8 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        fadeIn.SetTrigger("FadeIn");
-        //StartCoroutine(PreloadLoadingScene());
-    }
-
-    IEnumerator PreloadLoadingScene()
-    {
-        AsyncOperation op = SceneManager.LoadSceneAsync("Loading");
-        op.allowSceneActivation = false;
-
-        yield return new WaitForSeconds(0.35f);
-
-        op.allowSceneActivation = true;
-        SceneManager.LoadScene("Loading");
-        //Loading.LoadScene("Lobby", false);
+        Loading.LoadScene("Lobby");
+        //fadeIn.SetTrigger("FadeIn");
     }
 }
 

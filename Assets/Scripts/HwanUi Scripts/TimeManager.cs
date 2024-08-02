@@ -7,31 +7,23 @@ using TMPro;
 public class TimeManager : MonoBehaviourPunCallbacks
 {
     public static TimeManager instance;
-    private double startTime = 0;
-    private float countdownDuration = 2f;
-    private float gameCountdownDuration = 180f;
     public TMP_Text gametimeUI;
     public TMP_Text overTimeUI;
-    private int time;
 
     public bool isGameStart = false;
 
+    int time;
     int min;
-    float sec;
+    int sec;
 
     private void Awake()
     {
         instance = this;
     }
 
-
     public void GameStart()
     {
-        //if (photonView.IsMine)
-        //{
-        //    photonView.RPC("StartGameCountdown", RpcTarget.All);
-        //}
-        if (PhotonNetwork.IsMasterClient)
+        if (photonView.IsMine)
         {
             time = 180;
 
@@ -49,7 +41,6 @@ public class TimeManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                Debug.Log("타이머 종료");
                 yield break;
             }
 
@@ -67,7 +58,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
         {
             min = number / 60;
             sec = number % 60;
-            gametimeUI.text = min + " : " + (int)sec;
+            gametimeUI.text = min + " : " + sec;
         }
         else
         {
@@ -77,41 +68,6 @@ public class TimeManager : MonoBehaviourPunCallbacks
         if (number <= 0)
         {
             gametimeUI.text = "0 : 00";
-        }
-    }
-
-    [PunRPC]
-    private void StartGameCountdown()
-    {
-
-        StartCoroutine(GameCountDown());
-    }
-
-    private IEnumerator GameCountDown()
-    {
-        double endTime = startTime + gameCountdownDuration;
-        print(PhotonNetwork.Time+",  "+ endTime);
-        while (PhotonNetwork.Time < endTime)
-        {
-            print(PhotonNetwork.Time);
-            double remainingTime = endTime - PhotonNetwork.Time;
-            int secondsRemaining = Mathf.CeilToInt((float)remainingTime);
-            if (secondsRemaining >= 60f)
-            {
-                min = secondsRemaining / 60;
-                sec = secondsRemaining % 60;
-                gametimeUI.text = min + " : " + (int)sec;
-            }
-            else
-            {
-                gametimeUI.text = "0 : " + secondsRemaining;
-            }
-
-            if (secondsRemaining <= 0)
-            {
-                gametimeUI.text = "0 : 00";
-            }
-            yield return new WaitForSeconds(1f);
         }
     }
 

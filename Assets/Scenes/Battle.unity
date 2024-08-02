@@ -1757,7 +1757,7 @@ MonoBehaviour:
   unitPrefab:
   - {fileID: 997537084498369677, guid: 482278479f6073d46b8bcca83fd6e6f7, type: 3}
   - {fileID: 8846955532090451774, guid: 0413788304a31574a9af12cf52104f2b, type: 3}
-  - {fileID: 128572, guid: d3b1238342df9484d9f7498aca9417dd, type: 3}
+  - {fileID: 864659317635217235, guid: cc1447d43542a60449a6e1130c326516, type: 3}
   - {fileID: 3275561838122271502, guid: 030683b8471c4ad4aabf9893f1990b47, type: 3}
   - {fileID: 1347658482453279393, guid: cafe4d56c9ab8204bb0f6158aa1933c7, type: 3}
   - {fileID: 4791464028835521985, guid: 5a1b78aedf7f2c94b8e293aeae59308b, type: 3}
@@ -10092,6 +10092,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 749097089}
+  - component: {fileID: 749097090}
+  - component: {fileID: 749097091}
   m_Layer: 5
   m_Name: Play_BattleVS
   m_TagString: Untagged
@@ -10123,6 +10125,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &749097090
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749097088}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24c3be47fb7cdb64698846bfd3c0b2c3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &749097091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749097088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c42751010331ba447beb0e1defe5d7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &759414541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15161,7 +15196,6 @@ MonoBehaviour:
   secondLight: {fileID: 1901111190}
   cameraPrefab: {fileID: 1743223405352158666, guid: 7008e44cabb3247428d939f0bac98da1, type: 3}
   lightPrefab: {fileID: 6700733802771140730, guid: b7ca47b2424abce4a909b031735fd1e0, type: 3}
-  vsUI: {fileID: 749097088}
   playerNames:
   - {fileID: 2091243034}
   - {fileID: 108030526}
@@ -15220,7 +15254,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: dccf8e44ede71db42b49378af93c5fb7, type: 2}
   grid: {fileID: 678086643}
   isMineManager: {fileID: 0}
-  isMineManagerPrefab: {fileID: 0}
 --- !u!4 &1242962999
 Transform:
   m_ObjectHideFlags: 0

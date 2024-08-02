@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject cameraPrefab;
     public GameObject lightPrefab;
 
-    public GameObject vsUI;
-
     public TMP_Text[] playerNames;
     public TMP_Text[] playerTrophy;
 
@@ -54,15 +52,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GridController grid;
 
     public IsMineManager isMineManager;
-    public IsMineManager isMineManagerPrefab;
 
     #endregion
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        instance = this;
 
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -102,7 +96,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void CreateManager()
     {
-        if(IsFirstPlayer())
+        if (IsFirstPlayer())
         {
             GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
             isMineManager = mineManager.GetComponent<IsMineManager>();
@@ -158,9 +152,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         return 0;
     }
 
-
-    public void GameStart()
-    {
-        vsUI.SetActive(false);
-    }
 }

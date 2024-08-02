@@ -46,7 +46,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", 300 } };
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" };
 
-            string roomName = "asdf";
+            string roomName = "test34";
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
         catch (Exception ex)
@@ -57,7 +57,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        //photonView.RPC("LoadScene", RpcTarget.All);
+        photonView.RPC("LoadScene", RpcTarget.All);
     }
 
     [PunRPC]
@@ -70,10 +70,10 @@ public class SearchGame : MonoBehaviourPunCallbacks
     {
         try
         {
-            if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            {
-                photonView.RPC("LoadScene", RpcTarget.All);
-            }
+            //if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            //{
+            //    photonView.RPC("LoadScene", RpcTarget.All);
+            //}
 
         }
         catch (Exception ex)

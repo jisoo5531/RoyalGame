@@ -7,25 +7,23 @@ namespace EpicToonFX
     {
         public Transform magicTrans;
 
-        public GameObject impactParticle; // Effect spawned when projectile hits a collider
-        public GameObject projectileParticle; // Effect attached to the gameobject as child
-        public GameObject muzzleParticle; // Effect instantly spawned when gameobject is spawned
+        public GameObject impactParticle;
+        public GameObject projectileParticle;
+        public GameObject muzzleParticle;
         [Header("Adjust if not using Sphere Collider")]
         public float colliderRadius = 1f;
-        [Range(0f, 1f)] // This is an offset that moves the impact effect slightly away from the point of impact to reduce clipping of the impact effect
+        [Range(0f, 1f)]
         public float collideOffset = 0.15f;
 
         void Start()
         {
-            //projectileParticle = Instantiate(projectileParticle, transform.position, transform.rotation) as GameObject; 
-            
             // 드래그 시 오류
-            projectileParticle = Instantiate(projectileParticle, magicTrans.position, magicTrans.rotation) as GameObject;
+            projectileParticle = Instantiate(projectileParticle, magicTrans.position, magicTrans.rotation);
             projectileParticle.transform.parent = transform;
             if (muzzleParticle)
             {
-                muzzleParticle = Instantiate(muzzleParticle, magicTrans.position, magicTrans.rotation) as GameObject;
-                Destroy(muzzleParticle, 1.5f); // 2nd parameter is lifetime of effect in seconds
+                muzzleParticle = Instantiate(muzzleParticle, magicTrans.position, magicTrans.rotation);
+                Destroy(muzzleParticle, 1.5f);
             }
         }
 		
@@ -33,46 +31,45 @@ namespace EpicToonFX
         {	
 			if (GetComponent<Rigidbody>().velocity.magnitude != 0)
 			{
-			    transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity); // Sets rotation to look at direction of movement
+			    transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity);
 			}
 			
             RaycastHit hit;
 			
-            float radius; // Sets the radius of the collision detection
+            float radius;
             if (transform.GetComponent<SphereCollider>())
                 radius = transform.GetComponent<SphereCollider>().radius;
             else
                 radius = colliderRadius;
 
-            Vector3 direction = transform.GetComponent<Rigidbody>().velocity; // Gets the direction of the projectile, used for collision detection
+            Vector3 direction = transform.GetComponent<Rigidbody>().velocity;
             if (transform.GetComponent<Rigidbody>().useGravity)
-                direction += Physics.gravity * Time.deltaTime; // Accounts for gravity if enabled
+                direction += Physics.gravity * Time.deltaTime;
             direction = direction.normalized;
 
-            float detectionDistance = transform.GetComponent<Rigidbody>().velocity.magnitude * Time.deltaTime; // Distance of collision detection for this frame
+            float detectionDistance = transform.GetComponent<Rigidbody>().velocity.magnitude * Time.deltaTime;
 
-            if (Physics.SphereCast(transform.position, radius, direction, out hit, detectionDistance)) // Checks if collision will happen
+            if (Physics.SphereCast(transform.position, radius, direction, out hit, detectionDistance))
             {
-                transform.position = hit.point + (hit.normal * collideOffset); // Move projectile to point of collision
+                transform.position = hit.point + (hit.normal * collideOffset);
 
-                GameObject impactP = Instantiate(impactParticle, transform.position, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject; // Spawns impact effect
+                GameObject impactP = Instantiate(impactParticle, transform.position, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject;
 
-                ParticleSystem[] trails = GetComponentsInChildren<ParticleSystem>(); // Gets a list of particle systems, as we need to detach the trails
-                //Component at [0] is that of the parent i.e. this object (if there is any)
-                for (int i = 1; i < trails.Length; i++) // Loop to cycle through found particle systems
+                ParticleSystem[] trails = GetComponentsInChildren<ParticleSystem>();
+                for (int i = 1; i < trails.Length; i++)
                 {
                     ParticleSystem trail = trails[i];
 
                     if (trail.gameObject.name.Contains("Trail"))
                     {
-                        trail.transform.SetParent(null); // Detaches the trail from the projectile
-                        Destroy(trail.gameObject, 2f); // Removes the trail after seconds
+                        trail.transform.SetParent(null);
+                        Destroy(trail.gameObject, 2f);
                     }
                 }
 
-                Destroy(projectileParticle, 3f); // Removes particle effect after delay
-                Destroy(impactP, 3.5f); // Removes impact effect after delay
-                Destroy(gameObject); // Removes the projectile
+                Destroy(projectileParticle, 3f);
+                Destroy(impactP, 3.5f);
+                Destroy(gameObject);
             }
         }
     }

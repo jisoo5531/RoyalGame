@@ -12,10 +12,6 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     GameObject effect;
 
     #region public 변수
-
-    //public float coolTime;    
-
-    public string name { get; set; }
     public int cardLevel { get; set; }
     public int currentCardCount { get; set; }
     public int maxCardCount { get; set; }
@@ -61,7 +57,6 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 
     protected virtual void InitializeUnitData(AllCardData unit)
     {
-        canvasInfo = GetComponent<UnitCanvasInfo>();
         name = unit.cardName;
         attackSpeed = 1f;
         if (unit is UnitInfoData unitInfo)
@@ -76,11 +71,8 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
             attackTarget = defenseTowerInfo.target;
         }
         HP = maxHP;
-        print(HP + ",  " + maxHP);
         damage = unit.damage;
         range = unit.range;
-
-
     }
 
 
@@ -104,7 +96,6 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     {
         if (range >= 14)
         {
-            Debug.Log("원거리?");
             print(GetComponent<RangedUnit>() == null);
             GetComponent<RangedUnit>().damage = damage;
             return;

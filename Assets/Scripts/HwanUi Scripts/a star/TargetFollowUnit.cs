@@ -49,7 +49,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     IEnumerator FollowPath()
     {
         currentWaypoint = path[0];
-
         while (true)
         {
             if (Vector3.Distance(transform.position, currentWaypoint) < 1.5)
@@ -64,6 +63,7 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
             if (isAttack)
             {
+                isMove = false;
                 yield break;
             }
 

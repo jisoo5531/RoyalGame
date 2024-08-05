@@ -65,11 +65,8 @@ public class MovableUnit : Unit
         {
             damaging.damage = this.damage;
         }
-        print("asdf: " + HP);
         canvasInfo.maxHP = this.HP;
         canvasInfo.HP = this.HP;
-        Debug.Log("hp:  " + HP);
-        //canvasInfo.HP = canvasInfo.maxHP;
         SendDamage(unit.damage);
     }
 
@@ -104,6 +101,9 @@ public class MovableUnit : Unit
                 }
                 else
                 {
+                    targetFollowUnit.isAttack = false;
+                    isMove = true;
+                    SetState(UnitState.Move, 0.8f);
                     DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
 
                     if (isMove)
@@ -123,6 +123,7 @@ public class MovableUnit : Unit
         float distance = Vector3.Distance(target.position, transform.position);
         if (distance <= range)
         {
+            isMove = false;
             targetFollowUnit.isAttack = true;
             SetState(UnitState.Attack, attackSpeed);
             // UpdateAnimationSpeed(attackSpeed);

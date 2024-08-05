@@ -20,7 +20,8 @@ public class UnitAttack : IState<Unit>
     }
     public void OperateExit(Unit sender)
     {
-       // unit.anim.speed = 1;
+        // unit.anim.speed = 1;
+        Debug.Log("°ø°Ý ³¡");
         unit.anim.SetBool("isAttack", false);
         //if(unit is MovableUnit moveUnit)
         //{

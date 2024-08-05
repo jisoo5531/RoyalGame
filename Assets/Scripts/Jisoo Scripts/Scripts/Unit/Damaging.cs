@@ -13,6 +13,7 @@ public class Damaging : MonoBehaviourPunCallbacks
     public Type unitType;
     private Unit unit;
     PhotonView pv;
+    private Dictionary<int, IDamagable> damagedTargetsCache = new Dictionary<int, IDamagable>();
 
     private void Start()
     {
@@ -23,15 +24,10 @@ public class Damaging : MonoBehaviourPunCallbacks
     {
         if (pv != null && pv.IsMine)
         {
-            Debug.Log(other.gameObject.layer);
-            Debug.Log($"¹º°¡ ¸Â¾Ò´Ù {other.gameObject.name}");
-            Debug.Log($"{gameObject.name} ÀÌ ¹º°¡ ¸ÂÇû´Ù");
             if ((targetLayerMask | (1 << other.gameObject.layer)) != targetLayerMask)
             {
-                print("a");
                 if (rangeType == Range.Ranged)
                 {
-                    print("b");
                     pv.RPC("DestoryGob", RpcTarget.All);
                 }
                 return;
@@ -39,12 +35,17 @@ public class Damaging : MonoBehaviourPunCallbacks
 
             if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
-                print("c");
+                PhotonView targetPV = other.transform.root.GetComponent<PhotonView>();
+                int targetViewID = targetPV.ViewID;
+
+                if (!damagedTargetsCache.ContainsKey(targetViewID))
+                {
+                    damagedTargetsCache[targetViewID] = damagable;
+                }
+
                 if (unitType == Type.Magic)
                 {
-                    print("d");
                     damagable.GetDamage(damage);
-                    //pv.RPC("RPC_SendDamage", RpcTarget.All, damage);
 
                     pv.RPC("DestoryGob", RpcTarget.All);
 
@@ -53,20 +54,40 @@ public class Damaging : MonoBehaviourPunCallbacks
 
                 if (rangeType == Range.Ranged)
                 {
-                    print("d");
                     if (other.gameObject.name.Equals(target.gameObject.name))
                     {
-                        print("f");
                         damagable.GetDamage(damage);
-                        //pv.RPC("RPC_SendDamage", RpcTarget.All, damage);
                         pv.RPC("DestoryGob", RpcTarget.All);
                     }
 
                     return;
                 }
-                print(damagable == null);
-                damagable?.GetDamage(damage);
-                //pv.RPC("RPC_SendDamage", RpcTarget.All, damage);
+                
+                if (damagedTargetsCache.TryGetValue(targetViewID, out IDamagable cachedDamagable))
+                {
+                    pv.RPC("RPC_SendDamage", RpcTarget.Others, damage, targetViewID);
+                }
+            }
+        }
+    }
+    [PunRPC]
+    public void RPC_SendDamage(int damage, int targetViewID)
+    {
+        if (damagedTargetsCache.TryGetValue(targetViewID, out IDamagable targetDamagable))
+        {
+            targetDamagable?.GetDamage(damage);
+        }
+        else
+        {
+            PhotonView targetPV = PhotonView.Find(targetViewID);
+            if (targetPV != null)
+            {
+                targetDamagable = targetPV.GetComponent<IDamagable>();
+                if (targetDamagable != null)
+                {
+                    damagedTargetsCache[targetViewID] = targetDamagable;
+                    targetDamagable.GetDamage(damage);
+                }
             }
         }
     }

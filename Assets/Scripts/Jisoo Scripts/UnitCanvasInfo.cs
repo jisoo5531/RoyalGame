@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -97,11 +98,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     }
     public void GetDamage(int damage)
     {
-        print(damage + ",  " + HP);
         Debug.Log($"{gameObject.name} 맞았다");
-        Debug.Log("hp: " + damage + ",  " + HP);
-        photonView.RPC("RPC_damage", RpcTarget.All, damage);
-        // 유닛이 죽을 때
+        this.HP -= damage;
+        this.HP = Mathf.Max(HP, 0);
+        photonView.RPC("RPC_damage", RpcTarget.All, damage, this.HP, this.maxHP);
+
         if (HP <= 0)
         {
             photonView.RPC("RPC_Death", RpcTarget.All);
@@ -120,58 +121,25 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     }
 
     [PunRPC]
-    private void RPC_damage(int damage)
+    private void RPC_damage(int damage, int currentHp, int currentMaxHp)
     {
         if(!isHPBarOn)
         {
             OnHPBar();
         }
 
-        this.HP -= damage;
-        hpBarFill.fillAmount = (float)HP / (float)maxHP;
+        hpBarFill.fillAmount = (float)currentHp / currentMaxHp;
     }
 
     [PunRPC]
     private void RPC_Death()
     {
-        string effectStr = blastEffect.name;
-        effect = PhotonNetwork.Instantiate(effectStr, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
         effect.transform.localScale = transform.localScale;
         Destroy(effect, 1f);
         Destroy(gameObject);
     }
 
-
-    //public void GetDamage(int damage)
-    //{
-    //    Debug.Log(HP+",  "+damage);
-
-    //    photonView.RPC("CheckHp", RpcTarget.All, damage);
-
-    //    if (isHPBarOn)
-    //    {
-    //        return;
-    //    }
-    //    else
-    //    {
-    //        OnHPBar();
-    //    }
-    //}
-
-    //[PunRPC]
-    //private void CheckHp(int damage)
-    //{
-    //    hpBarFill.fillAmount = (float)HP / (float)maxHP;
-    //    HP -= damage;
-    //    if (HP <= 0)
-    //    {
-    //        GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
-    //        effect.transform.localScale = transform.localScale;
-    //        Destroy(gameObject);
-    //    }
-    //}
-
-    // 맞으면 HPBar On
     private void OnHPBar()
     {
         isHPBarOn = true;

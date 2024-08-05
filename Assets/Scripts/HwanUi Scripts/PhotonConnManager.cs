@@ -18,7 +18,14 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Connection()
@@ -46,7 +53,7 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
         {
             if (userName != string.Empty)
             {
-                PhotonNetwork.LocalPlayer.NickName = userName;
+                PhotonNetwork.NickName = userName;
             }
             PhotonNetwork.JoinLobby();
         }
@@ -59,7 +66,6 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Loading.LoadScene("Lobby");
-        //fadeIn.SetTrigger("FadeIn");
     }
 }
 

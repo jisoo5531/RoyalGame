@@ -20,11 +20,10 @@ public class Tower : MonoBehaviourPunCallbacks, IDamagable
     }
 
     [PunRPC]
-    private void RPC_Death(int damage)
+    protected void RPC_Death(int damage)
     {
         HP -= damage;
 
-        // À¯´ÖÀÌ Á×À» ¶§
         if (HP <= 0)
         {
             Death();

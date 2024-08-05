@@ -1,5 +1,7 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
@@ -10,7 +12,9 @@ public class UnitSpawner : MonoBehaviour
     public bool isElixirEnough = false;
     public bool spawnComplete = false;
 
-    private Camera mainCamera;
+    public Camera mainCamera;
+
+    private bool isMaster = false;
 
     private void Awake()
     {        
@@ -22,7 +26,7 @@ public class UnitSpawner : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        mainCamera = Camera.main;
+        isMaster = PhotonNetwork.IsMasterClient;
 
         StartCoroutine(ClickSpawnUnit());
     }
@@ -37,10 +41,18 @@ public class UnitSpawner : MonoBehaviour
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    if (hit.collider.CompareTag("Map"))
+                    if (hit.collider.CompareTag("Floor"))
                     {
-                        Instantiate(selectedUnit.prefab, hit.point, Quaternion.identity);
-
+                        string unitName = selectedUnit.prefab.name;
+                        GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, hit.point, selectedUnit);
+                        if (isMaster)
+                        {
+                            MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                        }
+                        else
+                        {
+                            NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                        }
                         spawnComplete = true;
                         selectedUnit = null;
                         isElixirEnough = false;
@@ -48,10 +60,6 @@ public class UnitSpawner : MonoBehaviour
                 }
             }
         }
-    }
-    public void SpawnUnit(Vector3 position)
-    {
-        Instantiate(selectedUnit.prefab, position, Quaternion.identity);
     }
 
     public void SelectUnit(AllCardData unit)

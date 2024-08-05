@@ -23,19 +23,18 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     int targetIndex;
     Vector3[] path;
     Vector3 currentWaypoint;
-    Rigidbody rb;
+    UnitCanvasInfo unitInfoCanvas;
     #endregion
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        unitInfoCanvas = GetComponent<UnitCanvasInfo>();
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
         if (pathSuccessful)
         {
-            Debug.Log("asdf");
             for (int i = 0; i < newPath.Length; i++)
             {
                 newPath[i].y = transform.position.y;
@@ -53,7 +52,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
         while (true)
         {
-            Debug.Log("ttt");
             if (Vector3.Distance(transform.position, currentWaypoint) < 1.5)
             {
                 targetIndex++;
@@ -66,7 +64,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
             if (isAttack)
             {
-                Debug.Log("gggg");
                 yield break;
             }
 
@@ -82,8 +79,10 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
                 targetRotation = Quaternion.Euler(eulerAngles);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
+
+                float characterYRotation = transform.eulerAngles.y;
+                unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -characterYRotation, 0);
             }
-            Debug.Log("www");
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }

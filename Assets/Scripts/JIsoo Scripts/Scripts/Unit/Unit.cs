@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
+public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 {
 
 
@@ -11,7 +11,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     [HideInInspector] public Animator anim;
     GameObject effect;
 
-    #region 변수
+    #region public 변수
 
     //public float coolTime;    
 
@@ -46,6 +46,8 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
     protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
     protected StateMachine<Unit> stateMachine;
 
+    public UnitCanvasInfo canvasInfo;
+
     protected virtual void InitStateMachine()
     {
         IState<Unit> idle = new UnitIdle();
@@ -59,6 +61,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
 
     protected virtual void InitializeUnitData(AllCardData unit)
     {
+        canvasInfo = GetComponent<UnitCanvasInfo>();
         name = unit.cardName;
         attackSpeed = 1f;
         if (unit is UnitInfoData unitInfo)
@@ -73,6 +76,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
             attackTarget = defenseTowerInfo.target;
         }
         HP = maxHP;
+        print(HP + ",  " + maxHP);
         damage = unit.damage;
         range = unit.range;
 
@@ -107,42 +111,4 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable, IDamagable
         }
         GetComponentInChildren<Damaging>().damage = damage;
     }
-
-    [PunRPC]
-    private void RPC_damage(int damage)
-    {
-        this.HP -= damage;
-    }
-
-    public void GetDamage(int damage)
-    {
-        print(damage+",  "+HP);
-        Debug.Log($"{gameObject.name} 맞았다");
-        Debug.Log("hp: " + damage + ",  " + HP);
-        photonView.RPC("RPC_damage", RpcTarget.All, damage);
-        // 유닛이 죽을 때
-        if (HP <= 0)
-        {
-            Death();
-        }
-    }
-    private void Death()
-    {
-        string effectStr = EffectManager.instance.deathEffect.name;
-        effect = PhotonNetwork.Instantiate(effectStr, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
-        effect.transform.localScale = transform.localScale;
-        //photonView.RPC("UnitDestroy", RpcTarget.All, transform.localScale);
-        Destroy(effect, 1f);
-        Destroy(gameObject);
-        IsMineManager isMIne = GameManager.instance.isMineManager;
-        isMIne.RemoveUnit(GetComponent<PhotonView>().ViewID);
-    }
-
-    //[PunRPC]
-    //private void UnitDestroy(Vector3 trans)
-    //{
-    //    effect.transform.localScale = trans;
-    //    Destroy(effect, 1f);
-    //    Destroy(gameObject);
-    //}
 }

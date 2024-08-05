@@ -10,14 +10,13 @@ public class MovableUnit : Unit
     public float moveSpeed;
     public float detectionRange;
     TargetFollowUnit targetFollowUnit;
-    public bool initialWaitDone = false;
+    public bool isWait = true;
     public bool isMove = false;
     public double moveDelay;
     public bool isSpawn = false;
 
     RangedUnit rangedUnit;
     Damaging damaging;
-    UnitCanvasInfo canvasInfo;
 
     private void Awake()
     {
@@ -66,6 +65,7 @@ public class MovableUnit : Unit
         {
             damaging.damage = this.damage;
         }
+        print("asdf: " + HP);
         canvasInfo.maxHP = this.HP;
         canvasInfo.HP = this.HP;
         Debug.Log("hp:  " + HP);
@@ -77,11 +77,11 @@ public class MovableUnit : Unit
     {
         if (isSpawn && photonView.IsMine)
         {
-            if (!initialWaitDone && (PhotonNetwork.Time - spawnTime) >= moveDelay)
+            if (!isWait)
             {
                 isMove = true;
                 DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
-                initialWaitDone = true;
+                isWait = true;
             }
             stateMachine.DoOperateUpdate();
 

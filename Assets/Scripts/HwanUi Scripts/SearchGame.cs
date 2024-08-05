@@ -16,12 +16,14 @@ public class SearchGame : MonoBehaviourPunCallbacks
 
     public GameObject warningUI;
 
+    private int maxPlayerCount = 2;
+
     public void MatchingClick()
     {
         StringBuilder battleCard = new StringBuilder();
         try
         {
-            if (StartManager.m_Instance.battleCardList.Count < 8)
+            if (StartManager.m_Instance.battleCardList.Count < 8 || !PhotonNetwork.IsConnected)
             {
                 warningUI.SetActive(true);
                 return;
@@ -42,11 +44,13 @@ public class SearchGame : MonoBehaviourPunCallbacks
 
 
             RoomOptions roomOptions = new RoomOptions();
-            roomOptions.MaxPlayers = 2;
+            roomOptions.MaxPlayers = maxPlayerCount;                                
+            roomOptions.IsVisible = true;
+            roomOptions.IsOpen = true;
             roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", 300 } };
             roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" };
 
-            string roomName = "test34";
+            string roomName = "gggg";
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
         catch (Exception ex)
@@ -56,24 +60,32 @@ public class SearchGame : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        photonView.RPC("LoadScene", RpcTarget.All);
+        try
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            //PhotonNetwork.LoadLevel("Battle");
+        }
+        catch (Exception ex)
+        {
+            print(ex.Message);
+        }
     }
 
     [PunRPC]
     private void LoadScene()
     {
-        Loading.LoadScene("Battle");
+        //Loading.LoadScene("Battle");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)  
     {
         try
         {
-            //if (PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-            //{
-            //    photonView.RPC("LoadScene", RpcTarget.All);
-            //}
+            if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                PhotonNetwork.LoadLevel("Battle");
+               // photonView.RPC("LoadScene", RpcTarget.All);
+            }
 
         }
         catch (Exception ex)

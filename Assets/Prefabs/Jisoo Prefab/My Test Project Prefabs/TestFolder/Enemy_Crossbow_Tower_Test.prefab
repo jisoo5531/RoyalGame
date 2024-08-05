@@ -981,13 +981,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagePrefab:
-    levelBackground: {fileID: 21300000, guid: e6d5fc98a8afcca40b04501f3c342943, type: 3}
-    hpBarFill: {fileID: 21300000, guid: a947017c9907ec64eae4e717a808798f, type: 3}
+  EnemyPrefab:
+    levelBackground: {fileID: 0}
+    hpBarFill: {fileID: 0}
+  allyPrefab:
+    levelBackground: {fileID: 0}
+    hpBarFill: {fileID: 0}
   blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
   unitCanvas: {fileID: 3504118751972376771}
   hpBarOBJ: {fileID: 3504118750430439570}
-  leverBackground: {fileID: 3504118750875504700}
+  levelBackground: {fileID: 0}
   hpBarFill: {fileID: 3504118750234017195}
 --- !u!114 &5868668297513858252
 MonoBehaviour:
@@ -1003,7 +1006,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unit_ID: 0
   anim: {fileID: 0}
-  detectionRange: 0
   rangeType: 1
   moveSpeed: 0
   isMove: 0

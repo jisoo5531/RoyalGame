@@ -17,16 +17,6 @@ public class Damaging : MonoBehaviourPunCallbacks
     private void Start()
     {
         pv = gameObject.GetComponent<PhotonView>();
-
-        if (pv != null && pv.IsMine)
-        {
-            unit = transform.root.GetComponent<Unit>();
-
-            if (unit != null)
-            {
-                damage = unit.damage;
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)

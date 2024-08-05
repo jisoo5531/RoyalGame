@@ -36,14 +36,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Transform[] myTowersTranform;
     public Transform[] enemyTowersTranform;
 
-    public Transform[] myTowersHp;
-    public Transform[] enemyTowersHp;
-
-    public Transform[] AllyTowerHpInAlly;
-    public Transform[] EnemyTowerHpInAlly;
-
-    public Transform[] AllyTowerHpInEnemy;
-    public Transform[] EnemyTowerHpInEnemy;
+    public Transform[] allyTowerHp;
+    public Transform[] enemyTowerHp;
 
     public Sprite[] hpSprite;
 
@@ -51,12 +45,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GridController grid;
 
-    public IsMineManager isMineManager;
+    public UnitSpawner unitSpawner;
 
     #endregion
     private void Awake()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             Instantiate(cameraPrefab, secondCamera.position, secondCamera.rotation);
             Instantiate(lightPrefab, secondLight.position, secondLight.rotation);
         }
+        unitSpawner.mainCamera = Camera.main;
 
         int[] playerKeys = PhotonNetwork.CurrentRoom.Players.Keys.ToArray();
 
@@ -96,31 +98,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void CreateManager()
     {
-        if (IsFirstPlayer())
+        if (PhotonNetwork.IsMasterClient)
         {
-            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
-            isMineManager = mineManager.GetComponent<IsMineManager>();
+            PhotonNetwork.Instantiate("MasterManager", Vector3.one, Quaternion.identity);
         }
         else
         {
-            GameObject mineManager = PhotonNetwork.Instantiate("IsMineManager", Vector3.one, Quaternion.identity);
-            isMineManager = mineManager.GetComponent<IsMineManager>();
+            PhotonNetwork.Instantiate("NonMasterManager", Vector3.one, Quaternion.identity);
         }
-
     }
 
-    private bool IsFirstPlayer()
-    {
-        int num = PhotonNetwork.LocalPlayer.ActorNumber;
-
-        return num % 2 == 0;
-    }
-
-    [PunRPC]
-    void RPC_ManagerInstantiate()
-    {
-        PhotonNetwork.Instantiate("IsMineManager", Vector3.zero, Quaternion.identity);
-    }
 
     private int SelectTrophy(string name)
     {

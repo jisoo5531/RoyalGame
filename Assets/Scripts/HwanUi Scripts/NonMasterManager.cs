@@ -1,0 +1,132 @@
+using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class NonMasterManager : MonoBehaviourPunCallbacks
+{
+    public static NonMasterManager instance;
+    private bool isCrate = false;
+    public GameObject[] towers;
+
+    private void Awake()
+    {
+        if (photonView.IsMine)
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+    private void Start()
+    {
+        towers = new GameObject[3];
+
+        if (photonView.IsMine)
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                CreateTower();
+            }
+
+            GameManager.instance.grid.CreateGrid();
+        }
+    }
+
+    private void CreateTower()
+    {
+        Transform[] towerPos = GameManager.instance.myTowersTranform;
+        for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
+        {
+            string name = GameManager.instance.enemyTowers[i].name;
+            GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
+            tower.GetComponentInChildren<UnitCanvasInfo>().unitCanvas.transform.position = GameManager.instance.enemyTowerHp[i].position;
+            towers[i] = tower;
+        }
+        photonView.RPC("AddEnemyTower", RpcTarget.Others);
+    }
+
+    private void Update()
+    {
+        if (photonView.IsMine && !isCrate && towers[1] != null)
+        {
+            GameManager.instance.currentAllyTowers = towers;
+            SettingAlly();
+            isCrate = true;
+        }
+    }
+
+    [PunRPC]
+    private void AddEnemyTower()
+    {
+        GameManager.instance.currentEnemyTowers = GameObject.FindGameObjectsWithTag("EnemyTower");
+        DetectEnemyManager.instance.towerList = GameManager.instance.currentEnemyTowers.ToList();
+    }
+
+
+    private void SettingAlly()
+    {
+        for (int i = 0; i < towers.Length; i++)
+        {
+            towers[i].layer = 6;
+            towers[i].tag = "AllyTower";
+
+            foreach (Transform towerChild in towers[i].transform)
+            {
+                towerChild.gameObject.layer = 6;
+            }
+        }
+
+        for (int i = 0; i < towers.Length; i++)
+        {
+            towers[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
+
+            Renderer[] child = towers[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
+
+            foreach (Renderer mat in child)
+            {
+                mat.material = GameManager.instance.allyMaterial[1];
+            }
+        }
+    }
+
+    public void AddUnit(int id)
+    {
+        photonView.RPC("OnCharacterCreated", RpcTarget.Others, id);
+    }
+
+
+    [PunRPC]
+    public void OnCharacterCreated(int viewID)
+    {
+        PhotonView characterView = PhotonView.Find(viewID);
+        if (characterView != null)
+        {
+            GameObject character = characterView.gameObject;
+            DetectEnemyManager.instance.enemyList.Add(character);
+        }
+    }
+
+
+    public void RemoveUnit(int id)
+    {
+        photonView.RPC("OnCharacterRemove", RpcTarget.Others, id);
+    }
+
+    [PunRPC]
+    public void OnCharacterRemove(int viewID)
+    {
+        PhotonView characterView = PhotonView.Find(viewID);
+        if (characterView != null)
+        {
+            GameObject character = characterView.gameObject;
+            DetectEnemyManager.instance.enemyList.Remove(character);
+        }
+    }
+}

@@ -113,7 +113,6 @@ public class DetectEnemyManager : MonoBehaviour
 
                 if (isMove)
                 {
-                    Debug.Log("¿Ãµø§©§æ§©§æ§©§æ");
                     PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
                     targetFollowUnit.isMove = true;
                 }

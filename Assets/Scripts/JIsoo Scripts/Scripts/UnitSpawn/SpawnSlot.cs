@@ -30,7 +30,14 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     public static Vector3 spawnPoint;
 
     public UnitSpawner unitSpawner;
-    public IsMineManager isMineManager;
+
+    private bool isMaster = false;
+
+
+    private void Start()
+    {
+        isMaster = PhotonNetwork.IsMasterClient;
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -72,44 +79,15 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             UnitSpawner.instance.spawnComplete = true;
 
             // TODO : 유닛 유형(유닛, 방어타워) 등에 맞게 수정
-            GameObject unit = null;
-            if (IsFirstPlayer())
+            GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, dragUnit.transform.position, unitData, dragUnit);
+            if(isMaster)
             {
-                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.Euler(0, 180, 0));
+                MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
             }
             else
             {
-                unit = PhotonNetwork.Instantiate(unitName, dragUnit.transform.position, Quaternion.identity);
+                NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
             }
-            unit.UnitClassification(unitData);
-
-            unit.layer = 11;
-            foreach (Transform child in unit.transform)
-            {
-                child.gameObject.layer = 11;
-            }
-
-            Destroy(dragUnit);
-
-            if (unitData is UnitInfoData unitInfo)
-            {
-                if (unit.TryGetComponent<MovableUnit>(out MovableUnit mu))
-                {
-                    mu.moveDelay = unitInfo.spawnTime;
-                    mu.isMove = false;
-                    mu.isSpawn = true;
-                }
-            }
-            else if (unitData is DEFENSETOWERInfoData defenseTowerInfo)
-            {
-                if (unit.TryGetComponent<MovableUnit>(out MovableUnit mu))
-                {
-                    mu.moveDelay = defenseTowerInfo.spawnTime;
-                    mu.isMove = false;
-                    mu.isSpawn = true;
-                }
-            }
-            //IsMineManager.instance.AddUnit(unit.GetComponent<PhotonView>().ViewID);
 
             UnitSpawner.instance.selectedUnit = null;
 
@@ -127,14 +105,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
         isSpawn = false;
     }
-
-    private bool IsFirstPlayer()
-    {
-        int num = PhotonNetwork.LocalPlayer.ActorNumber;
-
-        return num % 2 == 0;
-    }
-
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -205,7 +175,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
                 spawnPoint = hit.point;
                 if (false == isSpawn)
                 {
-                    if (IsFirstPlayer())
+                    if (!PhotonNetwork.IsMasterClient)
                     {
                         dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.Euler(0, 180, 0));
                     }

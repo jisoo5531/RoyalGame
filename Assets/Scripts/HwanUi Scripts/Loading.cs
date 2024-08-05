@@ -32,8 +32,7 @@ public class Loading : MonoBehaviourPunCallbacks
 
     IEnumerator LoadScene()
     {
-        //yield return null;
-
+        yield return null;
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
 
@@ -65,7 +64,7 @@ public class Loading : MonoBehaviourPunCallbacks
 
                     if (progressBar.value >= 1.0f)
                     {
-                        yield return new WaitForSeconds(0.1f);
+                        yield return new WaitForSeconds(0.3f);
                         op.allowSceneActivation = true;
                         yield break;
                     }
@@ -74,11 +73,5 @@ public class Loading : MonoBehaviourPunCallbacks
 
             yield return null;
         }
-    }
-
-    private void StartGameOnAllClients(string sceneName)
-    {
-        //PhotonNetwork.LoadLevel(sceneName);
-        //SceneManager.LoadScene(sceneName);
     }
 }

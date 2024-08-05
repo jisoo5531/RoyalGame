@@ -1,92 +1,175 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 적일 땐 빨간 색으로 바꾸기
-[System.Serializable]
-public class EnemyImagePrefab
-{
-    public Sprite levelBackground;
-    public Sprite hpBarFill;
-}
 [System.Serializable]
 public class AllyImagePrefab
 {
-    public Sprite levelBackground;
     public Sprite hpBarFill;
+    public Sprite levelSprite;
 }
 
 
 public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 {
-    public EnemyImagePrefab EnemyPrefab;
     public AllyImagePrefab allyPrefab;
 
     public int HP { get; set; }
     public int maxHP { get; set; }
 
-    // 유닛 죽을 때 엘릭서 터지는 파티클
     public GameObject blastEffect;
 
     public Canvas unitCanvas;
     public GameObject hpBarOBJ;
-    public Image levelBackground;
     public Image hpBarFill;
+    public Image level;
+    public TextMeshProUGUI hpBarvalue;
+    public Image spawnTimeUI;
+    public GameObject clock;
+    public TextMeshProUGUI levelValue;
+
+    GameObject effect;
 
     private bool isHPBarOn = false;
+    private float spawnTime;
+
+    public bool isTower;
 
     private void Start()
     {
-        // Ally
-        if (gameObject.layer == 11)
+        if (photonView.IsMine)
         {
-            levelBackground.sprite = allyPrefab.levelBackground;
-            hpBarFill.sprite = allyPrefab.hpBarFill;
-        }
-        // Enemy
-        else if (gameObject.layer == 10)
-        {
-            levelBackground.sprite = EnemyPrefab.levelBackground;
-            hpBarFill.sprite = EnemyPrefab.hpBarFill;
+            this.hpBarFill.sprite = allyPrefab.hpBarFill;
+            
+            if(!isTower)
+            {
+                spawnTimeUI.color = Color.cyan;
+                this.level.sprite = allyPrefab.levelSprite;
+                photonView.RPC("SpawnTime", RpcTarget.All);
+            }
+
+            unitCanvas.transform.localEulerAngles = Vector3.zero;
         }
     }
-    private void Update()
+
+    public void UIInit(int level, float time)
     {
-        unitCanvas.transform.rotation = Quaternion.Euler(0, -transform.rotation.y + 180, 0);
-
-        //hpBarFill.fillAmount = (float)HP / (float)maxHP;
-    }
-
-    
-    public void GetDamage(int damage)
-    {
-        Debug.Log(HP+",  "+damage);
-
-        photonView.RPC("CheckHp", RpcTarget.All, damage);
-
-        if (isHPBarOn)
-        {
-            return;
-        }
-        else
-        {
-            OnHPBar();
-        }
+        photonView.RPC("RPC_UIINIT", RpcTarget.All, level, time);
     }
 
     [PunRPC]
-    private void CheckHp(int damage)
+    private void RPC_UIINIT(int level, float time)
     {
-        HP -= damage;
-        if (HP <= 0)
+        levelValue.text = level.ToString();
+        spawnTime = time;
+    }
+
+    [PunRPC]
+    private void SpawnTime()
+    {
+        StartCoroutine(FillTimer());
+    }
+
+    IEnumerator FillTimer()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < spawnTime)
         {
-            GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
-            effect.transform.localScale = transform.localScale;
-            Destroy(gameObject);
+            elapsedTime += Time.deltaTime;
+            spawnTimeUI.fillAmount = elapsedTime / spawnTime;
+            yield return null;
+        }
+        spawnTimeUI.fillAmount = 1f;
+        clock.SetActive(false);
+        level.gameObject.SetActive(true);
+        if (gameObject.TryGetComponent<MovableUnit>(out MovableUnit mu))
+        {
+            mu.isWait = false;
         }
     }
+
+    private void Update()
+    {
+        //hpBarFill.fillAmount = (float)HP / (float)maxHP;
+    }
+    public void GetDamage(int damage)
+    {
+        print(damage + ",  " + HP);
+        Debug.Log($"{gameObject.name} 맞았다");
+        Debug.Log("hp: " + damage + ",  " + HP);
+        photonView.RPC("RPC_damage", RpcTarget.All, damage);
+        // 유닛이 죽을 때
+        if (HP <= 0)
+        {
+            photonView.RPC("RPC_Death", RpcTarget.All);
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                MasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+            }
+            else
+            {
+                NonMasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+            }
+        }
+
+
+    }
+
+    [PunRPC]
+    private void RPC_damage(int damage)
+    {
+        if(!isHPBarOn)
+        {
+            OnHPBar();
+        }
+
+        this.HP -= damage;
+        hpBarFill.fillAmount = (float)HP / (float)maxHP;
+    }
+
+    [PunRPC]
+    private void RPC_Death()
+    {
+        string effectStr = blastEffect.name;
+        effect = PhotonNetwork.Instantiate(effectStr, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        effect.transform.localScale = transform.localScale;
+        Destroy(effect, 1f);
+        Destroy(gameObject);
+    }
+
+
+    //public void GetDamage(int damage)
+    //{
+    //    Debug.Log(HP+",  "+damage);
+
+    //    photonView.RPC("CheckHp", RpcTarget.All, damage);
+
+    //    if (isHPBarOn)
+    //    {
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        OnHPBar();
+    //    }
+    //}
+
+    //[PunRPC]
+    //private void CheckHp(int damage)
+    //{
+    //    hpBarFill.fillAmount = (float)HP / (float)maxHP;
+    //    HP -= damage;
+    //    if (HP <= 0)
+    //    {
+    //        GameObject effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+    //        effect.transform.localScale = transform.localScale;
+    //        Destroy(gameObject);
+    //    }
+    //}
 
     // 맞으면 HPBar On
     private void OnHPBar()

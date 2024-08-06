@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -9219686810382474952}
   - component: {fileID: 860317438689821861}
   - component: {fileID: 2772647480798362110}
+  - component: {fileID: 7001926098073027508}
   m_Layer: 0
   m_Name: Bolt
   m_TagString: Untagged
@@ -176,3 +177,16 @@ MonoBehaviour:
     m_Bits: 0
   rangeType: 0
   unitType: 0
+--- !u!65 &7001926098073027508
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694306710321462239}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42127138, y: 2.5038502, z: 0.42127147}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -22,11 +22,11 @@ public class Damaging : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-        if (pv != null && pv.IsMine)
+        if (pv != null && pv.IsMine && other.gameObject.layer != 11)
         {
             if ((targetLayerMask | (1 << other.gameObject.layer)) != targetLayerMask)
             {
-                print("a");
+                print(other.gameObject.layer+",   "+ targetLayerMask.value+",  "+ (int)targetLayerMask);
                 if (rangeType == Range.Ranged)
                 {
                     print("b");

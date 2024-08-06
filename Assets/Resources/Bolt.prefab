@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8274194233366536389}
   - component: {fileID: -2028041123816942276}
   - component: {fileID: -9219686810382474952}
+  - component: {fileID: 860317438689821861}
+  - component: {fileID: 2772647480798362110}
   m_Layer: 0
   m_Name: Bolt
   m_TagString: Untagged
@@ -28,14 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4694306710321462239}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &4694306710318393311
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -97,10 +99,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &-2028041123816942276
 MonoBehaviour:
@@ -120,7 +122,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -9219686810382474952}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -140,3 +143,36 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &860317438689821861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694306710321462239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add6798fccad23442a1d8cf76d107770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0, z: 0}
+  speed: 1
+--- !u!114 &2772647480798362110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694306710321462239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ec1d2644282e244bdde93c7fe53185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  target: {fileID: 0}
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  rangeType: 0
+  unitType: 0

@@ -63,6 +63,16 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
             if (isAttack)
             {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
+                    unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
+                }
+                else
+                {
+                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
+                    unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
+                }
                 isMove = false;
                 yield break;
             }
@@ -80,12 +90,26 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 7f);
 
-                float characterYRotation = transform.eulerAngles.y;
-                unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -characterYRotation, 0);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
+                    unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
+                }
+                else
+                {
+                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
+                    unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
+                }
             }
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
+    }
+
+    [PunRPC]
+    private void CanvasRotate(float rotateY)
+    {
+        unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
     }
 
     public void OnDrawGizmos()

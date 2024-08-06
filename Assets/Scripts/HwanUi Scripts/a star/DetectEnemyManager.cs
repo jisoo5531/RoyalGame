@@ -111,10 +111,8 @@ public class DetectEnemyManager : MonoBehaviour
                 targetFollowUnit.target = enemyTarget;
                 targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
-                print("wwwwwww");
                 if (isMove)
                 {
-                    print("hhhhh");
                     PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
                     targetFollowUnit.isMove = true;
                 }

@@ -53,7 +53,6 @@ public class MasterManager : MonoBehaviourPunCallbacks
             tower.GetComponentInChildren<UnitCanvasInfo>().unitCanvas.transform.position = GameManager.instance.allyTowerHp[i].position;
             towers[i] = tower;
         }
-        photonView.RPC("AddEnemyTower", RpcTarget.Others);
     }
 
     private void Update()
@@ -62,6 +61,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
         {
             GameManager.instance.currentAllyTowers = towers;
             SettingAlly();
+            photonView.RPC("AddEnemyTower", RpcTarget.Others);
             isCrate = true;
         }
     }

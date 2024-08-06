@@ -26,8 +26,10 @@ public class Damaging : MonoBehaviourPunCallbacks
         {
             if ((targetLayerMask | (1 << other.gameObject.layer)) != targetLayerMask)
             {
+                print("a");
                 if (rangeType == Range.Ranged)
                 {
+                    print("b");
                     pv.RPC("DestoryGob", RpcTarget.All);
                 }
                 return;
@@ -35,6 +37,7 @@ public class Damaging : MonoBehaviourPunCallbacks
 
             if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
+                print("c");
                 PhotonView targetPV = other.transform.root.GetComponent<PhotonView>();
                 int targetViewID = targetPV.ViewID;
 
@@ -45,6 +48,7 @@ public class Damaging : MonoBehaviourPunCallbacks
 
                 if (unitType == Type.Magic)
                 {
+                    print("d");
                     damagable.GetDamage(damage);
 
                     pv.RPC("DestoryGob", RpcTarget.All);
@@ -54,9 +58,11 @@ public class Damaging : MonoBehaviourPunCallbacks
 
                 if (rangeType == Range.Ranged)
                 {
+                    print("e");
                     if (other.gameObject.name.Equals(target.gameObject.name))
                     {
-                        damagable.GetDamage(damage);
+                        print("f");
+                        pv.RPC("RPC_SendDamage", RpcTarget.Others, damage, targetViewID);
                         pv.RPC("DestoryGob", RpcTarget.All);
                     }
 

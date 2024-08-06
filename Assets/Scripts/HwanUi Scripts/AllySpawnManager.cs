@@ -24,8 +24,10 @@ public class AllySpawnManager : MonoBehaviour
         {
             unit = PhotonNetwork.Instantiate(name, spawnTrans, Quaternion.identity);
         }
+        Renderer[] renderers = unit.GetComponentsInChildren<Renderer>();
+        RendererChange(renderers);
 
-        if(unit.TryGetComponent<UnitCanvasInfo>(out UnitCanvasInfo uci))
+        if (unit.TryGetComponent<UnitCanvasInfo>(out UnitCanvasInfo uci))
         {
             if(ud is UnitInfoData unitData)
             {
@@ -67,5 +69,13 @@ public class AllySpawnManager : MonoBehaviour
             }
         }
         return unit;
+    }
+
+    private void RendererChange(Renderer[] renderers)
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material = GameManager.instance.allyMaterial[1];
+        }
     }
 }

@@ -103,7 +103,7 @@ public class MovableUnit : Unit
                 {
                     targetFollowUnit.isAttack = false;
                     isMove = true;
-                    SetState(UnitState.Move, 0.8f);
+                    
                     DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
 
                     if (isMove)

@@ -112,7 +112,21 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             DetectEnemyManager.instance.enemyList.Add(character);
         }
     }
+    public void AddTower(int id)
+    {
+        photonView.RPC("OnTowerCreated", RpcTarget.Others, id);
+    }
 
+    [PunRPC]
+    public void OnTowerCreated(int viewID)
+    {
+        PhotonView towerView = PhotonView.Find(viewID);
+        if (towerView != null)
+        {
+            GameObject tower = towerView.gameObject;
+            DetectEnemyManager.instance.towerList.Add(tower);
+        }
+    }
 
     public void RemoveUnit(int id)
     {
@@ -127,6 +141,22 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         {
             GameObject character = characterView.gameObject;
             DetectEnemyManager.instance.enemyList.Remove(character);
+        }
+    }
+
+    public void RemoveTower(int id)
+    {
+        photonView.RPC("OnCharacterRemove", RpcTarget.Others, id);
+    }
+
+    [PunRPC]
+    public void OnTowerRemove(int viewID)
+    {
+        PhotonView towerView = PhotonView.Find(viewID);
+        if (towerView != null)
+        {
+            GameObject tower = towerView.gameObject;
+            DetectEnemyManager.instance.towerList.Remove(tower);
         }
     }
 }

@@ -117,6 +117,21 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void AddTower(int id)
+    {
+        photonView.RPC("OnTowerCreated", RpcTarget.Others, id);
+    }
+
+    [PunRPC]
+    public void OnTowerCreated(int viewID)
+    {
+        PhotonView towerView = PhotonView.Find(viewID);
+        if (towerView != null)
+        {
+            GameObject tower = towerView.gameObject;
+            DetectEnemyManager.instance.towerList.Add(tower);
+        }
+    }
 
     public void RemoveUnit(int id)
     {
@@ -134,22 +149,19 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
     }
 
-    //public void DestroyUnit(int id)
-    //{
-    //    PhotonView characterView = PhotonView.Find(id);
-    //    if (characterView != null)
-    //    {
-    //        GameObject character = characterView.gameObject;
-    //        DetectEnemyManager.instance.enemyList.Remove(character);
-    //    }
-    //}
+    public void RemoveTower(int id)
+    {
+        photonView.RPC("OnCharacterRemove", RpcTarget.Others, id);
+    }
 
-
-    //[PunRPC]
-    //private void UnitDestroy(Vector3 trans)
-    //{
-    //    effect.transform.localScale = trans;
-    //    Destroy(effect, 1f);
-    //    Destroy(gameObject);
-    //}
+    [PunRPC]
+    public void OnTowerRemove(int viewID)
+    {
+        PhotonView towerView = PhotonView.Find(viewID);
+        if (towerView != null)
+        {
+            GameObject tower = towerView.gameObject;
+            DetectEnemyManager.instance.towerList.Remove(tower);
+        }
+    }
 }

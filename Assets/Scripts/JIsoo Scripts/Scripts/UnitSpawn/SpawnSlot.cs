@@ -82,11 +82,25 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, dragUnit.transform.position, unitData, dragUnit);
             if(isMaster)
             {
-                MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                if(unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
+                {
+                    MasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
+                }
+                else if(unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
+                {
+                    MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                }
             }
             else
             {
-                NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                if (unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
+                {
+                    NonMasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
+                }
+                else if (unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
+                {
+                    NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                }
             }
 
             UnitSpawner.instance.selectedUnit = null;

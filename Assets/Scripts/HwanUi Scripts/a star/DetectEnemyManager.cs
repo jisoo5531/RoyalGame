@@ -13,8 +13,6 @@ public class DetectEnemyManager : MonoBehaviour
 
     public List<GameObject> towerList = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
-
-    public Transform enemyTower;
     #endregion
 
     Transform enemyUnit;

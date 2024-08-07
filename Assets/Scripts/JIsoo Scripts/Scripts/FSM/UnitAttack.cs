@@ -8,6 +8,7 @@ public class UnitAttack : IState<Unit>
     private bool isAttack = false;
     private bool isCoolTime = false;
     private float attackSpeed = 0f;
+    private float attackDelay = 0.37f;
 
     public void OperateEnter(Unit sender, float speed)
     {
@@ -16,7 +17,7 @@ public class UnitAttack : IState<Unit>
         //attackSpeed = speed;
         //unit.anim.speed = speed;
         //UpdateAnimationSpeed(speed);
-        unit.Attack();
+        //unit.Attack();
     }
     public void OperateExit(Unit sender)
     {
@@ -31,9 +32,11 @@ public class UnitAttack : IState<Unit>
     }
     public void OperateUpdate(Unit sender)
     {
+        AnimatorStateInfo stateInfo = unit.anim.GetCurrentAnimatorStateInfo(0);
+
         if (unit.anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            if(!isAttack)
+            if(stateInfo.normalizedTime >= attackDelay && !isAttack)
             {
                 unit.Attack();
                 isAttack = true;

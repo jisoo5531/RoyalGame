@@ -9766,7 +9766,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!114 &8931220907153686635
 MonoBehaviour:
@@ -9796,9 +9796,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   target: {fileID: 0}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
   rangeType: 0
   unitType: 0
 --- !u!1 &1536524859078104

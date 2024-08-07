@@ -67,6 +67,7 @@ public class MovableUnit : Unit
         }
         canvasInfo.maxHP = this.HP;
         canvasInfo.HP = this.HP;
+        Debug.Log("Hp: " + canvasInfo.HP);
         SendDamage(unit.damage);
     }
 

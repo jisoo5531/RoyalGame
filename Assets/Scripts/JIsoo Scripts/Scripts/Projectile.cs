@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviourPunCallbacks
     {
         rigid = GetComponent<Rigidbody>();
         originalRotate = transform.localEulerAngles;
-        Invoke("LifeTime", 4f);
+        Invoke("LifeTime", 2.2f);
     }
 
     private void LifeTime()

@@ -51,7 +51,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 this.level.sprite = allyPrefab.levelSprite;
                 photonView.RPC("SpawnTime", RpcTarget.All);
             }
-
+            Debug.Log(HP);
             unitCanvas.transform.localEulerAngles = Vector3.zero;
         }
     }
@@ -92,13 +92,8 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
-    private void Update()
-    {
-        //hpBarFill.fillAmount = (float)HP / (float)maxHP;
-    }
     public void GetDamage(int damage)
     {
-        Debug.Log($"{gameObject.name} ¸Â¾Ò´Ù");
         this.HP -= damage;
         this.HP = Mathf.Max(HP, 0);
         photonView.RPC("RPC_damage", RpcTarget.All, damage, this.HP, this.maxHP);

@@ -96,7 +96,6 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     {
         if (range >= 14)
         {
-            print(GetComponent<RangedUnit>() == null);
             GetComponent<RangedUnit>().damage = damage;
             return;
         }

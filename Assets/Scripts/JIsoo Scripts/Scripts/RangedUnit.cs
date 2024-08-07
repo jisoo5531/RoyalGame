@@ -26,6 +26,5 @@ public class RangedUnit : MonoBehaviourPunCallbacks
         damagingComponent.target = target;
         damagingComponent.rangeType = Range.Ranged;
         damagingComponent.damage = damage;
-        damagingComponent.targetLayerMask = targetLayerMask;
     }
 }

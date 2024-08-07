@@ -18,6 +18,12 @@ public class MovableUnit : Unit
     RangedUnit rangedUnit;
     Damaging damaging;
 
+    private float runDelay = 2f;
+    private float currentTime = 0f;
+
+    private bool isRunning = false;
+    private bool isRun = false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -81,7 +87,12 @@ public class MovableUnit : Unit
                 DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
                 isWait = true;
             }
-            stateMachine.DoOperateUpdate();
+            if(Time.time + currentTime >= runDelay)
+            {
+                isRun = true;
+                isRunning = true;
+            }
+            stateMachine.DoOperateUpdate(isRunning);
 
             if (!targetFollowUnit.isAttack)
             {
@@ -125,13 +136,19 @@ public class MovableUnit : Unit
         if (distance <= range)
         {
             isMove = false;
+            isRunning = false;
             targetFollowUnit.isAttack = true;
-            SetState(UnitState.Attack, attackSpeed);
+            SetState(UnitState.Attack, attackSpeed, false);
             // UpdateAnimationSpeed(attackSpeed);
         }
         else
         {
-            SetState(UnitState.Move, 0.8f);
+            SetState(UnitState.Move, 0.8f, true);
+            if(isRun)
+            {
+                targetFollowUnit.speed *= 2f;
+                isRun = false;
+            }
             // UpdateAnimationSpeed(0.8f);
         }
     }

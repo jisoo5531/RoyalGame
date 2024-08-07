@@ -8,24 +8,20 @@ public class StateMachine<T>
 
     public IState<T> currrentState { get; set; }
 
-    public StateMachine(T sender, IState<T> state, float speed)
+    public StateMachine(T sender, IState<T> state, float speed, bool isPrince)
     {
         m_Sender = sender;
-        SetState(state, speed);
+        SetState(state, speed, isPrince);
     }
-    public void SetState(IState<T> state, float speed)
+    public void SetState(IState<T> state, float speed, bool isPrince)
     {
-       // Debug.Log("SetState : " + state);
-
         if (m_Sender == null)
         {
-           // Debug.LogError("m_sender ERROR");
             return;
         }
 
         if (currrentState == state)
         {
-            //Debug.LogWarningFormat("Same State : ", state);
             return;
         }
         if (currrentState != null)
@@ -37,16 +33,16 @@ public class StateMachine<T>
 
         if (currrentState != null)
         {
-            currrentState.OperateEnter(m_Sender, speed);
+            currrentState.OperateEnter(m_Sender, speed, isPrince);
         }
 
     }
-    public void DoOperateUpdate()
+    public void DoOperateUpdate(bool isRun)
     {
         if (m_Sender == null)
         {
             return;
         }
-        currrentState.OperateUpdate(m_Sender);
+        currrentState.OperateUpdate(m_Sender, isRun);
     }
 }

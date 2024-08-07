@@ -48,7 +48,7 @@ public class MovableTest : Unit
 
     private void Update()
     {
-        stateMachine.DoOperateUpdate();
+        //stateMachine.DoOperateUpdate();
 
         if (!targetFollowUnit.isAttack)
         {

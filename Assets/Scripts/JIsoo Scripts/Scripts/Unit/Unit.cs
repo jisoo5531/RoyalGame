@@ -26,7 +26,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     public string attackTarget { get; set; }
 
     public Range rangeType;
-
+    bool isPrince;
 
     #endregion
 
@@ -46,13 +46,14 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 
     protected virtual void InitStateMachine()
     {
+        isPrince = canvasInfo.isPrince;
         IState<Unit> idle = new UnitIdle();
         IState<Unit> attack = new UnitAttack();
 
         dicState.Add(UnitState.Idle, idle);
         dicState.Add(UnitState.Attack, attack);
 
-        stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle], attackSpeed);
+        stateMachine = new StateMachine<Unit>(this, dicState[UnitState.Idle], attackSpeed, isPrince);
     }
 
     protected virtual void InitializeUnitData(AllCardData unit)
@@ -76,11 +77,11 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     }
 
 
-    protected void SetState(UnitState state, float speed)
+    protected void SetState(UnitState state, float speed, bool isWalk)
     {
         if (dicState.ContainsKey(state))
         {
-            stateMachine.SetState(dicState[state], speed);
+            stateMachine.SetState(dicState[state], speed, isPrince);
         }
     }
 

@@ -38,6 +38,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     private float spawnTime;
 
     public bool isTower;
+    public bool isPrince;
 
     private void Start()
     {

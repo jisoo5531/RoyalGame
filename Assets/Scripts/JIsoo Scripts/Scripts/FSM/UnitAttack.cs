@@ -10,7 +10,7 @@ public class UnitAttack : IState<Unit>
     private float attackSpeed = 0f;
     private float attackDelay = 0.37f;
 
-    public void OperateEnter(Unit sender, float speed)
+    public void OperateEnter(Unit sender, float speed, bool isPrince)
     {
         unit = sender;
         unit.anim.SetBool("isAttack", true);
@@ -30,7 +30,7 @@ public class UnitAttack : IState<Unit>
         //unit.UpdateAnimationSpeed(1); // 기본 속도로 리셋
         //UpdateAnimationSpeed(1);
     }
-    public void OperateUpdate(Unit sender)
+    public void OperateUpdate(Unit sender, bool isRun)
     {
         AnimatorStateInfo stateInfo = unit.anim.GetCurrentAnimatorStateInfo(0);
 

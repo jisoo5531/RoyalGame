@@ -26,7 +26,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     public string attackTarget { get; set; }
 
     public Range rangeType;
-    bool isPrince;
+    protected bool isPrince;
 
     #endregion
 
@@ -77,7 +77,7 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     }
 
 
-    protected void SetState(UnitState state, float speed, bool isWalk)
+    protected void SetState(UnitState state, float speed)
     {
         if (dicState.ContainsKey(state))
         {

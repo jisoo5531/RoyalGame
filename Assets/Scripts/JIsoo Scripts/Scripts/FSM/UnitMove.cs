@@ -19,7 +19,11 @@ public class UnitMove : IState<Unit>
     {
         unit.anim.speed = 1;
         unit.anim.SetBool("isMove", false);
-        unit.anim.SetBool("isRun", false);
+
+        if (isPrince)
+        {
+            unit.anim.SetBool("isRun", false);
+        }
 
     }
     public void OperateUpdate(Unit sender, bool isRun)
@@ -30,12 +34,10 @@ public class UnitMove : IState<Unit>
             if (isRun)
             {
                 unit.anim.SetBool("isRun", true);
-                unit.anim.SetBool("isMove", false);
             }
             else
             {
                 unit.anim.SetBool("isRun", false);
-                unit.anim.SetBool("isMove", true);
             }
         }
     }

@@ -59,7 +59,6 @@ public class DetectEnemyManager : MonoBehaviour
     public void FirstMovePath(Transform character, TargetFollowUnit targetFollowUnit)
     {
         PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-        targetFollowUnit.isMove = true;
     }
 
     public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove, string thisAttackTarget)
@@ -81,7 +80,7 @@ public class DetectEnemyManager : MonoBehaviour
                 enemyTarget = towerList[towerIndex].transform;
                 enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
 
-                if (targetFollowUnit.target == null) // 버그 유발 가능성 있는 코드
+                if (targetFollowUnit.target == null)
                 {
                     targetFollowUnit.target = enemyTarget;
                     targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
@@ -89,7 +88,6 @@ public class DetectEnemyManager : MonoBehaviour
                     if (isMove)
                     {
                         PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-                        targetFollowUnit.isMove = true;
                         return;
                     }
                 }
@@ -114,7 +112,6 @@ public class DetectEnemyManager : MonoBehaviour
                 if (isMove)
                 {
                     PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-                    targetFollowUnit.isMove = true;
                 }
             }
         }

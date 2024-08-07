@@ -10,12 +10,18 @@ public class Damaging : MonoBehaviourPunCallbacks
     public Transform target;
     public Range rangeType;
     public Type unitType;
+    public bool isWait = true;
     private Dictionary<int, IDamagable> damagedTargetsCache = new Dictionary<int, IDamagable>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (photonView.IsMine && other.gameObject.layer != 11)
         {
+            if(rangeType == Range.Melee)
+            {
+                if (isWait) return;
+            }
+
             if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
                 PhotonView targetPV = other.transform.root.GetComponent<PhotonView>();

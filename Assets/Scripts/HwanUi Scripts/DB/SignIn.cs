@@ -111,7 +111,6 @@ public class SignIn : MonoBehaviour
             {
                 userId = reader.GetInt32(1);
             }
-            reader.Close();
         }
 
         return userId;
@@ -127,7 +126,6 @@ public class SignIn : MonoBehaviour
             {
                 count = reader.GetInt32(0);
             }
-            reader.Close();
         }
 
         return count;

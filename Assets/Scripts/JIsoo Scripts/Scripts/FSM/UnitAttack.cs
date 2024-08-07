@@ -8,7 +8,7 @@ public class UnitAttack : IState<Unit>
     private bool isAttack = false;
     private bool isCoolTime = false;
     private float attackSpeed = 0f;
-    private float attackDelay = 0.37f;
+    private float attackDelay = 0.27f;
 
     public void OperateEnter(Unit sender, float speed, bool isPrince)
     {

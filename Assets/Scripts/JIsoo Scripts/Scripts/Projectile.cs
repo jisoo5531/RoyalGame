@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviourPunCallbacks
 {
     Rigidbody rigid;
     public Vector3 targetPos;
-    public float speed = 1f;
+    public float speed = 2f;
     private Vector3 originalRotate;
 
     private void Awake()
@@ -32,21 +32,18 @@ public class Projectile : MonoBehaviourPunCallbacks
         Destroy(gameObject, 4f);
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         if (targetPos != null)
         {
             Vector3 direction = (targetPos - transform.position).normalized;
             rigid.velocity = direction * 30f * speed;
-        }
 
-        if (targetPos != null)
-        {
-            Vector3 dir = (targetPos - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(dir);
+            //Vector3 dir = (targetPos - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 10.0f * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(originalRotate.x, originalRotate.y, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(originalRotate.x, originalRotate.y, transform.localEulerAngles.z);
         }
     }
 }

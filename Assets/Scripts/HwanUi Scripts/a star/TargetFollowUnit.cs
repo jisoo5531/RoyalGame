@@ -16,7 +16,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     public float range;
     public Collider targetCollider;
     public bool isAttack = false;
-    public bool isMove = false;
     #endregion
 
     #region private º¯¼ö
@@ -73,7 +72,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
                     photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
                     unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
                 }
-                isMove = false;
                 yield break;
             }
 

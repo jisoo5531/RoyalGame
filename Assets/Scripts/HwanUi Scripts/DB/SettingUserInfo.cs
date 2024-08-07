@@ -77,7 +77,6 @@ public class SettingUserInfo : MonoBehaviour
             {
                 data = reader[column].ToString();
             }
-            reader.Close();
         }
 
         return data;

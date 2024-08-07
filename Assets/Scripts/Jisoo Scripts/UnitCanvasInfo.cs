@@ -52,7 +52,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 this.level.sprite = allyPrefab.levelSprite;
                 photonView.RPC("SpawnTime", RpcTarget.All);
             }
-            Debug.Log(HP);
+
             unitCanvas.transform.localEulerAngles = Vector3.zero;
         }
     }
@@ -90,6 +90,10 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         if (gameObject.TryGetComponent<MovableUnit>(out MovableUnit mu))
         {
             mu.isWait = false;
+        }
+        else if(gameObject.TryGetComponent<DeffenseTower>(out DeffenseTower tower))
+        {
+            tower.isWait = false;
         }
     }
 

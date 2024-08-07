@@ -89,7 +89,6 @@ public class PasswordFind : MonoBehaviour
             {
                 password = reader["password"].ToString();
             }
-            reader.Close();
         }
 
         return password;
@@ -105,7 +104,6 @@ public class PasswordFind : MonoBehaviour
             {
                 count = reader.GetInt32(0);
             }
-            reader.Close();
         }
 
         return count;

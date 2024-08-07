@@ -3,26 +3,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class MovableUnit : Unit
 {
+    #region public 변수
     public float moveSpeed;
     public float detectionRange;
-    TargetFollowUnit targetFollowUnit;
     public bool isWait = true;
     public bool isMove = false;
     public double moveDelay;
     public bool isSpawn = false;
+    #endregion
 
+    #region private 변수
     RangedUnit rangedUnit;
     Damaging damaging;
-
-    private float runDelay = 2f;
-    private float currentTime = 0f;
+    TargetFollowUnit targetFollowUnit;
 
     private bool isRunning = false;
     private bool isRun = false;
+    #endregion
 
     private void Awake()
     {
@@ -73,7 +73,7 @@ public class MovableUnit : Unit
         }
         canvasInfo.maxHP = this.HP;
         canvasInfo.HP = this.HP;
-        Debug.Log("Hp: " + canvasInfo.HP);
+
         SendDamage(unit.damage);
     }
 
@@ -86,11 +86,6 @@ public class MovableUnit : Unit
                 isMove = true;
                 DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
                 isWait = true;
-            }
-            if(Time.time + currentTime >= runDelay)
-            {
-                isRun = true;
-                isRunning = true;
             }
             stateMachine.DoOperateUpdate(isRunning);
 
@@ -136,21 +131,35 @@ public class MovableUnit : Unit
         if (distance <= range)
         {
             isMove = false;
+            isRun = false;
             isRunning = false;
             targetFollowUnit.isAttack = true;
-            SetState(UnitState.Attack, attackSpeed, false);
+            targetFollowUnit.speed = moveSpeed;
+            SetState(UnitState.Attack, attackSpeed);
+            if (damaging != null)
+            {
+                damaging.isWait = false;
+            }
             // UpdateAnimationSpeed(attackSpeed);
         }
         else
         {
-            SetState(UnitState.Move, 0.8f, true);
-            if(isRun)
+            SetState(UnitState.Move, 0.8f);
+            targetFollowUnit.isAttack = false;
+            if (isPrince && !isRun)
             {
-                targetFollowUnit.speed *= 2f;
-                isRun = false;
+                isRun = true;
+                StartCoroutine(RunDelay());
             }
-            // UpdateAnimationSpeed(0.8f);
         }
+    }
+
+    IEnumerator RunDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        isRunning = true;
+        targetFollowUnit.speed *= 2f;
+        yield break;
     }
     //public void UpdateAnimationSpeed(float speed)
     //{

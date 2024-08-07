@@ -147,7 +147,6 @@ public class SignUp : MonoBehaviour
             {
                 count = reader.GetInt32(0);
             }
-            reader.Close();
         }
 
         return count;

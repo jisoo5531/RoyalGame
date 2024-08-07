@@ -45,6 +45,7 @@ public class SettingCardInfoManager : MonoBehaviour
 
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
         }
         catch(Exception ex)
@@ -148,7 +149,6 @@ public class SettingCardInfoManager : MonoBehaviour
             {
                 count = reader.GetInt32(0);
             }
-            reader.Close();
         }
 
         return count;

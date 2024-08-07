@@ -202,6 +202,7 @@ public class StartManager : MonoBehaviour
                 {
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
         }
         catch (Exception ex)

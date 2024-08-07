@@ -42,19 +42,11 @@ public static class Extension
     {
         if (unitData.type.Equals("유닛"))
         {
-            //// Animator 컴포넌트를 가진 오브젝트에 넣어주기
-            //Animator[] unitsAnim = unit.GetComponentsInChildren<Animator>();
-
-            //foreach (var unitAnim in unitsAnim)
-            //{
-            //    unitAnim.gameObject.AddComponent<MovableUnit>();
-            //    unitAnim.gameObject.AddComponent<MovableUnit>();
-            //}
             unit.AddComponent<MovableUnit>();
         }
         else if (unitData.type.Equals("방어타워"))
         {
-            unit.AddComponent<DeffenseTower>();
+            DeffenseTower asdf = unit.AddComponent<DeffenseTower>();
         }
         else
         {

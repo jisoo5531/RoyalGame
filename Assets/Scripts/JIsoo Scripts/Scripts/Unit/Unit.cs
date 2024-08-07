@@ -25,7 +25,6 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 
     public string attackTarget { get; set; }
 
-    public Range rangeType;
     protected bool isPrince;
 
     #endregion

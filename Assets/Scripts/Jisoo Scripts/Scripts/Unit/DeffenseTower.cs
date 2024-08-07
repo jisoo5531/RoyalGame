@@ -61,8 +61,12 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
-            canvasInfo.GetDamage(result);
+            yield return null;
+            if (!isWait)
+            {
+                yield return new WaitForSeconds(0.1f);
+                canvasInfo.GetDamage(result);
+            }
         }
     }
 
@@ -72,9 +76,31 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
         {
             if (!isWait)
             {
-                DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+                stateMachine.DoOperateUpdate(false);
 
-                StateTransition(targetFollowUnit.target);
+                if (!targetFollowUnit.isAttack)
+                {
+                    DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+
+                    StateTransition(targetFollowUnit.target);
+                }
+                else
+                {
+                    if (targetFollowUnit.target != null)
+                    {
+                        Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
+                        Quaternion lookRotation = Quaternion.LookRotation(direction);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+                    }
+                    else
+                    {
+                        targetFollowUnit.isAttack = false;
+
+                        DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+
+                        StateTransition(targetFollowUnit.target);
+                    }
+                }
             }
         }
     }
@@ -94,6 +120,7 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
         else
         {
             SetState(UnitState.Idle, 1f);
+            targetFollowUnit.isAttack = false;
         }
     }
 }

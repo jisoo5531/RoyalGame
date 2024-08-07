@@ -145,7 +145,6 @@ public class MovableUnit : Unit
         else
         {
             SetState(UnitState.Move, 0.8f);
-            targetFollowUnit.isAttack = false;
             if (isPrince && !isRun)
             {
                 isRun = true;

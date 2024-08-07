@@ -61,11 +61,9 @@ public class AllySpawnManager : MonoBehaviour
         }
         else if (ud is DEFENSETOWERInfoData defenseTowerInfo)
         {
-            if (unit.TryGetComponent<MovableUnit>(out MovableUnit mu))
+            if (unit.TryGetComponent<DeffenseTower>(out DeffenseTower dt))
             {
-                mu.moveDelay = defenseTowerInfo.spawnTime;
-                mu.isMove = false;
-                mu.isSpawn = true;
+                dt.isSpawn = true;
             }
         }
         return unit;

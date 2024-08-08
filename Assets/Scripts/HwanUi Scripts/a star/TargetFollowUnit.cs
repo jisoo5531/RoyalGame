@@ -62,21 +62,21 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
             if (isAttack)
             {
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
-                    unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
-                }
-                else
-                {
-                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
-                    unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
-                }
                 yield break;
             }
 
             Vector3 direction = (currentWaypoint - transform.position);
             direction.y = 0;
+
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1.5f);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider != targetCollider && hitCollider.gameObject.layer == 11)
+                {
+                    Vector3 avoidDirection = transform.position - hitCollider.transform.position;
+                    direction += avoidDirection.normalized * 0.5f;
+                }
+            }
 
             if (direction != Vector3.zero)
             {

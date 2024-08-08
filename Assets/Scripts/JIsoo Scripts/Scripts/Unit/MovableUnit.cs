@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class MovableUnit : Unit
 {
@@ -22,6 +23,7 @@ public class MovableUnit : Unit
 
     private bool isRunning = false;
     private bool isRun = false;
+    private bool isRange = false;
     #endregion
 
     private void Awake()
@@ -105,6 +107,22 @@ public class MovableUnit : Unit
                     Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
                     Quaternion lookRotation = Quaternion.LookRotation(direction);
                     transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
+                        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
+                    }
+                    else
+                    {
+                        photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
+                        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
+                    }
+                    StateTransition(targetFollowUnit.target);
+                    if (isRange)
+                    {
+                        DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
+                    }
                 }
                 else
                 {
@@ -120,7 +138,22 @@ public class MovableUnit : Unit
                 }
             }
         }
-    }   
+    }
+
+
+    [PunRPC]
+    private void CanvasRotate(float rotateY)
+    {
+        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.layer == 11)
+    //    {
+    //        //DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
+    //    }
+    //}
 
     private void StateTransition(Transform target)
     {
@@ -133,6 +166,7 @@ public class MovableUnit : Unit
             isMove = false;
             isRun = false;
             isRunning = false;
+            isRange = false;
             targetFollowUnit.isAttack = true;
             targetFollowUnit.speed = moveSpeed;
             SetState(UnitState.Attack, attackSpeed);
@@ -144,6 +178,7 @@ public class MovableUnit : Unit
         }
         else
         {
+            isRange = true;
             SetState(UnitState.Move, 0.8f);
             if (isPrince && !isRun)
             {

@@ -84,11 +84,6 @@ public class UnitData_SO : ScriptableObject
         damage += Mathf.RoundToInt((float)damage * 0.3f);
     }
 }
-public enum Range
-{
-    Melee,
-    Ranged
-}
 
 public enum Type
 {

@@ -11,9 +11,19 @@ public class RangedUnit : MonoBehaviourPunCallbacks
     public int damage;
     public Transform target;
 
+    private TargetFollowUnit targetFollowUnit;
+
+    private void Start()
+    {
+        targetFollowUnit = GetComponent<TargetFollowUnit>();
+    }
+
     private void Update()
     {
-        target = GetComponent<TargetFollowUnit>().target;
+        if(targetFollowUnit.target != null)
+        {
+            target = targetFollowUnit.target;
+        }
     }
 
     public void Attack()

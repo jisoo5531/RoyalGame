@@ -31,6 +31,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     public Image spawnTimeUI;
     public GameObject clock;
     public TextMeshProUGUI levelValue;
+    Tower tower;
 
     GameObject effect;
 
@@ -38,6 +39,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     private float spawnTime;
 
     public bool isTower;
+    public bool isKingTower;
     public bool isPrince;
 
     private void Start()
@@ -51,6 +53,10 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 spawnTimeUI.color = Color.cyan;
                 this.level.sprite = allyPrefab.levelSprite;
                 photonView.RPC("SpawnTime", RpcTarget.All);
+            }
+            if(isKingTower)
+            {
+                tower = this.transform.root.GetComponent<Tower>();
             }
 
             unitCanvas.transform.localEulerAngles = Vector3.zero;
@@ -123,9 +129,19 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     [PunRPC]
     private void RPC_damage(int damage, int currentHp, int currentMaxHp)
     {
-        if(!isHPBarOn)
+        if (isTower)
         {
-            OnHPBar();
+            if(tower.isNotOnCannon && isKingTower)
+            {
+                tower.isNotOnCannon = false;
+            }
+        }
+        else
+        {
+            if (!isHPBarOn)
+            {
+                OnHPBar();
+            }
         }
 
         hpBarFill.fillAmount = (float)currentHp / currentMaxHp;
@@ -139,6 +155,15 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         Destroy(effect, 1f);
         Destroy(gameObject);
     }
+
+
+    //private void Death()
+    //{
+    //    Debug.Log(EffectManager.instance.deathEffect == null);
+    //    GameObject effect = Instantiate(EffectManager.instance.deathEffect, transform.position + new Vector3(0, 5, 0), transform.rotation);
+    //    effect.transform.localScale = new Vector3(8, 8, 8);
+    //    Destroy(gameObject);
+    //}
 
     private void OnHPBar()
     {

@@ -9,7 +9,6 @@ public class Damaging : MonoBehaviourPunCallbacks
 
     public Transform target;
     public Range rangeType;
-    public Type unitType;
     public bool isWait = true;
     private Dictionary<int, IDamagable> damagedTargetsCache = new Dictionary<int, IDamagable>();
 
@@ -32,15 +31,6 @@ public class Damaging : MonoBehaviourPunCallbacks
                     damagedTargetsCache[targetViewID] = damagable;
                 }
 
-                if (unitType == Type.Magic)
-                {
-                    damagable.GetDamage(damage);
-
-                    photonView.RPC("DestoryGob", RpcTarget.All);
-
-                    return;
-                }
-
                 if (rangeType == Range.Ranged)
                 {
                     if (other.gameObject.name.Equals(target.gameObject.name))
@@ -54,7 +44,10 @@ public class Damaging : MonoBehaviourPunCallbacks
 
                 if (damagedTargetsCache.TryGetValue(targetViewID, out IDamagable cachedDamagable))
                 {
-                    photonView.RPC("RPC_SendDamage", RpcTarget.Others, damage, targetViewID);
+                    if (other.gameObject.name.Equals(target.gameObject.name))
+                    {
+                        photonView.RPC("RPC_SendDamage", RpcTarget.Others, damage, targetViewID);
+                    }
                 }
             }
         }

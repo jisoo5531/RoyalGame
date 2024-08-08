@@ -1,53 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class KingTower : Tower
 {
     public GameObject cannon;
     public GameObject[] princessTowers;
 
-    bool isOnCannon = false;
     private void Awake()
     {
-        maxHP = 10000;
+        maxHP = 3500;
         HP = maxHP;
+        isNotOnCannon = true;
 
-        //onTopUnit.GetComponent<RoyalEnemyTest>().maxHP = maxHP;
+        onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;
+        onTopUnit.GetComponent<UnitCanvasInfo>().HP = HP;
     }
 
     private void Update()
     {
-        if (isOnCannon)
+        if(isNotOnCannon || princessTowers.Length < 2)
         {
-            return;
-        }
-        foreach (GameObject tower in princessTowers)
-        {
-            if (tower == null)
-            {
-                isOnCannon = true;
-                //AppearCannon();
-            }
+            //photonView.RPC("AppearCannon", RpcTarget.All);
+            isNotOnCannon = false;
         }
     }
 
-    public override void GetDamage(int damage)
-    {
-        base.GetDamage(damage);
-
-        if (false == isOnCannon)
-        {
-            AppearCannon();
-        }
-    }
-
+    [PunRPC]
     private void AppearCannon()
     {
-        isOnCannon = true;
         cannon.SetActive(true);
 
-        cannon.GetComponent<Animator>().SetTrigger("DoAppear");
+        cannon.GetComponent<Animator>().SetBool("isAppear", true);
 
     }
 }

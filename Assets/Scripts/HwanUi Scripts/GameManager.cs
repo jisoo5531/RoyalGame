@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Sockets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SubsystemsImplementation;
@@ -16,11 +17,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region pubilc º¯¼ö
     public static GameManager instance;
 
+    public Transform flares;
+
     public Transform firstCamera;
     public Transform secondCamera;
 
     public Transform firstLight;
     public Transform secondLight;
+
+    public GameObject flaresPrefab;
 
     public GameObject cameraPrefab;
     public GameObject lightPrefab;
@@ -69,6 +74,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             Instantiate(cameraPrefab, secondCamera.position, secondCamera.rotation);
             Instantiate(lightPrefab, secondLight.position, secondLight.rotation);
         }
+        Instantiate(flaresPrefab, flares.position, Quaternion.identity);
         unitSpawner.mainCamera = Camera.main;
 
         int[] playerKeys = PhotonNetwork.CurrentRoom.Players.Keys.ToArray();

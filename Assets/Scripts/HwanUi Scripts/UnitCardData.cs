@@ -42,3 +42,9 @@ public class MAGICInfoData : AllCardData
 {
     public int tower_Damage;
 }
+
+public enum Range
+{
+    Melee,
+    Ranged
+}

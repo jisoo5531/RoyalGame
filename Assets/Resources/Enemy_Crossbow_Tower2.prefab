@@ -967,7 +967,6 @@ GameObject:
   - component: {fileID: 6039886464557615174}
   - component: {fileID: 6039886464557615175}
   - component: {fileID: 6039886464495413373}
-  - component: {fileID: 6039886464495413370}
   - component: {fileID: 6657604784647535086}
   - component: {fileID: 327496681}
   m_Layer: 9
@@ -1042,6 +1041,7 @@ MonoBehaviour:
   clock: {fileID: 0}
   levelValue: {fileID: 0}
   isTower: 1
+  isKingTower: 0
   isPrince: 0
 --- !u!114 &6039886464557615175
 MonoBehaviour:
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 50
+  damage: 90
   target: {fileID: 0}
 --- !u!114 &6039886464495413373
 MonoBehaviour:
@@ -1079,18 +1079,6 @@ MonoBehaviour:
   range: 0
   targetCollider: {fileID: 0}
   isAttack: 0
---- !u!114 &6039886464495413370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3603283722418607132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc72f392cbd3b6840891f9e0f6a4a627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6657604784647535086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1754,7 +1742,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.7346315, y: 6.2516837, z: 10.72}
+  m_Size: {x: 8.16, y: 6.2516837, z: 10.72}
   m_Center: {x: 0.0000015497208, y: 3.1253586, z: -1.49}
 --- !u!114 &6039886465340042311
 MonoBehaviour:

@@ -48,6 +48,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
             tower.GetComponentInChildren<UnitCanvasInfo>().unitCanvas.transform.position = GameManager.instance.enemyTowerHp[i].position;
             towers[i] = tower;
+
         }
         photonView.RPC("AddEnemyTower", RpcTarget.Others);
     }
@@ -57,6 +58,11 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         if (photonView.IsMine && !isCrate && towers[1] != null)
         {
             GameManager.instance.currentAllyTowers = towers;
+            KingTower kingTower = towers[0].GetComponent<KingTower>();
+            for (int i = 1; i < towers.Length; i++)
+            {
+                kingTower.princessTowers[i - 1] = towers[i];
+            }
             SettingAlly();
             isCrate = true;
         }

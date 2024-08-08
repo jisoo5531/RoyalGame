@@ -42,14 +42,11 @@ public class UI_DisplayUnit : MonoBehaviour
             yield return null;
             for (int i = 0; i < unitSpawnButtons.Length; i++)
             {
-                //Image unitImage = unitSpawnButtons[i].transform.GetChild(0).GetChild(0).GetComponent<Image>();
-
+                unitImage[i].type = Image.Type.Filled;
                 unitImage[i].fillMethod = Image.FillMethod.Radial360;
                 unitImage[i].fillOrigin = (int)Image.Origin360.Top;
 
-
                 unitImage[i].fillAmount = elixir.currentElixir / UI_Manager.m_Instance.m_UI_availableUnit[i].cost;
-                //unitImage.fillAmount = Mathf.Lerp(unitImage.fillAmount, 1, Time.time);
             }
         }
     }
@@ -81,17 +78,9 @@ public class UI_DisplayUnit : MonoBehaviour
     /// <param name="number">몇 번째 버튼에 있는 유닛인지</param>
     public void UI_ChangeDisplayUnit(AllCardData unitData, int number)
     {
-        //unitSpawnButtons[number].transform.GetChild(1).GetComponent<Image>().sprite = unitData.iconSprite;
         UI_SetDisplayUnit(unitData, number, unitElixirText[number]);
-
         AllCardData nextUnitData =  UI_Manager.m_Instance.m_UI_waitUnitsQueue.Peek();
         UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = nextUnitData.img;
-
-        //int index = 0;
-        //foreach (UnitData_SO unit in UI_Manager.m_Instance.m_UI_waitUnitsQueue)
-        //{
-        //    UI_Manager.m_Instance.waitUnitsDisplay[index++].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unit.iconSprite;
-        //}
 
     }
     /// <summary>
@@ -102,9 +91,7 @@ public class UI_DisplayUnit : MonoBehaviour
     /// <param name="elixirText">유닛 코스트</param>
     private void UI_SetDisplayUnit(AllCardData unitData, int number, TextMeshProUGUI elixirText = null)
     {
-        //GameObject unitUI = unitButton.transform.GetChild(1).gameObject;
         unitImage[number].sprite = unitData.img;
-        //unitButton.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = unitData.iconSprite;
         if (elixirText != null)
         {
             elixirText.text = unitData.cost.ToString();

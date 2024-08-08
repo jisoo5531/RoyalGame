@@ -9,8 +9,6 @@ using Photon.Pun;
 
 public class UI_Manager : MonoBehaviourPunCallbacks
 {
-    #region 전역변수
-
     private static UI_Manager instance;
     public static UI_Manager m_Instance { get { return instance; } }
 
@@ -55,9 +53,9 @@ public class UI_Manager : MonoBehaviourPunCallbacks
 
     public Transform SelectedUnitPanel;
 
-    public SpawnSlot focusedSlot;           // 어떤 슬롯에 커서를 대고 있는지
+    public SpawnSlot focusedSlot;
 
-    public SpawnSlot selectedSlot;          // TODO : 어떤 슬롯이 선택되었는지 (선택된 슬롯 하이라이트할 때 사용)
+    public SpawnSlot selectedSlot;
     public GameObject[] slotOutLine;
 
     private UI_Elixir elixir;
@@ -66,7 +64,6 @@ public class UI_Manager : MonoBehaviourPunCallbacks
     public Sprite[] unitSprites;
     public GameObject[] unitPrefab;
 
-    #endregion
     private void Awake()
     {
         instance = this;
@@ -121,20 +118,19 @@ public class UI_Manager : MonoBehaviourPunCallbacks
         {
             yield return null;
 
-            // 현재 보유 엘릭서가 충분하다면
             if (CheckSpawnPossible(selectSlotNumber))
             {
                 UnitSpawner.instance.isElixirEnough = true;
 
                 if (UnitSpawner.instance.spawnComplete)
                 {
-                    //CharacterData spawnedUnit = UI_availableUnit[selectSlotNumber];
+                    AllCardData spawnedUnit = UI_availableUnit[selectSlotNumber];
 
-                    //elixir.ElixirMinus(spawnedUnit.cost);
+                    elixir.ElixirMinus(spawnedUnit.cost);
 
                     UI_availableUnit.RemoveAt(selectSlotNumber);
                     UI_availableUnit.Insert(selectSlotNumber, UI_waitUnitsQueue.Dequeue());
-                    //UI_waitUnitsQueue.Enqueue(spawnedUnit);
+                    UI_waitUnitsQueue.Enqueue(spawnedUnit);
 
                     GetComponent<UI_DisplayUnit>().UI_ChangeDisplayUnit(UI_availableUnit[selectSlotNumber], selectSlotNumber);
                     selectedSlot = null;

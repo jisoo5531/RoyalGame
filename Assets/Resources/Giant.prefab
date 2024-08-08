@@ -1491,7 +1491,6 @@ MonoBehaviour:
   range: 0
   targetCollider: {fileID: 0}
   isAttack: 0
-  isMove: 0
 --- !u!136 &7301512932376183129
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1611,6 +1610,7 @@ MonoBehaviour:
   clock: {fileID: 5838120818030238089}
   levelValue: {fileID: 319775478392310820}
   isTower: 0
+  isPrince: 0
 --- !u!82 &7949884459082903494
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2105,11 +2105,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   target: {fileID: 0}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 1536
   rangeType: 0
   unitType: 0
+  isWait: 1
 --- !u!1 &7083750759938377467
 GameObject:
   m_ObjectHideFlags: 0

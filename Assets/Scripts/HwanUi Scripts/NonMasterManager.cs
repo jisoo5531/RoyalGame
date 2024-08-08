@@ -34,8 +34,6 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             {
                 CreateTower();
             }
-
-            GameManager.instance.grid.CreateGrid();
         }
     }
 
@@ -64,6 +62,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
                 kingTower.princessTowers[i - 1] = towers[i];
             }
             SettingAlly();
+            GameManager.instance.grid.CreateGrid();
             isCrate = true;
         }
     }

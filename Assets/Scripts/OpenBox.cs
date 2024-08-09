@@ -22,7 +22,6 @@ public class OpenBox : MonoBehaviour
     {
         if (!Box_Close.activeSelf)
         {
-            Debug.Log("사라졌다");
             GameObject.Find("Box").transform.Find("Box_Open").gameObject.SetActive(true);
         }
     }

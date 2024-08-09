@@ -33,7 +33,7 @@ public class UI_Elixir : MonoBehaviour
             yield return null;
             if (currentElixir < maxElixir)
             {
-                currentElixir = Mathf.Lerp(currentElixir, currentElixir + elixirRechargeRate, Time.deltaTime * 0.5f);
+                currentElixir = Mathf.Lerp(currentElixir, currentElixir + elixirRechargeRate, Time.deltaTime * 0.3f);
                 if (currentElixir > maxElixir)
                 {
                     currentElixir = maxElixir;
@@ -43,7 +43,7 @@ public class UI_Elixir : MonoBehaviour
     }
     private void UI_UpdateCurrentElixir()
     {
-        elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.5f);
+        elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.3f);
         if (elixirText != null)
         {
             elixirText.text = ((int)elixirSlider.value).ToString();

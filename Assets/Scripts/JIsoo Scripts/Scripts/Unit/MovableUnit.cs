@@ -83,6 +83,10 @@ public class MovableUnit : Unit
     {
         if (isSpawn && photonView.IsMine)
         {
+            if (damaging != null)
+            {
+                damaging.target = targetFollowUnit.target;
+            }
             if (!isWait)
             {
                 isMove = true;
@@ -128,7 +132,7 @@ public class MovableUnit : Unit
                 {
                     targetFollowUnit.isAttack = false;
                     isMove = true;
-                    
+
                     DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
 
                     if (isMove)
@@ -147,21 +151,13 @@ public class MovableUnit : Unit
         canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.layer == 11)
-    //    {
-    //        //DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
-    //    }
-    //}
-
     private void StateTransition(Transform target)
     {
         if (DetectEnemyManager.instance == null || target == null)
             return;
 
-        float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= range)
+        // float distance = Vector3.Distance(target.position, transform.position);
+        if (CheckDis())
         {
             isMove = false;
             isRun = false;
@@ -186,6 +182,42 @@ public class MovableUnit : Unit
                 StartCoroutine(RunDelay());
             }
         }
+    }
+    private bool CheckDis()
+    {
+        Collider collider = targetFollowUnit?.targetCollider;
+        bool isEnter = false;
+
+        if (collider != null)
+        {
+            Bounds bounds = collider.bounds;
+
+            Vector3 frontPoint = bounds.max;
+
+            Vector3 backPoint = bounds.min;
+
+            Vector3 leftPoint = new Vector3(bounds.min.x, bounds.center.y, bounds.center.z);
+
+            Vector3 rightPoint = new Vector3(bounds.max.x, bounds.center.y, bounds.center.z);
+
+            float distanceToFront = Vector3.Distance(frontPoint, transform.position);
+            float distanceToLeft = Vector3.Distance(leftPoint, transform.position);
+            float distanceToBack = Vector3.Distance(backPoint, transform.position);
+            float distanceToRight = Vector3.Distance(rightPoint, transform.position);
+
+            //Debug.Log("distanceToFront: " + distanceToFront + ",  " + range);
+            //Debug.Log("distanceToLeft: " + distanceToLeft + ",  " + range);
+            //Debug.Log("distanceToBack: " + distanceToBack + ",  " + range);
+            //Debug.Log("distanceToRight: " + distanceToRight + ",  " + range);
+            if (distanceToFront <= range - 1 || distanceToLeft <= range - 1 ||
+                distanceToBack <= range - 1 || distanceToRight <= range - 1)
+            {
+                isEnter = true;
+
+                return isEnter;
+            }
+        }
+        return isEnter;
     }
 
     IEnumerator RunDelay()

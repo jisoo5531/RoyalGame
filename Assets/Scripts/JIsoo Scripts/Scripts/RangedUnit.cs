@@ -6,6 +6,7 @@ using UnityEngine;
 public class RangedUnit : MonoBehaviourPunCallbacks
 {    
     public GameObject projectilePrefab;
+    GameObject projectile;
     public Transform pStart_trans;
     public LayerMask targetLayerMask;
     public int damage;
@@ -29,8 +30,9 @@ public class RangedUnit : MonoBehaviourPunCallbacks
     public void Attack()
     {
         string pfbName = projectilePrefab.name;
-        GameObject projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.Euler(-90, 0, transform.localEulerAngles.y));
-        projectile.GetComponent<Projectile>().targetPos = target.position;
+        projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.Euler(-90, 0, transform.localEulerAngles.y));
+        Projectile projec = projectile.GetComponent<Projectile>();
+        projec.target = target.gameObject;
 
         Damaging damagingComponent = projectile.GetComponent<Damaging>();
         damagingComponent.target = target;

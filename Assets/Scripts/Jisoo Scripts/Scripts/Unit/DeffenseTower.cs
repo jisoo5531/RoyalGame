@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,6 +92,17 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
                         Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
                         Quaternion lookRotation = Quaternion.LookRotation(direction);
                         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+                            photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
+                            canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
+                        }
+                        else
+                        {
+                            photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
+                            canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
+                        }
                     }
                     else
                     {
@@ -103,6 +115,12 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
                 }
             }
         }
+    }
+
+    [PunRPC]
+    private void CanvasRotate(float rotateY)
+    {
+        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
     }
 
     private void StateTransition(Transform target)

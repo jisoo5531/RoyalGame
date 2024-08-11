@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -24,6 +25,9 @@ public class MovableUnit : Unit
     private bool isRunning = false;
     private bool isRun = false;
     private bool isRange = false;
+    bool isTimer = true;
+
+    Vector3 frontPoint, backPoint, leftPoint, rightPoint;
     #endregion
 
     private void Awake()
@@ -81,69 +85,41 @@ public class MovableUnit : Unit
 
     private void Update()
     {
-        if (isSpawn && photonView.IsMine)
+        if (!isSpawn || !photonView.IsMine) return;
+
+        if (damaging != null) damaging.target = targetFollowUnit.target;
+
+        if (!isWait)
         {
-            if (damaging != null)
-            {
-                damaging.target = targetFollowUnit.target;
-            }
-            if (!isWait)
-            {
-                isMove = true;
-                DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
-                isWait = true;
-            }
+            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
+            isMove = true;
+            isTimer = false;
+            isWait = true;
+        }
+
+        if (!isTimer)
+        {
             stateMachine.DoOperateUpdate(isRunning);
 
-            if (!targetFollowUnit.isAttack)
-            {
-                DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
-
-                if (isMove)
-                {
-                    StateTransition(targetFollowUnit.target);
-                }
-            }
-            else
+            if (targetFollowUnit.isAttack)
             {
                 if (targetFollowUnit.target != null)
                 {
-                    Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
-                        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
-                    }
-                    else
-                    {
-                        photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
-                        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
-                    }
+                    RotateTowardsTarget(targetFollowUnit.target);
                     StateTransition(targetFollowUnit.target);
-                    if (isRange)
-                    {
-                        DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
-                    }
                 }
                 else
                 {
                     targetFollowUnit.isAttack = false;
-                    isMove = true;
-
-                    DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
-
-                    if (isMove)
-                    {
-                        StateTransition(targetFollowUnit.target);
-                    }
+                    StateTransition(targetFollowUnit.target);
                 }
+            }
+            else if (isMove)
+            {
+                StateTransition(targetFollowUnit.target);
             }
         }
     }
-
 
     [PunRPC]
     private void CanvasRotate(float rotateY)
@@ -153,71 +129,97 @@ public class MovableUnit : Unit
 
     private void StateTransition(Transform target)
     {
-        if (DetectEnemyManager.instance == null || target == null)
-            return;
+        if (target == null || DetectEnemyManager.instance == null) return;
 
-        // float distance = Vector3.Distance(target.position, transform.position);
         if (CheckDis())
         {
-            isMove = false;
-            isRun = false;
-            isRunning = false;
-            isRange = false;
-            targetFollowUnit.isAttack = true;
-            targetFollowUnit.speed = moveSpeed;
-            SetState(UnitState.Attack, attackSpeed);
-            if (damaging != null)
-            {
-                damaging.isWait = false;
-            }
-            // UpdateAnimationSpeed(attackSpeed);
+            SetAttackState();
         }
         else
         {
-            isRange = true;
-            SetState(UnitState.Move, 0.8f);
-            if (isPrince && !isRun)
-            {
-                isRun = true;
-                StartCoroutine(RunDelay());
-            }
+            SetMoveState();
         }
+
+        DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
     }
+
     private bool CheckDis()
     {
         Collider collider = targetFollowUnit?.targetCollider;
-        bool isEnter = false;
+        if (collider == null) return false;
 
-        if (collider != null)
+        UpdateColliderPoints(collider);
+
+        return CheckDistance();
+    }
+
+    private void UpdateColliderPoints(Collider collider)
+    {
+        if (collider is BoxCollider boxCollider)
         {
-            Bounds bounds = collider.bounds;
-
-            Vector3 frontPoint = bounds.max;
-
-            Vector3 backPoint = bounds.min;
-
-            Vector3 leftPoint = new Vector3(bounds.min.x, bounds.center.y, bounds.center.z);
-
-            Vector3 rightPoint = new Vector3(bounds.max.x, bounds.center.y, bounds.center.z);
-
-            float distanceToFront = Vector3.Distance(frontPoint, transform.position);
-            float distanceToLeft = Vector3.Distance(leftPoint, transform.position);
-            float distanceToBack = Vector3.Distance(backPoint, transform.position);
-            float distanceToRight = Vector3.Distance(rightPoint, transform.position);
-
-            //Debug.Log("distanceToFront: " + distanceToFront + ",  " + range);
-            //Debug.Log("distanceToLeft: " + distanceToLeft + ",  " + range);
-            //Debug.Log("distanceToBack: " + distanceToBack + ",  " + range);
-            //Debug.Log("distanceToRight: " + distanceToRight + ",  " + range);
-            if (distanceToFront <= range - 1 || distanceToLeft <= range - 1 ||
-                distanceToBack <= range - 1 || distanceToRight <= range - 1)
-            {
-                isEnter = true;
-
-                return isEnter;
-            }
+            Bounds bounds = boxCollider.bounds;
+            frontPoint = bounds.max;
+            backPoint = bounds.min;
+            leftPoint = new Vector3(bounds.min.x, bounds.center.y, bounds.center.z);
+            rightPoint = new Vector3(bounds.max.x, bounds.center.y, bounds.center.z);
         }
-        return isEnter;
+        else if (collider is CapsuleCollider capsuleCollider)
+        {
+            Vector3 capsuleCenter = capsuleCollider.bounds.center;
+            float radius = capsuleCollider.radius;
+            frontPoint = capsuleCenter + Vector3.forward * radius;
+            backPoint = capsuleCenter + Vector3.back * radius;
+            leftPoint = capsuleCenter + Vector3.left * radius;
+            rightPoint = capsuleCenter + Vector3.right * radius;
+        }
+    }
+
+    private bool CheckDistance()
+    {
+        float[] distances = {
+            Vector3.Distance(frontPoint, transform.position),
+            Vector3.Distance(leftPoint, transform.position),
+            Vector3.Distance(backPoint, transform.position),
+            Vector3.Distance(rightPoint, transform.position)
+        };
+
+        for(int i = 0; i< distances.Length; i++)
+        {
+            if (distances[i] <= range) return true;
+        }
+        return false;
+    }
+
+    private void SetAttackState()
+    {
+        isMove = isRun = isRunning = isRange = false;
+        targetFollowUnit.isAttack = true;
+        targetFollowUnit.speed = moveSpeed;
+        SetState(UnitState.Attack, attackSpeed);
+        if (damaging != null) damaging.isWait = false;
+    }
+
+    private void SetMoveState()
+    {
+        isMove = isRange = true;
+        targetFollowUnit.isAttack = false;
+        SetState(UnitState.Move, 0.8f);
+        if (isPrince && !isRun)
+        {
+            isRun = true;
+            StartCoroutine(RunDelay());
+        }
+    }
+
+    private void RotateTowardsTarget(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+
+        float rotationY = transform.localEulerAngles.y;
+        photonView.RPC("CanvasRotate", RpcTarget.Others, PhotonNetwork.IsMasterClient ? rotationY : rotationY - 180);
+        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotationY + (PhotonNetwork.IsMasterClient ? 0 : 180), 0);
     }
 
     IEnumerator RunDelay()

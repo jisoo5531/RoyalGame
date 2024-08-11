@@ -44,10 +44,8 @@ public class Damaging : MonoBehaviourPunCallbacks
 
                 if (damagedTargetsCache.TryGetValue(targetViewID, out IDamagable cachedDamagable))
                 {
-                    Debug.Log("fffasfd");
                     if (other.gameObject.name.Equals(target.gameObject.name))
                     {
-                        Debug.Log("eeeeee");
                         photonView.RPC("RPC_SendDamage", RpcTarget.Others, damage, targetViewID);
                     }
                 }

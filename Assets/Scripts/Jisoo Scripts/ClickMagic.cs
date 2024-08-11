@@ -35,6 +35,6 @@ public class ClickMagic : MonoBehaviour
         fireball.transform.GetChild(0).transform.position = startTrans.position;
 
         Projectile fireballProjectile = fireball.transform.GetChild(0).gameObject.AddComponent<Projectile>();
-        fireballProjectile.targetPos = spawnPos;
+        //fireballProjectile.target = spawnPos;
     }
 }

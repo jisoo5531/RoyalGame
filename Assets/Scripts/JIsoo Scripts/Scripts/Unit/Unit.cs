@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 {
-
-
-    public int unit_ID;
     [HideInInspector] public Animator anim;
-    GameObject effect;
 
     #region public º¯¼ö
     public int cardLevel { get; set; }
@@ -57,7 +53,6 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 
     protected virtual void InitializeUnitData(AllCardData unit)
     {
-        name = unit.cardName;
         attackSpeed = 1f;
         if (unit is UnitInfoData unitInfo)
         {

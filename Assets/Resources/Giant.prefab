@@ -1610,6 +1610,7 @@ MonoBehaviour:
   clock: {fileID: 5838120818030238089}
   levelValue: {fileID: 319775478392310820}
   isTower: 0
+  isKingTower: 0
   isPrince: 0
 --- !u!82 &7949884459082903494
 AudioSource:
@@ -2106,7 +2107,6 @@ MonoBehaviour:
   damage: 0
   target: {fileID: 0}
   rangeType: 0
-  unitType: 0
   isWait: 1
 --- !u!1 &7083750759938377467
 GameObject:

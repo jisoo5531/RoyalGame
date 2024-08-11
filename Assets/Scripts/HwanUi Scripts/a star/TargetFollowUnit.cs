@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -32,6 +33,12 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
     {
+        if (this == null)
+        {
+            StopCoroutine("FollowPath");
+            return;
+        }
+
         if (pathSuccessful)
         {
             for (int i = 0; i < newPath.Length; i++)
@@ -99,6 +106,7 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
                     unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
                 }
             }
+            Debug.Log("ssssssssssss");
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }

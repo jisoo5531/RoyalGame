@@ -63,6 +63,8 @@ public class DetectEnemyManager : MonoBehaviour
     {
         try
         {
+            if (targetFollowUnit == null) return;
+
             int towerIndex = CheckEnemyDistance(character, towerList);
             int unitIndex = -1;
 

@@ -27,7 +27,7 @@ public class MovableUnit : Unit
     private bool isRange = false;
     bool isTimer = true;
 
-    Vector3 frontPoint, backPoint, leftPoint, rightPoint;
+    private int layer;
     #endregion
 
     private void Awake()
@@ -44,6 +44,7 @@ public class MovableUnit : Unit
     private void Start()
     {
         spawnTime = (float)PhotonNetwork.Time;
+        layer = (1 << LayerMask.NameToLayer("EnemyTower") | (1 << LayerMask.NameToLayer("EnemyUnit")));
         InitStateMachine();
     }
 
@@ -92,8 +93,8 @@ public class MovableUnit : Unit
         if (!isWait)
         {
             isMove = true;
-            DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
             isTimer = false;
+            DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
             isWait = true;
         }
 
@@ -126,7 +127,7 @@ public class MovableUnit : Unit
 
     private void StateTransition(Transform target)
     {
-        if (target == null || DetectEnemyManager.instance == null) return;
+        if (target == null || isTimer || DetectEnemyManager.instance == null) return;
 
         if (CheckDis())
         {
@@ -140,47 +141,16 @@ public class MovableUnit : Unit
 
     private bool CheckDis()
     {
-        Collider collider = targetFollowUnit?.targetCollider;
-        if (collider == null) return false;
+        if (targetFollowUnit.target == null) return false;
 
-        UpdateColliderPoints(collider);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, range, layer);
 
-        return CheckDistance();
-    }
-
-    private void UpdateColliderPoints(Collider collider)
-    {
-        if (collider is BoxCollider boxCollider)
+        for (int i = 0; i < colliders.Length; i++)
         {
-            Bounds bounds = boxCollider.bounds;
-            frontPoint = bounds.max;
-            backPoint = bounds.min;
-            leftPoint = new Vector3(bounds.min.x, bounds.center.y, bounds.center.z);
-            rightPoint = new Vector3(bounds.max.x, bounds.center.y, bounds.center.z);
-        }
-        else if (collider is CapsuleCollider capsuleCollider)
-        {
-            Vector3 capsuleCenter = capsuleCollider.bounds.center;
-            float radius = capsuleCollider.radius;
-            frontPoint = capsuleCenter + Vector3.forward * radius;
-            backPoint = capsuleCenter + Vector3.back * radius;
-            leftPoint = capsuleCenter + Vector3.left * radius;
-            rightPoint = capsuleCenter + Vector3.right * radius;
-        }
-    }
-
-    private bool CheckDistance()
-    {
-        float[] distances = {
-            Vector3.Distance(frontPoint, transform.position),
-            Vector3.Distance(leftPoint, transform.position),
-            Vector3.Distance(backPoint, transform.position),
-            Vector3.Distance(rightPoint, transform.position)
-        };
-
-        for (int i = 0; i < distances.Length; i++)
-        {
-            if (distances[i] <= range) return true;
+            if (colliders[i].gameObject.Equals(targetFollowUnit.target.gameObject))
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -210,7 +180,7 @@ public class MovableUnit : Unit
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
 
         float rotationY = transform.localEulerAngles.y;
         photonView.RPC("CanvasRotate", RpcTarget.Others, PhotonNetwork.IsMasterClient ? rotationY : rotationY - 180);

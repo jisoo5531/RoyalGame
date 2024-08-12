@@ -87,37 +87,34 @@ public class MovableUnit : Unit
     {
         if (!isSpawn || !photonView.IsMine) return;
 
-        if (damaging != null) damaging.target = targetFollowUnit.target;
+        if (damaging != null && targetFollowUnit.target != null) damaging.target = targetFollowUnit.target;
 
         if (!isWait)
         {
-            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
             isMove = true;
+            DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
             isTimer = false;
             isWait = true;
         }
 
-        if (!isTimer)
-        {
-            stateMachine.DoOperateUpdate(isRunning);
+        stateMachine.DoOperateUpdate(isRunning);
+        StateTransition(targetFollowUnit.target);
 
-            if (targetFollowUnit.isAttack)
+        if (targetFollowUnit.isAttack)
+        {
+            if (targetFollowUnit.target != null)
             {
-                if (targetFollowUnit.target != null)
-                {
-                    RotateTowardsTarget(targetFollowUnit.target);
-                    StateTransition(targetFollowUnit.target);
-                }
-                else
-                {
-                    targetFollowUnit.isAttack = false;
-                    StateTransition(targetFollowUnit.target);
-                }
+                RotateTowardsTarget(targetFollowUnit.target);
             }
-            else if (isMove)
+            else
             {
-                StateTransition(targetFollowUnit.target);
+                isMove = true;
+                DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
             }
+        }
+        else
+        {
+            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
         }
     }
 
@@ -139,8 +136,6 @@ public class MovableUnit : Unit
         {
             SetMoveState();
         }
-
-        DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
     }
 
     private bool CheckDis()
@@ -183,7 +178,7 @@ public class MovableUnit : Unit
             Vector3.Distance(rightPoint, transform.position)
         };
 
-        for(int i = 0; i< distances.Length; i++)
+        for (int i = 0; i < distances.Length; i++)
         {
             if (distances[i] <= range) return true;
         }

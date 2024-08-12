@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviourPunCallbacks
         originalRotate = transform.localEulerAngles;
         originalPos = transform.position;
         dir = transform.forward;
-        Invoke("LifeTime", 1.7f);
+        Invoke("LifeTime", 1.4f);
     }
 
     private void Start()

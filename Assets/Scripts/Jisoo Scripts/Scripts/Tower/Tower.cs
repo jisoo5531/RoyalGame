@@ -8,7 +8,16 @@ public class Tower : MonoBehaviourPunCallbacks
     public int HP { get; set; }
     public int maxHP { get; set; }
 
+    public float range { get; set; }
+
+    public int damage { get; set; }
+
     public bool isNotOnCannon { get; set; }
 
     public GameObject onTopUnit;
+
+    protected virtual void InitData()
+    {
+
+    }
 }

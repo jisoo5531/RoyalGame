@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class MovableUnit : Unit
+public class MovableUnit : Unit, IAttackable
 {
     #region public º¯¼ö
     public float moveSpeed;
@@ -99,7 +99,6 @@ public class MovableUnit : Unit
         }
 
         stateMachine.DoOperateUpdate(isRunning);
-        StateTransition(targetFollowUnit.target);
 
         if (targetFollowUnit.isAttack)
         {
@@ -110,13 +109,16 @@ public class MovableUnit : Unit
             else
             {
                 isMove = true;
+                targetFollowUnit.isAttack = false;
                 DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
             }
         }
         else
         {
+            targetFollowUnit.isAttack = false;
             DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
         }
+        StateTransition(targetFollowUnit.target);
     }
 
     [PunRPC]
@@ -143,7 +145,7 @@ public class MovableUnit : Unit
     {
         if (targetFollowUnit.target == null) return false;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, range, layer);
+        Collider[] colliders = Physics.OverlapSphere(transform.position + (Vector3.up * 3f), range, layer);
 
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -153,6 +155,13 @@ public class MovableUnit : Unit
             }
         }
         return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position + (Vector3.up * 3f), range);
     }
 
     private void SetAttackState()

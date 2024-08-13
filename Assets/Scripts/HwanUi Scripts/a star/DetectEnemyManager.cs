@@ -15,8 +15,6 @@ public class DetectEnemyManager : MonoBehaviour
     public List<GameObject> enemyList = new List<GameObject>();
     #endregion
 
-    Transform enemyUnit;
-
     private void Awake()
     {
         instance = this;
@@ -116,6 +114,35 @@ public class DetectEnemyManager : MonoBehaviour
             }
         }
         catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+        }
+    }
+
+    public void CheckEnemyUnit(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit)
+    {
+        try
+        {
+            if (targetFollowUnit == null) return;
+
+            int unitIndex = CheckEnemyDistance(character, enemyList);
+
+            Transform enemyTarget = null;
+            float enemyDistance = float.MaxValue;
+
+            if (enemyList[unitIndex] != null)
+            {
+                enemyTarget = enemyList[unitIndex].transform;
+                enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
+
+                if (enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
+                {
+                    targetFollowUnit.target = enemyTarget;
+                    targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
+                }
+            }
+        }
+        catch(Exception ex)
         {
             Debug.LogError(ex.Message);
         }

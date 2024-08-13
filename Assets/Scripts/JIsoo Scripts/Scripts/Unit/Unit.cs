@@ -81,15 +81,12 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
 
     public void Attack()
     {
-        if(range >= 14)
-        {
-            GetComponent<RangedUnit>().Attack();
-        }
+        GetComponent<RangedUnit>()?.Attack();
     }
 
     public void SendDamage(int damage)
     {
-        if (range >= 14)
+        if (GetComponent<RangedUnit>() != null)
         {
             GetComponent<RangedUnit>().damage = damage;
             return;

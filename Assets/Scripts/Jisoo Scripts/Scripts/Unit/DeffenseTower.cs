@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DeffenseTower : Unit /*IAttackable, IDamagable*/
+public class DeffenseTower : Unit, IAttackable
 {
     protected float lifeTime;
     RangedUnit rangedUnit;
@@ -73,48 +73,42 @@ public class DeffenseTower : Unit /*IAttackable, IDamagable*/
 
     private void Update()
     {
-        if (isSpawn && photonView.IsMine)
+        if (!isSpawn || !photonView.IsMine || !isWait) return;
+
+        stateMachine.DoOperateUpdate(false);
+
+        if (!targetFollowUnit.isAttack)
         {
-            if (!isWait)
+            DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+
+            StateTransition(targetFollowUnit.target);
+        }
+        else
+        {
+            if (targetFollowUnit.target != null)
             {
-                stateMachine.DoOperateUpdate(false);
+                RotateTowardsTarget(targetFollowUnit.target);
+            }
+            else
+            {
+                targetFollowUnit.isAttack = false;
 
-                if (!targetFollowUnit.isAttack)
-                {
-                    DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+                DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
 
-                    StateTransition(targetFollowUnit.target);
-                }
-                else
-                {
-                    if (targetFollowUnit.target != null)
-                    {
-                        Vector3 direction = (targetFollowUnit.target.position - transform.position).normalized;
-                        Quaternion lookRotation = Quaternion.LookRotation(direction);
-                        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-
-                        if (PhotonNetwork.IsMasterClient)
-                        {
-                            photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
-                            canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
-                        }
-                        else
-                        {
-                            photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
-                            canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
-                        }
-                    }
-                    else
-                    {
-                        targetFollowUnit.isAttack = false;
-
-                        DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
-
-                        StateTransition(targetFollowUnit.target);
-                    }
-                }
+                StateTransition(targetFollowUnit.target);
             }
         }
+    }
+
+    private void RotateTowardsTarget(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
+
+        float rotationY = transform.localEulerAngles.y;
+        photonView.RPC("CanvasRotate", RpcTarget.Others, PhotonNetwork.IsMasterClient ? rotationY : rotationY - 180);
+        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotationY + (PhotonNetwork.IsMasterClient ? 0 : 180), 0);
     }
 
     [PunRPC]

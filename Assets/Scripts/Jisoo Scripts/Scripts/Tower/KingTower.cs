@@ -10,12 +10,17 @@ public class KingTower : Tower
 
     private void Awake()
     {
-        maxHP = 3500;
-        HP = maxHP;
-        isNotOnCannon = true;
-
+        InitData();
         onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;
         onTopUnit.GetComponent<UnitCanvasInfo>().HP = HP;
+    }
+    protected override void InitData()
+    {
+        maxHP = 3500;
+        HP = maxHP;
+        range = 26;
+        damage = 90;
+        isNotOnCannon = true;
     }
 
     private void Update()

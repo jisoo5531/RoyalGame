@@ -14,7 +14,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     public Transform target = null;
 
     public float speed;
-    public float range;
     public Collider targetCollider;
     public bool isAttack = false;
     #endregion

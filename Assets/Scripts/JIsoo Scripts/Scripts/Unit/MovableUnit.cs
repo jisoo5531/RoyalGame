@@ -56,7 +56,6 @@ public class MovableUnit : Unit, IAttackable
         if (targetFollowUnit != null)
         {
             targetFollowUnit.speed = this.moveSpeed;
-            targetFollowUnit.range = range;
         }
     }
 
@@ -69,6 +68,7 @@ public class MovableUnit : Unit, IAttackable
             detectionRange = unitInfo.detectRange;
             attackSpeed = unitInfo.attackSpeed;
         }
+
         if (rangedUnit != null)
         {
             rangedUnit.damage = this.damage;

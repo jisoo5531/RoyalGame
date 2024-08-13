@@ -35,7 +35,6 @@ public class MovableTest : Unit
         if (targetFollowUnit != null)
         {
             targetFollowUnit.speed = this.moveSpeed;
-            targetFollowUnit.range = range;
         }
     }
 

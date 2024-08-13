@@ -1,16 +1,10 @@
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Utilities.IO.Pem;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Net.Sockets;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SubsystemsImplementation;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -44,6 +38,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Transform[] allyTowerHp;
     public Transform[] enemyTowerHp;
 
+    public Transform allyFlares;
+    public Transform enemyFlares;
+
     public Sprite[] hpSprite;
 
     public Material[] allyMaterial;
@@ -68,13 +65,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Instantiate(cameraPrefab, firstCamera.position, firstCamera.rotation);
             Instantiate(lightPrefab, firstLight.position, firstLight.rotation);
+            Instantiate(flaresPrefab, enemyFlares.position, Quaternion.identity);
         }
         else if (PhotonNetwork.IsMasterClient)
         {
             Instantiate(cameraPrefab, secondCamera.position, secondCamera.rotation);
             Instantiate(lightPrefab, secondLight.position, secondLight.rotation);
+            Instantiate(flaresPrefab, allyFlares.position, Quaternion.identity);
         }
-        Instantiate(flaresPrefab, flares.position, Quaternion.identity);
         unitSpawner.mainCamera = Camera.main;
 
         int[] playerKeys = PhotonNetwork.CurrentRoom.Players.Keys.ToArray();

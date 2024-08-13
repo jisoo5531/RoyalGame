@@ -123,18 +123,16 @@ public class DetectEnemyManager : MonoBehaviour
     {
         try
         {
-            if (targetFollowUnit == null) return;
+            if (targetFollowUnit == null || enemyList.Count < 1) return;
 
             int unitIndex = CheckEnemyDistance(character, enemyList);
 
             Transform enemyTarget = null;
             float enemyDistance = float.MaxValue;
-
             if (enemyList[unitIndex] != null)
             {
                 enemyTarget = enemyList[unitIndex].transform;
                 enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
-
                 if (enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
                 {
                     targetFollowUnit.target = enemyTarget;

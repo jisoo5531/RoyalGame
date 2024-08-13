@@ -969,6 +969,7 @@ GameObject:
   - component: {fileID: 6039886464495413373}
   - component: {fileID: 6657604784647535086}
   - component: {fileID: 327496681}
+  - component: {fileID: 2598725883972337090}
   m_Layer: 9
   m_Name: TT_Crossbowman (1)
   m_TagString: Untagged
@@ -1055,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d6fbe2cdea52f4281560163ee06f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4694306710321462239, guid: 77fb97db02ebdc54dad4c2cbddf2973a, type: 3}
+  projectilePrefab: {fileID: 3147234588172061010, guid: 4442903e94c5b1a44b71abe3e278760f, type: 3}
   pStart_trans: {fileID: 6251524908419582790}
   targetLayerMask:
     serializedVersion: 2
@@ -1076,7 +1077,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 0
-  range: 0
   targetCollider: {fileID: 0}
   isAttack: 0
 --- !u!114 &6657604784647535086
@@ -1126,6 +1126,21 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &2598725883972337090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3603283722418607132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bd1d806fab5a84f819c5bdf2cbd3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  attackSpeed: 1
+  canvasInfo: {fileID: 0}
 --- !u!1 &3603283722497717301
 GameObject:
   m_ObjectHideFlags: 0

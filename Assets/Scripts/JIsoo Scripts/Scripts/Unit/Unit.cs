@@ -17,8 +17,8 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     public int maxHP { get; set; }
     public int cost { get; set; }
     public float spawnTime { get; set; }
-    public float attackSpeed { get; set; }
 
+    public float attackSpeed = 1f;
     public string attackTarget { get; set; }
 
     protected bool isPrince;

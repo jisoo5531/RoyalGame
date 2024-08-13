@@ -14152,6 +14152,8 @@ MonoBehaviour:
   - {fileID: 802589908}
   - {fileID: 1683123761}
   - {fileID: 1368134929}
+  allyFlares: {fileID: 1438707534}
+  enemyFlares: {fileID: 1877965081}
   hpSprite:
   - {fileID: 21300000, guid: a947017c9907ec64eae4e717a808798f, type: 3}
   - {fileID: 21300000, guid: 18c69375a81673247b1d31f2c02c1c62, type: 3}
@@ -14322,6 +14324,7 @@ Transform:
   - {fileID: 1666449234}
   - {fileID: 153277901}
   - {fileID: 1811163810}
+  - {fileID: 1438707534}
   m_Father: {fileID: 2034505773}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15307,6 +15310,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4870607340752228, guid: 341b429a3478ae64493e7744c90631c7, type: 3}
   m_PrefabInstance: {fileID: 1438105568}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1438707533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1438707534}
+  m_Layer: 0
+  m_Name: FlaresTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1438707534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438707533}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.5, y: -202.3, z: 122.8}
+  m_LocalScale: {x: 15.581565, y: 15.581565, z: 15.581565}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1271762655}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439160442 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821374989505724, guid: 1a51fe95cc8cc3a4ca8f62728430ca9f, type: 3}
@@ -15771,6 +15805,7 @@ Transform:
   - {fileID: 802589908}
   - {fileID: 1683123761}
   - {fileID: 1368134929}
+  - {fileID: 1877965081}
   m_Father: {fileID: 2034505773}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18943,8 +18978,8 @@ Transform:
   m_LocalScale: {x: 15.581565, y: 15.581565, z: 15.581565}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2034505773}
-  m_RootOrder: 6
+  m_Father: {fileID: 1517701912}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1887279743
 PrefabInstance:
@@ -20094,7 +20129,6 @@ Transform:
   - {fileID: 1901111190}
   - {fileID: 1271762655}
   - {fileID: 1517701912}
-  - {fileID: 1877965081}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

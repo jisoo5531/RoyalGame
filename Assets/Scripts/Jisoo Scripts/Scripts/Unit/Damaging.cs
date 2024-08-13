@@ -70,6 +70,16 @@ public class Damaging : MonoBehaviourPunCallbacks
                     damagedTargetsCache[targetViewID] = targetDamagable;
                     targetDamagable.GetDamage(damage);
                 }
+                else
+                {
+                    targetDamagable = targetPV.GetComponentInChildren<IDamagable>();
+
+                    if(targetDamagable != null)
+                    {
+                        damagedTargetsCache[targetViewID] = targetDamagable;
+                        targetDamagable.GetDamage(damage);
+                    }
+                }
             }
         }
     }

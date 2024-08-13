@@ -68,7 +68,7 @@ public class Damaging : MonoBehaviourPunCallbacks
                 if (targetDamagable != null)
                 {
                     damagedTargetsCache[targetViewID] = targetDamagable;
-                    targetDamagable.GetDamage(damage);
+                    targetDamagable?.GetDamage(damage);
                 }
                 else
                 {
@@ -77,7 +77,7 @@ public class Damaging : MonoBehaviourPunCallbacks
                     if(targetDamagable != null)
                     {
                         damagedTargetsCache[targetViewID] = targetDamagable;
-                        targetDamagable.GetDamage(damage);
+                        targetDamagable?.GetDamage(damage);
                     }
                 }
             }

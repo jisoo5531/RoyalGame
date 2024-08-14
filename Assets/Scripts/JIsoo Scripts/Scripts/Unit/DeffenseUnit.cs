@@ -41,39 +41,39 @@ public class DeffenseUnit : Unit, IAttackable
 
     private void Update()
     {
-        if (!photonView.IsMine) return;
+        //if (!photonView.IsMine) return;
 
-        if (targetFollowUnit.target != null)
-        {
-            stateMachine.DoOperateUpdate(false);
-        }
+        //if (targetFollowUnit.target != null)
+        //{
+        //    stateMachine.DoOperateUpdate(false);
+        //}
 
-        if (!targetFollowUnit.isAttack)
-        {
-            DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
+        //if (!targetFollowUnit.isAttack)
+        //{
+        //    DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
-            StateTransition(targetFollowUnit.target);
-        }
-        else
-        {
-            if (targetFollowUnit.target != null)
-            {
-                RotateTowardsTarget(targetFollowUnit.target);
-            }
-            else
-            {
-                targetFollowUnit.isAttack = false;
+        //    StateTransition(targetFollowUnit.target);
+        //}
+        //else
+        //{
+        //    if (targetFollowUnit.target != null)
+        //    {
+        //        RotateTowardsTarget(targetFollowUnit.target);
+        //    }
+        //    else
+        //    {
+        //        targetFollowUnit.isAttack = false;
 
-                DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
+        //        DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
-                StateTransition(targetFollowUnit.target);
+        //        StateTransition(targetFollowUnit.target);
 
-                if(targetFollowUnit.target != null)
-                {
-                    StateIdle();
-                }
-            }
-        }
+        //        if(targetFollowUnit.target != null)
+        //        {
+        //            StateIdle();
+        //        }
+        //    }
+        //}
     }
 
     private void RotateTowardsTarget(Transform target)

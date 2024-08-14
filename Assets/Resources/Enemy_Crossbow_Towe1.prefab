@@ -2191,6 +2191,7 @@ GameObject:
   - component: {fileID: 2259647870236316241}
   - component: {fileID: 2259647870236316243}
   - component: {fileID: 1010480760}
+  - component: {fileID: 341939869}
   m_Layer: 9
   m_Name: Enemy_Crossbow_Towe1
   m_TagString: EnemyTower
@@ -2314,3 +2315,16 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!65 &341939869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9119639761191011146}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.14, y: 6.2516837, z: 7.0414543}
+  m_Center: {x: -0.00000035762787, y: 3.1253579, z: -0.2883178}

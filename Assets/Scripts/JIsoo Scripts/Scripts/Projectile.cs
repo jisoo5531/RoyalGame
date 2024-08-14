@@ -19,7 +19,10 @@ public class Projectile : MonoBehaviourPunCallbacks
         originalRotate = transform.localEulerAngles;
         originalPos = transform.position;
         dir = transform.forward;
-        Invoke("LifeTime", 2f);
+        if (photonView.IsMine)
+        {
+            Invoke("LifeTime", 2f);
+        }
     }
     private void LifeTime()
     {

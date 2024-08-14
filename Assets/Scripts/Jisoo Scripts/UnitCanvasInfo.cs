@@ -90,6 +90,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             spawnTimeUI.fillAmount = elapsedTime / spawnTime;
             yield return null;
         }
+
         spawnTimeUI.fillAmount = 1f;
         clock.SetActive(false);
         level.gameObject.SetActive(true);
@@ -111,19 +112,33 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
         if (HP <= 0)
         {
-            photonView.RPC("RPC_Death", RpcTarget.All);
-
             if (PhotonNetwork.IsMasterClient)
             {
-                MasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+                if (isTower)
+                {
+                    int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
+                    MasterManager.instance.RemoveTower(id);
+                }
+                else
+                {
+                    MasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+                }
             }
             else
             {
-                NonMasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+                if (isTower)
+                {
+                    int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
+                    NonMasterManager.instance.RemoveTower(id);
+                }
+                else
+                {
+                    NonMasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+                }
             }
+
+            photonView.RPC("RPC_Death", RpcTarget.All, isTower);
         }
-
-
     }
 
     [PunRPC]
@@ -131,7 +146,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     {
         if (isTower)
         {
-            if(tower.isNotOnCannon && isKingTower)
+            if(isKingTower && tower.isNotOnCannon)
             {
                 tower.isNotOnCannon = false;
             }
@@ -145,25 +160,29 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         }
 
         hpBarFill.fillAmount = (float)currentHp / currentMaxHp;
+        if (isTower)
+        {
+            hpBarvalue.text = currentHp.ToString();
+        }
     }
 
     [PunRPC]
-    private void RPC_Death()
+    private void RPC_Death(bool isTower)
     {
-        effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
-        effect.transform.localScale = transform.localScale;
+        if (isTower)
+        {
+            effect = Instantiate(blastEffect, transform.position + new Vector3(0, 5, 0), transform.rotation);
+            effect.transform.localScale = new Vector3(8, 8, 8);
+            Destroy(gameObject.transform.root.gameObject);
+        }
+        else
+        {
+            effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+            effect.transform.localScale = transform.localScale;
+            Destroy(gameObject);
+        }
         Destroy(effect, 1f);
-        Destroy(gameObject);
     }
-
-
-    //private void Death()
-    //{
-    //    Debug.Log(EffectManager.instance.deathEffect == null);
-    //    GameObject effect = Instantiate(EffectManager.instance.deathEffect, transform.position + new Vector3(0, 5, 0), transform.rotation);
-    //    effect.transform.localScale = new Vector3(8, 8, 8);
-    //    Destroy(gameObject);
-    //}
 
     private void OnHPBar()
     {

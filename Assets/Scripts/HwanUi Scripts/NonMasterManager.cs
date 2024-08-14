@@ -9,6 +9,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     public static NonMasterManager instance;
     private bool isCrate = false;
     public List<GameObject> towers = new List<GameObject>();
+    KingTower kingTower;
 
     private void Awake()
     {
@@ -53,7 +54,11 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine && !isCrate && towers[1] != null)
         {
-            KingTower kingTower = towers[0].GetComponent<KingTower>();
+            kingTower = towers[0].GetComponent<KingTower>();
+            for (int i = 1; i < towers.Count; i++)
+            {
+                kingTower.princessTowers.Add(towers[i]);
+            }
             SettingAlly();
             GameManager.instance.grid.CreateGrid();
             isCrate = true;
@@ -145,6 +150,10 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     public void RemoveTower(int id, GameObject tower)
     {
         towers.Remove(tower);
+        if(kingTower.princessTowers.Contains(tower))
+        {
+            kingTower.princessTowers.Remove(tower);
+        }
         photonView.RPC("OnTowerRemove", RpcTarget.Others, id);
     }
 

@@ -12,7 +12,6 @@ public class MovableUnit : Unit, IAttackable
     public float moveSpeed;
     public float detectionRange;
     public bool isWait = true;
-    public bool isMove = false;
     public double moveDelay;
     public bool isSpawn = false;
     #endregion
@@ -25,7 +24,9 @@ public class MovableUnit : Unit, IAttackable
     private bool isRunning = false;
     private bool isRun = false;
     private bool isRange = false;
+    private bool isMovePath = false;
     bool isTimer = true;
+    GameObject targetObj;
 
     private int layer;
     #endregion
@@ -92,33 +93,47 @@ public class MovableUnit : Unit, IAttackable
 
         if (!isWait)
         {
-            isMove = true;
             isTimer = false;
-            DetectEnemyManager.instance.FirstMovePath(this.transform, targetFollowUnit);
             isWait = true;
         }
 
         stateMachine.DoOperateUpdate(isRunning);
+        StateTransition(targetFollowUnit.target);
 
         if (targetFollowUnit.isAttack)
         {
             if (targetFollowUnit.target != null)
             {
+                Debug.Log("aaaaaaaaaaaaaaaaaa");
                 RotateTowardsTarget(targetFollowUnit.target);
             }
             else
             {
-                isMove = true;
+                Debug.Log("bbbbbbbbbbbbb");
                 targetFollowUnit.isAttack = false;
-                DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
+                isMovePath = false;
             }
         }
         else
         {
-            targetFollowUnit.isAttack = false;
-            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, isMove, attackTarget);
+            Debug.Log("ccccccccccc");
+            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, attackTarget);
+
+            if (targetFollowUnit.target != null)
+            {
+                if(targetObj != targetFollowUnit.target.gameObject)
+                {
+                    targetObj = targetFollowUnit.target.gameObject;
+                    isMovePath = false;
+                }
+
+                if (!isTimer && !isMovePath)
+                {
+                    DetectEnemyManager.instance.MovePath(transform, targetFollowUnit);
+                    isMovePath = true;
+                }
+            }
         }
-        StateTransition(targetFollowUnit.target);
     }
 
     [PunRPC]
@@ -133,17 +148,19 @@ public class MovableUnit : Unit, IAttackable
 
         if (CheckDis())
         {
+            Debug.Log("kkkkkkkkkkk");
             SetAttackState();
         }
         else
         {
+            Debug.Log("bbbbbbbbbbbb");
             SetMoveState();
         }
     }
 
     private bool CheckDis()
     {
-        if (targetFollowUnit.target == null) return false;
+        if (targetFollowUnit.target == null && isTimer) return false;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position + (Vector3.up * 3f), range, layer);
 
@@ -166,7 +183,7 @@ public class MovableUnit : Unit, IAttackable
 
     private void SetAttackState()
     {
-        isMove = isRun = isRunning = isRange = false;
+        isRun = isRunning = isRange = false;
         targetFollowUnit.isAttack = true;
         targetFollowUnit.speed = moveSpeed;
         SetState(UnitState.Attack, attackSpeed);
@@ -175,7 +192,7 @@ public class MovableUnit : Unit, IAttackable
 
     private void SetMoveState()
     {
-        isMove = isRange = true;
+        isRange = true;
         targetFollowUnit.isAttack = false;
         SetState(UnitState.Move, 0.8f);
         if (isPrince && !isRun)

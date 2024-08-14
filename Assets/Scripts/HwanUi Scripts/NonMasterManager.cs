@@ -8,7 +8,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
 {
     public static NonMasterManager instance;
     private bool isCrate = false;
-    public GameObject[] towers;
+    public List<GameObject> towers = new List<GameObject>();
 
     private void Awake()
     {
@@ -26,8 +26,6 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        towers = new GameObject[3];
-
         if (photonView.IsMine)
         {
             if (PhotonNetwork.IsConnected)
@@ -45,7 +43,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             string name = GameManager.instance.enemyTowers[i].name;
             GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
             tower.GetComponentInChildren<UnitCanvasInfo>().unitCanvas.transform.position = GameManager.instance.enemyTowerHp[i].position;
-            towers[i] = tower;
+            towers.Add(tower);
 
         }
         photonView.RPC("AddEnemyTower", RpcTarget.Others);
@@ -55,12 +53,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine && !isCrate && towers[1] != null)
         {
-            GameManager.instance.currentAllyTowers = towers;
             KingTower kingTower = towers[0].GetComponent<KingTower>();
-            for (int i = 1; i < towers.Length; i++)
-            {
-                kingTower.princessTowers[i - 1] = towers[i];
-            }
             SettingAlly();
             GameManager.instance.grid.CreateGrid();
             isCrate = true;
@@ -77,7 +70,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
 
     private void SettingAlly()
     {
-        for (int i = 0; i < towers.Length; i++)
+        for (int i = 0; i < towers.Count; i++)
         {
             towers[i].layer = 6;
             towers[i].tag = "AllyTower";
@@ -88,7 +81,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             }
         }
 
-        for (int i = 0; i < towers.Length; i++)
+        for (int i = 0; i < towers.Count; i++)
         {
             towers[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
 
@@ -149,9 +142,10 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void RemoveTower(int id)
+    public void RemoveTower(int id, GameObject tower)
     {
-        photonView.RPC("OnCharacterRemove", RpcTarget.Others, id);
+        towers.Remove(tower);
+        photonView.RPC("OnTowerRemove", RpcTarget.Others, id);
     }
 
     [PunRPC]

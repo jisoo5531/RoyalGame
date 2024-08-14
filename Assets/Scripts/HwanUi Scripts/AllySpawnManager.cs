@@ -55,7 +55,6 @@ public class AllySpawnManager : MonoBehaviour
             if (unit.TryGetComponent<MovableUnit>(out MovableUnit mu))
             {
                 mu.moveDelay = unitInfo.spawnTime;
-                mu.isMove = false;
                 mu.isSpawn = true;
             }
         }

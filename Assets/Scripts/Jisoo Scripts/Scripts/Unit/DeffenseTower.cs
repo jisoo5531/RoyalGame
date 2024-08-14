@@ -79,7 +79,7 @@ public class DeffenseTower : Unit, IAttackable
 
         if (!targetFollowUnit.isAttack)
         {
-            DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+            DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
 
             StateTransition(targetFollowUnit.target);
         }
@@ -93,7 +93,7 @@ public class DeffenseTower : Unit, IAttackable
             {
                 targetFollowUnit.isAttack = false;
 
-                DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, false, attackTarget);
+                DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
 
                 StateTransition(targetFollowUnit.target);
             }

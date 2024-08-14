@@ -32,6 +32,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     public GameObject clock;
     public TextMeshProUGUI levelValue;
     Tower tower;
+    KingTower kingTower;
 
     GameObject effect;
 
@@ -56,7 +57,8 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             }
             if(isKingTower)
             {
-                tower = this.transform.root.GetComponent<Tower>();
+                tower = this.transform.parent.GetComponent<Tower>();
+                kingTower = this.transform.parent.GetComponent<KingTower>();
             }
 
             unitCanvas.transform.localEulerAngles = Vector3.zero;
@@ -117,7 +119,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 if (isTower)
                 {
                     int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
-                    MasterManager.instance.RemoveTower(id);
+                    MasterManager.instance.RemoveTower(id, this.transform.parent.gameObject);
                 }
                 else
                 {
@@ -129,7 +131,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 if (isTower)
                 {
                     int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
-                    NonMasterManager.instance.RemoveTower(id);
+                    NonMasterManager.instance.RemoveTower(id, this.transform.parent.gameObject);
                 }
                 else
                 {
@@ -146,7 +148,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     {
         if (isTower)
         {
-            if(isKingTower && tower.isNotOnCannon)
+            if(isKingTower && tower != null && tower.isNotOnCannon)
             {
                 tower.isNotOnCannon = false;
             }

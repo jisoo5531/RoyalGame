@@ -52,12 +52,12 @@ public class DetectEnemyManager : MonoBehaviour
         return -1;
     }
 
-    public void FirstMovePath(Transform character, TargetFollowUnit targetFollowUnit)
+    public void MovePath(Transform character, TargetFollowUnit targetFollowUnit)
     {
         PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
     }
 
-    public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, bool isMove, string thisAttackTarget)
+    public void CheckDetectEnemy(float detectionRange, Transform character, TargetFollowUnit targetFollowUnit, string thisAttackTarget)
     {
         try
         {
@@ -78,16 +78,12 @@ public class DetectEnemyManager : MonoBehaviour
                 enemyTarget = towerList[towerIndex].transform;
                 enemyDistance = Vector3.Distance(enemyTarget.position, character.position);
 
-                if (targetFollowUnit.target == null)
+                if(targetFollowUnit.target == null)
                 {
                     targetFollowUnit.target = enemyTarget;
                     targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
 
-                    if (isMove)
-                    {
-                        PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-                        return;
-                    }
+                    return;
                 }
             }
 
@@ -102,15 +98,10 @@ public class DetectEnemyManager : MonoBehaviour
                 }
             }
 
-            if (enemyTarget != null && enemyDistance <= detectionRange && targetFollowUnit.target != enemyTarget)
+            if (enemyTarget != null && enemyDistance <= detectionRange)
             {
                 targetFollowUnit.target = enemyTarget;
                 targetFollowUnit.targetCollider = targetFollowUnit.target?.GetComponent<Collider>();
-
-                if (isMove)
-                {
-                    PathRequestManager.RequestPath(character.position, targetFollowUnit.target.position, targetFollowUnit.OnPathFound);
-                }
             }
         }
         catch (Exception ex)

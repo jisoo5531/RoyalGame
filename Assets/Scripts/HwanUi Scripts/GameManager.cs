@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameObject[] enemyTowers;
 
-    public GameObject[] currentAllyTowers = new GameObject[3];
     public GameObject[] currentEnemyTowers = new GameObject[3];
 
     public Transform[] myTowersTranform;

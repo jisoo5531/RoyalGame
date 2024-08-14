@@ -6,7 +6,7 @@ using Photon.Pun;
 public class KingTower : Tower
 {
     public GameObject cannon;
-    public GameObject[] princessTowers;
+    public List<GameObject> princessTowers = new List<GameObject>();
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class KingTower : Tower
 
     private void Update()
     {
-        if(isNotOnCannon && princessTowers.Length < 2 || isNotOnCannon && HP < maxHP)
+        if(isNotOnCannon && princessTowers.Count < 2 || isNotOnCannon && HP < maxHP)
         {
             photonView.RPC("AppearCannon", RpcTarget.All);
             isNotOnCannon = false;

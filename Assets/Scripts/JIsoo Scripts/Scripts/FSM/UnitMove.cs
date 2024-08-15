@@ -3,8 +3,6 @@ using UnityEngine;
 public class UnitMove : IState<Unit>
 {
     private Unit unit;
-    private float runDelay = 2f;
-    private float currentTime = 0f;
     private bool isPrince;
 
     public void OperateEnter(Unit sender, float speed, bool isPrince)

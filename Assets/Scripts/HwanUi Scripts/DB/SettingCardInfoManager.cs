@@ -22,6 +22,11 @@ public class SettingCardInfoManager : MonoBehaviour
         string insertCard = string.Empty;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             if (index != 2 && index != 7)
             {
                 insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, {damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 3, 2, 1)";
@@ -35,20 +40,16 @@ public class SettingCardInfoManager : MonoBehaviour
                 insertCard = $"INSERT INTO DEFENSE_TOWER(userID, cardID, damage, level, hp, lifeTime, currentCardCount, maxCardCount, spawnTime, attackSpeed) VALUES(@userId, @cardID, 26, 1, 1000, 30, 1, 2, 3.5, 1.6)";
             }
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(insertCard, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(insertCard, conn))
-                {
-                    cmd.CommandText = insertCard;
-                    cmd.Parameters.AddWithValue("@userId", DatabaseManager.Instance.userId);
-                    cmd.Parameters.AddWithValue("@cardID", index+1);
+                cmd.CommandText = insertCard;
+                cmd.Parameters.AddWithValue("@userId", DatabaseManager.Instance.userId);
+                cmd.Parameters.AddWithValue("@cardID", index + 1);
 
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
+                cmd.ExecuteNonQuery();
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             print(ex.Message);
         }
@@ -59,6 +60,11 @@ public class SettingCardInfoManager : MonoBehaviour
         string updateCard = string.Empty;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             if (cardId != 3 && cardId != 8)
             {
                 updateCard = $"UPDATE UNIT SET currentCardCount = currentCardCount + @amount WHERE userID = {DatabaseManager.Instance.userId} AND cardID = {cardId}";
@@ -72,15 +78,11 @@ public class SettingCardInfoManager : MonoBehaviour
                 updateCard = $"UPDATE DEFENSE_TOWER SET currentCardCount = currentCardCount + @amount WHERE userID = {DatabaseManager.Instance.userId} AND cardID = {cardId}";
             }
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(updateCard, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(updateCard, conn))
-                {
-                    cmd.Parameters.AddWithValue("@amount", upAmount);
+                cmd.Parameters.AddWithValue("@amount", upAmount);
 
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
+                cmd.ExecuteNonQuery();
             }
         }
         catch (Exception ex)
@@ -94,16 +96,17 @@ public class SettingCardInfoManager : MonoBehaviour
         string updateUserCard = string.Empty;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             updateUserCard = $"UPDATE USER SET currentCardCount = {amount} WHERE userID = {DatabaseManager.Instance.userId}";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(updateUserCard, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(updateUserCard, conn))
-                {
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    Console.WriteLine($"{rowsAffected} row(s) updated.");
-                }
-                conn.Close();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} row(s) updated.");
             }
         }
         catch (Exception ex)
@@ -116,20 +119,21 @@ public class SettingCardInfoManager : MonoBehaviour
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return true;
+            }
+
             string nameSelect = $"SELECT currentCardCount FROM USER WHERE userID = '{DatabaseManager.Instance.userId}'";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(nameSelect, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(nameSelect, conn))
+                if (cmd != null)
                 {
-                    if (cmd != null)
-                    {
-                        int result = GetCardCount(cmd);
+                    int result = GetCardCount(cmd);
 
-                        return result < 8;
-                    }
+                    return result < 8;
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

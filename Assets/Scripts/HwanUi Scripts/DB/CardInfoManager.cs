@@ -29,37 +29,38 @@ public class CardInfoManager : MonoBehaviour
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             allCharacters.Clear();
             string selectCardInfo = $"SELECT cardID, name, grade FROM CARD";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, conn))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        int characterID = reader.GetInt32(0) - 1;
+                        if (characterID >= 0 && characterID < characterImgs.Length)
                         {
-                            int characterID = reader.GetInt32(0) - 1;
-                            if (characterID >= 0 && characterID < characterImgs.Length)
+                            CharacterInfo cardInfo = new CharacterInfo
                             {
-                                CharacterInfo cardInfo = new CharacterInfo
-                                {
-                                    characterID = characterID,
-                                    characterSprite = characterImgs[characterID],
-                                    CharacterName = reader.GetString(1),
-                                    CharacterGrade = reader.GetString(2),
-                                };
-                                allCharacters.Add(cardInfo);
-                            }
-                        }
-                        if (openChest != null)
-                        {
-                            openChest.OpenEpicChest();
+                                characterID = characterID,
+                                characterSprite = characterImgs[characterID],
+                                CharacterName = reader.GetString(1),
+                                CharacterGrade = reader.GetString(2),
+                            };
+                            allCharacters.Add(cardInfo);
                         }
                     }
+                    if (openChest != null)
+                    {
+                        openChest.OpenEpicChest();
+                    }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)
@@ -72,6 +73,11 @@ public class CardInfoManager : MonoBehaviour
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             allCharacters.Clear();
             string selectCardInfo = $"SELECT CARD.cardID, CARD.name, CARD.grade, " +
                 $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
@@ -86,29 +92,25 @@ public class CardInfoManager : MonoBehaviour
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID";
 
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, conn))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        CharacterInfo cardInfo = new CharacterInfo
                         {
-                            CharacterInfo cardInfo = new CharacterInfo
-                            {
-                                characterID = reader.GetInt32(0),
-                                characterSprite = characterImgs[reader.GetInt32(0)],
-                                CharacterName = reader.GetString(1),
-                                CharacterGrade = reader.GetString(2),
-                                CharacterCurrentCardCount = reader.GetInt32(3),
-                                CharacterMaxCardCount = reader.GetInt32(4),
-                                CharacterLevel = reader.GetInt32(5)
-                            };
-                            allCharacters.Add(cardInfo);
-                        }
+                            characterID = reader.GetInt32(0),
+                            characterSprite = characterImgs[reader.GetInt32(0)],
+                            CharacterName = reader.GetString(1),
+                            CharacterGrade = reader.GetString(2),
+                            CharacterCurrentCardCount = reader.GetInt32(3),
+                            CharacterMaxCardCount = reader.GetInt32(4),
+                            CharacterLevel = reader.GetInt32(5)
+                        };
+                        allCharacters.Add(cardInfo);
                     }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

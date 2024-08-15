@@ -60,6 +60,23 @@ public class TimeManager : MonoBehaviourPunCallbacks
                 }
             }
 
+            if(PhotonNetwork.IsMasterClient)
+            {
+                if(MasterManager.instance.towers.Count == 0)
+                {
+                    photonView.RPC("GameEnd", RpcTarget.All);
+                    yield break;
+                }
+            }
+            else
+            {
+                if (NonMasterManager.instance.towers.Count == 0)
+                {
+                    photonView.RPC("GameEnd", RpcTarget.All);
+                    yield break;
+                }
+            }
+
             photonView.RPC("ShowTimer", RpcTarget.All, time);
 
             yield return new WaitForSeconds(1f);

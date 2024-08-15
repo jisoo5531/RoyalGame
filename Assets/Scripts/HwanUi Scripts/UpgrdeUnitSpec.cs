@@ -45,20 +45,22 @@ public class UpgrdeUnitSpec : MonoBehaviour
 
         try
         {
-            selectId = $"SELECT user_CardID FROM {tableName} WHERE userID = {userId} AND cardID = {cardId}";
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectId, conn))
+                return 0;
+            }
+
+            selectId = $"SELECT user_CardID FROM {tableName} WHERE userID = {userId} AND cardID = {cardId}";
+
+            using (MySqlCommand cmd = new MySqlCommand(selectId, DatabaseManager.Instance.conn))
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            id = reader.GetInt32(0);
-                        }
+                        id = reader.GetInt32(0);
                     }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)
@@ -82,6 +84,11 @@ public class UpgrdeUnitSpec : MonoBehaviour
         int id = 0;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             if (upgrade.unitdata.cardId != 3 && upgrade.unitdata.cardId != 8)
             {
                 id = SelectCardId("UNIT", DatabaseManager.Instance.userId, upgrade.unitdata.cardId);
@@ -101,50 +108,46 @@ public class UpgrdeUnitSpec : MonoBehaviour
                 isMagic = false;
             }
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(updateUnit, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(updateUnit, conn))
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
                 {
-                    int result = cmd.ExecuteNonQuery();
-
-                    if (result > 0)
+                    cardName.text = upgrade.unitdata.cardName;
+                    cardCount.text = $"{upgrade.unitdata.currentCardCount} / {upgrade.unitdata.maxCardCount}";
+                    slider.value = 100f;
+                    cardImg.sprite = CardInfoManager.instance.characterImgs[upgrade.unitdata.cardId - 1];
+                    damageText.text = upgrade.unitdata.damage.ToString();
+                    addDamageText.text = $"+ {damageAmount}";
+                    if (isMagic)
                     {
-                        cardName.text = upgrade.unitdata.cardName;
-                        cardCount.text = $"{upgrade.unitdata.currentCardCount} / {upgrade.unitdata.maxCardCount}";
-                        slider.value = 100f;
-                        cardImg.sprite = CardInfoManager.instance.characterImgs[upgrade.unitdata.cardId - 1];
-                        damageText.text = upgrade.unitdata.damage.ToString();
-                        addDamageText.text = $"+ {damageAmount}";
-                        if (isMagic)
+                        if (upgrade.unitdata is MAGICInfoData magicInfo)
                         {
-                            if (upgrade.unitdata is MAGICInfoData magicInfo)
-                            {
-                                hpUI.SetActive(false);
-                                towerDamageUI.SetActive(true);
-                                towerDamageText.text = magicInfo.tower_Damage.ToString();
-                                addTowerDamageText.text = $"+ {towerDamageAmount}";
-                            }
-                        }
-                        else
-                        {
-                            if (upgrade.unitdata is UnitInfoData unitInfo)
-                            {
-                                hpText.text = unitInfo.hp.ToString();
-                            }
-                            else if (upgrade.unitdata is DEFENSETOWERInfoData defenseTowerInfo)
-                            {
-                                hpText.text = defenseTowerInfo.hp.ToString();
-                            }
-                            addHpText.text = $"+ {hpAmount}";
-                            StartManager.m_Instance.gold -= goldAmount;
-                            userInfo.goldAmount.text = StartManager.m_Instance.gold.ToString();
-
-                            hpUI.SetActive(true);
-                            towerDamageUI.SetActive(false);
+                            hpUI.SetActive(false);
+                            towerDamageUI.SetActive(true);
+                            towerDamageText.text = magicInfo.tower_Damage.ToString();
+                            addTowerDamageText.text = $"+ {towerDamageAmount}";
                         }
                     }
+                    else
+                    {
+                        if (upgrade.unitdata is UnitInfoData unitInfo)
+                        {
+                            hpText.text = unitInfo.hp.ToString();
+                        }
+                        else if (upgrade.unitdata is DEFENSETOWERInfoData defenseTowerInfo)
+                        {
+                            hpText.text = defenseTowerInfo.hp.ToString();
+                        }
+                        addHpText.text = $"+ {hpAmount}";
+                        StartManager.m_Instance.gold -= goldAmount;
+                        userInfo.goldAmount.text = StartManager.m_Instance.gold.ToString();
+
+                        hpUI.SetActive(true);
+                        towerDamageUI.SetActive(false);
+                    }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

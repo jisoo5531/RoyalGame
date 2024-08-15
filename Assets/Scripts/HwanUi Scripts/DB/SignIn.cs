@@ -78,21 +78,22 @@ public class SignIn : MonoBehaviour
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return false;
+            }
+
             string userInfoSelect = $"SELECT count(*), userID FROM USER WHERE userName = '{name}' AND password = '{password}'";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(userInfoSelect, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(userInfoSelect, conn))
+                if (cmd != null)
                 {
-                    if (cmd != null)
-                    {
-                        int result = GetRowCount(cmd);
-                        DatabaseManager.Instance.userId = GetUserId(cmd);
+                    int result = GetRowCount(cmd);
+                    DatabaseManager.Instance.userId = GetUserId(cmd);
 
-                        return result > 0;
-                    }
+                    return result > 0;
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

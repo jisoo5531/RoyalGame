@@ -55,22 +55,23 @@ public class PasswordFind : MonoBehaviour
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return false;
+            }
+
             string selectName = $"SELECT count(*), password FROM USER WHERE userName = '{nickname}'";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(selectName, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectName, conn))
+                cmd.CommandText = selectName;
+                if (cmd != null)
                 {
-                    cmd.CommandText = selectName;
-                    if (cmd != null)
-                    {
-                        userPassword = GetPassword(cmd);
-                        int rowCount = GetRowCount(cmd);
+                    userPassword = GetPassword(cmd);
+                    int rowCount = GetRowCount(cmd);
 
-                        return rowCount > 0;
-                    }
+                    return rowCount > 0;
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

@@ -25,11 +25,11 @@ public class CollectionCardInfo : MonoBehaviour
     private int index = 0;
     private bool isCost = false;
     public TMP_Text btnName;
-    
+
 
     public void OrderByClick()
     {
-        if(isCost)
+        if (isCost)
         {
             btnName.text = "Èñ±Íµµ ¼ø";
             SelectCardOrderByGrade();
@@ -51,6 +51,11 @@ public class CollectionCardInfo : MonoBehaviour
         index = 0;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type," +
                 $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
                 $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
@@ -65,37 +70,33 @@ public class CollectionCardInfo : MonoBehaviour
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} " +
                 $"ORDER BY CARD.cost ASC";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(selectAllCardInfo, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectAllCardInfo, conn))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                         {
-                            if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
+                            int id = reader.GetInt32(0);
+                            CharacterData characterData = new CharacterData
                             {
-                                int id = reader.GetInt32(0);
-                                CharacterData characterData = new CharacterData
-                                {
-                                    cardId = id,
-                                    cost = reader.GetInt32(1),
-                                    name = reader.GetString(2),
-                                    grade = reader.GetString(3),
-                                    type = reader.GetString(4),
-                                    currentCardCount = reader.GetInt32(5),
-                                    maxCardCount = reader.GetInt32(6),
-                                    level = reader.GetInt32(7),
-                                    img = CardInfoManager.instance.characterImgs[id - 1],
-                                };
-                                SettingCardInfoManager.instance.charData.Add(characterData);
-                                SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
-                                index++;
-                            }
+                                cardId = id,
+                                cost = reader.GetInt32(1),
+                                name = reader.GetString(2),
+                                grade = reader.GetString(3),
+                                type = reader.GetString(4),
+                                currentCardCount = reader.GetInt32(5),
+                                maxCardCount = reader.GetInt32(6),
+                                level = reader.GetInt32(7),
+                                img = CardInfoManager.instance.characterImgs[id - 1],
+                            };
+                            SettingCardInfoManager.instance.charData.Add(characterData);
+                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
+                            index++;
                         }
                     }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)
@@ -110,6 +111,11 @@ public class CollectionCardInfo : MonoBehaviour
         index = 0;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             string selectAllCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type, " +
                 $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
                 $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
@@ -123,39 +129,35 @@ public class CollectionCardInfo : MonoBehaviour
                 $"LEFT JOIN MAGIC ON CARD.cardID = MAGIC.cardID AND MAGIC.userID = {DatabaseManager.Instance.userId} " +
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} " +
                 $"ORDER BY CASE CARD.grade WHEN 'ÀÏ¹Ý' THEN 1 WHEN 'Èñ±Í' THEN 2 WHEN '¿µ¿õ' THEN 3 END ASC";
-            
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+
+            using (MySqlCommand cmd = new MySqlCommand(selectAllCardInfo, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectAllCardInfo, conn))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                         {
-                            if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
+                            int id = reader.GetInt32(0);
+                            CharacterData characterData = new CharacterData
                             {
-                                int id = reader.GetInt32(0);
-                                CharacterData characterData = new CharacterData
-                                {
-                                    cardId = id,
-                                    cost = reader.GetInt32(1),
-                                    name = reader.GetString(2),
-                                    grade = reader.GetString(3),
-                                    type = reader.GetString(4),
-                                    currentCardCount = reader.GetInt32(5),
-                                    maxCardCount = reader.GetInt32(6),
-                                    level = reader.GetInt32(7),
-                                    img = CardInfoManager.instance.characterImgs[id - 1],
-                                };
-                                SettingCardInfoManager.instance.charData.Add(characterData);
-                                SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
-                                index++;
-                            }
+                                cardId = id,
+                                cost = reader.GetInt32(1),
+                                name = reader.GetString(2),
+                                grade = reader.GetString(3),
+                                type = reader.GetString(4),
+                                currentCardCount = reader.GetInt32(5),
+                                maxCardCount = reader.GetInt32(6),
+                                level = reader.GetInt32(7),
+                                img = CardInfoManager.instance.characterImgs[id - 1],
+                            };
+                            SettingCardInfoManager.instance.charData.Add(characterData);
+                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
+                            index++;
                         }
                     }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

@@ -33,6 +33,11 @@ public class UpdateUnit : MonoBehaviour, IPointerClickHandler
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             string selectCardInfo = $"SELECT CARD.cardID, CARD.cost, CARD.name, CARD.grade, CARD.type, " +
                 $"CASE WHEN UNIT.currentCardCount IS NOT NULL THEN UNIT.currentCardCount " +
                 $"WHEN DEFENSE_TOWER.currentCardCount IS NOT NULL THEN DEFENSE_TOWER.currentCardCount " +
@@ -45,37 +50,33 @@ public class UpdateUnit : MonoBehaviour, IPointerClickHandler
                 $"LEFT JOIN UNIT ON CARD.cardID = UNIT.cardID AND UNIT.userID = {DatabaseManager.Instance.userId} " +
                 $"LEFT JOIN MAGIC ON CARD.cardID = MAGIC.cardID AND MAGIC.userID = {DatabaseManager.Instance.userId} " +
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} WHERE CARD.cardID = {upgrade.collection.cardId}";
-            
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+
+            using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, conn))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
                         {
-                            if (reader.GetInt32(5) != 0 && reader?.GetInt32(5) != null)
+                            int id = reader.GetInt32(0);
+                            CharacterData characterData = new CharacterData
                             {
-                                int id = reader.GetInt32(0);
-                                CharacterData characterData = new CharacterData
-                                {
-                                    cardId = id,
-                                    cost = reader.GetInt32(1),
-                                    name = reader.GetString(2),
-                                    grade = reader.GetString(3),
-                                    type = reader.GetString(4),
-                                    currentCardCount = reader.GetInt32(5),
-                                    maxCardCount = reader.GetInt32(6),
-                                    level = reader.GetInt32(7),
-                                    img = CardInfoManager.instance.characterImgs[id - 1],
-                                };
-                                upgrade.collection.InitUI(characterData);
-                            }
+                                cardId = id,
+                                cost = reader.GetInt32(1),
+                                name = reader.GetString(2),
+                                grade = reader.GetString(3),
+                                type = reader.GetString(4),
+                                currentCardCount = reader.GetInt32(5),
+                                maxCardCount = reader.GetInt32(6),
+                                level = reader.GetInt32(7),
+                                img = CardInfoManager.instance.characterImgs[id - 1],
+                            };
+                            upgrade.collection.InitUI(characterData);
                         }
                     }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

@@ -4,7 +4,6 @@ using Photon.Realtime;
 using System;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -58,7 +57,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject[] winCrownCount;
     public GameObject[] loseCrownCount;
 
+    public TextMeshProUGUI trophyText;
+    public TextMeshProUGUI winGoldText;
+
+    public TextMeshProUGUI loseGoldText;
     #endregion
+
     private void Awake()
     {
         if (instance == null)
@@ -125,23 +129,30 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         try
         {
-            string nameSelect = $"SELECT currentTrophy FROM USER WHERE userName = '{name}'";
-
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(nameSelect, conn))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            int trophy = reader.GetInt32(0);
+                return 0;
+            }
 
-                            return trophy;
+            string nameSelect = $"SELECT userID, currentTrophy FROM USER WHERE userName = '{name}'";
+
+            using (MySqlCommand cmd = new MySqlCommand(nameSelect, DatabaseManager.Instance.conn))
+            {
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userId = reader.GetInt32(0);
+                        int trophy = reader.GetInt32(1);
+
+                        if(!name.Equals(PhotonNetwork.NickName))
+                        {
+                            DatabaseModel.enemyID = userId;
                         }
+
+                        return trophy;
                     }
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)
@@ -156,7 +167,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (isGameEnd && !isStart)
         {
             isStart = true;
-            Invoke("GameResult", 2f);
+            Invoke("GameResult", 1.5f);
         }
     }
 
@@ -169,6 +180,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 winCrownCount[i].SetActive(true);
             }
+            int trophy = int.Parse(trophyText.text);
+            int gold = int.Parse(winGoldText.text);
+            DatabaseModel.UpdateUser(1, 1, 0, trophy, gold);
         }
         else
         {
@@ -177,6 +191,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 loseCrownCount[i].SetActive(true);
             }
+            int trophy = int.Parse(trophyText.text);
+            int gold = int.Parse(loseGoldText.text);
+            DatabaseModel.UpdateUser(1, 0, 1, 0, gold);
         }
+    }
+
+    public void LobbySceneLoad_Click()
+    {
+        DatabaseModel.GetBattleCard();
+        DatabaseModel.InsertGameRecord(ScoreManager.instance.allyCount, ScoreManager.instance.enemyCount);
     }
 }

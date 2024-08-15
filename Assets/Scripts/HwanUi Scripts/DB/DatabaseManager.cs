@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MySql.Data.MySqlClient;
 
@@ -8,7 +6,6 @@ public class DatabaseManager : MonoBehaviour
 {
     #region private º¯¼ö
     private static DatabaseManager instance;
-    private MySqlConnection connection;
 
     private string serverEndPoint = "unity-mysql-rds.ct8w8icaeo26.ap-northeast-2.rds.amazonaws.com";
     private string databaseName = "RoyaleDatabase";
@@ -20,6 +17,7 @@ public class DatabaseManager : MonoBehaviour
     #endregion
 
     public int userId;
+    public MySqlConnection conn;
 
     public static DatabaseManager Instance
     {
@@ -45,11 +43,11 @@ public class DatabaseManager : MonoBehaviour
         CloseConnection();
     }
 
-    public void OpenConnection()
+    private void OpenConnection()
     {
-        if (connection == null)
+        if (conn == null)
         {
-            connection = new MySqlConnection(connStr);
+            conn = new MySqlConnection(connStr);
         }
 
         bool connected = false;
@@ -61,7 +59,7 @@ public class DatabaseManager : MonoBehaviour
         {
             try
             {
-                connection.Open();
+                conn.Open();
                 connected = true;
                 Debug.Log("Database connection opened");
             }
@@ -81,18 +79,27 @@ public class DatabaseManager : MonoBehaviour
 
     public void CloseConnection()
     {
-        if (connection != null)
+        if (conn != null)
         {
-            connection.Close();
-            connection = null;
+            conn.Close();
             Debug.Log("Database connection closed");
         }
     }
-
-    public MySqlConnection DBConnection()
+    private void OnApplicationQuit()
     {
-        MySqlConnection connection = new MySqlConnection(connStr);
-        connection.Open();
-        return connection;
+        conn.Close();
+    }
+
+    public bool connection_check(MySqlConnection con)
+    {
+        if (con.State != System.Data.ConnectionState.Open)
+        {
+            con.Open();
+            if (con.State != System.Data.ConnectionState.Open)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

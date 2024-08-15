@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -194,15 +195,16 @@ public class StartManager : MonoBehaviour
         string updateUserBattleCard = string.Empty;
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             updateUserBattleCard = $"UPDATE USER SET currentBattleCard = '{battleCard}', gold = {gold}, jewel = {jewel} WHERE userID = {DatabaseManager.Instance.userId}";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(updateUserBattleCard, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(updateUserBattleCard, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
+                cmd.ExecuteNonQuery();
             }
         }
         catch (Exception ex)
@@ -210,4 +212,5 @@ public class StartManager : MonoBehaviour
             print(ex.Message);
         }
     }
+
 }

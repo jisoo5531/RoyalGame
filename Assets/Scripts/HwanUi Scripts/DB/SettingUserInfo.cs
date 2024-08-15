@@ -38,28 +38,29 @@ public class SettingUserInfo : MonoBehaviour
     {
         try
         {
+            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            {
+                return;
+            }
+
             string selectUserInfo = $"SELECT * FROM USER WHERE userId = {userId}";
 
-            using (MySqlConnection conn = DatabaseManager.Instance.DBConnection())
+            using (MySqlCommand cmd = new MySqlCommand(selectUserInfo, DatabaseManager.Instance.conn))
             {
-                using (MySqlCommand cmd = new MySqlCommand(selectUserInfo, conn))
+                if (cmd != null)
                 {
-                    if (cmd != null)
-                    {
-                        userName.text = GetStringData(cmd, "userName");
-                        detailUserName.text = GetStringData(cmd, "userName");
-                        trophyAmount.text = GetStringData(cmd, "currentTrophy");
-                        currentTrophyCount.text = GetStringData(cmd, "currentTrophy");
-                        maxTrophyCount.text = GetStringData(cmd, "maxTrophy");
-                        goldAmount.text = GetStringData(cmd, "gold");
-                        jewelAmount.text = GetStringData(cmd, "jewel");
-                        battleCount.text = GetStringData(cmd, "battleCount");
-                        haveCardCount.text = $"{GetStringData(cmd, "currentCardCount")} / {GetStringData(cmd, "maxCardCount")}";
-                        victoryCount.text = GetStringData(cmd, "victoryCount");
-                        defeatCount.text = GetStringData(cmd, "defeatCount");
-                    }
+                    userName.text = GetStringData(cmd, "userName");
+                    detailUserName.text = GetStringData(cmd, "userName");
+                    trophyAmount.text = GetStringData(cmd, "currentTrophy");
+                    currentTrophyCount.text = GetStringData(cmd, "currentTrophy");
+                    maxTrophyCount.text = GetStringData(cmd, "maxTrophy");
+                    goldAmount.text = GetStringData(cmd, "gold");
+                    jewelAmount.text = GetStringData(cmd, "jewel");
+                    battleCount.text = GetStringData(cmd, "battleCount");
+                    haveCardCount.text = $"{GetStringData(cmd, "currentCardCount")} / {GetStringData(cmd, "maxCardCount")}";
+                    victoryCount.text = GetStringData(cmd, "victoryCount");
+                    defeatCount.text = GetStringData(cmd, "defeatCount");
                 }
-                conn.Close();
             }
         }
         catch (Exception ex)

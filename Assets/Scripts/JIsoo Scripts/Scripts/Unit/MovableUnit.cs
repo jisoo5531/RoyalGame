@@ -23,7 +23,6 @@ public class MovableUnit : Unit, IAttackable
 
     private bool isRunning = false;
     private bool isRun = false;
-    private bool isRange = false;
     private bool isMovePath = false;
     bool isTimer = true;
     GameObject targetObj;
@@ -183,7 +182,7 @@ public class MovableUnit : Unit, IAttackable
 
     private void SetAttackState()
     {
-        isRun = isRunning = isRange = false;
+        isRun = isRunning = false;
         targetFollowUnit.isAttack = true;
         targetFollowUnit.speed = moveSpeed;
         SetState(UnitState.Attack, attackSpeed);
@@ -192,7 +191,6 @@ public class MovableUnit : Unit, IAttackable
 
     private void SetMoveState()
     {
-        isRange = true;
         targetFollowUnit.isAttack = false;
         SetState(UnitState.Move, 0.8f);
         if (isPrince && !isRun)

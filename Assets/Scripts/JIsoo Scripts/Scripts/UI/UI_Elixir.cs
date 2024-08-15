@@ -43,7 +43,15 @@ public class UI_Elixir : MonoBehaviour
     }
     private void UI_UpdateCurrentElixir()
     {
-        elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.3f);
+        if(TimeManager.instance.isOverTiem)
+        {
+            elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.6f);
+        }
+        else
+        {
+            elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.3f);
+        }
+        
         if (elixirText != null)
         {
             elixirText.text = ((int)elixirSlider.value).ToString();

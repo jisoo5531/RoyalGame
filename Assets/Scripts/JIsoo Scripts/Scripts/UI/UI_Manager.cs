@@ -93,7 +93,6 @@ public class UI_Manager : MonoBehaviourPunCallbacks
 
         InitialUnitSet();
 
-
         StartCoroutine(CheckSpawnUnit());
     }
 

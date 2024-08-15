@@ -9,7 +9,6 @@ public class ShakeCard_Jisoo : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("움직인다");
         transform.DOLocalMove(targetPosUP, 0.5f).OnComplete(() => gameObject.SetActive(false));
     }
 }

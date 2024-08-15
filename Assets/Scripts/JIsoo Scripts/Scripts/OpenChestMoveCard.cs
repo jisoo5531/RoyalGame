@@ -6,12 +6,6 @@ using DG.Tweening;
 public class OpenChestMoveCard : MonoBehaviour
 {
     Vector3 targetPosUP = new Vector3(0, 373, 0);
-
-    //private void Start()
-    //{
-    //    Debug.Log("움직인다");
-        
-    //}
     public void MoveCard()
     {
         transform.position = new Vector3(555, 400, 0);

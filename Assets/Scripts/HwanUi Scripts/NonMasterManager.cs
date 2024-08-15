@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -154,7 +153,10 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         {
             kingTower.princessTowers.Remove(tower);
         }
+        ScoreManager.instance.enemyCount++;
         photonView.RPC("OnTowerRemove", RpcTarget.Others, id);
+        photonView.RPC("ScorePlus", RpcTarget.Others);
+        ScoreManager.instance.SettingScore();
     }
 
     [PunRPC]
@@ -166,5 +168,12 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             GameObject tower = towerView.gameObject;
             DetectEnemyManager.instance.towerList.Remove(tower);
         }
+    }
+
+    [PunRPC]
+    public void ScorePlus()
+    {
+        ScoreManager.instance.allyCount++;
+        ScoreManager.instance.SettingScore();
     }
 }

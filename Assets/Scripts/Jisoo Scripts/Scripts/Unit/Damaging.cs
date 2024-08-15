@@ -15,7 +15,7 @@ public class Damaging : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-        if (photonView.IsMine && other.gameObject.layer != 11)
+        if (!GameManager.instance.isGameEnd && photonView.IsMine && other.gameObject.layer != 11)
         {
             if (rangeType == Range.Melee)
             {

@@ -41,6 +41,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!GameManager.instance.isGameEnd) return;
+
         UI_Manager.m_Instance.selectedSlot = this;
         selectedNumber = int.Parse(name);
         if (false == UI_Manager.m_Instance.CheckSpawnPossible(selectedNumber))

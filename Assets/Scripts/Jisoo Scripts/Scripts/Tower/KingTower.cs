@@ -30,10 +30,13 @@ public class KingTower : Tower
 
     private void Update()
     {
-        if(isNotOnCannon && princessTowers.Count < 2 || isNotOnCannon && HP < maxHP)
+        if (photonView.IsMine)
         {
-            photonView.RPC("AppearCannon", RpcTarget.All);
-            isNotOnCannon = false;
+            if (!GameManager.instance.isGameEnd && isNotOnCannon && princessTowers.Count < 2 || isNotOnCannon && HP < maxHP)
+            {
+                photonView.RPC("AppearCannon", RpcTarget.All);
+                isNotOnCannon = false;
+            }
         }
     }
 

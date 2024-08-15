@@ -1,12 +1,7 @@
 using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting;
-using Org.BouncyCastle.Asn1.X509;
-using System;
-using System.Reflection;
 
 public class MasterManager : MonoBehaviourPunCallbacks
 {
@@ -159,7 +154,10 @@ public class MasterManager : MonoBehaviourPunCallbacks
         {
             kingTower.princessTowers.Remove(tower);
         }
+        ScoreManager.instance.enemyCount++;
         photonView.RPC("OnTowerRemove", RpcTarget.Others, id);
+        photonView.RPC("ScorePlus", RpcTarget.Others);
+        ScoreManager.instance.SettingScore();
     }
 
     [PunRPC]
@@ -171,5 +169,12 @@ public class MasterManager : MonoBehaviourPunCallbacks
             GameObject tower = towerView.gameObject;
             DetectEnemyManager.instance.towerList.Remove(tower);
         }
+    }
+
+    [PunRPC]
+    public void ScorePlus()
+    {
+        ScoreManager.instance.allyCount++;
+        ScoreManager.instance.SettingScore();
     }
 }

@@ -11,13 +11,7 @@ public class UI_DisplayUnit : MonoBehaviour
     private List<AllCardData> shuffledUnit;
 
     private GameObject[] unitSpawnButtons;       // 유닛 생성하기 위해 보여지는 게임 상에 보여지는 이미지
-    //private GameObject[] waitUnitsDisplay;       // TODO : 대기 유닛들 (테스트용, 나중에 지우기)
     private TextMeshProUGUI[] unitElixirText;    // 유닛 엘릭서 UI 텍스트
-
-    //private List<UnitData> availableUnit = new List<UnitData>();
-    //private Queue<UnitData> waitUnitsQueue = new Queue<UnitData>();
-
-    //private int selectSlotNumber;
 
     private UI_Elixir elixir;
 

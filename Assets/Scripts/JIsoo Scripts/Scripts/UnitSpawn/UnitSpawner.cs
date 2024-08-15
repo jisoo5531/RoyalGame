@@ -36,7 +36,7 @@ public class UnitSpawner : MonoBehaviour
         {
             yield return null;
 
-            if (selectedUnit != null && isElixirEnough && Input.GetMouseButtonDown(0))
+            if (!GameManager.instance.isGameEnd && selectedUnit != null && isElixirEnough && Input.GetMouseButtonDown(0))
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))

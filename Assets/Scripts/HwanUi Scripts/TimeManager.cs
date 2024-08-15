@@ -6,11 +6,17 @@ using TMPro;
 
 public class TimeManager : MonoBehaviourPunCallbacks
 {
+    #region public 변수
     public static TimeManager instance;
     public TMP_Text gametimeUI;
     public TMP_Text overTimeUI;
+    public Animator animator;
+    public GameObject suddenDeath;
+    public GameObject elixirTwiceUI;
 
     public bool isGameStart = false;
+    public bool isOverTiem = false;
+    #endregion
 
     int time;
     int min;
@@ -41,13 +47,46 @@ public class TimeManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                yield break;
+                if (!isOverTiem)
+                {
+                    isOverTiem = true;
+                    photonView.RPC("StartOverTime", RpcTarget.All);
+                    time = 120;
+                }
+                else
+                {
+                    photonView.RPC("GameEnd", RpcTarget.All);
+                    yield break;
+                }
             }
 
             photonView.RPC("ShowTimer", RpcTarget.All, time);
 
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    [PunRPC]
+    private void GameEnd()
+    {
+        animator.SetTrigger("GameEnd");
+        GameManager.instance.isGameEnd = true;
+    }
+
+    [PunRPC]
+    void StartOverTime()
+    {
+        overTimeUI.text = "오버타임";
+        overTimeUI.color = Color.red;
+        gametimeUI.color = Color.red;
+        suddenDeath.SetActive(true);
+        elixirTwiceUI.SetActive(true);
+        Invoke("SuddenDeathLifeTime", 4f);
+    }
+
+    private void SuddenDeathLifeTime()
+    {
+        suddenDeath.SetActive(false);
     }
 
 
@@ -62,12 +101,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            gametimeUI.text = $"0 : + {number}";
-        }
-
-        if (number <= 0)
-        {
-            gametimeUI.text = "0 : 00";
+            gametimeUI.text = $"0 : {number}";
         }
     }
 

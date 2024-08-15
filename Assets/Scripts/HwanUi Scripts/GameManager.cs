@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -48,10 +49,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public UnitSpawner unitSpawner;
 
+    public bool isGameEnd = false;
+    public bool isStart = false;
+
+    public GameObject winUI;
+    public GameObject loseUI;
+
+    public GameObject[] winCrownCount;
+    public GameObject[] loseCrownCount;
+
     #endregion
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -111,7 +121,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-
     private int SelectTrophy(string name)
     {
         try
@@ -142,4 +151,32 @@ public class GameManager : MonoBehaviourPunCallbacks
         return 0;
     }
 
+    private void Update()
+    {
+        if (isGameEnd && !isStart)
+        {
+            isStart = true;
+            Invoke("GameResult", 2f);
+        }
+    }
+
+    private void GameResult()
+    {
+        if (ScoreManager.instance.allyCount > ScoreManager.instance.enemyCount)
+        {
+            winUI.SetActive(true);
+            for (int i = 0; i < ScoreManager.instance.allyCount; i++)
+            {
+                winCrownCount[i].SetActive(true);
+            }
+        }
+        else
+        {
+            loseUI.SetActive(true);
+            for (int i = 0; i < ScoreManager.instance.allyCount; i++)
+            {
+                loseCrownCount[i].SetActive(true);
+            }
+        }
+    }
 }

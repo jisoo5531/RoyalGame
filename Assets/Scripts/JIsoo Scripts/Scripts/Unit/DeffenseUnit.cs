@@ -9,13 +9,17 @@ public class DeffenseUnit : Unit, IAttackable
     RangedUnit rangedUnit;
     TargetFollowUnit targetFollowUnit;
     public bool isTower;
+    KingTower kingtower;
 
 
     private void Awake()
     {
-        rangedUnit = GetComponent<RangedUnit>();
-        targetFollowUnit = GetComponent<TargetFollowUnit>();
-        //canvasInfo = 
+        if (photonView.IsMine)
+        {
+            anim = GetComponent<Animator>();
+            rangedUnit = GetComponent<RangedUnit>();
+            targetFollowUnit = GetComponent<TargetFollowUnit>();
+        }
     }
 
     private void Start()
@@ -31,7 +35,7 @@ public class DeffenseUnit : Unit, IAttackable
         this.range = range;
         this.damage = damage;
 
-        if(rangedUnit != null)
+        if (rangedUnit != null)
         {
             rangedUnit.damage = this.damage;
         }
@@ -46,7 +50,7 @@ public class DeffenseUnit : Unit, IAttackable
     {
         if (!photonView.IsMine) return;
 
-        if (targetFollowUnit.target != null)
+        if (stateMachine != null && targetFollowUnit.target != null)
         {
             stateMachine.DoOperateUpdate(false);
         }
@@ -61,27 +65,21 @@ public class DeffenseUnit : Unit, IAttackable
         {
             if (targetFollowUnit.target != null)
             {
-                RotateTowardsTarget(targetFollowUnit.target);
+                photonView.RPC("RotateTowardsTarget", RpcTarget.All, targetFollowUnit.target.position);
             }
             else
             {
                 targetFollowUnit.isAttack = false;
 
-                DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
-
-                StateTransition(targetFollowUnit.target);
-
-                if (targetFollowUnit.target != null)
-                {
-                    StateIdle();
-                }
+                StateIdle();
             }
         }
     }
 
-    private void RotateTowardsTarget(Transform target)
+    [PunRPC]
+    private void RotateTowardsTarget(Vector3 target)
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
     }

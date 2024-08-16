@@ -26,18 +26,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117018165552096017}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000028461216}
-  m_LocalPosition: {x: 0, y: 0, z: -0.37}
-  m_LocalScale: {x: 0.26337868, y: 0.26337868, z: 0.26337874}
+  m_LocalRotation: {x: -0, y: 0.0000028461216, z: -0, w: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.9143659}
+  m_LocalScale: {x: 0.90951174, y: 0.90951174, z: 0.7434164}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8874184804457913903}
-  m_Father: {fileID: 9118507270821014070}
-  m_RootOrder: 2
+  m_Father: {fileID: 9116670421085494950}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.05, y: -0.41}
+  m_AnchoredPosition: {x: -0.1726633, y: 2.9841685}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4078535445315949079
@@ -280,7 +280,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9118507270821014070}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3760845893966075461
 GameObject:
@@ -568,7 +568,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9118507270821014070}
   - component: {fileID: 9118507270821014071}
-  - component: {fileID: 2259647872117683794}
   - component: {fileID: 2259647872117683795}
   - component: {fileID: 2259647871116596841}
   - component: {fileID: 1220067848361363450}
@@ -596,7 +595,6 @@ Transform:
   m_Children:
   - {fileID: 9118507272010664053}
   - {fileID: 9118507272351384501}
-  - {fileID: 9118505049897490011}
   - {fileID: 1894887006542247250}
   m_Father: {fileID: 9116670421085494950}
   m_RootOrder: 0
@@ -622,33 +620,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2259647872117683794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9118507270821014024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allyPrefab:
-    hpBarFill: {fileID: 21300000, guid: 18c69375a81673247b1d31f2c02c1c62, type: 3}
-    levelSprite: {fileID: 21300000, guid: 1b9a388a03ecffb4ba4a01169bcc1706, type: 3}
-  blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
-  unitCanvas: {fileID: 4078535445315949079}
-  hpBarOBJ: {fileID: 3760845893966075461}
-  hpBarFill: {fileID: 2972432073838430477}
-  level: {fileID: 0}
-  hpBarvalue: {fileID: 9198820189751150994}
-  spawnTimeUI: {fileID: 0}
-  clock: {fileID: 0}
-  levelValue: {fileID: 0}
-  isTower: 1
-  isKingTower: 0
-  isPrince: 0
 --- !u!114 &2259647872117683795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +733,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   attackSpeed: 1
-  canvasInfo: {fileID: 0}
+  canvasInfo: {fileID: 5143049788758633591}
+  isTower: 0
 --- !u!1 &9118507270911299872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,7 +2014,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9116670421085494950}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9150517171675088832
 MeshFilter:
@@ -2125,7 +2097,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9116670421085494950}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9150641258459490954
 MeshFilter:
@@ -2192,6 +2164,7 @@ GameObject:
   - component: {fileID: 2259647870236316243}
   - component: {fileID: 1010480760}
   - component: {fileID: 341939869}
+  - component: {fileID: 5143049788758633591}
   m_Layer: 9
   m_Name: Enemy_Crossbow_Towe1
   m_TagString: EnemyTower
@@ -2212,6 +2185,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9118507270821014070}
+  - {fileID: 9118505049897490011}
   - {fileID: 9122898162879611372}
   - {fileID: 9123130729544887700}
   m_Father: {fileID: 0}
@@ -2328,3 +2302,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.14, y: 6.2516837, z: 7.0414543}
   m_Center: {x: -0.00000035762787, y: 3.1253579, z: -0.2883178}
+--- !u!114 &5143049788758633591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9119639761191011146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allyPrefab:
+    hpBarFill: {fileID: 21300000, guid: 18c69375a81673247b1d31f2c02c1c62, type: 3}
+    levelSprite: {fileID: 21300000, guid: 1b9a388a03ecffb4ba4a01169bcc1706, type: 3}
+  blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
+  unitCanvas: {fileID: 4078535445315949079}
+  hpBarOBJ: {fileID: 3760845893966075461}
+  hpBarFill: {fileID: 2972432073838430477}
+  level: {fileID: 0}
+  hpBarvalue: {fileID: 9198820189751150994}
+  spawnTimeUI: {fileID: 0}
+  clock: {fileID: 0}
+  levelValue: {fileID: 0}
+  isTower: 1
+  isKingTower: 0
+  isPrince: 0

@@ -1,10 +1,7 @@
 using Photon.Pun;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 public class MovableUnit : Unit, IAttackable
 {
@@ -103,34 +100,28 @@ public class MovableUnit : Unit, IAttackable
         {
             if (targetFollowUnit.target != null)
             {
-                Debug.Log("aaaaaaaaaaaaaaaaaa");
                 RotateTowardsTarget(targetFollowUnit.target);
             }
             else
             {
-                Debug.Log("ppppppppppp");
                 targetFollowUnit.isAttack = false;
                 isMovePath = false;
             }
         }
         else
         {
-            Debug.Log("ccccccccccc");
             DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, attackTarget);
 
             if (targetFollowUnit.target != null)
             {
-                Debug.Log(targetObj +",  "+ targetFollowUnit.target.gameObject);
                 if (targetObj != targetFollowUnit.target.gameObject)
                 {
-                    Debug.Log("iiiiiiiiii");
                     targetObj = targetFollowUnit.target.gameObject;
                     isMovePath = false;
                 }
 
                 if (!isTimer && !isMovePath)
                 {
-                    Debug.Log("mmmmmmmmmmmmm");
                     DetectEnemyManager.instance.MovePath(transform, targetFollowUnit);
                     isMovePath = true;
                 }
@@ -150,12 +141,10 @@ public class MovableUnit : Unit, IAttackable
 
         if (CheckDis())
         {
-            Debug.Log("kkkkkkkkkkk");
             SetAttackState();
         }
         else
         {
-            Debug.Log("bbbbbbbbbbbb");
             SetMoveState();
         }
     }

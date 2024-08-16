@@ -10,15 +10,15 @@ public class CrossbowTower : Tower
         {
             InitData();
             deffenseUnit = GetComponentInChildren<DeffenseUnit>();
-            onTopUnit.GetComponent<UnitCanvasInfo>().HP = HP;
-            onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;
+            GetComponent<UnitCanvasInfo>().HP = HP;
+            GetComponent<UnitCanvasInfo>().maxHP = maxHP;
             deffenseUnit.InitData(range, damage);
         }
     }
 
     protected override void InitData()
     {
-        maxHP = 300;
+        maxHP = 2500;
         HP = maxHP;
         range = 37;
         damage = 60;

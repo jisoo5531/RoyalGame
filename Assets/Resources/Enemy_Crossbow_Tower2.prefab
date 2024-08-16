@@ -964,12 +964,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3603283722418607138}
   - component: {fileID: 3603283722418607139}
-  - component: {fileID: 6039886464557615174}
   - component: {fileID: 6039886464557615175}
   - component: {fileID: 6039886464495413373}
   - component: {fileID: 6657604784647535086}
   - component: {fileID: 327496681}
   - component: {fileID: 2598725883972337090}
+  - component: {fileID: 820777118}
   m_Layer: 9
   m_Name: TT_Crossbowman (1)
   m_TagString: Untagged
@@ -991,7 +991,6 @@ Transform:
   m_Children:
   - {fileID: 3603283721193272929}
   - {fileID: 3603283721936780705}
-  - {fileID: 3603281567777155151}
   - {fileID: 6251524908419582790}
   m_Father: {fileID: 3607090879811264690}
   m_RootOrder: 0
@@ -1017,33 +1016,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6039886464557615174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3603283722418607132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allyPrefab:
-    hpBarFill: {fileID: 21300000, guid: 18c69375a81673247b1d31f2c02c1c62, type: 3}
-    levelSprite: {fileID: 21300000, guid: 1b9a388a03ecffb4ba4a01169bcc1706, type: 3}
-  blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
-  unitCanvas: {fileID: 8364243448207420419}
-  hpBarOBJ: {fileID: 7162219821661981170}
-  hpBarFill: {fileID: 8999542630169898350}
-  level: {fileID: 0}
-  hpBarvalue: {fileID: 454157340044886631}
-  spawnTimeUI: {fileID: 0}
-  clock: {fileID: 0}
-  levelValue: {fileID: 0}
-  isTower: 1
-  isKingTower: 0
-  isPrince: 0
 --- !u!114 &6039886464557615175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,6 +1071,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 327496681}
+  - {fileID: 820777118}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1140,7 +1113,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   attackSpeed: 1
-  canvasInfo: {fileID: 0}
+  canvasInfo: {fileID: 504754768004243268}
+  isTower: 0
+--- !u!114 &820777118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3603283722418607132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &3603283722497717301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,7 +1595,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3607090879811264690}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3636523414743536798
 MeshFilter:
@@ -1672,6 +1662,7 @@ GameObject:
   - component: {fileID: 6039886465340042311}
   - component: {fileID: 327496680}
   - component: {fileID: 1942422291}
+  - component: {fileID: 504754768004243268}
   m_Layer: 9
   m_Name: Enemy_Crossbow_Tower2
   m_TagString: EnemyTower
@@ -1692,6 +1683,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3603283722418607138}
+  - {fileID: 3603281567777155151}
   - {fileID: 3607690005611282424}
   - {fileID: 3607878591671833472}
   m_Father: {fileID: 0}
@@ -1808,6 +1800,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.14, y: 6.2516837, z: 7.0414543}
   m_Center: {x: -0.00000035762787, y: 3.1253579, z: -0.2883178}
+--- !u!114 &504754768004243268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604398617650969950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allyPrefab:
+    hpBarFill: {fileID: 21300000, guid: 18c69375a81673247b1d31f2c02c1c62, type: 3}
+    levelSprite: {fileID: 21300000, guid: 1b9a388a03ecffb4ba4a01169bcc1706, type: 3}
+  blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
+  unitCanvas: {fileID: 8364243448207420419}
+  hpBarOBJ: {fileID: 7162219821661981170}
+  hpBarFill: {fileID: 8999542630169898350}
+  level: {fileID: 0}
+  hpBarvalue: {fileID: 454157340044886631}
+  spawnTimeUI: {fileID: 0}
+  clock: {fileID: 0}
+  levelValue: {fileID: 0}
+  isTower: 1
+  isKingTower: 0
+  isPrince: 0
 --- !u!1 &3604902221141877352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1858,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3607090879811264690}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3636436365205404116
 MeshFilter:
@@ -1917,18 +1936,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5554528369966521605}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000028461216}
-  m_LocalPosition: {x: 0, y: 0, z: -0.37}
-  m_LocalScale: {x: 0.26337868, y: 0.26337868, z: 0.26337874}
+  m_LocalRotation: {x: -0, y: 0.0000028461216, z: -0, w: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.9143659}
+  m_LocalScale: {x: 0.90951174, y: 0.90951174, z: 0.7434164}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 87854219816539740}
-  m_Father: {fileID: 3603283722418607138}
-  m_RootOrder: 2
+  m_Father: {fileID: 3607090879811264690}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.05, y: -0.41}
+  m_AnchoredPosition: {x: -0.17266287, y: 2.9841685}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8364243448207420419
@@ -2308,5 +2327,5 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3603283722418607138}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

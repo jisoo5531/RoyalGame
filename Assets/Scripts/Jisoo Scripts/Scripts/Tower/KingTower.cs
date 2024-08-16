@@ -8,7 +8,7 @@ public class KingTower : Tower
     public GameObject cannon;
     public List<GameObject> princessTowers = new List<GameObject>();
 
-    UnitCanvasInfo canvasInfo;
+    public UnitCanvasInfo canvasInfo;
 
     private void Awake()
     {

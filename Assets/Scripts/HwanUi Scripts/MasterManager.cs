@@ -26,7 +26,6 @@ public class MasterManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-
         if (photonView.IsMine)
         {
             if (PhotonNetwork.IsConnected)

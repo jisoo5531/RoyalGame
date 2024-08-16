@@ -1882,7 +1882,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8256996493460609320}
   - component: {fileID: 6314131321220646758}
-  - component: {fileID: 6907747779925336002}
   - component: {fileID: 6907747779925336001}
   - component: {fileID: 6314131321523275725}
   - component: {fileID: 8077855088547043931}
@@ -1931,20 +1930,6 @@ MonoBehaviour:
     m_Bits: 2048
   damage: 0
   target: {fileID: 0}
---- !u!114 &6907747779925336002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8251519359942578504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c91fd5e23ff964db26b8a369495492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  attackSpeed: 2
 --- !u!114 &6907747779925336001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1996,7 +1981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   attackSpeed: 1
-  canvasInfo: {fileID: 0}
+  canvasInfo: {fileID: 6907747779925336007}
   isTower: 1
 --- !u!114 &1122722886
 MonoBehaviour:
@@ -2154,9 +2139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onTopUnit: {fileID: 2300852614747178288}
   cannon: {fileID: 8251519359942578504}
-  princessTowers:
-  - {fileID: 0}
-  - {fileID: 0}
+  princessTowers: []
+  canvasInfo: {fileID: 0}
 --- !u!114 &1803189364
 MonoBehaviour:
   m_ObjectHideFlags: 0

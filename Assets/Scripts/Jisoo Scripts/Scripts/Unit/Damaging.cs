@@ -22,20 +22,25 @@ public class Damaging : MonoBehaviourPunCallbacks
                 if (isWait) return;
             }
 
-            GameObject childObj = null;
 
-            if (other.transform.childCount > 0)
+            if (!other.isTrigger)
             {
-                childObj = other.transform.GetChild(0).gameObject;
-            }
+                GameObject childObj = null;
 
-            if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
-            {
-                CheckRange(damagable, other.gameObject);
-            }
-            else if (childObj != null && childObj.TryGetComponent<IDamagable>(out IDamagable childDamagable))
-            {
-                CheckRange(childDamagable, childObj);
+                if (other.transform.childCount > 0)
+                {
+                    childObj = other.transform.GetChild(0).gameObject;
+                }
+
+                if (other.TryGetComponent<IDamagable>(out IDamagable damagable))
+                {
+                    CheckRange(damagable, other.gameObject);
+                }
+                else if (childObj != null && childObj.TryGetComponent<IDamagable>(out IDamagable childDamagable))
+                {
+                    CheckRange(childDamagable, childObj);
+                }
+
             }
         }
     }

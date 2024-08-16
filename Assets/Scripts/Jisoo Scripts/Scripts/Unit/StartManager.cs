@@ -1,10 +1,7 @@
-using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +10,9 @@ public class StartManager : MonoBehaviour
     private static StartManager instance;
     public static StartManager m_Instance { get { return instance; } }
 
-    [SerializeField] private GameObject[] displaySelectedUnit_UI;
     /// <summary>
     /// 배틀덱의 8개의 선택한 유닛들
     /// </summary>
-    [HideInInspector] public GameObject[] m_displaySelectedUnit_UI { get { return displaySelectedUnit_UI; } }
 
     [SerializeField] private CharacterData[] unitDatas;
     /// <summary>
@@ -31,7 +26,6 @@ public class StartManager : MonoBehaviour
     /// </summary>
     [HideInInspector] public List<CharacterData> m_selectedUnits { get { return selectedUnits; } }
 
-    public Image[] collectionsImage;
     public List<int> battleCardList = new List<int>();
     public List<int> battleCardCostList = new List<int>();
     public TMP_Text costAvg;
@@ -80,12 +74,12 @@ public class StartManager : MonoBehaviour
     /// </summary>
     public void InitializeCollectionImage()
     {
-        for (int i = 0; i < collectionsImage.Length; i++)
+        for (int i = 0; i < CardInfoManager.instance.collectionsImage.Length; i++)
         {
-            collectionsImage[i].sprite = SettingCardInfoManager.instance.charData[i].img;
-            if (collectionsImage[i].sprite != null)
+            CardInfoManager.instance.collectionsImage[i].sprite = SettingCardInfoManager.instance.charData[i].img;
+            if (CardInfoManager.instance.collectionsImage[i].sprite != null)
             {
-                collectionsImage[i].ImageTransparent(1f);
+                CardInfoManager.instance.collectionsImage[i].ImageTransparent(1f);
             }
         }
     }
@@ -122,7 +116,7 @@ public class StartManager : MonoBehaviour
                     costAvg.text = avg.ToString() + ".0";
                 }
 
-                Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+                Image unitImage = CardInfoManager.instance.displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
                 unitImage.ImageTransparent(1f);
 
                 unitImage.sprite = SettingCardInfoManager.instance.charData[index].img;
@@ -181,7 +175,7 @@ public class StartManager : MonoBehaviour
                 }
 
 
-                Image unitImage = displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+                Image unitImage = CardInfoManager.instance.displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
                 unitImage.sprite = null;
                 unitImage.ImageTransparent(0f);
                 break;

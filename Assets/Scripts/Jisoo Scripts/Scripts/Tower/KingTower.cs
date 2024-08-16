@@ -8,12 +8,15 @@ public class KingTower : Tower
     public GameObject cannon;
     public List<GameObject> princessTowers = new List<GameObject>();
 
+    UnitCanvasInfo canvasInfo;
+
     private void Awake()
     {
         if (photonView.IsMine)
         {
             InitData();
-            deffenseUnit = GetComponentInChildren<DeffenseUnit>();
+            deffenseUnit = cannon.GetComponent<DeffenseUnit>();
+            canvasInfo = onTopUnit.GetComponent<UnitCanvasInfo>();
             onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;
             onTopUnit.GetComponent<UnitCanvasInfo>().HP = HP;
             deffenseUnit.InitData(range, damage);
@@ -32,7 +35,7 @@ public class KingTower : Tower
     {
         if (photonView.IsMine)
         {
-            if (!GameManager.instance.isGameEnd && isNotOnCannon && princessTowers.Count < 2 || isNotOnCannon && HP < maxHP)
+            if (!GameManager.instance.isGameEnd && isNotOnCannon && princessTowers.Count < 2 || !GameManager.instance.isGameEnd && isNotOnCannon && canvasInfo.HP < canvasInfo.maxHP)
             {
                 photonView.RPC("AppearCannon", RpcTarget.All);
                 isNotOnCannon = false;

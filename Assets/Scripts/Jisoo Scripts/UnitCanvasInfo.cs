@@ -32,7 +32,6 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     public GameObject clock;
     public TextMeshProUGUI levelValue;
     Tower tower;
-    KingTower kingTower;
 
     GameObject effect;
 
@@ -58,7 +57,6 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             if(isKingTower)
             {
                 tower = this.transform.parent.GetComponent<Tower>();
-                kingTower = this.transform.parent.GetComponent<KingTower>();
             }
 
             unitCanvas.transform.localEulerAngles = Vector3.zero;

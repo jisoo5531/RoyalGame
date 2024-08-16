@@ -5,12 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class CardInfoManager : MonoBehaviour
 {
     public static CardInfoManager instance;
 
     public Sprite[] characterImgs;
+    public Image[] collectionsImage;
+    public GameObject[] displaySelectedUnit_UI;
     public List<CharacterInfo> allCharacters;
     public SettingChest openChest;
 

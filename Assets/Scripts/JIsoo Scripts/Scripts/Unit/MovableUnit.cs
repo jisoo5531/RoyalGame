@@ -108,7 +108,7 @@ public class MovableUnit : Unit, IAttackable
             }
             else
             {
-                Debug.Log("bbbbbbbbbbbbb");
+                Debug.Log("ppppppppppp");
                 targetFollowUnit.isAttack = false;
                 isMovePath = false;
             }
@@ -120,14 +120,17 @@ public class MovableUnit : Unit, IAttackable
 
             if (targetFollowUnit.target != null)
             {
-                if(targetObj != targetFollowUnit.target.gameObject)
+                Debug.Log(targetObj +",  "+ targetFollowUnit.target.gameObject);
+                if (targetObj != targetFollowUnit.target.gameObject)
                 {
+                    Debug.Log("iiiiiiiiii");
                     targetObj = targetFollowUnit.target.gameObject;
                     isMovePath = false;
                 }
 
                 if (!isTimer && !isMovePath)
                 {
+                    Debug.Log("mmmmmmmmmmmmm");
                     DetectEnemyManager.instance.MovePath(transform, targetFollowUnit);
                     isMovePath = true;
                 }

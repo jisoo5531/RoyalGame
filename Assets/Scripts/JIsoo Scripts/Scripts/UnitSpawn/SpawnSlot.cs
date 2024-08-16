@@ -41,7 +41,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!GameManager.instance.isGameEnd) return;
+        if (GameManager.instance.isGameEnd) return;
 
         UI_Manager.m_Instance.selectedSlot = this;
         selectedNumber = int.Parse(name);
@@ -179,7 +179,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             isSpawn = false;
             return;
         }
-
         unitData = UI_Manager.m_Instance.m_UI_availableUnit[selectedNumber];
         GameObject unitPrefab = unitData.prefab;
 

@@ -6,21 +6,24 @@ using UnityEngine;
 
 public class DeffenseUnit : Unit, IAttackable
 {
-    protected float lifeTime;
     RangedUnit rangedUnit;
     TargetFollowUnit targetFollowUnit;
+    public bool isTower;
+
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
         rangedUnit = GetComponent<RangedUnit>();
-        canvasInfo = GetComponent<UnitCanvasInfo>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
+        //canvasInfo = 
     }
 
     private void Start()
     {
-        InitStateMachine();
+        if (!isTower)
+        {
+            InitStateMachine();
+        }
     }
 
     public void InitData(float range, int damage)
@@ -41,39 +44,39 @@ public class DeffenseUnit : Unit, IAttackable
 
     private void Update()
     {
-        //if (!photonView.IsMine) return;
+        if (!photonView.IsMine) return;
 
-        //if (targetFollowUnit.target != null)
-        //{
-        //    stateMachine.DoOperateUpdate(false);
-        //}
+        if (targetFollowUnit.target != null)
+        {
+            stateMachine.DoOperateUpdate(false);
+        }
 
-        //if (!targetFollowUnit.isAttack)
-        //{
-        //    DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
+        if (!targetFollowUnit.isAttack)
+        {
+            DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
-        //    StateTransition(targetFollowUnit.target);
-        //}
-        //else
-        //{
-        //    if (targetFollowUnit.target != null)
-        //    {
-        //        RotateTowardsTarget(targetFollowUnit.target);
-        //    }
-        //    else
-        //    {
-        //        targetFollowUnit.isAttack = false;
+            StateTransition(targetFollowUnit.target);
+        }
+        else
+        {
+            if (targetFollowUnit.target != null)
+            {
+                RotateTowardsTarget(targetFollowUnit.target);
+            }
+            else
+            {
+                targetFollowUnit.isAttack = false;
 
-        //        DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
+                DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
-        //        StateTransition(targetFollowUnit.target);
+                StateTransition(targetFollowUnit.target);
 
-        //        if(targetFollowUnit.target != null)
-        //        {
-        //            StateIdle();
-        //        }
-        //    }
-        //}
+                if (targetFollowUnit.target != null)
+                {
+                    StateIdle();
+                }
+            }
+        }
     }
 
     private void RotateTowardsTarget(Transform target)
@@ -81,12 +84,6 @@ public class DeffenseUnit : Unit, IAttackable
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
-    }
-
-    [PunRPC]
-    private void CanvasRotate(float rotateY)
-    {
-        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
     }
 
     private void StateTransition(Transform target)

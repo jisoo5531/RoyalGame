@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         int userId = reader.GetInt32(0);
                         int trophy = reader.GetInt32(1);
 
-                        if(!name.Equals(PhotonNetwork.NickName))
+                        if (!name.Equals(PhotonNetwork.NickName))
                         {
                             DatabaseModel.enemyID = userId;
                         }
@@ -201,5 +201,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         DatabaseModel.GetBattleCard();
         DatabaseModel.InsertGameRecord(ScoreManager.instance.allyCount, ScoreManager.instance.enemyCount);
+
+        PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.Disconnect();
+        Loading.LoadScene("Lobby");
     }
 }

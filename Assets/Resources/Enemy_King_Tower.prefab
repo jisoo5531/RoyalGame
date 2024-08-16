@@ -238,9 +238,6 @@ GameObject:
   - component: {fileID: 1082650243067608554}
   - component: {fileID: 1541533211160813531}
   - component: {fileID: 8740322482304158099}
-  - component: {fileID: 268122038}
-  - component: {fileID: 268122040}
-  - component: {fileID: 8795806559700657815}
   m_Layer: 9
   m_Name: TT_King
   m_TagString: Untagged
@@ -372,56 +369,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &268122038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300852614747178288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d6fbe2cdea52f4281560163ee06f74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
-  pStart_trans: {fileID: 0}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  damage: 0
-  target: {fileID: 0}
---- !u!114 &268122040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300852614747178288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b778833f937d9b4b932666fdd448b93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 0
-  targetCollider: {fileID: 0}
-  isAttack: 0
---- !u!114 &8795806559700657815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300852614747178288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00bd1d806fab5a84f819c5bdf2cbd3ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  attackSpeed: 1
-  canvasInfo: {fileID: 0}
 --- !u!1 &2300852614747182798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,6 +1885,9 @@ GameObject:
   - component: {fileID: 6907747779925336002}
   - component: {fileID: 6907747779925336001}
   - component: {fileID: 6314131321523275725}
+  - component: {fileID: 8077855088547043931}
+  - component: {fileID: 1122722886}
+  - component: {fileID: 1122722885}
   m_Layer: 9
   m_Name: HM_cannon_1
   m_TagString: Untagged
@@ -1979,7 +1929,7 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 100
+  damage: 0
   target: {fileID: 0}
 --- !u!114 &6907747779925336002
 MonoBehaviour:
@@ -2032,6 +1982,61 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8077855088547043931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251519359942578504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bd1d806fab5a84f819c5bdf2cbd3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  attackSpeed: 1
+  canvasInfo: {fileID: 0}
+  isTower: 1
+--- !u!114 &1122722886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251519359942578504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &1122722885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251519359942578504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1122722886}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8251551384087275624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,10 +2135,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8251551384087275624}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.440176, y: 7.144075, z: 8.456395}
+  m_Size: {x: 11.01, y: 7.144075, z: 8.456395}
   m_Center: {x: -0.015626848, y: 3.5715544, z: 0.004468679}
 --- !u!114 &594246334961291424
 MonoBehaviour:

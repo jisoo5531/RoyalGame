@@ -34,17 +34,14 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     {
         if (this == null)
         {
-            Debug.Log("eurreureiureiurei");
             StopCoroutine("FollowPath");
             return;
         }
 
         if (pathSuccessful)
         {
-            Debug.Log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
             for (int i = 0; i < newPath.Length; i++)
             {
-                Debug.Log("oooooooooooooooooooooooooooooooooo");
                 newPath[i].y = transform.position.y;
             }
             path = newPath;
@@ -56,7 +53,6 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
     IEnumerator FollowPath()
     {
-        Debug.Log("zxxxxxxxxxxxxxxxxxxxxxxxxxx");
         currentWaypoint = path[0];
         while (true)
         {

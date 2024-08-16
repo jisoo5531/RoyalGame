@@ -21,7 +21,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
             else
             {
                 Destroy(gameObject);
-            }
+            }   
         }
     }
     private void Start()
@@ -42,7 +42,12 @@ public class MasterManager : MonoBehaviourPunCallbacks
         {
             string name = GameManager.instance.enemyTowers[i].name;
             GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.Euler(0, 180, 0));
-            tower.GetComponentInChildren<UnitCanvasInfo>().unitCanvas.transform.position = GameManager.instance.allyTowerHp[i].position;
+            UnitCanvasInfo unitCanvas = tower.GetComponentInChildren<UnitCanvasInfo>();
+            unitCanvas.unitCanvas.transform.position = GameManager.instance.allyTowerHp[i].position;
+            if (i != 0)
+            {
+                unitCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
             towers.Add(tower);
         }
         photonView.RPC("AddEnemyTower", RpcTarget.Others);

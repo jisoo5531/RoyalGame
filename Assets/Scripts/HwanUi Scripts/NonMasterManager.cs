@@ -42,7 +42,12 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         {
             string name = GameManager.instance.enemyTowers[i].name;
             GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
-            tower.GetComponentInChildren<UnitCanvasInfo>().unitCanvas.transform.position = GameManager.instance.enemyTowerHp[i].position;
+            UnitCanvasInfo unitCanvas = tower.GetComponentInChildren<UnitCanvasInfo>();
+            unitCanvas.unitCanvas.transform.position = GameManager.instance.enemyTowerHp[i].position;
+            if (i != 0)
+            {
+                unitCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
             towers.Add(tower);
 
         }

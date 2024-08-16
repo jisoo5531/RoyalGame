@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviourPunCallbacks
 {
     Rigidbody rigid;
     public GameObject target;
-    public float speed = 1f;
+    public float speed = 2f;
     private Vector3 originalRotate;
     private Vector3 originalPos;
     public Vector3 dir;

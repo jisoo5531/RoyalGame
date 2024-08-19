@@ -17,16 +17,18 @@ public class Projectile : MonoBehaviourPunCallbacks
     {
         rigid = GetComponent<Rigidbody>();
         dir = transform.forward;
-        ParticleSystem[] particleArray = gameObject.GetComponentsInChildren<ParticleSystem>();
 
-        for (int i = 0; i < particleArray.Length; i++)
+        if(gameObject.TryGetComponent<ParticleSystem>(out ParticleSystem ps))
         {
-            particleArray[i].Play();
+            ps.Play();
+
+            ParticleSystem[] particleArray = gameObject.GetComponentsInChildren<ParticleSystem>();
+
+            for (int i = 0; i < particleArray.Length; i++)
+            {
+                particleArray[i].Play();
+            }
         }
-
-        ParticleSystem particle = gameObject.GetComponent<ParticleSystem>();
-        particle.Play();
-
 
         if (photonView.IsMine)
         {

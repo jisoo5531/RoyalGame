@@ -1,26 +1,23 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Fireball : MonoBehaviourPunCallbacks
 {
     public int damage { get; private set; }
     public Vector3 targetPos;
 
-
-    private float speed = 50;
+    public LayerMask floorLayer;
+    public LayerMask targetLayer;
+    private float speed = 30;
+    private float launchAngle = 15f;
     private Rigidbody rb;
-    private ClickMagic fireBall;
     Vector3 direction;
+
     private void Awake()
     {
-        fireBall = FindObjectOfType<ClickMagic>();
         if (photonView.IsMine)
         {
             InitializeUnitData(UnitSpawner.instance.selectedUnit);
-            SendDamage(damage);
         }
         //this.GetComponent<ParticleSystem>
         //ParticleSystem[] particleSystems = this.GetComponentsInChildren<ParticleSystem>();
@@ -29,13 +26,25 @@ public class Fireball : MonoBehaviourPunCallbacks
         //    particle.Play();
         //}
     }
+
     private void Start()
     {
         if (photonView.IsMine)
         {
             rb = this.GetComponent<Rigidbody>();
+            float launchAngleRad = launchAngle * Mathf.Deg2Rad;
+
             direction = (targetPos - transform.position).normalized;
-            rb.velocity = direction * speed;
+
+            Vector3 velocity = new Vector3(
+                direction.x * Mathf.Cos(launchAngleRad) * speed,
+                Mathf.Sin(launchAngleRad) * speed,
+                direction.z * Mathf.Cos(launchAngleRad) * speed
+            );
+
+            rb.velocity = velocity;
+
+            rb.useGravity = true;
         }
     }
 
@@ -44,16 +53,28 @@ public class Fireball : MonoBehaviourPunCallbacks
         damage = cardData.damage;
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && (targetLayer | (1 << other.gameObject.layer)) == targetLayer)
         {
-            transform.position += direction * speed * Time.deltaTime;
+            Debug.Log(other.name);
+        }
+
+        if (photonView.IsMine && (floorLayer | (1 << other.gameObject.layer)) == floorLayer)
+        {
+            ExplosionParticle();
+            photonView.RPC("DestroyObj", RpcTarget.All);
         }
     }
 
-    public void SendDamage(int damage)
+    [PunRPC]
+    private void DestroyObj()
     {
-        //GetComponent<Damaging>().damage = damage;
+        Destroy(gameObject);
+    }
+
+    private void ExplosionParticle()
+    {
+        PhotonNetwork.Instantiate("ExplosionFireballSharpFire", transform.position, transform.rotation);
     }
 }

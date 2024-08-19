@@ -56,7 +56,6 @@ public class AllySpawnManager : MonoBehaviour
             {
                 unit = PhotonNetwork.Instantiate(name, allyFireballPos.position, Quaternion.identity);
             }
-            unit.UnitClassification(ud);
             unit.GetComponent<Fireball>().targetPos = spawnTrans;
         }
 

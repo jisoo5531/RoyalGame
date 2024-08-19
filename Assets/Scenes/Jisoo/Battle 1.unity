@@ -1418,6 +1418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isElixirEnough: 0
   spawnComplete: 0
+  mainCamera: {fileID: 0}
 --- !u!114 &125121027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2693,7 +2694,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerList: []
   enemyList: []
-  enemyTower: {fileID: 8846955532308594288}
 --- !u!4 &241939330
 Transform:
   m_ObjectHideFlags: 0
@@ -3016,15 +3016,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4000a7e43acaf5244baad87a93f0e99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLayer:
+  otherTargetLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 0
+  fireballTargetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   iconImage: {fileID: 263340330}
   SelectedOutLine: {fileID: 1091300887}
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
   unitSpawner: {fileID: 0}
 --- !u!1001 &302715704
 PrefabInstance:
@@ -9581,15 +9583,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4000a7e43acaf5244baad87a93f0e99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLayer:
+  otherTargetLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 0
+  fireballTargetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   iconImage: {fileID: 872837889}
   SelectedOutLine: {fileID: 45094181}
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
   unitSpawner: {fileID: 0}
 --- !u!1 &918060814 stripped
 GameObject:
@@ -12610,15 +12614,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4000a7e43acaf5244baad87a93f0e99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLayer:
+  otherTargetLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 0
+  fireballTargetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   iconImage: {fileID: 1916215939}
   SelectedOutLine: {fileID: 85447915}
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
   unitSpawner: {fileID: 0}
 --- !u!1 &1271045229 stripped
 GameObject:
@@ -13809,15 +13815,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4000a7e43acaf5244baad87a93f0e99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLayer:
+  otherTargetLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 0
+  fireballTargetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   iconImage: {fileID: 1714514004}
   SelectedOutLine: {fileID: 303302735}
   selectedNumber: 0
   mainCard: {fileID: 488971305}
   dragUnit: {fileID: 0}
-  spawnPoint: {x: 0, y: 0, z: 0}
   unitSpawner: {fileID: 0}
 --- !u!1 &1415247724
 GameObject:
@@ -19532,17 +19540,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6319157871042695983, guid: 78303ae76e2a7c84bb5971302fbc4dac, type: 3}
   m_PrefabInstance: {fileID: 646846758517441251}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &646846758517441255 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1273446259306366764, guid: 78303ae76e2a7c84bb5971302fbc4dac, type: 3}
-  m_PrefabInstance: {fileID: 646846758517441251}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!223 &646846758517441256 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 4234565317300561644, guid: 78303ae76e2a7c84bb5971302fbc4dac, type: 3}
@@ -19704,17 +19701,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab:
-    levelBackground: {fileID: 21300000, guid: e6d5fc98a8afcca40b04501f3c342943, type: 3}
-    hpBarFill: {fileID: 21300000, guid: a947017c9907ec64eae4e717a808798f, type: 3}
   allyPrefab:
-    levelBackground: {fileID: 21300000, guid: 1b9a388a03ecffb4ba4a01169bcc1706, type: 3}
     hpBarFill: {fileID: 21300000, guid: 18c69375a81673247b1d31f2c02c1c62, type: 3}
+    levelSprite: {fileID: 0}
   blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
   unitCanvas: {fileID: 646846758517441256}
   hpBarOBJ: {fileID: 646846758517441254}
-  levelBackground: {fileID: 646846758517441255}
   hpBarFill: {fileID: 646846758517441253}
+  level: {fileID: 0}
+  hpBarvalue: {fileID: 0}
+  spawnTimeUI: {fileID: 0}
+  clock: {fileID: 0}
+  levelValue: {fileID: 0}
+  isTower: 0
+  isKingTower: 0
+  isPrince: 0
 --- !u!1 &2743713087730687788
 GameObject:
   m_ObjectHideFlags: 0
@@ -19731,6 +19732,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &3238142472095192193
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 31.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635698640861976062, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636983472405319782, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
+      propertyPath: m_Name
+      value: ExplosionFireballSharpFire
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ca78afe90bb2f34a868db968b943afd, type: 3}
 --- !u!4 &3266459139391281154 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 269155160138372249, guid: e5e2f89c5da77914b855f5cd229d5174, type: 3}
@@ -20419,63 +20477,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12febb951cc18934bbd722426db0fa93, type: 3}
---- !u!1001 &4974759909470982539
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1636806931387756, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_Name
-      value: ExplosionFireballSharpFire
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 31.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125225743241460, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5e1d6fd1781043641870393a3afcd8f9, type: 3}
 --- !u!4 &5040313155422310007
 Transform:
   m_ObjectHideFlags: 0
@@ -27243,17 +27244,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd49e96ebe706ba44b5bab28a8166e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab:
-    levelBackground: {fileID: 0}
-    hpBarFill: {fileID: 0}
   allyPrefab:
-    levelBackground: {fileID: 0}
     hpBarFill: {fileID: 0}
+    levelSprite: {fileID: 0}
   blastEffect: {fileID: 143964, guid: 385feb0cce9164b42a7a6f317ab51d66, type: 3}
   unitCanvas: {fileID: 620895343}
   hpBarOBJ: {fileID: 598235685}
-  levelBackground: {fileID: 0}
   hpBarFill: {fileID: 1961992822}
+  level: {fileID: 0}
+  hpBarvalue: {fileID: 0}
+  spawnTimeUI: {fileID: 0}
+  clock: {fileID: 0}
+  levelValue: {fileID: 0}
+  isTower: 0
+  isKingTower: 0
+  isPrince: 0
 --- !u!4 &8846955532308594436
 Transform:
   m_ObjectHideFlags: 0

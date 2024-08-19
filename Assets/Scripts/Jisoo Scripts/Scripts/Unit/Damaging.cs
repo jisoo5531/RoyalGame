@@ -22,7 +22,6 @@ public class Damaging : MonoBehaviourPunCallbacks
                 if (isWait) return;
             }
 
-
             if (!other.isTrigger)
             {
                 GameObject childObj = null;

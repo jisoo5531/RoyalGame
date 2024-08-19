@@ -48,11 +48,6 @@ public static class Extension
         {
             unit.AddComponent<DeffenseTower>();
         }
-        else
-        {
-            unit.AddComponent<Fireball>();
-
-        }
     }
     public static void ColorNormal<T>(this T uiElement)
     {

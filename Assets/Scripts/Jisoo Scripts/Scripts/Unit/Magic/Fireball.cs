@@ -8,7 +8,7 @@ public class Fireball : MonoBehaviourPunCallbacks
 
     public LayerMask floorLayer;
     public LayerMask targetLayer;
-    private float speed = 30;
+    private float speed = 35;
     private float launchAngle = 15f;
     private Rigidbody rb;
     Vector3 direction;

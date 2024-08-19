@@ -57,11 +57,6 @@ public class UI_DisplayUnit : MonoBehaviour
             {
                 UI_SetDisplayUnit(shuffledUnit[i], i, unitElixirText[i]);
             }
-            else
-            {                
-                // waitUnitQueue 시각화 테스트
-                //UI_SetDisplayUnit(shuffledUnit[i], UI_Manager.m_Instance.waitUnitsDisplay[i - 4]);
-            }
         }
         UI_Manager.m_Instance.UI_nextUnitDisplay.transform.GetChild(0).GetComponent<Image>().sprite = shuffledUnit[4].img;
     }

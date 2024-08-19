@@ -90,7 +90,7 @@ public class DatabaseManager : MonoBehaviour
         conn.Close();
     }
 
-    public bool connection_check(MySqlConnection con)
+    public bool Connection_Check(MySqlConnection con)
     {
         if (con.State != System.Data.ConnectionState.Open)
         {

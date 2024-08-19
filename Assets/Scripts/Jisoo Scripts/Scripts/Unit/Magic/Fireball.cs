@@ -1,46 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Fireball : MonoBehaviour, ICard, IAttackable
+public class Fireball : MonoBehaviour
 {
-    public int cardLevel { get; set; }
-    public int currentCardCount { get; set; }
-    public int maxCardCount { get; set; }
-    public int damage { get; set; }
-    public float range { get; set; }
-    public int cost { get; set; }
-    public float spawnTime { get; set; }
-    public float attackSpeed { get; set; }
+    public int damage { get; private set; }
+    public Vector3 targetPos;
+    private float speed = 7f;
 
-    public Vector3 clickPos;
     private ClickMagic fireBall;
 
     private void Awake()
     {
         fireBall = FindObjectOfType<ClickMagic>();
-        // InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        InitializeUnitData(UnitSpawner.instance.selectedUnit);
         SendDamage(damage);
-        
+
     }
+    private void InitializeUnitData(AllCardData cardData)
+    {
+        damage = cardData.damage;
+        targetPos.y = -1;
+    }
+
+    private void Update()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(targetPos), out hit, 100f))
+        {
+            transform.LookAt(targetPos);
+            this.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+        }
+    }
+
     private void Start()
     {
-        clickPos.y = -1;
-        SpawnFireBall();
+        //SpawnFireBall();
     }
 
     private void SpawnFireBall()
     {
         fireBall.SpawnFireBall(gameObject);
-    }
-
-    protected virtual void InitializeUnitData(UnitData_SO unit)
-    {
-        name = unit.unitName;
-        damage = unit.damage;
-        range = unit.range;
-
-        //coolTime = unit.spawnTime;
     }
 
 

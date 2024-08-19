@@ -70,7 +70,12 @@ public class Upgrade : MonoBehaviour
 
     private void UpgradeUnit(bool isUpgrade)
     {
-        if (isUpgrade)
+        int cost = (1000 * ((unitdata.level - 1) * 5)) + 1000;
+        upgradeCost = cost;
+        unitlist.upgradeCost.text = $"업그레이드\n{cost}";
+
+
+        if (isUpgrade && StartManager.m_Instance.gold >= cost)
         {
             unitlist.cardcountfill.ColorGreen();
             unitlist.uparrow.ColorGreen();
@@ -98,7 +103,6 @@ public class Upgrade : MonoBehaviour
         {
             availableupgrade = false;
         }
-        UpgradeUnit(isCanUpgrade);
 
         Settitle();
 
@@ -109,6 +113,9 @@ public class Upgrade : MonoBehaviour
         Setdescription();
 
         Setcardcountfill();
+
+        UpgradeUnit(isCanUpgrade);
+
 
         Setstats();
     }
@@ -138,12 +145,6 @@ public class Upgrade : MonoBehaviour
         unitlist.cardcounttext.text = $"{unitdata.currentCardCount} / {unitdata.maxCardCount}";
 
         unitlist.cardcountfill.fillAmount = (float)unitdata.currentCardCount / unitdata.maxCardCount;
-
-        int cost = (1000 * ((unitdata.level - 1) * 5)) + 1000;
-        upgradeCost = cost;
-        unitlist.upgradeCost.text = $"업그레이드\n{cost}";
-
-        unitlist.upgradeBtn.interactable = StartManager.m_Instance.gold >= cost;
     }
         
     #endregion

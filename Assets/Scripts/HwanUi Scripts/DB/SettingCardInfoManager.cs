@@ -22,7 +22,7 @@ public class SettingCardInfoManager : MonoBehaviour
         string insertCard = string.Empty;
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }
@@ -60,7 +60,7 @@ public class SettingCardInfoManager : MonoBehaviour
         string updateCard = string.Empty;
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }
@@ -96,7 +96,7 @@ public class SettingCardInfoManager : MonoBehaviour
         string updateUserCard = string.Empty;
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }
@@ -119,7 +119,7 @@ public class SettingCardInfoManager : MonoBehaviour
     {
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return true;
             }

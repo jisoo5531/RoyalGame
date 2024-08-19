@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return 0;
             }
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                         if (!name.Equals(PhotonNetwork.NickName))
                         {
-                            DatabaseModel.enemyID = userId;
+                            DatabaseBattleRecordModel.enemyID = userId;
                         }
 
                         return trophy;
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             int trophy = int.Parse(trophyText.text);
             int gold = int.Parse(winGoldText.text);
-            DatabaseModel.UpdateUser(1, 1, 0, trophy, gold);
+            DatabaseBattleRecordModel.UpdateUser(1, 1, 0, trophy, gold);
         }
         else
         {
@@ -193,14 +193,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             int trophy = int.Parse(trophyText.text);
             int gold = int.Parse(loseGoldText.text);
-            DatabaseModel.UpdateUser(1, 0, 1, 0, gold);
+            DatabaseBattleRecordModel.UpdateUser(1, 0, 1, 0, gold);
         }
     }
 
     public void LobbySceneLoad_Click()
     {
-        DatabaseModel.GetBattleCard();
-        DatabaseModel.InsertGameRecord(ScoreManager.instance.allyCount, ScoreManager.instance.enemyCount);
+        DatabaseBattleRecordModel.GetBattleCard();
+        DatabaseBattleRecordModel.InsertGameRecord(ScoreManager.instance.allyCount, ScoreManager.instance.enemyCount);
 
         PhotonNetwork.LeaveRoom();
     }

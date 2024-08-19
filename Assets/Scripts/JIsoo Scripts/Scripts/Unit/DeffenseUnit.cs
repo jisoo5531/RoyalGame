@@ -9,7 +9,6 @@ public class DeffenseUnit : Unit, IAttackable
     RangedUnit rangedUnit;
     TargetFollowUnit targetFollowUnit;
     public bool isTower;
-    KingTower kingtower;
 
 
     private void Awake()

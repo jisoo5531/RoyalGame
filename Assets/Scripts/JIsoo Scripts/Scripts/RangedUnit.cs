@@ -1,10 +1,11 @@
+using Mysqlx.Crud;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedUnit : MonoBehaviourPunCallbacks
-{    
+{
     public GameObject projectilePrefab;
     GameObject projectile;
     public Transform pStart_trans;
@@ -21,7 +22,7 @@ public class RangedUnit : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if(targetFollowUnit.target != null)
+        if (targetFollowUnit.target != null)
         {
             target = targetFollowUnit.target;
         }
@@ -30,7 +31,15 @@ public class RangedUnit : MonoBehaviourPunCallbacks
     public void Attack()
     {
         string pfbName = projectilePrefab.name;
-        projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.Euler(-90, 0, transform.localEulerAngles.y));
+        if (PhotonNetwork.IsMasterClient)
+        {
+            projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.Euler(-90, 0, transform.localEulerAngles.y + 180));
+        }
+        else
+        {
+            projectile = PhotonNetwork.Instantiate(pfbName, pStart_trans.position, Quaternion.Euler(-90, 0, transform.localEulerAngles.y));
+        }
+        projectile.layer = 13;
         Projectile projec = projectile.GetComponent<Projectile>();
         projec.target = target.gameObject;
 

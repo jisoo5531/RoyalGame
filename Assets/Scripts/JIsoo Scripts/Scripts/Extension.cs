@@ -46,7 +46,7 @@ public static class Extension
         }
         else if (unitData.type.Equals("방어타워"))
         {
-            DeffenseTower asdf = unit.AddComponent<DeffenseTower>();
+            unit.AddComponent<DeffenseTower>();
         }
         else
         {

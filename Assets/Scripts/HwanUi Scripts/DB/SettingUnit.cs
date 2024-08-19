@@ -14,7 +14,7 @@ public class SettingUnit : MonoBehaviour
             $"UNIT.level, UNIT.damage, CARD.type, UNIT.attackSpeed, UNIT.moveSpeed, UNIT.hp, UNIT.spawnTime, " +
             $"CARD.targeting FROM USER, CARD, UNIT WHERE USER.userID = {userId} AND CARD.cardID = {cardId} AND USER.userID = UNIT.userID AND CARD.cardID = UNIT.cardID";
 
-        if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+        if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
         {
             return;
         }
@@ -55,7 +55,7 @@ public class SettingUnit : MonoBehaviour
     {
         string selectData = string.Empty;
 
-        if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+        if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
         {
             return;
         }
@@ -102,7 +102,7 @@ public class SettingUnit : MonoBehaviour
     {
         string selectData = string.Empty;
 
-        if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+        if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
         {
             return;
         }
@@ -144,7 +144,7 @@ public class SettingUnit : MonoBehaviour
     {
         string selectData = string.Empty;
 
-        if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+        if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
         {
             return null;
         }
@@ -190,7 +190,7 @@ public class SettingUnit : MonoBehaviour
 
     public DEFENSETOWERInfoData GetTowerData(int userId, int cardId)
     {
-        if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+        if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
         {
             return null;
         }
@@ -240,7 +240,7 @@ public class SettingUnit : MonoBehaviour
 
     public MAGICInfoData GetMagicData(int userId, int cardId)
     {
-        if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+        if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
         {
             return null;
         }

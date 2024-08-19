@@ -23,7 +23,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
     public GameObject blastEffect;
 
-    public Canvas unitCanvas;
+    public GameObject unitCanvas;
     public GameObject hpBarOBJ;
     public Image hpBarFill;
     public Image level;
@@ -58,8 +58,6 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             {
                 tower = this.transform.parent.GetComponent<Tower>();
             }
-
-            unitCanvas.transform.localEulerAngles = Vector3.zero;
         }
     }
 
@@ -106,6 +104,8 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
     public void GetDamage(int damage)
     {
+        if(this == null) return;
+
         this.HP -= damage;
         this.HP = Mathf.Max(HP, 0);
         photonView.RPC("RPC_damage", RpcTarget.All, damage, this.HP, this.maxHP);
@@ -144,6 +144,8 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     [PunRPC]
     private void RPC_damage(int damage, int currentHp, int currentMaxHp)
     {
+        if (this == null) return;
+
         if (isTower)
         {
             if(isKingTower && tower != null && tower.isNotOnCannon)

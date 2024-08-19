@@ -21,6 +21,7 @@ public class MovableUnit : Unit, IAttackable
     private bool isRunning = false;
     private bool isRun = false;
     private bool isMovePath = false;
+    private bool isAttackEnter = false;
     bool isTimer = true;
     GameObject targetObj;
 
@@ -98,6 +99,7 @@ public class MovableUnit : Unit, IAttackable
 
         if (targetFollowUnit.isAttack)
         {
+            isAttackEnter = true;
             if (targetFollowUnit.target != null)
             {
                 RotateTowardsTarget(targetFollowUnit.target);
@@ -118,6 +120,14 @@ public class MovableUnit : Unit, IAttackable
                 {
                     targetObj = targetFollowUnit.target.gameObject;
                     isMovePath = false;
+                }
+                else
+                {
+                    if(isAttackEnter)
+                    {
+                        DetectEnemyManager.instance.MovePath(transform, targetFollowUnit);
+                        isAttackEnter = false;
+                    }
                 }
 
                 if (!isTimer && !isMovePath)
@@ -157,7 +167,7 @@ public class MovableUnit : Unit, IAttackable
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject.Equals(targetFollowUnit.target.gameObject))
+            if (!colliders[i].isTrigger && colliders[i].gameObject.Equals(targetFollowUnit.target.gameObject))
             {
                 return true;
             }

@@ -45,7 +45,7 @@ public class UpgrdeUnitSpec : MonoBehaviour
 
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return 0;
             }
@@ -84,7 +84,7 @@ public class UpgrdeUnitSpec : MonoBehaviour
         int id = 0;
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }

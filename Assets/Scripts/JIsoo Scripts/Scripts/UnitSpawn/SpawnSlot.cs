@@ -27,8 +27,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     private bool isSpawn = false;
     private string unitName;
 
-    public static Vector3 spawnPoint;
-
     public UnitSpawner unitSpawner;
 
     private bool isMaster = false;
@@ -80,7 +78,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
             UnitSpawner.instance.spawnComplete = true;
 
-            // TODO : 유닛 유형(유닛, 방어타워) 등에 맞게 수정
             GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, dragUnit.transform.position, unitData, dragUnit);
             if(isMaster)
             {
@@ -187,7 +184,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         {
             if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
             {
-                spawnPoint = hit.point;
                 if (false == isSpawn)
                 {
                     if (!PhotonNetwork.IsMasterClient)

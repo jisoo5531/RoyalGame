@@ -48,6 +48,10 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             {
                 unitCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, 180, 0);
             }
+            else
+            {
+                unitCanvas.unitCanvas.transform.localEulerAngles = Vector3.zero;
+            }
             towers.Add(tower);
 
         }
@@ -154,7 +158,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     public void RemoveTower(int id, GameObject tower)
     {
         towers.Remove(tower);
-        if(kingTower.princessTowers.Contains(tower))
+        if (kingTower.princessTowers.Contains(tower))
         {
             kingTower.princessTowers.Remove(tower);
         }

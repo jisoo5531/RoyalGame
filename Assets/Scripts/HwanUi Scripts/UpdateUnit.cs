@@ -33,7 +33,7 @@ public class UpdateUnit : MonoBehaviour, IPointerClickHandler
     {
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }

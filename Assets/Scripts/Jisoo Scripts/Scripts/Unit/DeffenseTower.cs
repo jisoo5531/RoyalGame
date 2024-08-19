@@ -73,10 +73,9 @@ public class DeffenseTower : Unit, IAttackable
 
     private void Update()
     {
-        if (!isSpawn || !photonView.IsMine || !isWait) return;
+        if (!isSpawn || !photonView.IsMine) return;
 
         stateMachine.DoOperateUpdate(false);
-
         if (!targetFollowUnit.isAttack)
         {
             DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
@@ -85,7 +84,7 @@ public class DeffenseTower : Unit, IAttackable
         }
         else
         {
-            if (targetFollowUnit.target != null)
+            if (targetFollowUnit.target != null && !isWait)
             {
                 RotateTowardsTarget(targetFollowUnit.target);
             }

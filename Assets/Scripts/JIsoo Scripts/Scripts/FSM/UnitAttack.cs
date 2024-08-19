@@ -17,7 +17,6 @@ public class UnitAttack : IState<Unit>
         //attackSpeed = speed;
         //unit.anim.speed = speed;
         //UpdateAnimationSpeed(speed);
-        //unit.Attack();
     }
     public void OperateExit(Unit sender)
     {

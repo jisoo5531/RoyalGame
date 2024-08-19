@@ -7,6 +7,9 @@ public class AllySpawnManager : MonoBehaviour
 {
     public static AllySpawnManager Instance { get; private set; }
 
+    public Transform allyFireballPos;
+    public Transform enemyFireballPos;
+
     private float spawntime = 0f;
 
     private void Awake()
@@ -16,36 +19,62 @@ public class AllySpawnManager : MonoBehaviour
     public GameObject InitCreateUnit(string name, Vector3 spawnTrans, AllCardData ud, GameObject unitObj = null)
     {
         GameObject unit = null;
-        if (!PhotonNetwork.IsMasterClient)
+        if (ud.cardId != 3)
         {
-            unit = PhotonNetwork.Instantiate(name, spawnTrans, Quaternion.Euler(0, 180, 0));
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                unit = PhotonNetwork.Instantiate(name, spawnTrans, Quaternion.Euler(0, 180, 0));
+            }
+            else
+            {
+                unit = PhotonNetwork.Instantiate(name, spawnTrans, Quaternion.identity);
+            }
+            Renderer[] renderers = unit.GetComponentsInChildren<Renderer>();
+            RendererChange(renderers);
+
+            if (unit.TryGetComponent<UnitCanvasInfo>(out UnitCanvasInfo uci))
+            {
+                if (ud is UnitInfoData unitData)
+                {
+                    spawntime = unitData.spawnTime;
+                }
+                else if (ud is DEFENSETOWERInfoData towerData)
+                {
+                    spawntime = towerData.spawnTime;
+                }
+                uci.UIInit(ud.level, spawntime);
+            }
         }
         else
         {
-            unit = PhotonNetwork.Instantiate(name, spawnTrans, Quaternion.identity);
-        }
-        Renderer[] renderers = unit.GetComponentsInChildren<Renderer>();
-        RendererChange(renderers);
-
-        if (unit.TryGetComponent<UnitCanvasInfo>(out UnitCanvasInfo uci))
-        {
-            if(ud is UnitInfoData unitData)
+            if (!PhotonNetwork.IsMasterClient)
             {
-                spawntime = unitData.spawnTime;
+                unit = PhotonNetwork.Instantiate(name, enemyFireballPos.position, Quaternion.identity);
             }
-            else if(ud is DEFENSETOWERInfoData towerData)
+            else
             {
-                spawntime = towerData.spawnTime;
+                unit = PhotonNetwork.Instantiate(name, allyFireballPos.position, Quaternion.identity);
             }
-            uci.UIInit(ud.level, spawntime);
+            unit.transform.GetChild(0).GetComponent<Fireball>().targetPos = spawnTrans;
         }
 
         unit.UnitClassification(ud);
 
-        unit.layer = 11;
-        foreach (Transform child in unit.transform)
+        if (ud.cardId != 3)
         {
-            child.gameObject.layer = 11;
+            unit.layer = 11;
+            foreach (Transform child in unit.transform)
+            {
+                child.gameObject.layer = 11;
+            }
+        }
+        else
+        {
+            unit.layer = 13;
+            foreach (Transform child in unit.transform)
+            {
+                child.gameObject.layer = 13;
+            }
         }
 
         Destroy(unitObj);

@@ -51,7 +51,7 @@ public class CollectionCardInfo : MonoBehaviour
         index = 0;
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }
@@ -111,7 +111,7 @@ public class CollectionCardInfo : MonoBehaviour
         index = 0;
         try
         {
-            if (!DatabaseManager.Instance.connection_check(DatabaseManager.Instance.conn))
+            if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
                 return;
             }

@@ -14,7 +14,6 @@ public class ClickMagic : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        spawnPos = SpawnSlot.spawnPoint;
         spawnPos.y = -1;
         //if (Input.GetMouseButtonDown(0))
         //{

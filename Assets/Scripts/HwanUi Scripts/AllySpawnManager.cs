@@ -44,6 +44,7 @@ public class AllySpawnManager : MonoBehaviour
                 }
                 uci.UIInit(ud.level, spawntime);
             }
+            unit.UnitClassification(ud);
         }
         else
         {
@@ -55,10 +56,10 @@ public class AllySpawnManager : MonoBehaviour
             {
                 unit = PhotonNetwork.Instantiate(name, allyFireballPos.position, Quaternion.identity);
             }
-            unit.transform.GetChild(0).GetComponent<Fireball>().targetPos = spawnTrans;
+            unit.UnitClassification(ud);
+            unit.GetComponent<Fireball>().targetPos = spawnTrans;
         }
 
-        unit.UnitClassification(ud);
 
         if (ud.cardId != 3)
         {

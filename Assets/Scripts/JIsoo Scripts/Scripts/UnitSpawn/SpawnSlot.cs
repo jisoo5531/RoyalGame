@@ -14,7 +14,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     IBeginDragHandler, IDragHandler, IEndDragHandler,
     IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    public LayerMask targetLayer;
+    public LayerMask otherTargetLayer;
+    public LayerMask fireballTargetLayer;
     public GameObject iconImage;
     public GameObject SelectedOutLine;
 
@@ -46,7 +47,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         if (false == UI_Manager.m_Instance.CheckSpawnPossible(selectedNumber))
         {
             return;
-        }   
+        }
 
         UI_Manager.m_Instance.ActiveSlotOutLine();
         iconImage.GetComponent<RectTransform>().SetParent(UI_Manager.m_Instance.SelectedUnitPanel);
@@ -72,20 +73,20 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         {
             return;
         }
-      
+
         if (true == isSpawn)
         {
             UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
             UnitSpawner.instance.spawnComplete = true;
 
             GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, dragUnit.transform.position, unitData, dragUnit);
-            if(isMaster)
+            if (isMaster)
             {
-                if(unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
+                if (unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
                 {
                     MasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
                 }
-                else if(unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
+                else if (unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
                 {
                     MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
                 }
@@ -104,7 +105,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
             UnitSpawner.instance.selectedUnit = null;
 
-            
+
         }
 
         UI_Manager.m_Instance.selectedSlot = null;
@@ -182,25 +183,37 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
+            if (unitData.cardId != 3)
             {
-                if (false == isSpawn)
-                {
-                    if (!PhotonNetwork.IsMasterClient)
-                    {
-                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.Euler(0, 180, 0));
-                    }
-                    else
-                    {
-                        dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
-                    }
-                    dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.cardName;
-                    dragUnit.GetComponent<DragUnitInfo>().unitLevel.text = $"Lv. {unitData.level}";
-                    unitName = unitPrefab.name;
-                    isSpawn = true;
-                }
-                dragUnit.transform.position = hit.point;
+                CheckUnitId(hit, unitPrefab, otherTargetLayer);
             }
+            else
+            {
+                CheckUnitId(hit, unitPrefab, fireballTargetLayer);
+            }
+        }
+    }
+
+    private void CheckUnitId(RaycastHit hit, GameObject unitPrefab, LayerMask targetLayer)
+    {
+        if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
+        {
+            if (false == isSpawn)
+            {
+                if (!PhotonNetwork.IsMasterClient)
+                {
+                    dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.Euler(0, 180, 0));
+                }
+                else
+                {
+                    dragUnit = Instantiate(unitPrefab, hit.point, Quaternion.identity);
+                }
+                dragUnit.GetComponent<DragUnitInfo>().unitName.text = unitData.cardName;
+                dragUnit.GetComponent<DragUnitInfo>().unitLevel.text = $"Lv. {unitData.level}";
+                unitName = unitPrefab.name;
+                isSpawn = true;
+            }
+            dragUnit.transform.position = hit.point;
         }
     }
 }

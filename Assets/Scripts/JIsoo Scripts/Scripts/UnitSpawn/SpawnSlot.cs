@@ -183,6 +183,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            Debug.Log("skdsklsdklsd");
             if (unitData.cardId != 3)
             {
                 CheckUnitId(hit, unitPrefab, otherTargetLayer);
@@ -196,8 +197,10 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
     private void CheckUnitId(RaycastHit hit, GameObject unitPrefab, LayerMask targetLayer)
     {
+        Debug.Log(hit.collider.gameObject.layer+",  "+targetLayer+",  "+targetLayer.value);
         if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
         {
+            Debug.Log("eeeeeeeeee");
             if (false == isSpawn)
             {
                 if (!PhotonNetwork.IsMasterClient)

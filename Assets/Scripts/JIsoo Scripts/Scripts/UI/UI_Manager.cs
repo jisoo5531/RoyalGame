@@ -139,12 +139,6 @@ public class UI_Manager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void Update()
-    {
-        if(UnitSpawner.instance.spawnComplete && selectedSlot != null)
-        {
-        }
-    }
     /// <summary>
     /// SpawnManager에게 현재 몇번째 슬롯을 선택했는지 전달
     /// </summary>
@@ -153,6 +147,10 @@ public class UI_Manager : MonoBehaviourPunCallbacks
     {        
         selectSlotNumber = number;
 
+        if (UI_availableUnit[number].cardId != 3)
+        {
+            GameManager.instance.spawnLimits.EnableTowerLimit();
+        }
         UnitSpawner.instance.SelectUnit(UI_availableUnit[number]);        
     }
     /// <summary>

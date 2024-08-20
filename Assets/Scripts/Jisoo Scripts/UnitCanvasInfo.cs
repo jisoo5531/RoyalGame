@@ -53,14 +53,14 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         if (photonView.IsMine)
         {
             this.hpBarFill.sprite = allyPrefab.hpBarFill;
-            
-            if(!isTower)
+
+            if (!isTower)
             {
                 spawnTimeUI.color = Color.cyan;
                 this.level.sprite = allyPrefab.levelSprite;
                 photonView.RPC("SpawnTime", RpcTarget.All);
             }
-            if(isKingTower)
+            if (isKingTower)
             {
                 tower = this.transform.parent.GetComponent<Tower>();
             }
@@ -102,7 +102,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         {
             mu.isWait = false;
         }
-        else if(gameObject.TryGetComponent<DeffenseTower>(out DeffenseTower tower))
+        else if (gameObject.TryGetComponent<DeffenseTower>(out DeffenseTower tower))
         {
             tower.isWait = false;
         }
@@ -110,7 +110,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
     public void GetDamage(int damage)
     {
-        if(this == null) return;
+        if (this == null) return;
 
         this.HP -= damage;
         this.HP = Mathf.Max(HP, 0);
@@ -123,7 +123,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 if (isTower)
                 {
                     int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
-                    MasterManager.instance.RemoveTower(id, this.transform.parent.gameObject);
+                    MasterManager.instance.RemoveTower(id, this.transform.root.gameObject);
                 }
                 else
                 {
@@ -135,13 +135,15 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                 if (isTower)
                 {
                     int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
-                    NonMasterManager.instance.RemoveTower(id, this.transform.parent.gameObject);
+                    NonMasterManager.instance.RemoveTower(id, this.transform.root.gameObject);
                 }
                 else
                 {
                     NonMasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
                 }
             }
+            photonView.RPC("ShowLimit", RpcTarget.Others, objIndex);
+            photonView.RPC("Death", RpcTarget.All, isTower);
             Death(isTower);
         }
     }
@@ -153,7 +155,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
         if (isTower)
         {
-            if(isKingTower && tower != null && tower.isNotOnCannon)
+            if (isKingTower && tower != null && tower.isNotOnCannon)
             {
                 tower.isNotOnCannon = false;
             }
@@ -173,37 +175,40 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
+    [PunRPC]
     private void Death(bool isTower)
     {
         if (isTower)
         {
-            GameManager.instance.spawnLimits.DisableIndexTowerLimit(objIndex);
-            effect =  PhotonNetwork.Instantiate(blastEffect.name, transform.position + new Vector3(0, 5, 0), transform.rotation);
+            effect = Instantiate(blastEffect, transform.position + new Vector3(0, 5, 0), transform.rotation);
             effect.transform.localScale = new Vector3(8, 8, 8);
-            PhotonNetwork.Destroy(gameObject.transform.root.gameObject);
+            Destroy(gameObject.transform.root.gameObject);
         }
         else
         {
-            effect = PhotonNetwork.Instantiate(blastEffect.name, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+            effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
             effect.transform.localScale = transform.localScale;
-            PhotonNetwork.Destroy(gameObject);
+            Destroy(gameObject);
         }
-        Invoke("DestroyEffect", 1f);
+        Destroy(effect, 1f);
+        Invoke("DisableDelay", 2f);
     }
 
-    public void DestroyEffect()
+    [PunRPC]
+    private void ShowLimit(int index)
     {
-        PhotonNetwork.Destroy(effect);
-    }
-
-    private void EnableTowerLimit()
-    {
+        GameManager.instance.spawnLimits.DisableIndexTowerLimit(index);
         GameManager.instance.spawnLimits.EnableTowerLimit();
+    }
+
+    private void DisableDelay()
+    {
+        GameManager.instance.spawnLimits.DisableTower();
     }
 
     private void OnHPBar()
     {
         isHPBarOn = true;
-        hpBarOBJ.SetActive(true);        
+        hpBarOBJ.SetActive(true);
     }
 }

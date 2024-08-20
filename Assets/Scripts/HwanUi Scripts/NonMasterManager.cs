@@ -52,6 +52,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
             {
                 unitCanvas.unitCanvas.transform.localEulerAngles = Vector3.zero;
             }
+            unitCanvas.objIndex = i;
             towers.Add(tower);
 
         }

@@ -17740,7 +17740,7 @@ Transform:
   - {fileID: 103824532}
   - {fileID: 1920478434}
   m_Father: {fileID: 550332956}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &198664802
 GameObject:
@@ -18191,13 +18191,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223511536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.094654, y: 7.267864, z: -7.550247}
+  m_LocalPosition: {x: 8.094654, y: 7.1, z: -7.550247}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 295355187}
   - {fileID: 787831239}
   - {fileID: 226503748}
-  - {fileID: 295355187}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18231,7 +18231,7 @@ Transform:
   m_Children:
   - {fileID: 1466649641}
   m_Father: {fileID: 223511537}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &228334199 stripped
 GameObject:
@@ -19028,7 +19028,7 @@ Transform:
   - {fileID: 1579563645}
   - {fileID: 1174653537}
   m_Father: {fileID: 223511537}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &297136299
 GameObject:
@@ -23104,13 +23104,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550332955}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -8.6, y: 7.267864, z: 7.4}
+  m_LocalPosition: {x: -8.6, y: 7.1, z: 7.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1995562245}
-  - {fileID: 1478070731}
   - {fileID: 171212175}
+  - {fileID: 1478070731}
+  - {fileID: 1995562245}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -26680,7 +26680,7 @@ Transform:
   m_Children:
   - {fileID: 1764856962}
   m_Father: {fileID: 223511537}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &793249640 stripped
 GameObject:
@@ -40473,7 +40473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478070731}
   m_Layer: 0
-  m_Name: Tower2 Ban
+  m_Name: Tower1 Ban
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42453,11 +42453,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634531174}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.58, y: 8.73, z: 10.57}
-  m_Center: {x: 0, y: 4.2, z: -0.0000076293945}
+  m_Size: {x: 9.999999, y: 0.0000010530024, z: 9.999999}
+  m_Center: {x: -0.000008255243, y: 0, z: 0.0000038146973}
 --- !u!1 &1641504858
 GameObject:
   m_ObjectHideFlags: 0
@@ -51736,7 +51736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995562245}
   m_Layer: 0
-  m_Name: Tower1 Ban
+  m_Name: Tower2 Ban
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51756,7 +51756,7 @@ Transform:
   m_Children:
   - {fileID: 1593836392}
   m_Father: {fileID: 550332956}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2003424174
 GameObject:

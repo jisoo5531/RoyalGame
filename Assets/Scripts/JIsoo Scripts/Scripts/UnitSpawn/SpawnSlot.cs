@@ -59,7 +59,10 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             return;
         }
 
-        GameManager.instance.spawnLimits.EnableTowerLimit();
+        if (unitData != null && unitData.cardId != 3)
+        {
+            GameManager.instance.spawnLimits.EnableTowerLimit();
+        }
         MoveImage(eventData);
 
         MoveModel(eventData);
@@ -147,7 +150,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     /// <param name="y_Pos"></param>
     private void MoveImage(PointerEventData eventData)
     {
-        // TODO : Slot Background 안에서만 - y 좌표 알맞게 수정
         if (eventData.position.y > 200f)
         {
             iconImage.gameObject.SetActive(false);

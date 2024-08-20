@@ -2037,6 +2037,7 @@ GameObject:
   - component: {fileID: 8859855609324280512}
   - component: {fileID: 594246334961291424}
   - component: {fileID: 1803189364}
+  - component: {fileID: 8905816422831194745}
   m_Layer: 9
   m_Name: Enemy_King_Tower
   m_TagString: EnemyTower
@@ -2164,6 +2165,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!65 &8905816422831194745
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8251551384087275624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.63, y: 11.19, z: 8.456396}
+  m_Center: {x: -0.015625, y: 5.54, z: 0.004476309}
 --- !u!1 &8251589964802437656
 GameObject:
   m_ObjectHideFlags: 0

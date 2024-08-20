@@ -18,7 +18,7 @@ public class CrossbowTower : Tower
 
     protected override void InitData()
     {
-        maxHP = 2500;
+        maxHP = 100;
         HP = maxHP;
         range = 37;
         damage = 60;

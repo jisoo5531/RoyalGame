@@ -4770,6 +4770,7 @@ GameObject:
   - component: {fileID: 4274805756737042745}
   - component: {fileID: 8931220907153686635}
   - component: {fileID: 485694724881300090}
+  - component: {fileID: 1317636506945510247}
   m_Layer: 0
   m_Name: MageProjectile
   m_TagString: Untagged
@@ -9686,6 +9687,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 3332656907929445337}
+  - {fileID: 1317636506945510247}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -9736,6 +9738,22 @@ MonoBehaviour:
   target: {fileID: 0}
   rangeType: 1
   isWait: 1
+--- !u!114 &1317636506945510247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505866299476164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1536524859078104
 GameObject:
   m_ObjectHideFlags: 0

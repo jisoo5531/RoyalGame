@@ -18,18 +18,6 @@ public class Projectile : MonoBehaviourPunCallbacks
         rigid = GetComponent<Rigidbody>();
         dir = transform.forward;
 
-        if(gameObject.TryGetComponent<ParticleSystem>(out ParticleSystem ps))
-        {
-            ps.Play();
-
-            ParticleSystem[] particleArray = gameObject.GetComponentsInChildren<ParticleSystem>();
-
-            for (int i = 0; i < particleArray.Length; i++)
-            {
-                particleArray[i].Play();
-            }
-        }
-
         if (photonView.IsMine)
         {
             Invoke("LifeTime", 1.8f);
@@ -37,21 +25,15 @@ public class Projectile : MonoBehaviourPunCallbacks
     }
     private void LifeTime()
     {
-        if (gameObject != null)
+        if (gameObject != null && photonView.IsMine)
         {
-            photonView.RPC("DestoryBow", RpcTarget.All);
+            PhotonNetwork.Destroy(gameObject);
         }
-    }
-
-    [PunRPC]
-    private void DestoryBow()
-    {
-        Destroy(gameObject);
     }
 
     private void Update()
     {
-        if (target != null)
+        if (target != null && photonView.IsMine)
         {
             UpdateDirection();
         }

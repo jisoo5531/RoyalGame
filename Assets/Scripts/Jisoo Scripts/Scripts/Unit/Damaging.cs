@@ -61,7 +61,7 @@ public class Damaging : MonoBehaviourPunCallbacks
             if (rangeType == Range.Ranged)
             {
                 photonView.RPC("RPC_SendDamage", RpcTarget.Others, damage, targetViewID);
-                photonView.RPC("DestoryGob", RpcTarget.All);
+                PhotonNetwork.Destroy(gameObject);
             }
             else
             {
@@ -90,11 +90,5 @@ public class Damaging : MonoBehaviourPunCallbacks
                 }
             }
         }
-    }
-
-    [PunRPC]
-    private void DestoryGob()
-    {
-        Destroy(gameObject);
     }
 }

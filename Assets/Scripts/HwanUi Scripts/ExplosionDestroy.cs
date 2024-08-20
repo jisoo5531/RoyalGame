@@ -7,12 +7,14 @@ public class ExplosionDestroy : MonoBehaviourPunCallbacks
 {
     private void Awake()
     {
-        photonView.RPC("DestroyObj", RpcTarget.All);
+        Invoke("DestroyDelay", 0.8f);
     }
 
-    [PunRPC]
-    public void DestroyObj()
+    private void DestroyDelay()
     {
-        Destroy(gameObject, 0.8f);
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 }

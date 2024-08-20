@@ -151,6 +151,10 @@ public class UI_Manager : MonoBehaviourPunCallbacks
         {
             GameManager.instance.spawnLimits.EnableTowerLimit();
         }
+        else
+        {
+            GameManager.instance.spawnLimits.DisableTower();
+        }
         UnitSpawner.instance.SelectUnit(UI_availableUnit[number]);        
     }
     /// <summary>

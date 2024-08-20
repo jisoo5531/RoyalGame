@@ -52,6 +52,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
             {
                 unitCanvas.unitCanvas.transform.localEulerAngles = Vector3.zero;
             }
+            unitCanvas.objIndex = i;
             towers.Add(tower);
         }
         photonView.RPC("AddEnemyTower", RpcTarget.Others);

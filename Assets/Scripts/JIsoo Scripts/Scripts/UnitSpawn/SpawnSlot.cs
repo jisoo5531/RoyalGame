@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Photon.Pun;
-using Unity.VisualScripting;
-using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 유닛 드래그, 클릭을 통한 생성
@@ -14,23 +11,24 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     IBeginDragHandler, IDragHandler, IEndDragHandler,
     IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    #region public 변수
     public LayerMask otherTargetLayer;
     public LayerMask fireballTargetLayer;
     public GameObject iconImage;
     public GameObject SelectedOutLine;
 
     public int selectedNumber;
+    public UnitSpawner unitSpawner;
     public RectTransform mainCard;
-
     public GameObject dragUnit = null;
+    #endregion
 
+    #region private 변수
     private AllCardData unitData;
     private bool isSpawn = false;
     private string unitName;
-
-    public UnitSpawner unitSpawner;
-
     private bool isMaster = false;
+    #endregion
 
 
     private void Start()
@@ -61,6 +59,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             return;
         }
 
+        GameManager.instance.spawnLimits.EnableTowerLimit();
         MoveImage(eventData);
 
         MoveModel(eventData);
@@ -76,6 +75,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
         if (true == isSpawn)
         {
+            GameManager.instance.spawnLimits.DisableTower();
             UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
             UnitSpawner.instance.spawnComplete = true;
 
@@ -104,8 +104,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
             }
 
             UnitSpawner.instance.selectedUnit = null;
-
-
         }
 
         UI_Manager.m_Instance.selectedSlot = null;

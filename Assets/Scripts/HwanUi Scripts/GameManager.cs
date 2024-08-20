@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI winGoldText;
 
     public TextMeshProUGUI loseGoldText;
+    public UnitSpawnLimits spawnLimits;
     #endregion
 
     private void Awake()

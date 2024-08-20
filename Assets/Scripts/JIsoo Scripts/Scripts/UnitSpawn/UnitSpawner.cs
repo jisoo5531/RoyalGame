@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
 {
+    #region public º¯¼ö
     public static UnitSpawner instance { get; private set; }
 
     public AllCardData selectedUnit;
     public bool isElixirEnough = false;
     public bool spawnComplete = false;
-
     public Camera mainCamera;
+    #endregion
 
     private bool isMaster = false;
 
@@ -67,6 +68,7 @@ public class UnitSpawner : MonoBehaviour
                                 NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
                             }
                         }
+                        GameManager.instance.spawnLimits.DisableTower();
                         spawnComplete = true;
                         selectedUnit = null;
                         isElixirEnough = false;

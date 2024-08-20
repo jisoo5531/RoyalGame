@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using MySql.Data.MySqlClient;
-using Photon.Pun.Demo.Cockpit;
 using Photon.Pun;
 
 public class UI_Manager : MonoBehaviourPunCallbacks
@@ -138,6 +136,13 @@ public class UI_Manager : MonoBehaviourPunCallbacks
                     UnitSpawner.instance.spawnComplete = false;
                 }
             }
+        }
+    }
+
+    private void Update()
+    {
+        if(UnitSpawner.instance.spawnComplete && selectedSlot != null)
+        {
         }
     }
     /// <summary>

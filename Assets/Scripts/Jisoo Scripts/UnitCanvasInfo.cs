@@ -16,6 +16,8 @@ public class AllyImagePrefab
 
 public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 {
+
+    #region public 변수
     public AllyImagePrefab allyPrefab;
 
     public int HP { get; set; }
@@ -31,16 +33,20 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     public Image spawnTimeUI;
     public GameObject clock;
     public TextMeshProUGUI levelValue;
-    Tower tower;
-
-    GameObject effect;
-
-    private bool isHPBarOn = false;
-    private float spawnTime;
 
     public bool isTower;
     public bool isKingTower;
     public bool isPrince;
+
+    public int objIndex;
+    #endregion
+
+    #region private 변수
+    Tower tower;
+    GameObject effect;
+    private bool isHPBarOn = false;
+    private float spawnTime;
+    #endregion
 
     private void Start()
     {
@@ -110,7 +116,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         this.HP = Mathf.Max(HP, 0);
         photonView.RPC("RPC_damage", RpcTarget.All, damage, this.HP, this.maxHP);
 
-        if (HP <= 0)
+        if (HP <= 0 && photonView.IsMine)
         {
             if (PhotonNetwork.IsMasterClient)
             {
@@ -136,8 +142,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
                     NonMasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
                 }
             }
-
-            photonView.RPC("RPC_Death", RpcTarget.All, isTower);
+            Death(isTower);
         }
     }
 
@@ -168,22 +173,32 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
-    [PunRPC]
-    private void RPC_Death(bool isTower)
+    private void Death(bool isTower)
     {
         if (isTower)
         {
-            effect = Instantiate(blastEffect, transform.position + new Vector3(0, 5, 0), transform.rotation);
+            GameManager.instance.spawnLimits.DisableIndexTowerLimit(objIndex);
+            effect =  PhotonNetwork.Instantiate(blastEffect.name, transform.position + new Vector3(0, 5, 0), transform.rotation);
             effect.transform.localScale = new Vector3(8, 8, 8);
-            Destroy(gameObject.transform.root.gameObject);
+            PhotonNetwork.Destroy(gameObject.transform.root.gameObject);
         }
         else
         {
-            effect = Instantiate(blastEffect, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
+            effect = PhotonNetwork.Instantiate(blastEffect.name, transform.position + new Vector3(0, transform.localScale.y, 0), transform.rotation);
             effect.transform.localScale = transform.localScale;
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
-        Destroy(effect, 1f);
+        Invoke("DestroyEffect", 1f);
+    }
+
+    public void DestroyEffect()
+    {
+        PhotonNetwork.Destroy(effect);
+    }
+
+    private void EnableTowerLimit()
+    {
+        GameManager.instance.spawnLimits.EnableTowerLimit();
     }
 
     private void OnHPBar()

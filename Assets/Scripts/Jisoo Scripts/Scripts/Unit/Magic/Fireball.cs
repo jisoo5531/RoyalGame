@@ -104,8 +104,6 @@ public class Fireball : MonoBehaviourPunCallbacks
         {
             CheckRange(childDamagable, childObj, childObj.layer);
         }
-        Debug.Log(other.name);
-        Debug.Log(other.layer);
     }
 
     private void CheckRange(IDamagable damagable, GameObject other, int layer)

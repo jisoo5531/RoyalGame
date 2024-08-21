@@ -14,7 +14,7 @@ public class AllyImagePrefab
 }
 
 
-public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
+public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObservable
 {
 
     #region public º¯¼ö
@@ -114,6 +114,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
         this.HP -= damage;
         this.HP = Mathf.Max(HP, 0);
+        hpBarFill.fillAmount = (float)HP / maxHP;
+        if (isTower)
+        {
+            hpBarvalue.text = HP.ToString();
+        }
         photonView.RPC("RPC_damage", RpcTarget.All, damage, this.HP, this.maxHP);
 
         if (HP <= 0 && photonView.IsMine)
@@ -148,6 +153,25 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         }
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(HP);
+            stream.SendNext(maxHP);
+        }
+        else
+        {
+            HP = (int)stream.ReceiveNext();
+            maxHP = (int)stream.ReceiveNext();
+            hpBarFill.fillAmount = (float)HP / maxHP;
+            if (isTower)
+            {
+                hpBarvalue.text = HP.ToString();
+            }
+        }
+    }
+
     [PunRPC]
     private void RPC_damage(int damage, int currentHp, int currentMaxHp)
     {
@@ -168,11 +192,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             }
         }
 
-        hpBarFill.fillAmount = (float)currentHp / currentMaxHp;
-        if (isTower)
-        {
-            hpBarvalue.text = currentHp.ToString();
-        }
+        //hpBarFill.fillAmount = (float)currentHp / currentMaxHp;
+        //if (isTower)
+        //{
+        //    hpBarvalue.text = currentHp.ToString();
+        //}
     }
 
     [PunRPC]

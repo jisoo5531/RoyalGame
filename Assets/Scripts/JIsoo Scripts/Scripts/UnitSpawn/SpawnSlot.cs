@@ -21,6 +21,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     public UnitSpawner unitSpawner;
     public RectTransform mainCard;
     public GameObject dragUnit = null;
+    public LayerMask layerMask;
     #endregion
 
     #region private º¯¼ö
@@ -181,7 +182,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         GameObject unitPrefab = unitData.prefab;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, layerMask))
         {
             Debug.Log("skdsklsdklsd");
             if (unitData.cardId != 3)
@@ -197,7 +199,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
     private void CheckUnitId(RaycastHit hit, GameObject unitPrefab, LayerMask targetLayer)
     {
-        Debug.Log(hit.collider.gameObject.layer+",  "+targetLayer+",  "+targetLayer.value);
+        Debug.Log(hit.collider.gameObject.layer+",  "+ hit.collider.name + ",  "+targetLayer.value);
         if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
         {
             Debug.Log("eeeeeeeeee");

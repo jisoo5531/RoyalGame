@@ -21,7 +21,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
             else
             {
                 Destroy(gameObject);
-            }   
+            }
         }
     }
     private void Start()
@@ -140,23 +140,7 @@ public class MasterManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void RemoveUnit(int id)
-    {
-        photonView.RPC("OnCharacterRemove", RpcTarget.Others, id);
-    }
-
-    [PunRPC]
-    public void OnCharacterRemove(int viewID)
-    {
-        PhotonView characterView = PhotonView.Find(viewID);
-        if (characterView != null)
-        {
-            GameObject character = characterView.gameObject;
-            DetectEnemyManager.instance.enemyList.Remove(character);
-        }
-    }
-
-    public void RemoveTower(int id, GameObject tower)
+    public void RemoveTower(GameObject tower)
     {
         towers.Remove(tower);
         if (kingTower.princessTowers.Contains(tower))
@@ -164,26 +148,6 @@ public class MasterManager : MonoBehaviourPunCallbacks
             kingTower.princessTowers.Remove(tower);
         }
         ScoreManager.instance.enemyCount++;
-        photonView.RPC("OnTowerRemove", RpcTarget.Others, id);
-        photonView.RPC("ScorePlus", RpcTarget.Others);
-        ScoreManager.instance.SettingScore();
-    }
-
-    [PunRPC]
-    public void OnTowerRemove(int viewID)
-    {
-        PhotonView towerView = PhotonView.Find(viewID);
-        if (towerView != null)
-        {
-            GameObject tower = towerView.gameObject;
-            DetectEnemyManager.instance.towerList.Remove(tower);
-        }
-    }
-
-    [PunRPC]
-    public void ScorePlus()
-    {
-        ScoreManager.instance.allyCount++;
         ScoreManager.instance.SettingScore();
     }
 }

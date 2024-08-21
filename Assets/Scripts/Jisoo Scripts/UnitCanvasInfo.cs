@@ -1,9 +1,11 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -14,7 +16,7 @@ public class AllyImagePrefab
 }
 
 
-public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObservable
+public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 {
 
     #region public º¯¼ö
@@ -52,6 +54,7 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObserva
     {
         if (photonView.IsMine)
         {
+            photonView.RPC("RPC_Init", RpcTarget.Others, HP, maxHP, objIndex);
             this.hpBarFill.sprite = allyPrefab.hpBarFill;
 
             if (!isTower)
@@ -70,6 +73,14 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObserva
     public void UIInit(int level, float time)
     {
         photonView.RPC("RPC_UIINIT", RpcTarget.All, level, time);
+    }
+
+    [PunRPC]
+    private void RPC_Init(int hp, int maxHp, int index)
+    {
+        this.HP = hp;
+        this.maxHP = maxHp;
+        objIndex = index;
     }
 
     [PunRPC]
@@ -112,62 +123,57 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObserva
     {
         if (this == null) return;
 
-        this.HP -= damage;
-        this.HP = Mathf.Max(HP, 0);
-        hpBarFill.fillAmount = (float)HP / maxHP;
-        if (isTower)
-        {
-            hpBarvalue.text = HP.ToString();
-        }
         photonView.RPC("RPC_damage", RpcTarget.All, damage, this.HP, this.maxHP);
+    }
 
-        if (HP <= 0 && photonView.IsMine)
+    private void RPC_Death(int hp)
+    {
+        if (hp <= 0)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if(photonView.IsMine)
             {
-                if (isTower)
-                {
-                    int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
-                    MasterManager.instance.RemoveTower(id, this.transform.root.gameObject);
-                }
-                else
-                {
-                    MasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
-                }
+                IsMineTrueDeath();
             }
             else
             {
-                if (isTower)
+                IsMineFalseDeath();
+                if(isTower)
                 {
-                    int id = gameObject.transform.root.GetComponent<PhotonView>().ViewID;
-                    NonMasterManager.instance.RemoveTower(id, this.transform.root.gameObject);
-                }
-                else
-                {
-                    NonMasterManager.instance.RemoveUnit(GetComponent<PhotonView>().ViewID);
+                    ShowLimit(objIndex);
                 }
             }
-            photonView.RPC("ShowLimit", RpcTarget.Others, objIndex);
-            photonView.RPC("Death", RpcTarget.All, isTower);
             Death(isTower);
         }
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    private void IsMineFalseDeath()
     {
-        if (stream.IsWriting)
+        if (isTower)
         {
-            stream.SendNext(HP);
-            stream.SendNext(maxHP);
+            DetectEnemyManager.instance.towerList.Remove(this.transform.root.gameObject);
+            ScoreManager.instance.allyCount++;
+            ScoreManager.instance.SettingScore();
         }
         else
         {
-            HP = (int)stream.ReceiveNext();
-            maxHP = (int)stream.ReceiveNext();
-            hpBarFill.fillAmount = (float)HP / maxHP;
+            DetectEnemyManager.instance.enemyList.Remove(this.gameObject);
+        }
+    }
+
+    private void IsMineTrueDeath()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
             if (isTower)
             {
-                hpBarvalue.text = HP.ToString();
+                MasterManager.instance.RemoveTower(this.transform.root.gameObject);
+            }
+        }
+        else
+        {
+            if (isTower)
+            {
+                NonMasterManager.instance.RemoveTower(this.transform.root.gameObject);
             }
         }
     }
@@ -192,14 +198,20 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObserva
             }
         }
 
-        //hpBarFill.fillAmount = (float)currentHp / currentMaxHp;
-        //if (isTower)
-        //{
-        //    hpBarvalue.text = currentHp.ToString();
-        //}
+        this.HP -= damage;
+        this.HP = Mathf.Max(HP, 0);
+        hpBarFill.fillAmount = (float)HP / maxHP;
+        if (isTower)
+        {
+            hpBarvalue.text = HP.ToString();
+        }
+
+        if(HP <= 0)
+        {
+            RPC_Death(HP);
+        }
     }
 
-    [PunRPC]
     private void Death(bool isTower)
     {
         if (isTower)
@@ -218,7 +230,6 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable, IPunObserva
         Invoke("DisableDelay", 2f);
     }
 
-    [PunRPC]
     private void ShowLimit(int index)
     {
         GameManager.instance.spawnLimits.DisableIndexTowerLimit(index);

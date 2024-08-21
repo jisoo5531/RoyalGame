@@ -62,19 +62,12 @@ public class SearchGame : MonoBehaviourPunCallbacks
     {
         try
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
-            //PhotonNetwork.LoadLevel("Battle");
+            PhotonNetwork.AutomaticallySyncScene = true; 
         }
         catch (Exception ex)
         {
             print(ex.Message);
         }
-    }
-
-    [PunRPC]
-    private void LoadScene()
-    {
-        //Loading.LoadScene("Battle");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)  
@@ -84,7 +77,6 @@ public class SearchGame : MonoBehaviourPunCallbacks
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 PhotonNetwork.LoadLevel("Battle");
-               // photonView.RPC("LoadScene", RpcTarget.All);
             }
 
         }

@@ -235,7 +235,6 @@ GameObject:
   - component: {fileID: 2300852614747506820}
   - component: {fileID: 2300852614740032138}
   - component: {fileID: 6907747779925336007}
-  - component: {fileID: 1082650243067608554}
   - component: {fileID: 1541533211160813531}
   - component: {fileID: 8740322482304158099}
   m_Layer: 9
@@ -312,22 +311,6 @@ MonoBehaviour:
   isKingTower: 1
   isPrince: 0
   objIndex: 0
---- !u!114 &1082650243067608554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300852614747178288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 0
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &1541533211160813531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,9 +348,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1082650243067608554}
   - {fileID: 1541533211160813531}
-  sceneViewId: 0
+  sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &2300852614747182798
@@ -1894,7 +1876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8256996493460609320
 Transform:
   m_ObjectHideFlags: 0
@@ -2020,7 +2002,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1122722886}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &8251551384087275624
@@ -2162,7 +2144,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!65 &8905816422831194745

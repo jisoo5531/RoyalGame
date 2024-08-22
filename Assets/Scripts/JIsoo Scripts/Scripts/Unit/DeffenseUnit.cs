@@ -56,6 +56,7 @@ public class DeffenseUnit : Unit, IAttackable
 
         if (!targetFollowUnit.isAttack)
         {
+            Debug.Log("aaaa");
             DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
             StateTransition(targetFollowUnit.target);

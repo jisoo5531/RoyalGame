@@ -149,7 +149,6 @@ public class UI_Manager : MonoBehaviourPunCallbacks
 
         if (UI_availableUnit[number].cardId != 3)
         {
-            Debug.Log("aaaaaa");
             GameManager.instance.spawnLimits.EnableTowerLimit();
         }
         else

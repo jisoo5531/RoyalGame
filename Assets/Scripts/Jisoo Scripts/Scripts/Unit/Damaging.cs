@@ -48,7 +48,6 @@ public class Damaging : MonoBehaviourPunCallbacks
     {
         if (other.transform.root.gameObject.name.Equals(target.gameObject.name))
         {
-            Debug.Log(damage+",  "+ target.gameObject.name);
             damagable?.GetDamage(damage);
             if (rangeType == Range.Ranged)
             {

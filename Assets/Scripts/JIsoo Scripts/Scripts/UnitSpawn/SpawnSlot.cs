@@ -79,8 +79,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
         if (true == isSpawn)
         {
-            GameManager.instance.spawnLimits.DisableTower();
             UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
+            GameManager.instance.spawnLimits.DisableTower();
             UnitSpawner.instance.spawnComplete = true;
 
             GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, dragUnit.transform.position, unitData, dragUnit);
@@ -167,7 +167,6 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
     /// <param name="y_Pos"></param>
     private void MoveModel(PointerEventData eventData)
     {
-        // TODO : Slot Background 밖에서 (맵에서) - y 좌표 알맞게 수정
         if (eventData.position.y < 180f)
         {
             if (dragUnit == null)
@@ -182,15 +181,17 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         GameObject unitPrefab = unitData.prefab;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, layerMask))
+
+        if (unitData.cardId != 3)
         {
-            Debug.Log("skdsklsdklsd");
-            if (unitData.cardId != 3)
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, layerMask))
             {
                 CheckUnitId(hit, unitPrefab, otherTargetLayer);
             }
-            else
+        }
+        else
+        {
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 CheckUnitId(hit, unitPrefab, fireballTargetLayer);
             }
@@ -199,10 +200,8 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
     private void CheckUnitId(RaycastHit hit, GameObject unitPrefab, LayerMask targetLayer)
     {
-        Debug.Log(hit.collider.gameObject.layer+",  "+ hit.collider.name + ",  "+targetLayer.value);
         if ((targetLayer | (1 << hit.collider.gameObject.layer)) == targetLayer)
         {
-            Debug.Log("eeeeeeeeee");
             if (false == isSpawn)
             {
                 if (!PhotonNetwork.IsMasterClient)

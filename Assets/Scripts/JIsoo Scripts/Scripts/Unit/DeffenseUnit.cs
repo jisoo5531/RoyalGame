@@ -10,23 +10,23 @@ public class DeffenseUnit : Unit, IAttackable
     TargetFollowUnit targetFollowUnit;
     public bool isTower;
 
-
     private void Awake()
     {
         if (photonView.IsMine)
         {
-            anim = GetComponent<Animator>();
-            rangedUnit = GetComponent<RangedUnit>();
-            targetFollowUnit = GetComponent<TargetFollowUnit>();
+            ComponentInit();
         }
     }
-
     private void Start()
     {
-        if (!isTower)
-        {
-            InitStateMachine();
-        }
+        InitState();
+    }
+
+    public void ComponentInit()
+    {
+        anim = GetComponent<Animator>();
+        rangedUnit = GetComponent<RangedUnit>();
+        targetFollowUnit = GetComponent<TargetFollowUnit>();
     }
 
     public void InitData(float range, int damage)
@@ -38,6 +38,11 @@ public class DeffenseUnit : Unit, IAttackable
         {
             rangedUnit.damage = this.damage;
         }
+    }
+
+    public void InitState()
+    {
+        InitStateMachine();
     }
 
     protected override void InitStateMachine()
@@ -56,16 +61,15 @@ public class DeffenseUnit : Unit, IAttackable
 
         if (!targetFollowUnit.isAttack)
         {
-            Debug.Log("aaaa");
             DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
             StateTransition(targetFollowUnit.target);
         }
         else
         {
-            if (targetFollowUnit.target != null)
+            if (targetFollowUnit.target != null && photonView != null)
             {
-                photonView.RPC("RotateTowardsTarget", RpcTarget.All, targetFollowUnit.target.position);
+                photonView.RPC("RotateTarget", RpcTarget.All, targetFollowUnit.target.position);
             }
             else
             {
@@ -77,7 +81,7 @@ public class DeffenseUnit : Unit, IAttackable
     }
 
     [PunRPC]
-    private void RotateTowardsTarget(Vector3 target)
+    public void RotateTarget(Vector3 target)
     {
         Vector3 direction = (target - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -92,6 +96,7 @@ public class DeffenseUnit : Unit, IAttackable
         float distance = Vector3.Distance(target.position, transform.position);
         if (distance <= range)
         {
+            Debug.Log($"{this.name} enter");
             SetState(UnitState.Attack, 1f);
             targetFollowUnit.isAttack = true;
         }

@@ -19,7 +19,6 @@ public class KingTower : Tower
             canvasInfo = onTopUnit.GetComponent<UnitCanvasInfo>();
             onTopUnit.GetComponent<UnitCanvasInfo>().maxHP = maxHP;
             onTopUnit.GetComponent<UnitCanvasInfo>().HP = HP;
-            deffenseUnit.InitData(range, damage);
         }
     }
     protected override void InitData()
@@ -38,6 +37,8 @@ public class KingTower : Tower
             if (!GameManager.instance.isGameEnd && isNotOnCannon && princessTowers.Count < 2 || !GameManager.instance.isGameEnd && isNotOnCannon && canvasInfo.HP < canvasInfo.maxHP)
             {
                 photonView.RPC("AppearCannon", RpcTarget.All);
+                deffenseUnit.ComponentInit();
+                deffenseUnit.InitData(range, damage);
                 isNotOnCannon = false;
             }
         }
@@ -47,8 +48,5 @@ public class KingTower : Tower
     private void AppearCannon()
     {
         cannon.SetActive(true);
-
-        cannon.GetComponent<Animator>().SetBool("isAppear", true);
-
     }
 }

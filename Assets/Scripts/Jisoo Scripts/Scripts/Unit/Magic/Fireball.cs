@@ -11,7 +11,7 @@ public class Fireball : MonoBehaviourPunCallbacks
 
     public LayerMask floorLayer;
     public LayerMask targetLayer;
-    private float speed = 47f;
+    private float speed = 47.5f;
     private float launchAngle = 8f;
     private Rigidbody rb;
     Vector3 direction;
@@ -62,7 +62,6 @@ public class Fireball : MonoBehaviourPunCallbacks
         {
             if (!triggerObjs.Contains(other.gameObject) && (targetLayer | (1 << other.gameObject.layer)) == targetLayer)
             {
-                Debug.Log("aaaaaa");
                 triggerObjs.Add(other.gameObject);
             }
 
@@ -70,7 +69,6 @@ public class Fireball : MonoBehaviourPunCallbacks
             {
                 for (int i = 0; i < triggerObjs.Count; i++)
                 {
-                    Debug.Log("bbbb");
                     CheckDamagable(triggerObjs[i].gameObject);
                 }
                 ExplosionParticle();

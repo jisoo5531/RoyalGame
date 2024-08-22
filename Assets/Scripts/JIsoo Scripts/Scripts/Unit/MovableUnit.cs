@@ -102,7 +102,7 @@ public class MovableUnit : Unit, IAttackable
             isAttackEnter = true;
             if (targetFollowUnit.target != null)
             {
-                RotateTowardsTarget(targetFollowUnit.target);
+                RotateTarget(targetFollowUnit.target);
             }
             else
             {
@@ -202,14 +202,19 @@ public class MovableUnit : Unit, IAttackable
         }
     }
 
-    private void RotateTowardsTarget(Transform target)
+    private void RotateTarget(Transform target)
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
 
         float rotationY = transform.localEulerAngles.y;
-        photonView.RPC("CanvasRotate", RpcTarget.Others, PhotonNetwork.IsMasterClient ? rotationY : rotationY - 180);
+
+        if(photonView != null)
+        {
+            photonView.RPC("CanvasRotate", RpcTarget.Others, PhotonNetwork.IsMasterClient ? rotationY : rotationY - 180);
+        }
+        
         canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotationY + (PhotonNetwork.IsMasterClient ? 0 : 180), 0);
     }
 

@@ -14,20 +14,10 @@ public class UnitAttack : IState<Unit>
     {
         unit = sender;
         unit.anim.SetBool("isAttack", true);
-        //attackSpeed = speed;
-        //unit.anim.speed = speed;
-        //UpdateAnimationSpeed(speed);
     }
     public void OperateExit(Unit sender)
     {
-        // unit.anim.speed = 1;
         unit.anim.SetBool("isAttack", false);
-        //if(unit is MovableUnit moveUnit)
-        //{
-        //    moveUnit.UpdateAnimationSpeed(1);
-        //}
-        //unit.UpdateAnimationSpeed(1); // 기본 속도로 리셋
-        //UpdateAnimationSpeed(1);
     }
     public void OperateUpdate(Unit sender, bool isRun)
     {
@@ -40,33 +30,11 @@ public class UnitAttack : IState<Unit>
                 unit.Attack();
                 isAttack = true;
             }
-           // isCoolTime = false;
         }
         else
         {
-            //if(!isCoolTime)
-            //{
-            //    if (unit is MovableUnit moveUnit)
-            //    {
-            //        moveUnit.UpdateAnimationSpeed(1);
-            //    }
-            //    //unit.UpdateAnimationSpeed(attackSpeed);
-            //    isCoolTime = true;
-            //}
             isAttack = false;
         }
     }
-
-    //private void UpdateAnimationSpeed(float speed)
-    //{
-    //    unit.anim.speed = speed;
-    //    unit.photonView.RPC("SyncAnimationSpeed", RpcTarget.Others, speed);
-    //}
-
-    //[PunRPC]
-    //public void SyncAnimationSpeed(float speed)
-    //{
-    //    unit.anim.speed = speed;
-    //}
 
 }

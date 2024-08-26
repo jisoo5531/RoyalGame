@@ -69,6 +69,7 @@ public class PathFinding : MonoBehaviour
         {
             waypoints = RetracePath(startNode, targetNode);
         }
+        Debug.Log("FindPath: EXIT");
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
     }
 

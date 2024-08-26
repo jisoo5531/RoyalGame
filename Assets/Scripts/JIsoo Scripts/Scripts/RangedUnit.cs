@@ -30,7 +30,6 @@ public class RangedUnit : MonoBehaviourPunCallbacks
 
     public void Attack()
     {
-        Debug.Log($"{this.name} create");
         string pfbName = projectilePrefab.name;
         if (PhotonNetwork.IsMasterClient)
         {

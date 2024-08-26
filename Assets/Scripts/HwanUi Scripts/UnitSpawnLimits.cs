@@ -32,6 +32,12 @@ public class UnitSpawnLimits : MonoBehaviour
         limitObj.SetActive(true);
     }
 
+    public void TowerDestroyEnable()
+    {
+        limitObj.SetActive(true);
+        Invoke("DisableTower", 2f);
+    }
+
     public void DisableTower()
     {
         limitObj.SetActive(false);

@@ -96,7 +96,6 @@ public class DeffenseUnit : Unit, IAttackable
         float distance = Vector3.Distance(target.position, transform.position);
         if (distance <= range)
         {
-            Debug.Log($"{this.name} enter");
             SetState(UnitState.Attack, 1f);
             targetFollowUnit.isAttack = true;
         }

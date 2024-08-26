@@ -225,15 +225,4 @@ public class MovableUnit : Unit, IAttackable
         targetFollowUnit.speed *= 2f;
         yield break;
     }
-    //public void UpdateAnimationSpeed(float speed)
-    //{
-    //    anim.speed = speed;
-    //    photonView.RPC("SyncAnimationSpeed", RpcTarget.Others, speed);
-    //}
-
-    //[PunRPC]
-    //public void SyncAnimationSpeed(float speed)
-    //{
-    //    anim.speed = speed;
-    //}
 }

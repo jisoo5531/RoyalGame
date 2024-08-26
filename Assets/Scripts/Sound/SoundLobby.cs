@@ -5,7 +5,6 @@ using UnityEngine;
 public class SoundLobby : MonoBehaviour
 {
     public AudioClip defaultBGM;  // 기본 BGM
-    public AudioClip ShopBGM;      // 새로운 상황에 맞는 BGM
     public AudioClip CollectionBGM;
     private AudioSource audioSource;
 
@@ -29,12 +28,7 @@ public class SoundLobby : MonoBehaviour
 
     void Update()
     {
-        // 특정 오브젝트가 활성화되었는지 확인합니다.
-        if (targetShop.activeInHierarchy)
-        {
-            ChangeBGM(ShopBGM);
-        }
-        else if (targetCollection.activeInHierarchy)
+        if (targetCollection.activeInHierarchy)
         {
             ChangeBGM(CollectionBGM);
         }

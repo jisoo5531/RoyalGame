@@ -62,7 +62,7 @@ public class SearchGame : MonoBehaviourPunCallbacks
     {
         try
         {
-            PhotonNetwork.AutomaticallySyncScene = true; 
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
         catch (Exception ex)
         {

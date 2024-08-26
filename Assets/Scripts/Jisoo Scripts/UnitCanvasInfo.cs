@@ -227,18 +227,12 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             Destroy(gameObject);
         }
         Destroy(effect, 1f);
-        Invoke("DisableDelay", 2f);
     }
 
     private void ShowLimit(int index)
     {
         GameManager.instance.spawnLimits.DisableIndexTowerLimit(index);
-        GameManager.instance.spawnLimits.EnableTowerLimit();
-    }
-
-    private void DisableDelay()
-    {
-        GameManager.instance.spawnLimits.DisableTower();
+        GameManager.instance.spawnLimits.TowerDestroyEnable();
     }
 
     private void OnHPBar()

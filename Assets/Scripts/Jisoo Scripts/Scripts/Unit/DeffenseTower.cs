@@ -76,11 +76,15 @@ public class DeffenseTower : Unit, IAttackable
         if (!isSpawn || !photonView.IsMine) return;
 
         stateMachine.DoOperateUpdate(false);
+
         if (!targetFollowUnit.isAttack)
         {
             DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
 
-            StateTransition(targetFollowUnit.target);
+            if (!isWait)
+            {
+                StateTransition(targetFollowUnit.target);
+            }
         }
         else
         {
@@ -130,7 +134,6 @@ public class DeffenseTower : Unit, IAttackable
         {
             SetState(UnitState.Attack, attackSpeed);
             targetFollowUnit.isAttack = true;
-            // UpdateAnimationSpeed(attackSpeed);
         }
         else
         {

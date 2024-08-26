@@ -126,9 +126,16 @@ public class SignUp : MonoBehaviour
             {
                 if (cmd != null)
                 {
-                    int result = GetRowCount(cmd);
+                    int count = 0;
 
-                    return result > 0;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            count = reader.GetInt32(0);
+                        }
+                    }
+                    return count > 0;
                 }
             }
         }
@@ -137,20 +144,5 @@ public class SignUp : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return true;
-    }
-
-    int GetRowCount(MySqlCommand cmd)
-    {
-        int count = 0;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                count = reader.GetInt32(0);
-            }
-        }
-
-        return count;
     }
 }

@@ -130,9 +130,17 @@ public class SettingCardInfoManager : MonoBehaviour
             {
                 if (cmd != null)
                 {
-                    int result = GetCardCount(cmd);
+                    int count = 0;
 
-                    return result < 8;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            count = reader.GetInt32(0);
+                        }
+                    }
+
+                    return count < 8;
                 }
             }
         }
@@ -141,20 +149,5 @@ public class SettingCardInfoManager : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return true;
-    }
-
-    int GetCardCount(MySqlCommand cmd)
-    {
-        int count = 0;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                count = reader.GetInt32(0);
-            }
-        }
-
-        return count;
     }
 }

@@ -89,10 +89,18 @@ public class SignIn : MonoBehaviour
             {
                 if (cmd != null)
                 {
-                    int result = GetRowCount(cmd);
-                    DatabaseManager.Instance.userId = GetUserId(cmd);
+                    int count = 0;
 
-                    return result > 0;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            count = reader.GetInt32(0);
+                            DatabaseManager.Instance.userId = reader.GetInt32(1);
+                        }
+                    }
+
+                    return count > 0;
                 }
             }
         }
@@ -101,34 +109,5 @@ public class SignIn : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return false;
-    }
-    int GetUserId(MySqlCommand cmd)
-    {
-        int userId = 0;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                userId = reader.GetInt32(1);
-            }
-        }
-
-        return userId;
-    }
-
-    int GetRowCount(MySqlCommand cmd)
-    {
-        int count = 0;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                count = reader.GetInt32(0);
-            }
-        }
-
-        return count;
     }
 }

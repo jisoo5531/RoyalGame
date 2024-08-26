@@ -70,11 +70,6 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
 
         MJ_MoveCard = GetComponentInChildren<MoveCard>();
         MJ_ShakeBox = GetComponentInChildren<Epic_ShakeBox>();
-
-        // TODO : 테스트용 노말 상자
-        //chest.OpenEpicChest();
-
-        //isOpenClick = true;
     }
 
     public void OnPointerClick(PointerEventData eventData)

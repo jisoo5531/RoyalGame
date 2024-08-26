@@ -27232,8 +27232,8 @@ MonoBehaviour:
   gainCards: {fileID: 2014382990}
   giftCard: {fileID: 5740226664562040509, guid: 626b30b4b11676c4eac167cf22b164ee, type: 3}
   card_Open: {fileID: 1061395343}
-  MJ_MoveCard: {fileID: 0}
-  MJ_ShakeBox: {fileID: 0}
+  MJ_MoveCard: {fileID: 1530308498}
+  MJ_ShakeBox: {fileID: 1249342927}
   unitInfos:
   - damage: 86
     hp: 759
@@ -191376,7 +191376,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1249342926}
   - component: {fileID: 1249342927}
-  - component: {fileID: 1249342928}
   m_Layer: 5
   m_Name: Box_Close
   m_TagString: Untagged
@@ -191415,27 +191414,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249342925}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2444202453c0d04ebc51d4b99db8443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1249342928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249342925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa6c0f85b2a56f4ba37452da3ef7491, type: 3}
+  m_Script: {fileID: 11500000, guid: f68b14d2c622b7a4ebe361f7c22f05ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosUP: {x: 0, y: 85, z: 0}
-  targetPosDown: {x: 0, y: 0, z: 0}
-  targetPosJump_Left: {x: -240, y: -7, z: 5}
-  targetPosJump_Right: {x: 236, y: -7, z: 5}
 --- !u!1 &1257668495
 GameObject:
   m_ObjectHideFlags: 0

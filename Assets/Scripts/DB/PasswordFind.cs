@@ -67,10 +67,17 @@ public class PasswordFind : MonoBehaviour
                 cmd.CommandText = selectName;
                 if (cmd != null)
                 {
-                    userPassword = GetPassword(cmd);
-                    int rowCount = GetRowCount(cmd);
+                    int count = 0;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            count = reader.GetInt32(0);
+                            userPassword = reader["password"].ToString();
+                        }
+                    }
 
-                    return rowCount > 0;
+                    return count > 0;
                 }
             }
         }
@@ -79,34 +86,5 @@ public class PasswordFind : MonoBehaviour
             Debug.LogWarning("Select Query execution error: " + ex.Message);
         }
         return false;
-    }
-    string GetPassword(MySqlCommand cmd)
-    {
-        string password = string.Empty;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                password = reader["password"].ToString();
-            }
-        }
-
-        return password;
-    }
-
-    int GetRowCount(MySqlCommand cmd)
-    {
-        int count = 0;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                count = reader.GetInt32(0);
-            }
-        }
-
-        return count;
     }
 }

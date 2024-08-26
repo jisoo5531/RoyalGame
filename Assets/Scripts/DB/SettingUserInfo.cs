@@ -49,17 +49,23 @@ public class SettingUserInfo : MonoBehaviour
             {
                 if (cmd != null)
                 {
-                    userName.text = GetStringData(cmd, "userName");
-                    detailUserName.text = GetStringData(cmd, "userName");
-                    trophyAmount.text = GetStringData(cmd, "currentTrophy");
-                    currentTrophyCount.text = GetStringData(cmd, "currentTrophy");
-                    maxTrophyCount.text = GetStringData(cmd, "maxTrophy");
-                    goldAmount.text = GetStringData(cmd, "gold");
-                    jewelAmount.text = GetStringData(cmd, "jewel");
-                    battleCount.text = GetStringData(cmd, "battleCount");
-                    haveCardCount.text = $"{GetStringData(cmd, "currentCardCount")} / {GetStringData(cmd, "maxCardCount")}";
-                    victoryCount.text = GetStringData(cmd, "victoryCount");
-                    defeatCount.text = GetStringData(cmd, "defeatCount");
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            userName.text = reader["userName"].ToString();
+                            detailUserName.text = reader["userName"].ToString();
+                            trophyAmount.text = reader["currentTrophy"].ToString();
+                            currentTrophyCount.text = reader["currentTrophy"].ToString();
+                            maxTrophyCount.text = reader["maxTrophy"].ToString();
+                            goldAmount.text = reader["gold"].ToString();
+                            jewelAmount.text = reader["jewel"].ToString();
+                            battleCount.text = reader["battleCount"].ToString();
+                            haveCardCount.text = $"{reader["currentCardCount"]} / {reader["maxCardCount"]}";
+                            victoryCount.text = reader["victoryCount"].ToString();
+                            defeatCount.text = reader["defeatCount"].ToString();
+                        }
+                    }
                 }
             }
         }
@@ -67,19 +73,5 @@ public class SettingUserInfo : MonoBehaviour
         {
             print(ex.Message);
         }
-    }
-    string GetStringData(MySqlCommand cmd, string column)
-    {
-        string data = string.Empty;
-
-        using (MySqlDataReader reader = cmd.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                data = reader[column].ToString();
-            }
-        }
-
-        return data;
     }
 }

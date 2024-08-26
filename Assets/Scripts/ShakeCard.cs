@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ShakeCard_Jisoo : MonoBehaviour
+public class ShakeCard : MonoBehaviour
 {
     Vector3 targetPosUP = new Vector3(0, 373, 0);
 

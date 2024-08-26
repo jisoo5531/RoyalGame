@@ -4,16 +4,14 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class ShakeBox_Jisoo : MonoBehaviour
+public class ShakeBox_Move : MonoBehaviour
 {
     Vector3 targetPosUP = new Vector3(0, 85, 0);
     Vector3 targetPosDown = new Vector3(0, 0, 0);
     Vector3 targetPosJump_Left = new Vector3(-240, -7, 5);
-    Vector3 targetPosJump_Right = new Vector3(236, -7, 5);
 
     public void Start()
     {
-        //transform.DOLocalJump(targetPosDown, 100f, 1, 0.3f);
         transform.DOShakeScale(0.7f, 0.2f, 3, 1).OnComplete(BoxJumpDown);
     }
 

@@ -46,8 +46,8 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     public GameObject giftCard;
     public GameObject card_Open;
 
-    public MJ_MoveCard MJ_MoveCard;
-    public MJ_ShakeBox MJ_ShakeBox;
+    public MoveCard MJ_MoveCard;
+    public Epic_ShakeBox MJ_ShakeBox;
 
     private SettingChest chest;
 
@@ -68,8 +68,8 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
     {
         chest = GetComponent<SettingChest>();
 
-        MJ_MoveCard = GetComponentInChildren<MJ_MoveCard>();
-        MJ_ShakeBox = GetComponentInChildren<MJ_ShakeBox>();
+        MJ_MoveCard = GetComponentInChildren<MoveCard>();
+        MJ_ShakeBox = GetComponentInChildren<Epic_ShakeBox>();
 
         // TODO : 테스트용 노말 상자
         //chest.OpenEpicChest();

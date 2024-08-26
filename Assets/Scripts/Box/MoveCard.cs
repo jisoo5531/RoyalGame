@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MJ_MoveCard : MonoBehaviour
+public class MoveCard : MonoBehaviour
 {
     public GameObject Box;
     public GameObject Card;
-
-
-    void Start()
-    {
-        //Invoke("CardActive", 0.7f);
-    }
 
     public void CardActive()
     {

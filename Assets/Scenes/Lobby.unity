@@ -124821,7 +124821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultBGM: {fileID: 8300000, guid: 85d94833a8a804f4f98bec3fde3b2904, type: 3}
-  ShopBGM: {fileID: 8300000, guid: 3ab16f6480ef43f438b506a1215feb66, type: 3}
   CollectionBGM: {fileID: 8300000, guid: cf3a6fa8adc1b4d47a0ace6463156573, type: 3}
   targetShop: {fileID: 0}
   targetCollection: {fileID: 1449892556}
@@ -160672,7 +160671,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 979923675}
-  - component: {fileID: 979923676}
   - component: {fileID: 979923677}
   m_Layer: 5
   m_Name: Card
@@ -160702,18 +160700,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &979923676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979923674}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56541b42fb4dcc54291384eae64eacfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &979923677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257163,9 +257149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1530308497}
-  - component: {fileID: 1530308499}
   - component: {fileID: 1530308498}
-  - component: {fileID: 1530308501}
   m_Layer: 5
   m_Name: Box
   m_TagString: Untagged
@@ -257205,37 +257189,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530308496}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586bcfccbd327c94b8f2e9840db6c813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Box: {fileID: 1530308496}
-  Card_Open: {fileID: 1061395343}
---- !u!114 &1530308499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530308496}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947c628eb7c90104a89b993c1ace3fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Box: {fileID: 1530308496}
-  Card: {fileID: 979923674}
---- !u!114 &1530308501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530308496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32b22c7b77e386648bb81609cae0bdbe, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d0b8366709b9244964c4841e397dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Box: {fileID: 1530308496}
@@ -277502,7 +277458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1761858525}
   m_Layer: 0
-  m_Name: Box_Jisoo
+  m_Name: BoxObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

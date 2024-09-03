@@ -75,9 +75,9 @@ public class PasswordFind : MonoBehaviour
                             count = reader.GetInt32(0);
                             userPassword = reader["password"].ToString();
                         }
+                        return count > 0;
                     }
 
-                    return count > 0;
                 }
             }
         }

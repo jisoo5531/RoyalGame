@@ -7,7 +7,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-#region 박환의
 public class TargetFollowUnit : MonoBehaviourPunCallbacks
 {
     #region public 변수
@@ -137,4 +136,3 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
         }
     }
 }
-#endregion

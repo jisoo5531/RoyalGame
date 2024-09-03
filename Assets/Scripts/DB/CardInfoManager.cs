@@ -59,11 +59,11 @@ public class CardInfoManager : MonoBehaviour
                             allCharacters.Add(cardInfo);
                         }
                     }
-                    if (openChest != null)
-                    {
-                        openChest.OpenEpicChest();
-                    }
                 }
+            }
+            if (openChest != null)
+            {
+                openChest.OpenEpicChest();
             }
         }
         catch (Exception ex)

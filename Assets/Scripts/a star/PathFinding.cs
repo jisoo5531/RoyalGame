@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-#region ¹ÚÈ¯ÀÇ
 public class PathFinding : MonoBehaviour
 {
     PathRequestManager requestManager;
@@ -69,7 +67,6 @@ public class PathFinding : MonoBehaviour
         {
             waypoints = RetracePath(startNode, targetNode);
         }
-        Debug.Log("FindPath: EXIT");
         requestManager.FinishedProcessingPath(waypoints, pathSuccess);
     }
 
@@ -115,4 +112,3 @@ public class PathFinding : MonoBehaviour
         return 14 * dstX + 10 * (dstY - dstX);
     }
 }
-#endregion

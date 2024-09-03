@@ -26,18 +26,18 @@ public class Unit : MonoBehaviourPunCallbacks, ICard, IAttackable
     #endregion
 
 
+
+
+    protected StateMachine<Unit> stateMachine;
+
+    public UnitCanvasInfo canvasInfo;
+    protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
     protected enum UnitState
     {
         Idle,
         Move,
         Attack,
     }
-
-
-    protected Dictionary<UnitState, IState<Unit>> dicState = new Dictionary<UnitState, IState<Unit>>();
-    protected StateMachine<Unit> stateMachine;
-
-    public UnitCanvasInfo canvasInfo;
 
     protected virtual void InitStateMachine()
     {

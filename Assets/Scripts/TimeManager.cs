@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using Unity.VisualScripting;
 
 public class TimeManager : MonoBehaviourPunCallbacks
 {
@@ -13,9 +14,11 @@ public class TimeManager : MonoBehaviourPunCallbacks
     public Animator animator;
     public GameObject suddenDeath;
     public GameObject elixirTwiceUI;
+    public SoundBattle soundBattle;
 
     public bool isGameStart = false;
     public bool isOverTiem = false;
+    public bool isTimeZero = false;
     #endregion
 
     int time;
@@ -47,15 +50,24 @@ public class TimeManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                if (!isOverTiem)
+                if (!CheckEndCondition())
                 {
-                    isOverTiem = true;
-                    photonView.RPC("StartOverTime", RpcTarget.All);
-                    time = 120;
+                    if (!isOverTiem)
+                    {
+                        isTimeZero = true;
+                        isOverTiem = true;
+                        photonView.RPC("StartOverTime", RpcTarget.All);
+                        time = 120;
+                    }
+                    else
+                    {
+                        GameEnd();
+                        yield break;
+                    }
                 }
                 else
                 {
-                    photonView.RPC("GameEnd", RpcTarget.All);
+                    GameEnd();
                     yield break;
                 }
             }
@@ -64,7 +76,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
             {
                 if(MasterManager.instance.towers.Count == 0)
                 {
-                    photonView.RPC("GameEnd", RpcTarget.All);
+                    GameEnd();
                     yield break;
                 }
             }
@@ -72,7 +84,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
             {
                 if (NonMasterManager.instance.towers.Count == 0)
                 {
-                    photonView.RPC("GameEnd", RpcTarget.All);
+                    GameEnd();
                     yield break;
                 }
             }
@@ -83,8 +95,22 @@ public class TimeManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private bool CheckEndCondition()
+    {
+        if(ScoreManager.instance.allyCount != ScoreManager.instance.enemyCount)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void GameEnd()
+    {
+        photonView.RPC("PunRPC_GameEnd", RpcTarget.All);
+    }
+
     [PunRPC]
-    private void GameEnd()
+    private void PunRPC_GameEnd()
     {
         animator.SetTrigger("GameEnd");
         GameManager.instance.isGameEnd = true;
@@ -93,6 +119,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StartOverTime()
     {
+        soundBattle.CheckTime(0, true);
         overTimeUI.text = "오버타임";
         overTimeUI.color = Color.red;
         gametimeUI.color = Color.red;
@@ -110,6 +137,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void ShowTimer(int number)
     {
+        soundBattle.CheckTime(number, false);
         if (number >= 60f)
         {
             min = number / 60;

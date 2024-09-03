@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#region 박환의
 public class GridController : MonoBehaviour
 {
     #region public 변수
@@ -119,4 +118,3 @@ public class GridController : MonoBehaviour
         public int terrainPenalty;
     }
 }
-#endregion

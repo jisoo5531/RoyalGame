@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#region 박환의
 public class Node : IHeapItem<Node>
 {
     #region public 변수
@@ -46,4 +45,3 @@ public class Node : IHeapItem<Node>
         return -compare;
     }
 }
-#endregion

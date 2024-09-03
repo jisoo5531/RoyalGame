@@ -34,14 +34,6 @@ public class SettingChest : MonoBehaviour
         Prince = 7
     }
 
-    /// <summary>
-    /// 상자에서 얻은 보상을 담은 딕셔너리.<br/>
-    /// <b>Key:</b> 카드 ID - 각 유닛 타입을 나타내는 값.<br/>
-    /// <b>Value:</b> 튜플로 구성되어 있으며,<br/>
-    /// 첫 번째 항목은 카드의 등급, Normal, Rare, Epic 중 하나.<br/>
-    /// 두 번째 항목은 해당 카드가 보상으로 몇 번 나왔는지를 나타내는 개수.<br/>
-    /// </summary>
-    private Dictionary<int, (Grade, int)> reward = new Dictionary<int, (Grade, int)>();
     public Dictionary<CharacterInfo, int> randomUnits = new Dictionary<CharacterInfo, int>();
 
     public int totalRemainCard;

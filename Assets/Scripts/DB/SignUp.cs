@@ -57,7 +57,7 @@ public class SignUp : MonoBehaviour
         }
         else
         {
-            print("이름 중복");
+            Debug.LogError("이름 중복");
         }
     }
 

@@ -2,6 +2,8 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SettingCardInfoManager : MonoBehaviour
@@ -29,15 +31,20 @@ public class SettingCardInfoManager : MonoBehaviour
 
             if (index != 2 && index != 7)
             {
-                insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, {damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 3, 2, 1)";
+                insertCard = $"INSERT INTO UNIT(userID, cardID, damage, level, hp, attackSpeed, " +
+                    $"moveSpeed, currentCardCount, maxCardCount, spawnTime) VALUES(@userId, @cardID, " +
+                    $"{damage}, 1, {hp}, {attackSpeed}, {moveSpeed}, 3, 2, 1)";
             }
             else if (index == 2)
             {
-                insertCard = $"INSERT INTO MAGIC(userID, cardID, Level, currentCardCount, maxCardCount, unit_Damage, tower_Damage) VALUES(@userId, @cardID, 1, 1, 2, 310, 100)";
+                insertCard = $"INSERT INTO MAGIC(userID, cardID, Level, currentCardCount, maxCardCount, " +
+                    $"unit_Damage, tower_Damage) VALUES(@userId, @cardID, 1, 1, 2, 310, 100)";
             }
             else if (index == 7)
             {
-                insertCard = $"INSERT INTO DEFENSE_TOWER(userID, cardID, damage, level, hp, lifeTime, currentCardCount, maxCardCount, spawnTime, attackSpeed) VALUES(@userId, @cardID, 26, 1, 1000, 30, 1, 2, 3.5, 1.6)";
+                insertCard = $"INSERT INTO DEFENSE_TOWER(userID, cardID, damage, level, hp, lifeTime, " +
+                    $"currentCardCount, maxCardCount, spawnTime, attackSpeed) VALUES(@userId, @cardID, " +
+                    $"26, 1, 1000, 30, 1, 2, 3.5, 1.6)";
             }
 
             using (MySqlCommand cmd = new MySqlCommand(insertCard, DatabaseManager.Instance.conn))
@@ -106,7 +113,6 @@ public class SettingCardInfoManager : MonoBehaviour
             using (MySqlCommand cmd = new MySqlCommand(updateUserCard, DatabaseManager.Instance.conn))
             {
                 int rowsAffected = cmd.ExecuteNonQuery();
-                Console.WriteLine($"{rowsAffected} row(s) updated.");
             }
         }
         catch (Exception ex)
@@ -131,16 +137,17 @@ public class SettingCardInfoManager : MonoBehaviour
                 if (cmd != null)
                 {
                     int count = 0;
-
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    if (DatabaseManager.Instance.conn.State == ConnectionState.Open)
                     {
-                        if (reader.Read())
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            count = reader.GetInt32(0);
+                            if (reader.Read())
+                            {
+                                count = reader.GetInt32(0);
+                            }
+                            return count < 8;
                         }
                     }
-
-                    return count < 8;
                 }
             }
         }

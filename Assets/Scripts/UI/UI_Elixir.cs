@@ -43,7 +43,7 @@ public class UI_Elixir : MonoBehaviour
     }
     private void UI_UpdateCurrentElixir()
     {
-        if(TimeManager.instance.isOverTiem)
+        if(TimeManager.instance.isTimeZero)
         {
             elixirSlider.value = Mathf.MoveTowards(elixirSlider.value, currentElixir, changeRate * Time.deltaTime * 0.6f);
         }

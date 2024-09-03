@@ -167,6 +167,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             if (isTower)
             {
                 MasterManager.instance.RemoveTower(this.transform.root.gameObject);
+
+                if (TimeManager.instance.isTimeZero)
+                {
+                    TimeManager.instance.GameEnd();
+                }
             }
         }
         else
@@ -174,6 +179,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
             if (isTower)
             {
                 NonMasterManager.instance.RemoveTower(this.transform.root.gameObject);
+
+                if (TimeManager.instance.isTimeZero)
+                {
+                    TimeManager.instance.GameEnd();
+                }
             }
         }
     }

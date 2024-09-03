@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public TextMeshProUGUI loseGoldText;
     public UnitSpawnLimits spawnLimits;
+
+    public SoundBattle soundBattle;
     #endregion
 
     private void Awake()
@@ -176,6 +178,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (ScoreManager.instance.allyCount > ScoreManager.instance.enemyCount)
         {
+            soundBattle.ResultBgm(true);
             winUI.SetActive(true);
             for (int i = 0; i < ScoreManager.instance.allyCount; i++)
             {
@@ -187,12 +190,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            soundBattle.ResultBgm(false);
             loseUI.SetActive(true);
             for (int i = 0; i < ScoreManager.instance.allyCount; i++)
             {
                 loseCrownCount[i].SetActive(true);
             }
-            int trophy = int.Parse(trophyText.text);
             int gold = int.Parse(loseGoldText.text);
             DatabaseBattleRecordModel.UpdateUser(1, 0, 1, 0, gold);
         }

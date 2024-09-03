@@ -27,6 +27,52 @@ public class UnitInfoData : AllCardData
     public float spawnTime;
     public float detectRange;
     public string target;
+
+    public UnitInfoData(int cardId, string cardName, int cost, string grade, float range, float detectRange,
+                        int level, int damage, string type, float attackSpeed, int moveSpeed,
+                        int hp, int spawnTime, string target, Sprite img, GameObject prefab)
+    {
+        this.cardId = cardId;
+        this.cardName = cardName;
+        this.cost = cost;
+        this.grade = grade;
+        this.range = range;
+        this.detectRange = detectRange;
+        this.level = level;
+        this.damage = damage;
+        this.type = type;
+        this.attackSpeed = attackSpeed;
+        this.moveSpeed = moveSpeed;
+        this.hp = hp;
+        this.spawnTime = spawnTime;
+        this.target = target;
+        this.img = img;
+        this.prefab = prefab;
+    }
+
+    public UnitInfoData(int cardId, string cardName, int cost, string grade, float range, float detectRange,
+                        int level, int damage, string type, float attackSpeed, int moveSpeed,
+                        int hp, int spawnTime, string desc, string target, int currentCardCount, int maxCardCount, Sprite img)
+    {
+        this.cardId = cardId;
+        this.cardName = cardName;
+        this.cost = cost;
+        this.grade = grade;
+        this.range = range;
+        this.detectRange = detectRange;
+        this.level = level;
+        this.damage = damage;
+        this.type = type;
+        this.attackSpeed = attackSpeed;
+        this.moveSpeed = moveSpeed;
+        this.hp = hp;
+        this.spawnTime = spawnTime;
+        this.desc = desc;
+        this.target = target;
+        this.currentCardCount = currentCardCount;
+        this.maxCardCount = maxCardCount;
+        this.img = img;
+    }
 }
 
 public class DEFENSETOWERInfoData : AllCardData

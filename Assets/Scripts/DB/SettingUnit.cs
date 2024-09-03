@@ -27,24 +27,14 @@ public class SettingUnit : MonoBehaviour
                 {
                     int id = reader.GetInt32(0);
                     UnitInfoData cardInfo = new UnitInfoData
-                    {
-                        cardId = id,
-                        cardName = reader.GetString(1),
-                        cost = reader.GetInt32(2),
-                        grade = reader.GetString(3),
-                        range = reader.GetFloat(4),
-                        detectRange = reader.GetFloat(5),
-                        level = reader.GetInt32(6),
-                        damage = reader.GetInt32(7),
-                        type = reader.GetString(8),
-                        attackSpeed = reader.GetFloat(9),
-                        moveSpeed = reader.GetInt32(10),
-                        hp = reader.GetInt32(11),
-                        spawnTime = reader.GetInt32(12),
-                        target = reader.GetString(13),
-                        img = UI_Manager.m_Instance.unitSprites[cardId - 1],
-                        prefab = UI_Manager.m_Instance.unitPrefab[cardId - 1],
-                    };
+                    (
+                        id, reader.GetString(1), reader.GetInt32(2), reader.GetString(3),
+                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6),
+                        reader.GetInt32(7), reader.GetString(8), reader.GetFloat(9),
+                        reader.GetInt32(10), reader.GetInt32(11), reader.GetInt32(12),
+                        reader.GetString(13), UI_Manager.m_Instance.unitSprites[cardId - 1],
+                        UI_Manager.m_Instance.unitPrefab[cardId - 1]
+                    );
                     UI_Manager.m_Instance.UnitDatas.Add(cardInfo);
                 }
             }
@@ -76,20 +66,11 @@ public class SettingUnit : MonoBehaviour
                     int id = reader.GetInt32(0);
                     DEFENSETOWERInfoData cardInfo = new DEFENSETOWERInfoData
                     {
-                        cardId = id,
-                        cardName = reader.GetString(1),
-                        cost = reader.GetInt32(2),
-                        grade = reader.GetString(3),
-                        range = reader.GetFloat(4),
-                        level = reader.GetInt32(5),
-                        damage = reader.GetInt32(6),
-                        type = reader.GetString(7),
-                        attackSpeed = reader.GetFloat(8),
-                        hp = reader.GetInt32(9),
-                        spawnTime = reader.GetFloat(10),
-                        lifeTime = reader.GetInt32(11),
-                        target = reader.GetString(12),
-                        img = UI_Manager.m_Instance.unitSprites[cardId - 1],
+                        cardId = id, cardName = reader.GetString(1), cost = reader.GetInt32(2),
+                        grade = reader.GetString(3), range = reader.GetFloat(4), level = reader.GetInt32(5),
+                        damage = reader.GetInt32(6), type = reader.GetString(7), attackSpeed = reader.GetFloat(8),
+                        hp = reader.GetInt32(9), spawnTime = reader.GetFloat(10), lifeTime = reader.GetInt32(11),
+                        target = reader.GetString(12), img = UI_Manager.m_Instance.unitSprites[cardId - 1],
                         prefab = UI_Manager.m_Instance.unitPrefab[cardId - 1]
                     };
                     UI_Manager.m_Instance.UnitDatas.Add(cardInfo);
@@ -161,32 +142,22 @@ public class SettingUnit : MonoBehaviour
                 {
                     int id = reader.GetInt32(0);
                     UnitInfoData cardInfo = new UnitInfoData
-                    {
-                        cardId = id,
-                        cardName = reader.GetString(1),
-                        cost = reader.GetInt32(2),
-                        grade = reader.GetString(3),
-                        range = reader.GetFloat(4),
-                        detectRange = reader.GetFloat(5),
-                        level = reader.GetInt32(6),
-                        damage = reader.GetInt32(7),
-                        type = reader.GetString(8),
-                        attackSpeed = reader.GetFloat(9),
-                        moveSpeed = reader.GetInt32(10),
-                        hp = reader.GetInt32(11),
-                        spawnTime = reader.GetInt32(12),
-                        desc = reader.GetString(13),
-                        target = reader.GetString(14),
-                        currentCardCount = reader.GetInt32(15),
-                        maxCardCount = reader.GetInt32(16),
-                        img = CardInfoManager.instance.characterImgs[cardId - 1]
-                    };
+                    (
+                        id, reader.GetString(1), reader.GetInt32(2),
+                        reader.GetString(3), reader.GetFloat(4), reader.GetFloat(5),
+                        reader.GetInt32(6), reader.GetInt32(7), reader.GetString(8),
+                        reader.GetFloat(9), reader.GetInt32(10), reader.GetInt32(11),
+                        reader.GetInt32(12), reader.GetString(13), reader.GetString(14),
+                        reader.GetInt32(15), reader.GetInt32(16),
+                        CardInfoManager.instance.characterImgs[cardId - 1]
+                    );
                     return cardInfo;
                 }
             }
         }
         return null;
     }
+
 
     public DEFENSETOWERInfoData GetTowerData(int userId, int cardId)
     {

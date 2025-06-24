@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 public class TimeManager : MonoBehaviourPunCallbacks
 {
     #region public º¯¼ö
-    public static TimeManager instance;
+    public static TimeManager Instance;
     public TMP_Text gametimeUI;
     public TMP_Text overTimeUI;
     public Animator animator;
@@ -27,14 +27,14 @@ public class TimeManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public void GameStart()
     {
         if (photonView.IsMine)
         {
-            time = 180;
+            time = 120;
 
             StartCoroutine(TimerCoroution());
         }
@@ -44,20 +44,28 @@ public class TimeManager : MonoBehaviourPunCallbacks
     {
         while (true)
         {
-            if (time > 0)
+            if (!GameManager.Instance.isGameEnd)
             {
-                time -= 1;
-            }
-            else
-            {
-                if (!CheckEndCondition())
+                if (time > 0)
                 {
-                    if (!isOverTiem)
+                    time -= 1;
+                }
+                else
+                {
+                    if (!CheckEndCondition())
                     {
-                        isTimeZero = true;
-                        isOverTiem = true;
-                        photonView.RPC("StartOverTime", RpcTarget.All);
-                        time = 120;
+                        if (!isOverTiem)
+                        {
+                            photonView.RPC("RPC_TimeZero", RpcTarget.All);
+                            isOverTiem = true;
+                            photonView.RPC("StartOverTime", RpcTarget.All);
+                            time = 120;
+                        }
+                        else
+                        {
+                            GameEnd();
+                            yield break;
+                        }
                     }
                     else
                     {
@@ -65,16 +73,11 @@ public class TimeManager : MonoBehaviourPunCallbacks
                         yield break;
                     }
                 }
-                else
-                {
-                    GameEnd();
-                    yield break;
-                }
             }
 
-            if(PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient)
             {
-                if(MasterManager.instance.towers.Count == 0)
+                if (MasterManager.Instance.towers.Count == 0)
                 {
                     GameEnd();
                     yield break;
@@ -82,7 +85,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
             }
             else
             {
-                if (NonMasterManager.instance.towers.Count == 0)
+                if (NonMasterManager.Instance.towers.Count == 0)
                 {
                     GameEnd();
                     yield break;
@@ -95,9 +98,15 @@ public class TimeManager : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    private void RPC_TimeZero()
+    {
+        isTimeZero = true;
+    }
+
     private bool CheckEndCondition()
     {
-        if(ScoreManager.instance.allyCount != ScoreManager.instance.enemyCount)
+        if (ScoreManager.Instance.allyCount != ScoreManager.Instance.enemyCount)
         {
             return true;
         }
@@ -113,7 +122,7 @@ public class TimeManager : MonoBehaviourPunCallbacks
     private void PunRPC_GameEnd()
     {
         animator.SetTrigger("GameEnd");
-        GameManager.instance.isGameEnd = true;
+        GameManager.Instance.isGameEnd = true;
     }
 
     [PunRPC]

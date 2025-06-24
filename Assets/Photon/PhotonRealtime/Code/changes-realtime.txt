@@ -264,7 +264,7 @@ Version 4.1.4.0 (27. April 2020 rev5469)
     Added: Connection state check in CheckIfOpCanBeSent() to fail early if an op can't be sent.
     Updated: WebRPC handling and added an example to the doc of OnWebRpcResponse.
     Added: Logging of OnJoinRoomFailed to SupportLogger.
-    Changed: StripKeysWithNullValues to reuse a list of key with null-values. This causes less allocations and garbage to clean. As a downside, the method now runs only for one thread (even for distinct IDictionary instances). This should not be a problem for the expected use case.
+    Changed: StripKeysWithNullValues to reuse a list of key with null-values. This causes less allocations and garbage to clean. As a downside, the method now runs only for one thread (even for distinct IDictionary Instances). This should not be a problem for the expected use case.
     Changed: The LoadBalancingClient.OnStatusChanged will handle StatusCode.SendError as disconnect due to Exception. Log level INFO should log the inner exception when sending.
     Fixed: Cleanup of the RoomReference for the local player object on disconnect. This prevents issues when setting properties, after joining and leaving a room (back on Master Server).
     Internal: LoadBalancingClient.ExpectedProtocol is now a nullable property with private setter. It's used internally (only) to switch to the target transport protocol when Authmode AuthOnceWss is "done".
@@ -456,7 +456,7 @@ Version 4.0.0.11 (28. October 2015 - rev3093)
     Changed: JoinMode 2 is now "JoinOrRejoin". Was: "Rejoin".
     Added: ErrorCode constant AuthenticationTicketExpired.
     Internal: OpJoinRoom, OpCreateRoom and OpJoinRandomRoom no longer use a (growing) list of properties. Instead, classes were created to "sum up" their parameters. The api for games didn't change.
-    Internal: Related to the refactoring of Join/Create, the LoadBalancingClient now creates a Room instance when the client arrived on the GameServer (before, it got created in the initial "create" call).
+    Internal: Related to the refactoring of Join/Create, the LoadBalancingClient now creates a Room Instance when the client arrived on the GameServer (before, it got created in the initial "create" call).
 
 Version 4.0.0.10 (14. July 2015 - rev2988)
     Updated: Description for IsConnectedAndReady.

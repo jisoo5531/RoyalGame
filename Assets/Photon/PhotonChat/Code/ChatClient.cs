@@ -23,7 +23,7 @@ namespace Photon.Chat
 
     /// <summary>Central class of the Photon Chat API to connect, handle channels and messages.</summary>
     /// <remarks>
-    /// This class must be instantiated with a IChatClientListener instance to get the callbacks.
+    /// This class must be instantiated with a IChatClientListener Instance to get the callbacks.
     /// Integrate it into your game loop by calling Service regularly. If the target platform supports Threads/Tasks,
     /// set UseBackgroundWorkerForSending = true, to let the ChatClient keep the connection by sending from
     /// an independent thread.

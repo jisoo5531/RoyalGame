@@ -9,14 +9,14 @@ using UnityEngine;
 public class SettingCardInfoManager : MonoBehaviour
 {
     #region public º¯¼ö
-    public static SettingCardInfoManager instance;
+    public static SettingCardInfoManager Instance;
     public List<CharacterData> charData = new List<CharacterData>();
     public GameObject[] slots;
     #endregion
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public void InsertNewCard(int index, int damage, int hp, float attackSpeed, int moveSpeed)
@@ -112,7 +112,7 @@ public class SettingCardInfoManager : MonoBehaviour
 
             using (MySqlCommand cmd = new MySqlCommand(updateUserCard, DatabaseManager.Instance.conn))
             {
-                int rowsAffected = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
             }
         }
         catch (Exception ex)
@@ -127,29 +127,21 @@ public class SettingCardInfoManager : MonoBehaviour
         {
             if (!DatabaseManager.Instance.Connection_Check(DatabaseManager.Instance.conn))
             {
-                return true;
+                return false;
             }
 
             string nameSelect = $"SELECT currentCardCount FROM USER WHERE userID = '{DatabaseManager.Instance.userId}'";
+            int count = 0;
 
             using (MySqlCommand cmd = new MySqlCommand(nameSelect, DatabaseManager.Instance.conn))
             {
-                if (cmd != null)
+                object result = cmd.ExecuteScalar();
+                if (result != null)
                 {
-                    int count = 0;
-                    if (DatabaseManager.Instance.conn.State == ConnectionState.Open)
-                    {
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                count = reader.GetInt32(0);
-                            }
-                            return count < 8;
-                        }
-                    }
+                    count = (int)result;
                 }
             }
+            return count < 8;
         }
         catch (Exception ex)
         {

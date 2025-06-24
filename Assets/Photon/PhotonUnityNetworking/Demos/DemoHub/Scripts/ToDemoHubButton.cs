@@ -40,7 +40,7 @@ namespace Photon.Pun.Demo.Hub
 
 	    public void Awake()
 	    {
-	        if (Instance != null && Instance != this)
+	        if (instance != null && instance != this)
 	        {
 	            Destroy(gameObject);
 	        }

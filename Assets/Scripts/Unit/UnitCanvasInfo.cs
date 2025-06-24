@@ -150,13 +150,13 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
     {
         if (isTower)
         {
-            DetectEnemyManager.instance.towerList.Remove(this.transform.root.gameObject);
-            ScoreManager.instance.allyCount++;
-            ScoreManager.instance.SettingScore();
+            DetectEnemyManager.Instance.towerList.Remove(this.transform.root.gameObject);
+            ScoreManager.Instance.allyCount++;
+            ScoreManager.Instance.SettingScore();
         }
         else
         {
-            DetectEnemyManager.instance.enemyList.Remove(this.gameObject);
+            DetectEnemyManager.Instance.enemyList.Remove(this.gameObject);
         }
     }
 
@@ -166,11 +166,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         {
             if (isTower)
             {
-                MasterManager.instance.RemoveTower(this.transform.root.gameObject);
+                MasterManager.Instance.RemoveTower(this.transform.root.gameObject);
 
-                if (TimeManager.instance.isTimeZero)
+                if (TimeManager.Instance.isTimeZero)
                 {
-                    TimeManager.instance.GameEnd();
+                    TimeManager.Instance.GameEnd();
                 }
             }
         }
@@ -178,11 +178,11 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
         {
             if (isTower)
             {
-                NonMasterManager.instance.RemoveTower(this.transform.root.gameObject);
+                NonMasterManager.Instance.RemoveTower(this.transform.root.gameObject);
 
-                if (TimeManager.instance.isTimeZero)
+                if (TimeManager.Instance.isTimeZero)
                 {
-                    TimeManager.instance.GameEnd();
+                    TimeManager.Instance.GameEnd();
                 }
             }
         }
@@ -241,8 +241,8 @@ public class UnitCanvasInfo : MonoBehaviourPunCallbacks, IDamagable
 
     private void ShowLimit(int index)
     {
-        GameManager.instance.spawnLimits.DisableIndexTowerLimit(index);
-        GameManager.instance.spawnLimits.TowerDestroyEnable();
+        GameManager.Instance.spawnLimits.DisableIndexTowerLimit(index);
+        GameManager.Instance.spawnLimits.TowerDestroyEnable();
     }
 
     private void OnHPBar()

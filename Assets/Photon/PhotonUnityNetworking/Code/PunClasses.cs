@@ -879,7 +879,7 @@ namespace Photon.Pun
         /// <summary>Contains a GameObject per prefabId, to speed up instantiation.</summary>
         public readonly Dictionary<string, GameObject> ResourceCache = new Dictionary<string, GameObject>();
 
-        /// <summary>Returns an inactive instance of a networked GameObject, to be used by PUN.</summary>
+        /// <summary>Returns an inactive Instance of a networked GameObject, to be used by PUN.</summary>
         /// <param name="prefabId">String identifier for the networked object.</param>
         /// <param name="position">Location of the new object.</param>
         /// <param name="rotation">Rotation of the new object.</param>
@@ -904,10 +904,10 @@ namespace Photon.Pun
             bool wasActive = res.activeSelf;
             if (wasActive) res.SetActive(false);
 
-            GameObject instance =GameObject.Instantiate(res, position, rotation) as GameObject;
+            GameObject Instance =GameObject.Instantiate(res, position, rotation) as GameObject;
 
             if (wasActive) res.SetActive(true);
-            return instance;
+            return Instance;
         }
 
         /// <summary>Simply destroys a GameObject.</summary>

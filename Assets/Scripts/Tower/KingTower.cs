@@ -34,7 +34,7 @@ public class KingTower : Tower
     {
         if (photonView.IsMine)
         {
-            if (!GameManager.instance.isGameEnd && isNotOnCannon && princessTowers.Count < 2 || !GameManager.instance.isGameEnd && isNotOnCannon && canvasInfo.HP < canvasInfo.maxHP)
+            if (!GameManager.Instance.isGameEnd && isNotOnCannon && princessTowers.Count < 2 || !GameManager.Instance.isGameEnd && isNotOnCannon && canvasInfo.HP < canvasInfo.maxHP)
             {
                 photonView.RPC("AppearCannon", RpcTarget.All);
                 deffenseUnit.ComponentInit();

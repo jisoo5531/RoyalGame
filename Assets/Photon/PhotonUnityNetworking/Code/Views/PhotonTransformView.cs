@@ -45,7 +45,7 @@ namespace Photon.Pun
 
         private void Reset()
         {
-            // Only default to true with new instances. useLocal will remain false for old projects that are updating PUN.
+            // Only default to true with new Instances. useLocal will remain false for old projects that are updating PUN.
             m_UseLocal = true;
         }
 

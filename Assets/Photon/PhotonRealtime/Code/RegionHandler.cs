@@ -459,7 +459,7 @@ namespace Photon.Realtime
         }
 
         /// <summary>Selects the best fitting ping implementation or uses the one set in RegionHandler.PingImplementation.</summary>
-        /// <returns>PhotonPing instance to use.</returns>
+        /// <returns>PhotonPing Instance to use.</returns>
         private PhotonPing GetPingImplementation()
         {
             PhotonPing ping = null;

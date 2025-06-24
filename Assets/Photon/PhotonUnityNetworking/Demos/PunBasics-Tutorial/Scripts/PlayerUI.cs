@@ -3,7 +3,7 @@
 //   Part of: Photon Unity Networking Demos
 // </copyright>
 // <summary>
-//  Used in PUN Basics Tutorial to deal with the networked player instance UI display tha follows a given player to show its health and name
+//  Used in PUN Basics Tutorial to deal with the networked player Instance UI display tha follows a given player to show its health and name
 // </summary>
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------

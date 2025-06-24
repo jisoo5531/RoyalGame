@@ -3,7 +3,7 @@
 //   PhotonNetwork Framework for Unity - Copyright (C) 2018 Exit Games GmbH
 // </copyright>
 // <summary>
-// ScriptableObject defining a server setup. An instance is created as <b>PhotonServerSettings</b>.
+// ScriptableObject defining a server setup. An Instance is created as <b>PhotonServerSettings</b>.
 // </summary>
 // <author>developer@exitgames.com</author>
 // ----------------------------------------------------------------------------

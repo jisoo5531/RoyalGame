@@ -323,7 +323,7 @@ namespace Photon.Pun
         public static PunLogLevel LogLevel = PunLogLevel.ErrorsOnly;
 
         /// <summary>
-        /// This client's Player instance is always available, unless the app shuts down.
+        /// This client's Player Instance is always available, unless the app shuts down.
         /// </summary>
         /// <remarks>
         /// Useful (e.g.) to set the Custom Player Properties or the NickName for this client anytime.
@@ -1088,6 +1088,7 @@ namespace Photon.Pun
                 rpcShortcuts[name] = index;
             }
 
+            // PUN custom types (typical for Unity)
             // PUN custom types (typical for Unity)
             CustomTypes.Register();
         }
@@ -3292,7 +3293,7 @@ namespace Photon.Pun
             PhotonHandler[] photonHandlers = GameObject.FindObjectsOfType(typeof(PhotonHandler)) as PhotonHandler[];
             if (photonHandlers != null && photonHandlers.Length > 0)
             {
-                Debug.Log("Cleaning up hidden PhotonHandler instances in scene. Please save the scene to fix the problem.");
+                Debug.Log("Cleaning up hidden PhotonHandler Instances in scene. Please save the scene to fix the problem.");
                 foreach (PhotonHandler photonHandler in photonHandlers)
                 {
                     // Debug.Log("Removing Handler: " + photonHandler + " photonHandler.gameObject: " + photonHandler.gameObject);

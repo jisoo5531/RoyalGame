@@ -22,7 +22,7 @@ public class Fireball : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            InitializeUnitData(UnitSpawner.instance.selectedUnit);
+            InitializeUnitData(UnitSpawner.Instance.selectedUnit);
         }
     }
 

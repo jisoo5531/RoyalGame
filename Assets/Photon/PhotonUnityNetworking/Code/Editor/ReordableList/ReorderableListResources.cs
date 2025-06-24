@@ -142,7 +142,7 @@ namespace Photon.Pun
         /// <param name="name">Name for texture object.</param>
         /// <param name="color">Pixel color.</param>
         /// <returns>
-        /// The new <c>Texture2D</c> instance.
+        /// The new <c>Texture2D</c> Instance.
         /// </returns>
         public static Texture2D CreatePixelTexture( string name, Color color )
         {

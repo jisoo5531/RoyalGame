@@ -3,7 +3,7 @@
 //   Part of: Photon Unity Networking Demos
 // </copyright>
 // <summary>
-//  Used in PUN Basics Tutorial to deal with the networked player instance
+//  Used in PUN Basics Tutorial to deal with the networked player Instance
 // </summary>
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ namespace Photon.Pun.Demo.PunBasics
         [Tooltip("The current Health of our player")]
         public float Health = 1f;
 
-        [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
+        [Tooltip("The local player Instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
 
         #endregion
@@ -63,14 +63,14 @@ namespace Photon.Pun.Demo.PunBasics
             }
 
             // #Important
-            // used in GameManager.cs: we keep track of the localPlayer instance to prevent instanciation when levels are synchronized
+            // used in GameManager.cs: we keep track of the localPlayer Instance to prevent instanciation when levels are synchronized
             if (photonView.IsMine)
             {
                 LocalPlayerInstance = gameObject;
             }
 
             // #Critical
-            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+            // we flag as don't destroy on load so that Instance survives level synchronization, thus giving a seamless experience when levels load.
             DontDestroyOnLoad(gameObject);
         }
 

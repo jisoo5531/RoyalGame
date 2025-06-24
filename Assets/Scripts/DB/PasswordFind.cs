@@ -61,13 +61,13 @@ public class PasswordFind : MonoBehaviour
             }
 
             string selectName = $"SELECT count(*), password FROM USER WHERE userName = '{nickname}'";
+            int count = 0;
 
-            using (MySqlCommand cmd = new MySqlCommand(selectName, DatabaseManager.Instance.conn))
-            {
-                cmd.CommandText = selectName;
+                using (MySqlCommand cmd = new MySqlCommand(selectName, DatabaseManager.Instance.conn))
+                {
+                    cmd.CommandText = selectName;
                 if (cmd != null)
                 {
-                    int count = 0;
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -75,11 +75,10 @@ public class PasswordFind : MonoBehaviour
                             count = reader.GetInt32(0);
                             userPassword = reader["password"].ToString();
                         }
-                        return count > 0;
                     }
-
                 }
             }
+            return count > 0;
         }
         catch (Exception ex)
         {

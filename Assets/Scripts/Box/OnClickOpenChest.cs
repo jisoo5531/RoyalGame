@@ -82,7 +82,7 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
         }
         else if (chest.totalRemainCard == 0 || clickCount == chest.randomUnits.Count)
         {
-            SettingCardInfoManager.instance.UpdateUserInfo(8);
+            SettingCardInfoManager.Instance.UpdateUserInfo(8);
             DisplayAll();
             clickCount++;
             return;
@@ -161,15 +161,15 @@ public class OnClickOpenChest : MonoBehaviour, IPointerClickHandler
             unitOBJ.unitCurrentCardCount.text = $"{characterInfo.Key.CharacterCurrentCardCount}/{characterInfo.Key.CharacterMaxCardCount}";
         }
 
-        if (SettingCardInfoManager.instance.IsNewbie())
+        if (SettingCardInfoManager.Instance.IsNewbie())
         {
-            SettingCardInfoManager.instance.InsertNewCard(characterInfo.Key.characterID,
+            SettingCardInfoManager.Instance.InsertNewCard(characterInfo.Key.characterID,
                 unitInfos[characterInfo.Key.characterID].damage, unitInfos[characterInfo.Key.characterID].hp,
                 unitInfos[characterInfo.Key.characterID].attackSpeed, unitInfos[characterInfo.Key.characterID].moveSpeed);
         }
         else
         {
-            SettingCardInfoManager.instance.UpdateCard(characterInfo.Key.characterID, 11); // 11 수정
+            SettingCardInfoManager.Instance.UpdateCard(characterInfo.Key.characterID, 11); // 11 수정
         }
 
         GameObject addResultReward = Instantiate(giftCard, gainCards);

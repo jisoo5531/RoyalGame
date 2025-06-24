@@ -35,7 +35,6 @@ public class DatabaseBattleRecordModel : MonoBehaviour
              $"gold = gold + {gold}, " +
              $"maxTrophy = CASE WHEN (currentTrophy + {currentTrophy}) > maxTrophy THEN (currentTrophy + {currentTrophy}) ELSE maxTrophy END " +
              $"WHERE userID = {DatabaseManager.Instance.userId}";
-
             using (MySqlCommand cmd = new MySqlCommand(updateUser, DatabaseManager.Instance.conn))
             {
                 cmd.ExecuteNonQuery();
@@ -71,7 +70,7 @@ public class DatabaseBattleRecordModel : MonoBehaviour
                     cmd.Parameters.AddWithValue("@enemyCrownCount", enemyCrownCount);
                     cmd.Parameters.AddWithValue("@enemyBattleCard", enemyBattleCard);
 
-                    cmd.ExecuteReader();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
@@ -97,19 +96,17 @@ public class DatabaseBattleRecordModel : MonoBehaviour
             }
 
             string userSelect = $"SELECT currentBattleCard FROM USER WHERE userID = '{userId}'";
+            string currentBattleCard = string.Empty;
 
             using (MySqlCommand cmd = new MySqlCommand(userSelect, DatabaseManager.Instance.conn))
             {
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                object result = cmd.ExecuteScalar();
+                if (result != null)
                 {
-                    if (reader.Read())
-                    {
-                        string currentBattleCard = reader.GetString(0);
-
-                        return currentBattleCard;
-                    }
+                    currentBattleCard = result.ToString();
                 }
             }
+            return currentBattleCard;
         }
         catch (Exception ex)
         {
@@ -142,9 +139,9 @@ public class DatabaseBattleRecordModel : MonoBehaviour
 
                         userIDList.Add((enemyUserID, recordId));
                     }
-                    return userIDList;
                 }
             }
+            return userIDList;
         }
         catch (Exception ex)
         {
@@ -180,9 +177,9 @@ public class DatabaseBattleRecordModel : MonoBehaviour
                             reader.GetString("battleCard")
                             );
                     }
-                    return userGameInfo;
                 }
             }
+            return userGameInfo;
         }
         catch (Exception ex)
         {
@@ -206,7 +203,6 @@ public class DatabaseBattleRecordModel : MonoBehaviour
                        $"FROM GAME_RECORD gr " +
                        $"JOIN USER u ON gr.enemy_UserId = u.userID " +
                        $"WHERE gr.userId = {userId} AND gr.game_RecordID = {recordID}";
-
             using (MySqlCommand cmd = new MySqlCommand(userCardQuery, DatabaseManager.Instance.conn))
             {
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -219,9 +215,9 @@ public class DatabaseBattleRecordModel : MonoBehaviour
                             reader.GetString("battleCard")
                             );
                     }
-                    return userGameInfo;
                 }
             }
+            return userGameInfo;
         }
         catch (Exception ex)
         {
@@ -281,10 +277,10 @@ public class DatabaseBattleRecordModel : MonoBehaviour
 
                             userGameInfoList.Add(userGameInfo);
                         }
-                        return userGameInfoList;
                     }
                 }
             }
+            return userGameInfoList;
         }
         catch (Exception ex)
         {

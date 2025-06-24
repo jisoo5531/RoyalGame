@@ -101,7 +101,7 @@ public class AllySpawnManager : MonoBehaviour
     {
         for (int i = 0; i < renderers.Length; i++)
         {
-            renderers[i].material = GameManager.instance.allyMaterial[1];
+            renderers[i].material = GameManager.Instance.allyMaterial[1];
         }
     }
 }

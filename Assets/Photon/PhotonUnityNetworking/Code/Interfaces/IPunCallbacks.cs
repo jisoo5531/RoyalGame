@@ -120,22 +120,22 @@ namespace Photon.Pun
     public interface IPunPrefabPool
     {
         /// <summary>
-        /// Called to get an instance of a prefab. Must return valid, disabled GameObject with PhotonView.
+        /// Called to get an Instance of a prefab. Must return valid, disabled GameObject with PhotonView.
         /// </summary>
         /// <param name="prefabId">The id of this prefab.</param>
-        /// <param name="position">The position for the instance.</param>
-        /// <param name="rotation">The rotation for the instance.</param>
-        /// <returns>A disabled instance to use by PUN or null if the prefabId is unknown.</returns>
+        /// <param name="position">The position for the Instance.</param>
+        /// <param name="rotation">The rotation for the Instance.</param>
+        /// <returns>A disabled Instance to use by PUN or null if the prefabId is unknown.</returns>
         GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation);
 
         /// <summary>
-        /// Called to destroy (or just return) the instance of a prefab. It's disabled and the pool may reset and cache it for later use in Instantiate.
+        /// Called to destroy (or just return) the Instance of a prefab. It's disabled and the pool may reset and cache it for later use in Instantiate.
         /// </summary>
         /// <remarks>
         /// A pool needs some way to find out which type of GameObject got returned via Destroy().
         /// It could be a tag, name, a component or anything similar.
         /// </remarks>
-        /// <param name="gameObject">The instance to destroy.</param>
+        /// <param name="gameObject">The Instance to destroy.</param>
         void Destroy(GameObject gameObject);
     }
 }

@@ -32,7 +32,7 @@ namespace Photon.Realtime
     /// </summary>
     /// <remarks>
     /// Contains a list of current players, their properties and those of this room, too.
-    /// A room instance has a number of "well known" properties like IsOpen, MaxPlayers which can be changed.
+    /// A room Instance has a number of "well known" properties like IsOpen, MaxPlayers which can be changed.
     /// Your own, custom properties can be set via SetCustomProperties() while being in the room.
     ///
     /// Typically, this class should be extended by a game-specific implementation with logic and extra features.
@@ -523,7 +523,7 @@ namespace Photon.Realtime
         /// <summary>
         /// Updates a player reference in the Players dictionary (no matter if it existed before or not).
         /// </summary>
-        /// <param name="player">The Player instance to insert into the room.</param>
+        /// <param name="player">The Player Instance to insert into the room.</param>
         public virtual Player StorePlayer(Player player)
         {
             this.Players[player.ActorNumber] = player;
@@ -616,15 +616,15 @@ namespace Photon.Realtime
             return this.LoadBalancingClient.OpSetPropertiesOfRoom(gameProperties, expectedProperties);
         }
 
-        /// <summary>Returns a summary of this Room instance as string.</summary>
-        /// <returns>Summary of this Room instance.</returns>
+        /// <summary>Returns a summary of this Room Instance as string.</summary>
+        /// <returns>Summary of this Room Instance.</returns>
         public override string ToString()
         {
             return string.Format("Room: '{0}' {1},{2} {4}/{3} players.", this.name, this.isVisible ? "visible" : "hidden", this.isOpen ? "open" : "closed", this.maxPlayers, this.PlayerCount);
         }
 
-        /// <summary>Returns a summary of this Room instance as longer string, including Custom Properties.</summary>
-        /// <returns>Summary of this Room instance.</returns>
+        /// <summary>Returns a summary of this Room Instance as longer string, including Custom Properties.</summary>
+        /// <returns>Summary of this Room Instance.</returns>
         public new string ToStringFull()
         {
             return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", this.name, this.isVisible ? "visible" : "hidden", this.isOpen ? "open" : "closed", this.maxPlayers, this.PlayerCount, this.CustomProperties.ToStringFull());

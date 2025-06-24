@@ -34,9 +34,9 @@ namespace Photon.Pun.UtilityScripts
         #region Public Properties
 
         /// <summary>
-        /// The instance. EntryPoint to query about Room Indexing.
+        /// The Instance. EntryPoint to query about Room Indexing.
         /// </summary>
-        public static PlayerNumbering instance;
+        public static PlayerNumbering Instance;
 
         public static Player[] SortedPlayers;
 
@@ -67,12 +67,12 @@ namespace Photon.Pun.UtilityScripts
         public void Awake()
         {
 
-            if (instance != null && instance != this && instance.gameObject != null)
+            if (Instance != null && Instance != this && Instance.gameObject != null)
             {
-                GameObject.DestroyImmediate(instance.gameObject);
+                GameObject.DestroyImmediate(Instance.gameObject);
             }
 
-            instance = this;
+            Instance = this;
             if (dontDestroyOnLoad)
             { 
                 DontDestroyOnLoad(this.gameObject);

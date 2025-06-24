@@ -73,25 +73,25 @@ namespace Photon.Pun
         }
 
 
-        private static PunSceneSettings instanceField;
+        private static PunSceneSettings InstanceField;
 
         public static PunSceneSettings Instance
         {
             get
             {
-                if (instanceField != null)
+                if (InstanceField != null)
                 {
-                    return instanceField;
+                    return InstanceField;
                 }
 
-                instanceField = (PunSceneSettings)AssetDatabase.LoadAssetAtPath(PunSceneSettingsCsPath, typeof(PunSceneSettings));
-                if (instanceField == null)
+                InstanceField = (PunSceneSettings)AssetDatabase.LoadAssetAtPath(PunSceneSettingsCsPath, typeof(PunSceneSettings));
+                if (InstanceField == null)
                 {
-                    instanceField = CreateInstance<PunSceneSettings>();
+                    InstanceField = CreateInstance<PunSceneSettings>();
                     #pragma warning disable 0168
                     try
                     {
-                        AssetDatabase.CreateAsset(instanceField, PunSceneSettingsCsPath);
+                        AssetDatabase.CreateAsset(InstanceField, PunSceneSettingsCsPath);
                     }
                     catch (Exception e)
                     {
@@ -102,7 +102,7 @@ namespace Photon.Pun
                     #pragma warning restore 0168
                 }
 
-                return instanceField;
+                return InstanceField;
             }
         }
 

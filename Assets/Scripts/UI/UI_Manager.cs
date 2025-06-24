@@ -7,8 +7,8 @@ using Photon.Pun;
 
 public class UI_Manager : MonoBehaviourPunCallbacks
 {
-    private static UI_Manager instance;
-    public static UI_Manager m_Instance { get { return instance; } }
+    private static UI_Manager Instance;
+    public static UI_Manager m_Instance { get { return Instance; } }
 
     private List<AllCardData> shuffledUnit;
     [HideInInspector] public List<AllCardData> m_shuffledUnit { get { return shuffledUnit; } }
@@ -64,7 +64,7 @@ public class UI_Manager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         settingUnit = GetComponent<SettingUnit>();
 
@@ -117,9 +117,9 @@ public class UI_Manager : MonoBehaviourPunCallbacks
 
             if (CheckSpawnPossible(selectSlotNumber))
             {
-                UnitSpawner.instance.isElixirEnough = true;
+                UnitSpawner.Instance.isElixirEnough = true;
 
-                if (UnitSpawner.instance.spawnComplete)
+                if (UnitSpawner.Instance.spawnComplete)
                 {
                     AllCardData spawnedUnit = UI_availableUnit[selectSlotNumber];
 
@@ -133,7 +133,7 @@ public class UI_Manager : MonoBehaviourPunCallbacks
                     selectedSlot = null;
                     ActiveSlotOutLine();
 
-                    UnitSpawner.instance.spawnComplete = false;
+                    UnitSpawner.Instance.spawnComplete = false;
                 }
             }
         }
@@ -149,13 +149,13 @@ public class UI_Manager : MonoBehaviourPunCallbacks
 
         if (UI_availableUnit[number].cardId != 3)
         {
-            GameManager.instance.spawnLimits.EnableTowerLimit();
+            GameManager.Instance.spawnLimits.EnableTowerLimit();
         }
         else
         {
-            GameManager.instance.spawnLimits.DisableTower();
+            GameManager.Instance.spawnLimits.DisableTower();
         }
-        UnitSpawner.instance.SelectUnit(UI_availableUnit[number]);        
+        UnitSpawner.Instance.SelectUnit(UI_availableUnit[number]);        
     }
     /// <summary>
     /// 생성이 가능한지 체크 (엘릭서 코스트 체크)

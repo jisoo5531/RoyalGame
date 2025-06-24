@@ -2072,7 +2072,7 @@ namespace Photon.Realtime
         public static readonly TypedLobby Default = new TypedLobby();
 
         /// <summary>
-        /// Returns whether or not this instance points to the "default lobby" (<see cref="TypedLobby.Default"/>).
+        /// Returns whether or not this Instance points to the "default lobby" (<see cref="TypedLobby.Default"/>).
         /// </summary>
         /// <remarks>
         /// This comes up to checking if the Name is null or empty.
@@ -2082,14 +2082,14 @@ namespace Photon.Realtime
 
 
         /// <summary>
-        /// Creates a TypedLobby instance. Unless Name is changed, this points to the "default lobby" (<see cref="TypedLobby.Default"/>).
+        /// Creates a TypedLobby Instance. Unless Name is changed, this points to the "default lobby" (<see cref="TypedLobby.Default"/>).
         /// </summary>
         internal TypedLobby()
         {
         }
 
         /// <summary>
-        /// Sets Name and Type of the new instance. Make sure name is not empty or null, as that always points to the "default lobby" (<see cref="TypedLobby.Default"/>).
+        /// Sets Name and Type of the new Instance. Make sure name is not empty or null, as that always points to the "default lobby" (<see cref="TypedLobby.Default"/>).
         /// </summary>
         /// <param name="name">Some string to identify a lobby.</param>
         /// <param name="type">The type of a lobby defines it's capabilities and behaviour.</param>

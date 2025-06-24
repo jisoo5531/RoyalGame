@@ -39,7 +39,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (GameManager.instance.isGameEnd) return;
+        if (GameManager.Instance.isGameEnd) return;
 
         UI_Manager.m_Instance.selectedSlot = this;
         selectedNumber = int.Parse(name);
@@ -62,7 +62,7 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
 
         if (unitData != null && unitData.cardId != 3)
         {
-            GameManager.instance.spawnLimits.EnableTowerLimit();
+            GameManager.Instance.spawnLimits.EnableTowerLimit();
         }
         MoveImage(eventData);
 
@@ -80,34 +80,34 @@ public class SpawnSlot : MonoBehaviourPunCallbacks,
         if (true == isSpawn)
         {
             UI_Manager.m_Instance.OnClickSpawnUnit(selectedNumber);
-            GameManager.instance.spawnLimits.DisableTower();
-            UnitSpawner.instance.spawnComplete = true;
+            GameManager.Instance.spawnLimits.DisableTower();
+            UnitSpawner.Instance.spawnComplete = true;
 
             GameObject unitObj = AllySpawnManager.Instance.InitCreateUnit(unitName, dragUnit.transform.position, unitData, dragUnit);
             if (isMaster)
             {
                 if (unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
                 {
-                    MasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
+                    MasterManager.Instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
                 }
                 else if (unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
                 {
-                    MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                    MasterManager.Instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
                 }
             }
             else
             {
                 if (unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
                 {
-                    NonMasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
+                    NonMasterManager.Instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
                 }
                 else if (unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
                 {
-                    NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                    NonMasterManager.Instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
                 }
             }
 
-            UnitSpawner.instance.selectedUnit = null;
+            UnitSpawner.Instance.selectedUnit = null;
         }
 
         UI_Manager.m_Instance.selectedSlot = null;

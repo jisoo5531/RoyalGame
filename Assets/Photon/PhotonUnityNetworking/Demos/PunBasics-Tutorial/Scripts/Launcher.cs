@@ -84,7 +84,7 @@ namespace Photon.Pun.Demo.PunBasics
 		/// <summary>
 		/// Start the connection process. 
 		/// - If already connected, we attempt joining a random room
-		/// - if not yet connected, Connect this application instance to Photon Cloud Network
+		/// - if not yet connected, Connect this application Instance to Photon Cloud Network
 		/// </summary>
 		public void Connect()
 		{
@@ -208,7 +208,7 @@ namespace Photon.Pun.Demo.PunBasics
 			LogFeedback("<Color=Green>OnJoinedRoom</Color> with "+PhotonNetwork.CurrentRoom.PlayerCount+" Player(s)");
 			Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.\nFrom here on, your game would be running.");
 		
-			// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.AutomaticallySyncScene to sync our instance scene.
+			// #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.AutomaticallySyncScene to sync our Instance scene.
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
 			{
 				Debug.Log("We load the 'Room for 1' ");

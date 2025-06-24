@@ -25,7 +25,7 @@ namespace Photon.Realtime
     /// Settings for Photon application(s) and the server to connect to.
     /// </summary>
     /// <remarks>
-    /// This is Serializable for Unity, so it can be included in ScriptableObject instances.
+    /// This is Serializable for Unity, so it can be included in ScriptableObject Instances.
     /// </remarks>
     #if !NETFX_CORE || SUPPORTED_UNITY
     [Serializable]

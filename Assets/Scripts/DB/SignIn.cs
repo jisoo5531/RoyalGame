@@ -62,8 +62,8 @@ public class SignIn : MonoBehaviour
             print("로그인 되었습니다");
             isClick = true;
             loginBtn.interactable = false;
-            PhotonConnManager.instance.userName = nickname.text;
-            PhotonConnManager.instance.Connection();
+            PhotonConnManager.Instance.userName = nickname.text;
+            PhotonConnManager.Instance.Connection();
         }
         else
         {
@@ -82,14 +82,13 @@ public class SignIn : MonoBehaviour
             {
                 return false;
             }
-
             string userInfoSelect = $"SELECT count(*), userID FROM USER WHERE userName = '{name}' AND password = '{password}'";
+            int count = 0;
 
             using (MySqlCommand cmd = new MySqlCommand(userInfoSelect, DatabaseManager.Instance.conn))
             {
                 if (cmd != null)
                 {
-                    int count = 0;
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -100,9 +99,9 @@ public class SignIn : MonoBehaviour
                         }
                     }
 
-                    return count > 0;
                 }
             }
+            return count > 0;
         }
         catch (Exception ex)
         {

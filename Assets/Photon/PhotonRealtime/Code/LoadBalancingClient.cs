@@ -278,7 +278,7 @@ namespace Photon.Realtime
     /// </summary>
     /// <remarks>
     /// This class (and the Player class) should be extended to implement your own game logic.
-    /// You can override CreatePlayer as "factory" method for Players and return your own Player instances.
+    /// You can override CreatePlayer as "factory" method for Players and return your own Player Instances.
     /// The State of this class is essential to know when a client is in a lobby (or just on the master)
     /// and when in a game where the actual gameplay should take place.
     /// Extension notes:
@@ -1484,7 +1484,7 @@ namespace Photon.Realtime
         /// Used on Master Server to find the rooms played by a selected list of users.
         /// The result will be stored in LoadBalancingClient.FriendList, which is null before the first server response.
         ///
-        /// Users identify themselves by setting a UserId in the LoadBalancingClient instance.
+        /// Users identify themselves by setting a UserId in the LoadBalancingClient Instance.
         /// This will send the ID in OpAuthenticate during connect (to master and game servers).
         /// Note: Changing a player's name doesn't make sense when using a friend list.
         ///
@@ -2466,7 +2466,7 @@ namespace Photon.Realtime
         }
 
         /// <summary>
-        /// Factory method to create a player instance - override to get your own player-type with custom features.
+        /// Factory method to create a player Instance - override to get your own player-type with custom features.
         /// </summary>
         /// <param name="actorName">The name of the player to be created. </param>
         /// <param name="actorNumber">The player ID (a.k.a. actorNumber) of the player to be created.</param>
@@ -2479,7 +2479,7 @@ namespace Photon.Realtime
             return newPlayer;
         }
 
-        /// <summary>Internal "factory" method to create a room-instance.</summary>
+        /// <summary>Internal "factory" method to create a room-Instance.</summary>
         protected internal virtual Room CreateRoom(string roomName, RoomOptions opt)
         {
             Room r = new Room(roomName, opt);

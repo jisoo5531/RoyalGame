@@ -22,7 +22,7 @@ namespace Photon.Pun
     #endif
 
     /// <summary>
-    /// A PhotonView identifies an object across the network (viewID) and configures how the controlling client updates remote instances.
+    /// A PhotonView identifies an object across the network (viewID) and configures how the controlling client updates remote Instances.
     /// </summary>
     /// \ingroup publicApi
     [AddComponentMenu("Photon Networking/Photon View")]
@@ -332,7 +332,7 @@ namespace Photon.Pun
         protected internal bool removedFromLocalViewList;
 
         
-        /// <summary>Will FindObservables() and assign the sceneViewId, if that is != 0. This initializes the PhotonView if loaded with the scene. Called once by Unity, when this instance is created.</summary>
+        /// <summary>Will FindObservables() and assign the sceneViewId, if that is != 0. This initializes the PhotonView if loaded with the scene. Called once by Unity, when this Instance is created.</summary>
         protected internal void Awake()
         {
             if (this.ViewID != 0)

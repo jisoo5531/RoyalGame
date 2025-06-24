@@ -20,7 +20,7 @@ public class DeffenseTower : Unit, IAttackable
         canvasInfo = GetComponent<UnitCanvasInfo>();
         targetFollowUnit = GetComponent<TargetFollowUnit>();
 
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        InitializeUnitData(UnitSpawner.Instance.selectedUnit);
     }
     private void Start()
     {
@@ -79,7 +79,7 @@ public class DeffenseTower : Unit, IAttackable
 
         if (!targetFollowUnit.isAttack)
         {
-            DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
+            DetectEnemyManager.Instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
 
             if (!isWait)
             {
@@ -96,7 +96,7 @@ public class DeffenseTower : Unit, IAttackable
             {
                 targetFollowUnit.isAttack = false;
 
-                DetectEnemyManager.instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
+                DetectEnemyManager.Instance.CheckDetectEnemy(range, this.transform, targetFollowUnit, attackTarget);
 
                 StateTransition(targetFollowUnit.target);
             }
@@ -121,12 +121,15 @@ public class DeffenseTower : Unit, IAttackable
     [PunRPC]
     private void CanvasRotate(float rotateY)
     {
-        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+        if (this.gameObject != null && photonView != null)
+        {
+            canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+        }
     }
 
     private void StateTransition(Transform target)
     {
-        if (DetectEnemyManager.instance == null || target == null)
+        if (DetectEnemyManager.Instance == null || target == null)
             return;
 
         float distance = Vector3.Distance(target.position, transform.position);

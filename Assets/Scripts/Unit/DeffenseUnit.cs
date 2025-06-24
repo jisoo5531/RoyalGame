@@ -61,7 +61,7 @@ public class DeffenseUnit : Unit, IAttackable
 
         if (!targetFollowUnit.isAttack)
         {
-            DetectEnemyManager.instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
+            DetectEnemyManager.Instance.CheckEnemyUnit(range, this.transform, targetFollowUnit);
 
             StateTransition(targetFollowUnit.target);
         }
@@ -69,7 +69,8 @@ public class DeffenseUnit : Unit, IAttackable
         {
             if (targetFollowUnit.target != null && photonView != null)
             {
-                photonView.RPC("RotateTarget", RpcTarget.All, targetFollowUnit.target.position);
+                // photonView.RPC("RotateTarget", RpcTarget.All, targetFollowUnit.target.position);
+                RotateTarget(targetFollowUnit.target.position);
             }
             else
             {
@@ -80,17 +81,19 @@ public class DeffenseUnit : Unit, IAttackable
         }
     }
 
-    [PunRPC]
     public void RotateTarget(Vector3 target)
     {
-        Vector3 direction = (target - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
+        if (this.gameObject != null && photonView != null)
+        {
+            Vector3 direction = (target - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 15f);
+        }
     }
 
     private void StateTransition(Transform target)
     {
-        if (DetectEnemyManager.instance == null || target == null)
+        if (DetectEnemyManager.Instance == null || target == null)
             return;
 
         float distance = Vector3.Distance(target.position, transform.position);

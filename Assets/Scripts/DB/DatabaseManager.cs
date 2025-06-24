@@ -5,7 +5,6 @@ using MySql.Data.MySqlClient;
 public class DatabaseManager : MonoBehaviour
 {
     #region private º¯¼ö
-    private static DatabaseManager instance;
 
     private string serverEndPoint = "unity-mysql-rds.ct8w8icaeo26.ap-northeast-2.rds.amazonaws.com";
     private string databaseName = "RoyaleDatabase";
@@ -14,11 +13,11 @@ public class DatabaseManager : MonoBehaviour
     private string password = "abcdgh3076";
 
     private string connStr;
+    private static DatabaseManager instance;
     #endregion
 
     public int userId;
     public MySqlConnection conn;
-
     public static DatabaseManager Instance
     {
         get
@@ -30,20 +29,27 @@ public class DatabaseManager : MonoBehaviour
             return instance;
         }
     }
-
     void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         connStr = string.Format("server={0};port={1};uid={2};pwd={3};database={4};", serverEndPoint, port, userName, password, databaseName);
         DontDestroyOnLoad(gameObject);
         OpenConnection();
     }
-
     void OnDestroy()
     {
         CloseConnection();
     }
 
-    private void OpenConnection()
+    public void OpenConnection()
     {
         if (conn == null)
         {
@@ -76,6 +82,7 @@ public class DatabaseManager : MonoBehaviour
             Debug.LogError("Failed to open database connection after multiple attempts.");
         }
     }
+
 
     public void CloseConnection()
     {

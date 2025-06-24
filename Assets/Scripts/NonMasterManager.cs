@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NonMasterManager : MonoBehaviourPunCallbacks
 {
-    public static NonMasterManager instance;
+    public static NonMasterManager Instance;
     private bool isCrate = false;
     public List<GameObject> towers = new List<GameObject>();
     KingTower kingTower;
@@ -14,9 +14,9 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
             }
             else
             {
@@ -37,13 +37,13 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
 
     private void CreateTower()
     {
-        Transform[] towerPos = GameManager.instance.myTowersTranform;
-        for (int i = 0; i < GameManager.instance.enemyTowers.Length; i++)
+        Transform[] towerPos = GameManager.Instance.myTowersTranform;
+        for (int i = 0; i < GameManager.Instance.enemyTowers.Length; i++)
         {
-            string name = GameManager.instance.enemyTowers[i].name;
+            string name = GameManager.Instance.enemyTowers[i].name;
             GameObject tower = PhotonNetwork.Instantiate(name, towerPos[i].position, Quaternion.identity);
             UnitCanvasInfo unitCanvas = tower.GetComponentInChildren<UnitCanvasInfo>();
-            unitCanvas.unitCanvas.transform.position = GameManager.instance.enemyTowerHp[i].position;
+            unitCanvas.unitCanvas.transform.position = GameManager.Instance.enemyTowerHp[i].position;
             if (i != 0)
             {
                 unitCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, 180, 0);
@@ -69,7 +69,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
                 kingTower.princessTowers.Add(towers[i]);
             }
             SettingAlly();
-            GameManager.instance.grid.CreateGrid();
+            GameManager.Instance.grid.CreateGrid();
             isCrate = true;
         }
     }
@@ -77,8 +77,8 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void AddEnemyTower()
     {
-        GameManager.instance.currentEnemyTowers = GameObject.FindGameObjectsWithTag("EnemyTower");
-        DetectEnemyManager.instance.towerList = GameManager.instance.currentEnemyTowers.ToList();
+        GameManager.Instance.currentEnemyTowers = GameObject.FindGameObjectsWithTag("EnemyTower");
+        DetectEnemyManager.Instance.towerList = GameManager.Instance.currentEnemyTowers.ToList();
     }
 
 
@@ -97,13 +97,13 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < towers.Count; i++)
         {
-            towers[i].GetComponent<MeshRenderer>().material = GameManager.instance.allyMaterial[0];
+            towers[i].GetComponent<MeshRenderer>().material = GameManager.Instance.allyMaterial[0];
 
             Renderer[] child = towers[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
 
             foreach (Renderer mat in child)
             {
-                mat.material = GameManager.instance.allyMaterial[1];
+                mat.material = GameManager.Instance.allyMaterial[1];
             }
         }
     }
@@ -121,7 +121,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         if (characterView != null)
         {
             GameObject character = characterView.gameObject;
-            DetectEnemyManager.instance.enemyList.Add(character);
+            DetectEnemyManager.Instance.enemyList.Add(character);
         }
     }
     public void AddTower(int id)
@@ -136,7 +136,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         if (towerView != null)
         {
             GameObject tower = towerView.gameObject;
-            DetectEnemyManager.instance.towerList.Add(tower);
+            DetectEnemyManager.Instance.towerList.Add(tower);
         }
     }
 
@@ -147,7 +147,7 @@ public class NonMasterManager : MonoBehaviourPunCallbacks
         {
             kingTower.princessTowers.Remove(tower);
         }
-        ScoreManager.instance.enemyCount++;
-        ScoreManager.instance.SettingScore();
+        ScoreManager.Instance.enemyCount++;
+        ScoreManager.Instance.SettingScore();
     }
 }

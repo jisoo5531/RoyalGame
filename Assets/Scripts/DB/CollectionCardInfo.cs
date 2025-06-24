@@ -47,7 +47,7 @@ public class CollectionCardInfo : MonoBehaviour
 
     public void SelectCardOrderbyCost()
     {
-        SettingCardInfoManager.instance.charData.Clear();
+        SettingCardInfoManager.Instance.charData.Clear();
         index = 0;
         try
         {
@@ -89,10 +89,10 @@ public class CollectionCardInfo : MonoBehaviour
                                 currentCardCount = reader.GetInt32(5),
                                 maxCardCount = reader.GetInt32(6),
                                 level = reader.GetInt32(7),
-                                img = CardInfoManager.instance.characterImgs[id - 1],
+                                img = CardInfoManager.Instance.characterImgs[id - 1],
                             };
-                            SettingCardInfoManager.instance.charData.Add(characterData);
-                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
+                            SettingCardInfoManager.Instance.charData.Add(characterData);
+                            SettingCardInfoManager.Instance.slots[index].GetComponent<Collection>().InitUI(characterData);
                             index++;
                         }
                     }
@@ -107,7 +107,7 @@ public class CollectionCardInfo : MonoBehaviour
 
     public void SelectCardOrderByGrade()
     {
-        SettingCardInfoManager.instance.charData.Clear();
+        SettingCardInfoManager.Instance.charData.Clear();
         index = 0;
         try
         {
@@ -130,7 +130,6 @@ public class CollectionCardInfo : MonoBehaviour
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID AND DEFENSE_TOWER.userID = {DatabaseManager.Instance.userId} " +
                 $"ORDER BY CASE CARD.grade WHEN 'ÀÏ¹Ý' THEN 1 WHEN 'Èñ±Í' THEN 2 WHEN '¿µ¿õ' THEN 3 END ASC";
 
-
             using (MySqlCommand cmd = new MySqlCommand(selectAllCardInfo, DatabaseManager.Instance.conn))
             {
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -150,10 +149,10 @@ public class CollectionCardInfo : MonoBehaviour
                                 currentCardCount = reader.GetInt32(5),
                                 maxCardCount = reader.GetInt32(6),
                                 level = reader.GetInt32(7),
-                                img = CardInfoManager.instance.characterImgs[id - 1],
+                                img = CardInfoManager.Instance.characterImgs[id - 1],
                             };
-                            SettingCardInfoManager.instance.charData.Add(characterData);
-                            SettingCardInfoManager.instance.slots[index].GetComponent<Collection>().InitUI(characterData);
+                            SettingCardInfoManager.Instance.charData.Add(characterData);
+                            SettingCardInfoManager.Instance.slots[index].GetComponent<Collection>().InitUI(characterData);
                             index++;
                         }
                     }

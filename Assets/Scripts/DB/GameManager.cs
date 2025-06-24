@@ -9,7 +9,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     #region pubilc º¯¼ö
-    public static GameManager instance;
+    public static GameManager Instance;
 
     public Transform flares;
 
@@ -68,9 +68,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             string nameSelect = $"SELECT userID, currentTrophy FROM USER WHERE userName = '{name}'";
+            int trophy = 0;
 
             using (MySqlCommand cmd = new MySqlCommand(nameSelect, DatabaseManager.Instance.conn))
             {
@@ -146,17 +147,17 @@ public class GameManager : MonoBehaviourPunCallbacks
                     if (reader.Read())
                     {
                         int userId = reader.GetInt32(0);
-                        int trophy = reader.GetInt32(1);
+                        trophy = reader.GetInt32(1);
 
                         if (!name.Equals(PhotonNetwork.NickName))
                         {
                             DatabaseBattleRecordModel.enemyID = userId;
                         }
 
-                        return trophy;
                     }
                 }
             }
+            return trophy;
         }
         catch (Exception ex)
         {
@@ -176,11 +177,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void GameResult()
     {
-        if (ScoreManager.instance.allyCount > ScoreManager.instance.enemyCount)
+        if (ScoreManager.Instance.allyCount > ScoreManager.Instance.enemyCount)
         {
             soundBattle.ResultBgm(true);
             winUI.SetActive(true);
-            for (int i = 0; i < ScoreManager.instance.allyCount; i++)
+            for (int i = 0; i < ScoreManager.Instance.allyCount; i++)
             {
                 winCrownCount[i].SetActive(true);
             }
@@ -192,7 +193,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             soundBattle.ResultBgm(false);
             loseUI.SetActive(true);
-            for (int i = 0; i < ScoreManager.instance.allyCount; i++)
+            for (int i = 0; i < ScoreManager.Instance.allyCount; i++)
             {
                 loseCrownCount[i].SetActive(true);
             }
@@ -204,7 +205,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LobbySceneLoad_Click()
     {
         DatabaseBattleRecordModel.GetBattleCard();
-        DatabaseBattleRecordModel.InsertGameRecord(ScoreManager.instance.allyCount, ScoreManager.instance.enemyCount);
+        DatabaseBattleRecordModel.InsertGameRecord(ScoreManager.Instance.allyCount, ScoreManager.Instance.enemyCount);
 
         PhotonNetwork.LeaveRoom();
     }

@@ -54,12 +54,10 @@ public class UpgrdeUnitSpec : MonoBehaviour
 
             using (MySqlCommand cmd = new MySqlCommand(selectId, DatabaseManager.Instance.conn))
             {
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                object result = cmd.ExecuteScalar();
+                if (result != null)
                 {
-                    if (reader.Read())
-                    {
-                        id = reader.GetInt32(0);
-                    }
+                    id = (int)result;
                 }
             }
         }
@@ -117,7 +115,7 @@ public class UpgrdeUnitSpec : MonoBehaviour
                     cardName.text = upgrade.unitdata.cardName;
                     cardCount.text = $"{upgrade.unitdata.currentCardCount} / {upgrade.unitdata.maxCardCount}";
                     slider.value = 100f;
-                    cardImg.sprite = CardInfoManager.instance.characterImgs[upgrade.unitdata.cardId - 1];
+                    cardImg.sprite = CardInfoManager.Instance.characterImgs[upgrade.unitdata.cardId - 1];
                     damageText.text = upgrade.unitdata.damage.ToString();
                     addDamageText.text = $"+ {damageAmount}";
                     if (isMagic)

@@ -103,7 +103,7 @@ namespace Photon.Pun.UtilityScripts
         }
 
         /// <summary>
-        /// The turn manager listener. Set this to your own script instance to catch Callbacks
+        /// The turn manager listener. Set this to your own script Instance to catch Callbacks
         /// </summary>
         public IPunTurnManagerCallbacks TurnManagerListener;
 

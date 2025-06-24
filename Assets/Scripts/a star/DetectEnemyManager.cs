@@ -9,7 +9,7 @@ using UnityEngine.TextCore.Text;
 public class DetectEnemyManager : MonoBehaviour
 {
     #region public º¯¼ö
-    public static DetectEnemyManager instance;
+    public static DetectEnemyManager Instance;
 
     public List<GameObject> towerList = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
@@ -17,7 +17,7 @@ public class DetectEnemyManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public int CheckEnemyDistance(Transform currentTransform, List<GameObject> enemyList)

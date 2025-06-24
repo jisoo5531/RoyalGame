@@ -46,8 +46,8 @@
         </member>
         <member name="T:DG.Tweening.Core.DOTweenComponent">
             <summary>
-            Used to separate DOTween class from the MonoBehaviour instance (in order to use static constructors on DOTween).
-            Contains all instance-based methods
+            Used to separate DOTween class from the MonoBehaviour Instance (in order to use static constructors on DOTween).
+            Contains all Instance-based methods
             </summary>
         </member>
         <member name="F:DG.Tweening.Core.DOTweenComponent.inspectorUpdater">
@@ -493,7 +493,7 @@
             <summary>Default period used for eases
             <para>Default: 0</para></summary>
         </member>
-        <member name="F:DG.Tweening.DOTween.instance">
+        <member name="F:DG.Tweening.DOTween.Instance">
             <summary>Used internally. Assigned/removed by DOTweenComponent.Create/DestroyInstance</summary>
         </member>
         <member name="M:DG.Tweening.DOTween.Init(System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{DG.Tweening.LogBehaviour})">
@@ -1416,7 +1416,7 @@
             <summary>
             Forces this tween to update manually, regardless of the <see cref="T:DG.Tweening.UpdateType"/> set via SetUpdate.
             Note that the tween will still be subject to normal tween rules, so if for example it's paused this method will do nothing.<para/>
-            Also note that if you only want to update this tween instance manually you'll have to set it to <see cref="F:DG.Tweening.UpdateType.Manual"/> anyway,
+            Also note that if you only want to update this tween Instance manually you'll have to set it to <see cref="F:DG.Tweening.UpdateType.Manual"/> anyway,
             so that it's not updated automatically.
             </summary>
             <param name="deltaTime">Manual deltaTime</param>
@@ -1621,7 +1621,7 @@
         </member>
         <member name="T:DG.Tweening.ShortcutExtensions">
             <summary>
-            Methods that extend known Unity objects and allow to directly create and control tweens from their instances
+            Methods that extend known Unity objects and allow to directly create and control tweens from their Instances
             </summary>
         </member>
         <member name="M:DG.Tweening.ShortcutExtensions.DOAspect(UnityEngine.Camera,System.Single,System.Single)">
@@ -2391,7 +2391,7 @@
             to pass to multiple tweens via <code>myTween.SetAs(myTweenParms)</code></summary>
         </member>
         <member name="M:DG.Tweening.TweenParams.Clear">
-            <summary>Clears and resets this TweenParams instance using default values,
+            <summary>Clears and resets this TweenParams Instance using default values,
             so it can be reused without instantiating another one</summary>
         </member>
         <member name="M:DG.Tweening.TweenParams.SetAutoKill(System.Boolean)">

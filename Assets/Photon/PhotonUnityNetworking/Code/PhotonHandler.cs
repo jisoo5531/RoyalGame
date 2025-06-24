@@ -91,9 +91,9 @@ namespace Photon.Pun
 
         protected virtual void OnEnable()
         {
-            if (Instance != this)
+            if (instance != this)
             {
-                Debug.LogError("PhotonHandler is a singleton but there are multiple instances. this != Instance.");
+                Debug.LogError("PhotonHandler is a singleton but there are multiple instances. this != instance.");
                 return;
             }
 

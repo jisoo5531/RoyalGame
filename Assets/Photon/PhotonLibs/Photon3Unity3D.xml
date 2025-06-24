@@ -6,7 +6,7 @@
     <members>
         <member name="M:Photon.SocketServer.Security.DiffieHellmanCryptoProvider.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Photon.SocketServer.Security.DiffieHellmanCryptoProvider"/> class.
+            Initializes a new Instance of the <see cref="T:Photon.SocketServer.Security.DiffieHellmanCryptoProvider"/> class.
             </summary>
         </member>
         <member name="P:Photon.SocketServer.Security.DiffieHellmanCryptoProvider.PublicKey">
@@ -74,7 +74,7 @@
         </member>
         <member name="M:ExitGames.Client.Photon.ByteArraySlice.#ctor(ExitGames.Client.Photon.ByteArraySlicePool,System.Int32)">
             <summary>
-            Internal constructor - these instances will be part of the pooling system.
+            Internal constructor - these Instances will be part of the pooling system.
             </summary>
             <param name="returnPool">The pool to return to.</param>
             <param name="stackIndex">The index to return to (in the related returnPool).</param>
@@ -123,7 +123,7 @@
             Get a ByteArraySlice from pool. This overload handles user supplied byte[] and byte count and can be used as a non-boxing alternative to ArraySegment&lt;byte&gt;.
             </summary>
             <remarks>
-            This effectively pools the ByteArraySlice instances but not their data.
+            This effectively pools the ByteArraySlice Instances but not their data.
             ByteArraySlice.Release() will return the slice itself to the pool but delete the reference to the buffer supplied here.
             </remarks>
         </member>
@@ -381,7 +381,7 @@
             Callback interface for the Photon client side. Must be provided to a new PhotonPeer in its constructor.
             </summary>
             <remarks>
-            These methods are used by your PhotonPeer instance to keep your app updated. Read each method's
+            These methods are used by your PhotonPeer Instance to keep your app updated. Read each method's
             description and check out the samples to see how to use them.
             </remarks>
         </member>
@@ -458,7 +458,7 @@
              Events are incoming messages and as such buffered in the peer.
              Calling PhotonPeer.DispatchIncomingCommands will call IPhotonPeerListener.OnEvent, to hand over received events.
             
-             PhotonPeer.ReuseEventInstance is an option to optimize memory usage by reusing one EventData instance.
+             PhotonPeer.ReuseEventInstance is an option to optimize memory usage by reusing one EventData Instance.
              </remarks>
              <param name="eventData">The event currently being dispatched.</param>
         </member>
@@ -733,12 +733,12 @@
             </summary>
         </member>
         <member name="M:ExitGames.Client.Photon.StructWrapping.StructWrapper`1.ToString">
-            <summary>Returns a String which represents the value of this instance.</summary>
-            <returns>String which represents the value of this instance.</returns>
+            <summary>Returns a String which represents the value of this Instance.</summary>
+            <returns>String which represents the value of this Instance.</returns>
         </member>
         <member name="M:ExitGames.Client.Photon.StructWrapping.StructWrapper`1.ToString(System.Boolean)">
-            <summary>Returns a String which represents the type (in brackets and value of this instance.</summary>
-            <returns>String which represents the type (in brackets) and value of this instance.</returns>
+            <summary>Returns a String which represents the type (in brackets and value of this Instance.</summary>
+            <returns>String which represents the type (in brackets) and value of this Instance.</returns>
         </member>
         <member name="F:ExitGames.Client.Photon.StructWrapping.StructWrapper`1.staticPool">
             <summary>
@@ -1095,10 +1095,10 @@
             Instances of the PhotonPeer class are used to connect to a Photon server and communicate with it.
             </summary>
             <remarks>
-            A PhotonPeer instance allows communication with the Photon Server, which in turn distributes messages
+            A PhotonPeer Instance allows communication with the Photon Server, which in turn distributes messages
             to other PhotonPeer clients.<para></para>
-            An application can use more than one PhotonPeer instance, which are treated as separate users on the
-            server. Each should have its own listener instance, to separate the operations, callbacks and events.
+            An application can use more than one PhotonPeer Instance, which are treated as separate users on the
+            server. Each should have its own listener Instance, to separate the operations, callbacks and events.
             </remarks>
         </member>
         <member name="P:ExitGames.Client.Photon.PhotonPeer.CommandBufferSize">
@@ -1221,7 +1221,7 @@
         </member>
         <member name="P:ExitGames.Client.Photon.PhotonPeer.Listener">
             <summary>
-            Gets the IPhotonPeerListener of this instance (set in constructor).
+            Gets the IPhotonPeerListener of this Instance (set in constructor).
             Can be used in derived classes for Listener.DebugReturn().
             </summary>
         </member>
@@ -1232,7 +1232,7 @@
         </member>
         <member name="P:ExitGames.Client.Photon.PhotonPeer.ReuseEventInstance">
              <summary>
-             Option to make the PhotonPeer reuse a single EventData instance for all incoming events.
+             Option to make the PhotonPeer reuse a single EventData Instance for all incoming events.
              </summary>
              <remarks>
              This reduces memory garbage.
@@ -1247,10 +1247,10 @@
              Enables a deserialization optimization for incoming events. Defaults to false.
              </summary>
              <remarks>
-             When enabled, byte-arrays in incoming Photon events are deserialized into pooled ByteArraySlice instances (wrappers for byte[]).
+             When enabled, byte-arrays in incoming Photon events are deserialized into pooled ByteArraySlice Instances (wrappers for byte[]).
              This improves the memory footprint for receiving byte-arrays in events.
             
-             When used, you have to release the (pooled) ByteArraySlice instances.
+             When used, you have to release the (pooled) ByteArraySlice Instances.
             
              Adjust your handling of EventData accordingly:
             
@@ -1277,8 +1277,8 @@
              ByteArraySlice is a serializable datatype of the Photon .Net client library.
              It helps avoid allocations by being pooled and (optionally) used in incoming Photon events (see: UseByteArraySlicePoolForEvents).
             
-             You can also use the pool to acquire ByteArraySlice instances for serialization.
-             RaiseEvent will auto-release all ByteArraySlice instances passed in.
+             You can also use the pool to acquire ByteArraySlice Instances for serialization.
+             RaiseEvent will auto-release all ByteArraySlice Instances passed in.
              </remarks>
         </member>
         <member name="F:ExitGames.Client.Photon.PhotonPeer.SendInCreationOrder">
@@ -1605,7 +1605,7 @@
         </member>
         <member name="P:ExitGames.Client.Photon.PhotonPeer.NetworkSimulationSettings">
             <summary>
-            Gets the settings for built-in Network Simulation for this peer instance
+            Gets the settings for built-in Network Simulation for this peer Instance
             while IsSimulationEnabled will enable or disable them.
             Once obtained, the settings can be modified by changing the properties.
             </summary>
@@ -1695,12 +1695,12 @@
         </member>
         <member name="M:ExitGames.Client.Photon.PhotonPeer.TrafficStatsReset">
             <summary>
-            Creates new instances of TrafficStats and starts a new timer for those.
+            Creates new Instances of TrafficStats and starts a new timer for those.
             </summary>
         </member>
         <member name="M:ExitGames.Client.Photon.PhotonPeer.InitializeTrafficStats">
             <summary>
-            Creates new TrafficStats values and the related Stopwatch instance. To be called when the peer is created / reset.
+            Creates new TrafficStats values and the related Stopwatch Instance. To be called when the peer is created / reset.
             </summary>
         </member>
         <member name="M:ExitGames.Client.Photon.PhotonPeer.VitalStatsToString(System.Boolean)">
@@ -1729,7 +1729,7 @@
         <member name="P:ExitGames.Client.Photon.PhotonPeer.EncryptorType">
             <summary>Setter for the Datagram Encryptor type. Used at next connect.</summary>
             <remarks>
-            If null, the PhotonPeer will create a default datagram encryptor instance.
+            If null, the PhotonPeer will create a default datagram encryptor Instance.
             </remarks>
         </member>
         <member name="F:ExitGames.Client.Photon.PhotonPeer.Encryptor">
@@ -1747,7 +1747,7 @@
         </member>
         <member name="M:ExitGames.Client.Photon.PhotonPeer.#ctor(ExitGames.Client.Photon.IPhotonPeerListener,ExitGames.Client.Photon.ConnectionProtocol)">
             <summary>
-            Creates a new PhotonPeer instance to communicate with Photon and selects the transport protocol. We recommend UDP.
+            Creates a new PhotonPeer Instance to communicate with Photon and selects the transport protocol. We recommend UDP.
             </summary>
             <param name="listener">a IPhotonPeerListener implementation</param>
             <param name="protocolType">Protocol to use to connect to Photon.</param>
@@ -1966,15 +1966,15 @@
              </summary>
              <remarks>
              SerializeMethod and DeserializeMethod are complementary: Feed the product of serializeMethod to
-             the constructor, to get a comparable instance of the object.
+             the constructor, to get a comparable Instance of the object.
             
              After registering a Type, it can be used in events and operations and will be serialized like
              built-in types.
              </remarks>
              <param name="customType">Type (class) to register.</param>
              <param name="code">A byte-code used as shortcut during transfer of this Type.</param>
-             <param name="serializeMethod">Method delegate to create a byte[] from a customType instance.</param>
-             <param name="constructor">Method delegate to create instances of customType's from byte[].</param>
+             <param name="serializeMethod">Method delegate to create a byte[] from a customType Instance.</param>
+             <param name="constructor">Method delegate to create Instances of customType's from byte[].</param>
              <returns>If the Type was registered successfully.</returns>
         </member>
         <member name="T:ExitGames.Client.Photon.OperationRequest">
@@ -2461,10 +2461,10 @@
             <summary>Wraps up DeliveryMode, Encryption and Channel values for sending operations and messages.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.SendOptions.SendReliable">
-            <summary>Default SendOptions instance for reliable sending.</summary>
+            <summary>Default SendOptions Instance for reliable sending.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.SendOptions.SendUnreliable">
-            <summary>Default SendOptions instance for unreliable sending.</summary>
+            <summary>Default SendOptions Instance for unreliable sending.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.SendOptions.DeliveryMode">
             <summary>Chose the DeliveryMode for this operation/message. Defaults to Unreliable.</summary>

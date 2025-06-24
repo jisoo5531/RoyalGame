@@ -36,29 +36,29 @@ namespace Photon.Realtime
         //public bool DevRegionSetOnce;
         #endif
 
-        private static PhotonAppSettings instance;
+        private static PhotonAppSettings Instance;
 
         /// <summary>Serialized server settings, written by the Setup Wizard for use in ConnectUsingSettings.</summary>
         public static PhotonAppSettings Instance
         {
             get
             {
-                if (instance == null)
+                if (Instance == null)
                 {
                     LoadOrCreateSettings();
                 }
 
-                return instance;
+                return Instance;
             }
 
-            private set { instance = value; }
+            private set { Instance = value; }
         }
 
 
 
         public static void LoadOrCreateSettings()
         {
-            if (instance != null)
+            if (Instance != null)
             {
                 Debug.LogWarning("Instance is not null. Will not LoadOrCreateSettings().");
                 return;
@@ -71,8 +71,8 @@ namespace Photon.Realtime
             #endif
 
             // try to load the resource / asset (ServerSettings a.k.a. PhotonServerSettings)
-            instance = (PhotonAppSettings)Resources.Load(typeof(PhotonAppSettings).Name, typeof(PhotonAppSettings));
-            if (instance != null)
+            Instance = (PhotonAppSettings)Resources.Load(typeof(PhotonAppSettings).Name, typeof(PhotonAppSettings));
+            if (Instance != null)
             {
                 //Debug.LogWarning("Settings from Resources."); // DEBUG
                 return;
@@ -80,10 +80,10 @@ namespace Photon.Realtime
 
 
             // create it if not loaded
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = (PhotonAppSettings)CreateInstance(typeof(PhotonAppSettings));
-                if (instance == null)
+                Instance = (PhotonAppSettings)CreateInstance(typeof(PhotonAppSettings));
+                if (Instance == null)
                 {
                     Debug.LogError("Failed to create ServerSettings. PUN is unable to run this way. If you deleted it from the project, reload the Editor.");
                     return;
@@ -104,7 +104,7 @@ namespace Photon.Realtime
                 AssetDatabase.ImportAsset(serverSettingsDirectory);
             }
 
-            AssetDatabase.CreateAsset(instance, serverSettingsAssetPath);
+            AssetDatabase.CreateAsset(Instance, serverSettingsAssetPath);
             AssetDatabase.SaveAssets();
 
 

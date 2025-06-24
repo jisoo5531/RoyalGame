@@ -87,7 +87,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 		/// <summary>
 		/// Raises the start following event. 
-		/// Use this when you don't know at the time of editing what to follow, typically instances managed by the photon network.
+		/// Use this when you don't know at the time of editing what to follow, typically Instances managed by the photon network.
 		/// </summary>
 		public void OnStartFollowing()
 		{	      

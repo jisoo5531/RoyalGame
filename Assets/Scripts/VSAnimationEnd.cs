@@ -6,7 +6,7 @@ public class VSAnimationEnd : MonoBehaviour
 {
     public void AnimationEnd()
     {
-        TimeManager.instance.GameStart();
+        TimeManager.Instance.GameStart();
         this.gameObject.SetActive(false);
     }
 }

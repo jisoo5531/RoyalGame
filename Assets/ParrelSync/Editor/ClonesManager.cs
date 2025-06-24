@@ -208,7 +208,7 @@ namespace ParrelSync
         public static bool IsCloneProjectRunning(string projectPath)
         {
 
-            //Determine whether it is opened in another instance by checking the UnityLockFile
+            //Determine whether it is opened in another Instance by checking the UnityLockFile
             string UnityLockFilePath = new string[] { projectPath, "Temp", "UnityLockfile" }
                 .Aggregate(Path.Combine);
 
@@ -216,7 +216,7 @@ namespace ParrelSync
             {
                 case (RuntimePlatform.WindowsEditor):
                     //Windows editor will lock "UnityLockfile" file when project is being opened.
-                    //Sometime, for instance: windows editor crash, the "UnityLockfile" will not be deleted even the project
+                    //Sometime, for Instance: windows editor crash, the "UnityLockfile" will not be deleted even the project
                     //isn't being opened, so a check to the "UnityLockfile" lock status may be necessary.
                     if (Preferences.AlsoCheckUnityLockFileStaPref.Value)
                         return File.Exists(UnityLockFilePath) && FileUtilities.IsFileLocked(UnityLockFilePath);

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class FirstChestCondition : MonoBehaviour
 {
+    public SettingUserInfo userInfo;
     public CollectionCardInfo collectionCardInfo;
     public Sprite yellowButton;
     public Sprite grayButton;
@@ -19,7 +20,7 @@ public class FirstChestCondition : MonoBehaviour
     }
     public void CheckNewbie()
     {
-        if(SettingCardInfoManager.instance.IsNewbie())
+        if(SettingCardInfoManager.Instance.IsNewbie())
         {
             box_Button.gameObject.GetComponent<Button>().interactable = true;
             boxImage.sprite = firstBoxSprite;
@@ -29,6 +30,7 @@ public class FirstChestCondition : MonoBehaviour
         }
         else
         {
+            userInfo.SelectUser(DatabaseManager.Instance.userId);
             box_Button.gameObject.GetComponent<Button>().interactable = false;
             boxImage.sprite = null;
             boxImage.ImageTransparent(0f);

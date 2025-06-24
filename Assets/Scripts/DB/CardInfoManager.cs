@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class CardInfoManager : MonoBehaviour
 {
-    public static CardInfoManager instance;
+    public static CardInfoManager Instance;
 
     public Sprite[] characterImgs;
     public Image[] collectionsImage;
@@ -19,7 +19,7 @@ public class CardInfoManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         allCharacters = new List<CharacterInfo>();
     }
 
@@ -39,13 +39,12 @@ public class CardInfoManager : MonoBehaviour
 
             allCharacters.Clear();
             string selectCardInfo = $"SELECT cardID, name, grade FROM CARD";
-
             using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, DatabaseManager.Instance.conn))
             {
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
+                    {   
                         int characterID = reader.GetInt32(0) - 1;
                         if (characterID >= 0 && characterID < characterImgs.Length)
                         {
@@ -93,7 +92,6 @@ public class CardInfoManager : MonoBehaviour
                 $"WHEN MAGIC.level IS NOT NULL THEN MAGIC.level END AS level FROM CARD " +
                 $"LEFT JOIN UNIT ON CARD.cardID = UNIT.cardID LEFT JOIN MAGIC ON CARD.cardID = MAGIC.cardID " +
                 $"LEFT JOIN DEFENSE_TOWER ON CARD.cardID = DEFENSE_TOWER.cardID";
-
 
             using (MySqlCommand cmd = new MySqlCommand(selectCardInfo, DatabaseManager.Instance.conn))
             {

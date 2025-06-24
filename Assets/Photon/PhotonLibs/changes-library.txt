@@ -118,7 +118,7 @@ Version 4.1.6.11 (23. November 2021 - rev6288)
     Fixed: Payload encryption initialization (without DiffieHellman) for TCP connection.
     Fixed: Protocol16.DeserializeCustom() to check if length of read bytes is available (else, a byte[] is returned).
     Changed: Custom Type arrays will return UnknownType[] if the array's item-type is unknown. If the custom type is known but items do not read properly, they will be null.
-    Added: Checks if each generated Custom Type instance can be assigned to the Custom Type array (and skips those that are null or can't be assigned).
+    Added: Checks if each generated Custom Type Instance can be assigned to the Custom Type array (and skips those that are null or can't be assigned).
     Changed: Protocol18Read.ReadCustomType() and ReadCustomTypeArray() to throw error for size < 0. In that case, it is not possible to continue reading and the data is compromized.
     Removed: Some logging code that was specific for Unity.
     Removed: Exception handling for OnEvent and OnOperationResponse calls. This turned out somewhat inflexible and was hiding valuable debug information. Instead of the low level try/catch, projects should wrap DispatchIncomingCommands in try/catch blocks.
@@ -160,7 +160,7 @@ Version 4.1.6.3 (24. June 2021 - rev6099)
     Fixed: An issue with deserialization of custom types.
 
 Version 4.1.6.2 (23. June 2021 - rev6092)
-    Fixed: Potential NullReferenceException in PhotonClientWebSocket.Disconnect(). If called before the connect-flow finished, the instance was null.
+    Fixed: Potential NullReferenceException in PhotonClientWebSocket.Disconnect(). If called before the connect-flow finished, the Instance was null.
 
 Version 4.1.6.1 (09. June 2021 - rev6086)
     Fixed: TPeer.TotalPacketCount and TotalCommandsInPackets counters. They were increased in two places for the Init message.
@@ -379,7 +379,7 @@ Version 4.1.2.19 (13. November 2019 - rev5271)
 Version 4.1.2.18 (1. October 2019 - rev5229)
     Removed: Surplus logging "Deserializing OpResponse Ping." for TCP/WebSocket connections.
     Changed: Datagram Encryption to use an interface for the encryptor.
-    Changed: PhotonPeer.Encryptor is now public and can be set before connect. Applications can switch to new Datagram Encryption implementations. InitDatagramEncryption will create an instance and use that or falls back to the managed encryptor.
+    Changed: PhotonPeer.Encryptor is now public and can be set before connect. Applications can switch to new Datagram Encryption implementations. InitDatagramEncryption will create an Instance and use that or falls back to the managed encryptor.
     Note: PhotonPeer.Encryptor replaces DgramEncryptor. Setting the class before connect is likely what the LoadBalancingClient will do anyways.
     Changed: The EncryptorNative class is for dynamic linked libs. It can be present in all Unity projects.
     Changed: PhotonPeer.NativeDatagramEncrypt is obsolete, as it's always true now. On demand, an alternative Encryptor can be set.
@@ -415,12 +415,12 @@ Version 4.1.2.14 (16. May 2019 - rev5128)
     Changed: The structure of the Unity SDK. As in PUN 2, there is a "Photon" folder, which wraps up all apis and libraries within a Unity project.
     Updated: The readme txt.
 Version 4.1.2.14 (6. May 2019 - rev5097)
-    Changed: EventData now has Sender or CustomData properties as well as SenderKey and CustomDataKey. The keys can be defines according to API. The default are the Realtime API values. Sender and CustomData access is cached. If an EventData instance is reused (PhotonPeer.ReuseEventInstance), the values will reset.
+    Changed: EventData now has Sender or CustomData properties as well as SenderKey and CustomDataKey. The keys can be defines according to API. The default are the Realtime API values. Sender and CustomData access is cached. If an EventData Instance is reused (PhotonPeer.ReuseEventInstance), the values will reset.
 
 Version 4.1.2.13 (3. May 2019 - rev5086)
     Changed: EventData to not contain the Sender or CustomData properties anymore. They have been specific for the Realtime API and confusing for APIs like Chat.
-    Added: PhotonPeer.ReuseEventInstance as option to use a single EventData instance for all incoming events. This reduces memory garbage. The drawback is: An event provided via OnEvent(EventData photonEvent) is invalidated right after the callback finished. That event's content will get modified. Typically this is not a problem as events are rarely cached.
-    Internal: Added caching for a EventData instance (on demand).
+    Added: PhotonPeer.ReuseEventInstance as option to use a single EventData Instance for all incoming events. This reduces memory garbage. The drawback is: An event provided via OnEvent(EventData photonEvent) is invalidated right after the callback finished. That event's content will get modified. Typically this is not a problem as events are rarely cached.
+    Internal: Added caching for a EventData Instance (on demand).
 
 Version 4.1.2.12 (26. April 2019 - rev5046)
     Fixed: A problem with the new EventData code of v4.1.2.11. It optimistically assumed that events with codes below 200 were always just containing Sender and CustomData. Photon Chat uses different codes, however.
@@ -525,7 +525,7 @@ LoadBalancing:
 *** Version 4.1.1.18 (19. December 2017 - rev4540)
     Fixed: Exception in QueueOutgoingAcknowledgement() with a lock(). This avoids threading issues between Send- and Receive-thread. This was an issue mostly seen in Photon Voice, which uses the library multi-threaded.
     Changed: Network Simulation now only stores the actual data of messages, instead of storing an action/delegate.
-    Note: The delegate IL code for Network Simulation was instantiating a "display class" instance and caused GC garbage, even if no simulation was running.
+    Note: The delegate IL code for Network Simulation was instantiating a "display class" Instance and caused GC garbage, even if no simulation was running.
 LoadBalancing:
     Changed: FriendInfo.Name is now "UserId", which is up to date with it's usage.
     Changed: CheckUserOnJoin is now set by default. The RoomOptions.CheckUserOnJoin got removed.
@@ -707,7 +707,7 @@ Internal:
     Changed: PeerBase: client version packed in INIT_BYTES[5,7,6] bytes
     Changed: pProtocol prefix and path parsed (and trimmed) in IPhotonSocket.TryParseAddress to support websocket urls
     Changed: Client version moved to separate version.cs
-    Changed: Protocol static methods reworked to instance methods, IProtocol interface extracted
+    Changed: Protocol static methods reworked to Instance methods, IProtocol interface extracted
     Changed: PeerBase.DeserializeMessageAndCallback() to use a variant of new MemoryStream that exists in Windows 10 Universal APIs, too.
 LoadBalancing:
     Added: Expected Users. This affects the Room, LoadBalancingClient, JoinRoom, JoinOrCreateRoom and CreateRoom.
@@ -770,7 +770,7 @@ LoadBalancing (Realtime and Turnbased API)
     Changed: JoinMode 2 is now "JoinOrRejoin". Was: "Rejoin".
     Added: ErrorCode constant AuthenticationTicketExpired.
     Internal: OpJoinRoom, OpCreateRoom and OpJoinRandomRoom no longer use a (growing) list of properties. Instead, classes were created to "sum up" their parameters. The api for games didn't change.
-    Internal: Related to the refactoring of Join/Create, the LoadBalancingClient now creates a Room instance when the client arrived on the GameServer (before, it got created in the initial "create" call).
+    Internal: Related to the refactoring of Join/Create, the LoadBalancingClient now creates a Room Instance when the client arrived on the GameServer (before, it got created in the initial "create" call).
 Chat
     Added: More sanity checks on operations (empty userId or secret, max friends).
     Added: Special debug logging when the server returns an error for "Operation Unknown". In this case, it's highly likely that you don't use a Chat AppId.
@@ -779,7 +779,7 @@ Chat
 *** Version 4.0.0.10 (14. July 2015 - rev2988)
     Removed: LitePeer class and complete "Lite" namespace. It's highly recommended to use the LoadBalancing API (LoadBalancingClient, etc). The (few) operations that were defined in Lite are no longer required really.
     Refactored: Some "base" enumerations that were provided by the Lite peer. They are now in LoadBalancingPeer.
-    Added: support for RoomOptions.Plugins. Which we need now since we support multiple plugins per plugin dll - for testing purposes for instance.
+    Added: support for RoomOptions.Plugins. Which we need now since we support multiple plugins per plugin dll - for testing purposes for Instance.
     Fixed: The wrapper classes for the native sockets now do a Sleep(15) when there's nothing to receive. This reduces CPU load considerably.
     Fixed: Unity library SocketWebTcp class for websocket support. It requires a coroutine on a new GameObject which is now marked as DontDestroyOnLoad(go) and survives scene loading.
     Fixed: The Windows 8 SDKs now include the release assemblies. This makes sure you can submit your app to the Windows Store.
@@ -837,7 +837,7 @@ Chat API
     Added: New CustomType de/serialization methods which provide the MemoryStream, instead of a byte[] COPY from the stream.
     Changed: Now using one method to identify a Type. This was duplicated code before.
     Changed: De/Serialization of some types.
-    Note: The drawback is now, that there are more places with: lock(). This is far from optimal but the alternative would be to make Protocol instances per thread. As most is static at the moment, this would not be an easy task.
+    Note: The drawback is now, that there are more places with: lock(). This is far from optimal but the alternative would be to make Protocol Instances per thread. As most is static at the moment, this would not be an easy task.
     Added: position check for DeserializeStreamFunction() call. Stream position must be "previous + customtype length". It gets corrected but at the moment no error is thrown.
     Changed: DispatchIncomingCommands() no longer instantiates the commandsToRemove each call. This is reused and thus saves memory.
     Changed: net_fx build will now check IsConstructedGenericType to detect if something is a dictionary
@@ -1028,7 +1028,7 @@ LoadBalancing API
     Added: new POST value for Custom Authentication. POST can carry more data than GET (usually used). AuthenticationValues has a setter for this.
 LoadBalancing API
     Changed: LoadBalancingClient.AuthValues is renamed to CustomAuthenticationValues property (sets the custom authentication values).
-    Changed: Player class now compares by ActorNumer (assigned by server) instead of comparing the instance.
+    Changed: Player class now compares by ActorNumer (assigned by server) instead of comparing the Instance.
     Internal: SupportClass.GetMethods() now returns type.GetRuntimeMethods(), filtered by attribute (if at all needed). This is used by Photon Unity Networking (PUN) internally. It also returns inherited methods now, not only Declared.
 
 *** Version 3.2.1.0 (24.05.2013 - rev2112)
@@ -1118,7 +1118,7 @@ LoadBalancing API:
     Added: ErrorCode constants MaxCcuReached and InvalidRegion. These are important for the Photon Cloud.
     Added: Handling for DisconnectedByUserLimit. This is a status of OnStatusChanged when a Photon Server License's CCU limit is reached. This no longer will try to connect to a Game Server (where it gets rejected, too).
     Changed: Debug output of loadBalancingClient now goes to Debug.WriteLine (which is available in debugger).
-    Changed: API now uses a factory method to create Room instances (this makes it possible to extend the Room class and instantiate the new class instead).
+    Changed: API now uses a factory method to create Room Instances (this makes it possible to extend the Room class and instantiate the new class instead).
     Changed: The Player constructor now has an "actorProperties" parameter and will cache the provided properties. This makes sure actor-props are available locally.
 Windows Phone 8:
     Added: Demo for Cloud / LoadBalancing. The Particle Demo only has a special WP8 GUI and links it's logic from a separate project (read: folder).
@@ -1160,7 +1160,7 @@ LoadBalancing API:
     Fixed: Issue with (TCP) socket connections being closed directly while connecting. in this case, socket.Receive() might receive 0 bytes instead of blocking until more bytes are available. without sending anything, the socket never updates its .Connected state and never throws a Exception. now we send a ping and thus trigger a exception
     Fixed: Some documentation errors (due to changed API, etc)
 Loadbalancing API:
-    Changed: LoadBalancingClient.OnEvent() now uses a join-event's actornumber-list to create Player instances for anyone who wasn't created as Player before
+    Changed: LoadBalancingClient.OnEvent() now uses a join-event's actornumber-list to create Player Instances for anyone who wasn't created as Player before
     Fixed: LoadBalancingClient.OnEvent() handling for join-event does not expect any actor/player properties anymore (which fixes a potential null-reference exception when not even a name is set)
 
 *** Version 3.0.1.9 (10.05.2012 - rev1512)
@@ -1184,7 +1184,7 @@ Loadbalancing API:
 Demo Realtime:
     Changed: The commandline arguments are now server:port, protocol (udp,tcp,http), reliable sending, interval dispatch, interval send, interval move. Example: localhost:5055 Udp false 15 25 15
     Changed: Demo Realtime: If the commandline sets an unknown protocol, the client shows a message and closes gracefully
-    Changed: Demo Realtime: The demo now starts in the grid view (showing something). Local player and player list are created with the Game instance. Player startpoint is randomized.
+    Changed: Demo Realtime: The demo now starts in the grid view (showing something). Local player and player list are created with the Game Instance. Player startpoint is randomized.
 Loadbalancing API:
     Renamed: LoadBalancingClient.lbPeer to .loadBalancingPeer
     Fixed: LocalPlayer.SetCustomProperties() usage
@@ -1707,7 +1707,7 @@ Siverlight:
 *** Version 5.3.0
 - New: separated libraries into "Compact Framework" (CF) and "Regular Framework" (no name postfix)
 - Change: libraries are now in "libs" folder as debug/release and in libs/CompactFramework debug/release
-- Change: libs default URL set to EU/Test. use setServerURL() with Neutron.URL_NEUTRON_* for other Neutron instances
+- Change: libs default URL set to EU/Test. use setServerURL() with Neutron.URL_NEUTRON_* for other Neutron Instances
 - Internal: lib now uses async UDP communication now with "regular" framework
 - Added: properties serverTimeInMilliSeconds, serverTimeAsTimeSpan and serverTimeAsDateTime for getting the current server time
 - Removed: serverTimeOffset is now internal only and removed from the API (was only needed to calculate the servertime by yourself, before neutron could do this for you)
@@ -1747,7 +1747,7 @@ Siverlight:
 *** Version 5.0.0 RC3
 - Internal: changed constant values: EV_KEY_PROPERTIES = "Data", EV_KEY_REVISION = "Rev"
 - New: EV_KEY_CHANNELTYPE  for channel-type in property-change events
-- New: constants for default channels, CHANNEL_APPLICATION_LONGLIFE, CHANNEL_ACTOR_SHORTLIFE, CHANNEL_ACTOR_LONGLIFE and CHANNEL_APPINSTANCE
+- New: constants for default channels, CHANNEL_APPLICATION_LONGLIFE, CHANNEL_ACTOR_SHORTLIFE, CHANNEL_ACTOR_LONGLIFE and CHANNEL_APPInstance
 - Change: operations that fail due to missing moderation-rights now return RC_MODERATION_DENIED instead of RC_COMMAND_ACCESS_DENIED
 - Change: actor-properties can no longer be broadcasted in any way - removed "broadcast" parameter from setActorProperties()
 - Change: properties now have a revision which is increased on each change. this way outdated updates might be skipped
@@ -1757,12 +1757,12 @@ Siverlight:
 - New: parameter "textMessage" for NeutronGame.invite() adds personal message to invited players (in EV_INV and gameListInvitations())
 - New: key EV_KEY_INFO will be added to EV_INV if "textMessage" was used in NeutronGame.invite() (it's not there otherwise)
 - New: gameListInvitations() has new value parameter {t} to get "textMessage" from NeutronGame.invite()
-- New: RC_APPINSTANCE_NOT_OPEN is now used for "singleton namebased pools" where a game is full (not able to join / instanciate)
+- New: RC_APPInstance_NOT_OPEN is now used for "singleton namebased pools" where a game is full (not able to join / instanciate)
 - New: gameCreate() with invitations will fail if the chosen game-name is already taken in a "singleton namebased pool"
-- New: RC_APPINSTANCE_ALREADY_EXISTS for the case above
+- New: RC_APPInstance_ALREADY_EXISTS for the case above
 
 *** Version 5.0.0 RC2
-- Change: gameCreateReturn() now returns RC_APPINSTANCE_NOT_OPEN (instead of RC_AI_TOO_MANY_ACTORSESSIONS) for full games in "singleton" pools
+- Change: gameCreateReturn() now returns RC_APPInstance_NOT_OPEN (instead of RC_AI_TOO_MANY_ACTORSESSIONS) for full games in "singleton" pools
 - Change: obsolete events EV_TURN, EV_TXTMSG and EV_DATA which could be sent by raiseEvent*() and still handled
 - Change: switched Neutron URLs to "[..].neutron5.[..]" for test/run libs
 - Fix: Polling (getEvents operation) again calls sendGameDataReturn() for all errors (as intended for v4.9.2 already)
@@ -1798,10 +1798,10 @@ Siverlight:
 - New: Players in NeutronGame can have new state PLAYER_KICKED (player-data is updated with EV_KICKED)
 - New: NeutronGame.kickPlayer() (for moderators) and NeutronSession.kickPlayer() (for admin's who are not active in the game to shutdown)
 - New: NeutronSession.shutdownGame() can be used by admin-players (for others, this operation will fail)
-- New: Namebased pools can now be defined as "singleton": only one instance per pool and name will be created; if such a game is full players get an error instead of a new game
-- New: Errors constants in NeutronListener: RC_ACTORSESSION_KICKED, RC_ACTORSESSION_BANNED, RC_APPINSTANCE_CLOSED, RC_ACTORSESSION_ALREADY_JOINED
+- New: Namebased pools can now be defined as "singleton": only one Instance per pool and name will be created; if such a game is full players get an error instead of a new game
+- New: Errors constants in NeutronListener: RC_ACTORSESSION_KICKED, RC_ACTORSESSION_BANNED, RC_APPInstance_CLOSED, RC_ACTORSESSION_ALREADY_JOINED
 - Change: NeutronGame.raiseEvent() accepts a "targetActorNr" which defines a single player to get the raised event; leave 0 to target "all players in game" (as before)
-- New: NeutronGame.quitLocally() to release a NeutronGame instance locally (without having to quit()); used after a player was kicked or game shutdown
+- New: NeutronGame.quitLocally() to release a NeutronGame Instance locally (without having to quit()); used after a player was kicked or game shutdown
 - Update: NeutronGame.playerGetCount() is updated to simply count all active or inactive players (excluding quit and kicked ones)
 - Internal: NeutronGame constructor reads new parameter: P_MODERATOR
 - Change: Polling (getEvents operation) now calls sendGameDataReturn() for all errors (not just RC_ACTORSESSION_EXPIRED and RC_ACTORSESSION_NOT_FOUND); takes care of kicked/banned errors
@@ -1809,10 +1809,10 @@ Siverlight:
 - Change: removed (already deprecated) NeutronListener.gameListPerPoolReturn()
 - Change / Internal: canModerate is sent as Byte (not bool) as in definition; Code: if ( canModerate ) op.addParameter(Neutron.P_MODERATOR , new Byte((byte)1));
 - Add: NeutronGame.PLAYER_KICKED is now listed in JavaDoc for NeutronGame.playerGetStatus()
-- Update: JavaDoc package.html, gameCreateReturn(), gamesListReturn(), EV_DEACTIVATE, kickPlayer(), quitLocally(), RC_ACTORSESSION_KICKED, RC_ACTORSESSION_BANNED, RC_APPINSTANCE_CLOSED, RC_ACTORSESSION_ALREADY_JOINED
+- Update: JavaDoc package.html, gameCreateReturn(), gamesListReturn(), EV_DEACTIVATE, kickPlayer(), quitLocally(), RC_ACTORSESSION_KICKED, RC_ACTORSESSION_BANNED, RC_APPInstance_CLOSED, RC_ACTORSESSION_ALREADY_JOINED
 - Added: Event EV_STATUS (50) includes a key EV_KEY_ISADMIN if the current player has administrator rights; the value is (byte)1 in that case. The key does not exist in any other case (normal users)
 - Update: JavaDoc gameCreateReturn;
-- New: Added constant RC_APPINSTANCE_NOT_FOUND = 137 for shutdownGameReturn()
+- New: Added constant RC_APPInstance_NOT_FOUND = 137 for shutdownGameReturn()
 - Fix: serializable datatypes are now completely listed in NeutronSession JavaDoc
 - New: Constant for property-change events: EV_PROPERTIES_CHANGE including new keys: EV_KEY_PROPERTY_TYPE, EV_KEY_PROPERTIES, EV_KEY_ISDIFF
 - Update: JavaDoc for properties in NeutronSession

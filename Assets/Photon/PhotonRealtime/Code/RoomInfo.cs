@@ -183,14 +183,14 @@ namespace Photon.Realtime
 
 
         /// <summary>Returns most interesting room values as string.</summary>
-        /// <returns>Summary of this RoomInfo instance.</returns>
+        /// <returns>Summary of this RoomInfo Instance.</returns>
         public override string ToString()
         {
             return string.Format("Room: '{0}' {1},{2} {4}/{3} players.", this.name, this.isVisible ? "visible" : "hidden", this.isOpen ? "open" : "closed", this.maxPlayers, this.PlayerCount);
         }
 
         /// <summary>Returns most interesting room values as string, including custom properties.</summary>
-        /// <returns>Summary of this RoomInfo instance.</returns>
+        /// <returns>Summary of this RoomInfo Instance.</returns>
         public string ToStringFull()
         {
             return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", this.name, this.isVisible ? "visible" : "hidden", this.isOpen ? "open" : "closed", this.maxPlayers, this.PlayerCount, this.customProperties.ToStringFull());

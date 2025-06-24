@@ -7,7 +7,7 @@ using UnityEngine;
 public class UnitSpawner : MonoBehaviour
 {
     #region public º¯¼ö
-    public static UnitSpawner instance { get; private set; }
+    public static UnitSpawner Instance { get; private set; }
 
     public AllCardData selectedUnit;
     public bool isElixirEnough = false;
@@ -19,9 +19,9 @@ public class UnitSpawner : MonoBehaviour
 
     private void Awake()
     {        
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -37,7 +37,7 @@ public class UnitSpawner : MonoBehaviour
         {
             yield return null;
 
-            if (!GameManager.instance.isGameEnd && selectedUnit != null && isElixirEnough && Input.GetMouseButtonDown(0))
+            if (!GameManager.Instance.isGameEnd && selectedUnit != null && isElixirEnough && Input.GetMouseButtonDown(0))
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
@@ -50,25 +50,25 @@ public class UnitSpawner : MonoBehaviour
                         {
                             if (unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
                             {
-                                MasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
+                                MasterManager.Instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
                             }
                             else if (unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
                             {
-                                MasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                                MasterManager.Instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
                             }
                         }
                         else
                         {
                             if (unitObj.TryGetComponent<DeffenseTower>(out DeffenseTower deffense))
                             {
-                                NonMasterManager.instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
+                                NonMasterManager.Instance.AddTower(unitObj.GetComponent<PhotonView>().ViewID);
                             }
                             else if (unitObj.TryGetComponent<MovableUnit>(out MovableUnit movable))
                             {
-                                NonMasterManager.instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
+                                NonMasterManager.Instance.AddUnit(unitObj.GetComponent<PhotonView>().ViewID);
                             }
                         }
-                        GameManager.instance.spawnLimits.DisableTower();
+                        GameManager.Instance.spawnLimits.DisableTower();
                         spawnComplete = true;
                         selectedUnit = null;
                         isElixirEnough = false;

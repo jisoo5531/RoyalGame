@@ -36,7 +36,7 @@ namespace Photon.Realtime
     public static class PhotonEditorUtils
     {
         /// <summary>Stores a flag which tells Editor scripts if the PhotonEditor.OnProjectChanged got called since initialization.</summary>
-        /// <remarks>If not, the AssetDatabase is likely not usable yet and instances of ScriptableObject can't be loaded.</remarks>
+        /// <remarks>If not, the AssetDatabase is likely not usable yet and Instances of ScriptableObject can't be loaded.</remarks>
         [Obsolete("Directly check EditorApplication.isUpdating to figure out if assets are being imported at the given time.")]
         public static bool ProjectChangedWasCalled 
         {
@@ -204,7 +204,7 @@ namespace Photon.Realtime
         }
 
 		/// <summary>
-		/// Check if a GameObject is a prefab asset or part of a prefab asset, as opposed to an instance in the scene hierarchy
+		/// Check if a GameObject is a prefab asset or part of a prefab asset, as opposed to an Instance in the scene hierarchy
 		/// </summary>
 		/// <returns><c>true</c>, if a prefab asset or part of it, <c>false</c> otherwise.</returns>
 		/// <param name="go">The GameObject to check</param>

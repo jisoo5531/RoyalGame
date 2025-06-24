@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PhotonConnManager : MonoBehaviourPunCallbacks
 {
-    public static PhotonConnManager instance;
+    public static PhotonConnManager Instance;
     public Animator fadeIn;
 
     public string userName = string.Empty;
@@ -18,9 +18,9 @@ public class PhotonConnManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {

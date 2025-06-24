@@ -48,7 +48,7 @@ public class GameRecordDataSetting : MonoBehaviour
 
             for (int i = 0; i < allyUnitImgs.Length; i++)
             {
-                allyUnitImgs[i].sprite = CardInfoManager.instance.characterImgs[units[i].CardID - 1];
+                allyUnitImgs[i].sprite = CardInfoManager.Instance.characterImgs[units[i].CardID - 1];
                 TextMeshProUGUI textMesh = allyUnitImgs[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
                 textMesh.text = $"lvl.{units[i].UnitLevel}";
                 textMesh.color = GetColor(units[i].CardGrade);
@@ -61,7 +61,7 @@ public class GameRecordDataSetting : MonoBehaviour
 
             for (int i = 0; i < allyUnitImgs.Length; i++)
             {
-                enemyUnitImgs[i].sprite = CardInfoManager.instance.characterImgs[units[i].CardID - 1];
+                enemyUnitImgs[i].sprite = CardInfoManager.Instance.characterImgs[units[i].CardID - 1];
                 TextMeshProUGUI textMesh = enemyUnitImgs[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
                 textMesh.text = $"lvl.{units[i].UnitLevel}";
                 textMesh.color = GetColor(units[i].CardGrade);

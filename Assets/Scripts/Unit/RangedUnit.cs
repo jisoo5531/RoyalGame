@@ -41,11 +41,14 @@ public class RangedUnit : MonoBehaviourPunCallbacks
         }
         projectile.layer = 13;
         Projectile projec = projectile.GetComponent<Projectile>();
-        projec.target = target.gameObject;
+        if (target != null)
+        {
+            projec.target = target.gameObject;
 
-        Damaging damagingComponent = projectile.GetComponent<Damaging>();
-        damagingComponent.target = target;
-        damagingComponent.rangeType = Range.Ranged;
-        damagingComponent.damage = damage;
+            Damaging damagingComponent = projectile.GetComponent<Damaging>();
+            damagingComponent.target = target;
+            damagingComponent.rangeType = Range.Ranged;
+            damagingComponent.damage = damage;
+        }
     }
 }

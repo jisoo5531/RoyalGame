@@ -26,7 +26,7 @@ namespace Photon.Realtime
 
 
     /// <summary>
-    /// Creates a instance of the Account Service to register Photon Cloud accounts.
+    /// Creates a Instance of the Account Service to register Photon Cloud accounts.
     /// </summary>
     public class AccountService
     {
@@ -53,7 +53,7 @@ namespace Photon.Realtime
         public string CustomToken = null;
 
         /// <summary>
-        /// If this AccountService instance is currently waiting for a response. While pending, RegisterByEmail is blocked.
+        /// If this AccountService Instance is currently waiting for a response. While pending, RegisterByEmail is blocked.
         /// </summary>
         public bool RequestPendingResult = false;
 

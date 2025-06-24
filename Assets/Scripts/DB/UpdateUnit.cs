@@ -71,7 +71,7 @@ public class UpdateUnit : MonoBehaviour, IPointerClickHandler
                                 currentCardCount = reader.GetInt32(5),
                                 maxCardCount = reader.GetInt32(6),
                                 level = reader.GetInt32(7),
-                                img = CardInfoManager.instance.characterImgs[id - 1],
+                                img = CardInfoManager.Instance.characterImgs[id - 1],
                             };
                             upgrade.collection.InitUI(characterData);
                         }

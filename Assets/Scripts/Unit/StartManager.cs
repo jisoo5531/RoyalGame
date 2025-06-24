@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
 {
-    private static StartManager instance;
-    public static StartManager m_Instance { get { return instance; } }
+    private static StartManager Instance;
+    public static StartManager m_Instance { get { return Instance; } }
 
     /// <summary>
     /// 배틀덱의 8개의 선택한 유닛들
@@ -40,9 +40,9 @@ public class StartManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -74,12 +74,12 @@ public class StartManager : MonoBehaviour
     /// </summary>
     public void InitializeCollectionImage()
     {
-        for (int i = 0; i < CardInfoManager.instance.collectionsImage.Length; i++)
+        for (int i = 0; i < CardInfoManager.Instance.collectionsImage.Length; i++)
         {
-            CardInfoManager.instance.collectionsImage[i].sprite = SettingCardInfoManager.instance.charData[i].img;
-            if (CardInfoManager.instance.collectionsImage[i].sprite != null)
+            CardInfoManager.Instance.collectionsImage[i].sprite = SettingCardInfoManager.Instance.charData[i].img;
+            if (CardInfoManager.Instance.collectionsImage[i].sprite != null)
             {
-                CardInfoManager.instance.collectionsImage[i].ImageTransparent(1f);
+                CardInfoManager.Instance.collectionsImage[i].ImageTransparent(1f);
             }
         }
     }
@@ -97,9 +97,9 @@ public class StartManager : MonoBehaviour
             if (selectedUnits[i] == null)
             {
                 currentDisplayIndex = i;
-                selectedUnits[currentDisplayIndex] = SettingCardInfoManager.instance.charData[index];
-                battleCardList.Add(SettingCardInfoManager.instance.charData[index].cardId);
-                battleCardCostList.Add(SettingCardInfoManager.instance.charData[index].cost);
+                selectedUnits[currentDisplayIndex] = SettingCardInfoManager.Instance.charData[index];
+                battleCardList.Add(SettingCardInfoManager.Instance.charData[index].cardId);
+                battleCardCostList.Add(SettingCardInfoManager.Instance.charData[index].cost);
                 for (int j = 0; j < battleCardCostList.Count; j++)
                 {
                     avg += battleCardCostList[j];
@@ -116,10 +116,10 @@ public class StartManager : MonoBehaviour
                     costAvg.text = avg.ToString() + ".0";
                 }
 
-                Image unitImage = CardInfoManager.instance.displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+                Image unitImage = CardInfoManager.Instance.displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
                 unitImage.ImageTransparent(1f);
 
-                unitImage.sprite = SettingCardInfoManager.instance.charData[index].img;
+                unitImage.sprite = SettingCardInfoManager.Instance.charData[index].img;
                 break;
             }
         }
@@ -141,12 +141,12 @@ public class StartManager : MonoBehaviour
         avg = 0f;
         for (int i = 0; i < 8; i++)
         {
-            if (selectedUnits[i] != null && selectedUnits[i].name != null && selectedUnits[i].name.Equals(SettingCardInfoManager.instance.charData[index].name))
+            if (selectedUnits[i] != null && selectedUnits[i].name != null && selectedUnits[i].name.Equals(SettingCardInfoManager.Instance.charData[index].name))
             {
                 selectedUnits[i] = null;
                 currentDisplayIndex = i;
-                battleCardList.Remove(SettingCardInfoManager.instance.charData[index].cardId);
-                battleCardCostList.Remove(SettingCardInfoManager.instance.charData[index].cost);
+                battleCardList.Remove(SettingCardInfoManager.Instance.charData[index].cardId);
+                battleCardCostList.Remove(SettingCardInfoManager.Instance.charData[index].cost);
 
                 if (battleCardCostList.Count > 0)
                 {
@@ -175,7 +175,7 @@ public class StartManager : MonoBehaviour
                 }
 
 
-                Image unitImage = CardInfoManager.instance.displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
+                Image unitImage = CardInfoManager.Instance.displaySelectedUnit_UI[currentDisplayIndex].transform.GetChild(0).GetComponent<Image>();
                 unitImage.sprite = null;
                 unitImage.ImageTransparent(0f);
                 break;

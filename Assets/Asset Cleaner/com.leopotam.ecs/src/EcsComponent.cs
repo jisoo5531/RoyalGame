@@ -107,7 +107,7 @@ namespace Leopotam.Ecs {
         }
 
         /// <summary>
-        /// Sets custom constructor for component instances.
+        /// Sets custom constructor for component Instances.
         /// </summary>
         /// <param name="ctor"></param>
         public void SetCustomCtor (Func<object> ctor) {
@@ -138,12 +138,12 @@ namespace Leopotam.Ecs {
                 if (_itemsCount == Items.Length) {
                     Array.Resize (ref Items, _itemsCount << 1);
                 }
-                var instance = _customCtor != null ? _customCtor () : Activator.CreateInstance (_type);
-                // reset brand new instance if component implements IEcsAutoReset.
+                var Instance = _customCtor != null ? _customCtor () : Activator.CreateInstance (_type);
+                // reset brand new Instance if component implements IEcsAutoReset.
                 if (_isAutoReset) {
-                    ((IEcsAutoReset) instance).Reset ();
+                    ((IEcsAutoReset) Instance).Reset ();
                 }
-                Items[_itemsCount++] = instance;
+                Items[_itemsCount++] = Instance;
             }
             return id;
         }

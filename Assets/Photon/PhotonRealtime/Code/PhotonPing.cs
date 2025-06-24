@@ -5,7 +5,7 @@
 // <summary>
 // This file includes various PhotonPing implementations for different APIs,
 // platforms and protocols.
-// The RegionPinger class is the instance which selects the Ping implementation
+// The RegionPinger class is the Instance which selects the Ping implementation
 // to use.
 // </summary>
 // <author>developer@exitgames.com</author>

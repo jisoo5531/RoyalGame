@@ -426,7 +426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2500
+  m_text: 2000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e21d9fa883341484f8393b51730ca170, type: 2}
   m_sharedMaterial: {fileID: -4918373443893110478, guid: e21d9fa883341484f8393b51730ca170, type: 2}
@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 1220067848361363450}
   - component: {fileID: 1010480761}
   - component: {fileID: 5417666678204853694}
+  - component: {fileID: 3460708343206086362}
   m_Layer: 9
   m_Name: TT_Crossbowman (1)
   m_TagString: Untagged
@@ -674,7 +675,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1010480761}
-  - {fileID: 0}
+  - {fileID: 3460708343206086362}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -718,6 +719,22 @@ MonoBehaviour:
   attackSpeed: 1
   canvasInfo: {fileID: 5143049788758633591}
   isTower: 0
+--- !u!114 &3460708343206086362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9118507270821014024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &9118507270911299872
 GameObject:
   m_ObjectHideFlags: 0

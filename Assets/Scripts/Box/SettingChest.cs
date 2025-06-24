@@ -156,11 +156,11 @@ public class SettingChest : MonoBehaviour
 
     private void AddRandomUnitList(int cardID, int amount)
     {
-        for (int i = 0; i < CardInfoManager.instance.allCharacters.Count; i++)
+        for (int i = 0; i < CardInfoManager.Instance.allCharacters.Count; i++)
         {
-            if (cardID == CardInfoManager.instance.allCharacters[i].characterID)
+            if (cardID == CardInfoManager.Instance.allCharacters[i].characterID)
             {
-                randomUnits.Add(CardInfoManager.instance.allCharacters[i], amount);
+                randomUnits.Add(CardInfoManager.Instance.allCharacters[i], amount);
                 break;
             }
         }

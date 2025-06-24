@@ -127,7 +127,7 @@ Updated: Export settings for the dlls in Assets\PhotonLibs. All platforms will u
 Removed: Setting of protocol 1.6 when connecting directly to a Master Server. This was a workaround for older Photon Server SDKs.
 Note: If you host Photon yourself, you can set the LoadBalancingClient.SerializationProtocol to SerializationProtocol.GpBinaryV16, before you connect.
 Added: IPunOwnershipCallbacks.OnOwnershipTransferFailed. This helps react when an Ownership Transfer request failed (due to earlier changes). This might mean you have to implement OnOwnershipTransferFailed in some scripts.
-Changed: PhotonView OwnerActorNr and ControllerActorNr to make use of the new Room.GetPlayer() option (to get the Master Client instance if the owner/controller is set to 0).
+Changed: PhotonView OwnerActorNr and ControllerActorNr to make use of the new Room.GetPlayer() option (to get the Master Client Instance if the owner/controller is set to 0).
 Fixed: The PhotonView's "Find" button was not saving the observed components in scenes, which meant the script wasn't called at runtime.
 Updated: Library to 4.1.5.2.
 
@@ -188,7 +188,7 @@ Updated: Documentation about SerializationRate and SendRate. This now explains m
 v2.23 (17. November 2020)
 Changed: CustomTypes are now split into CustomTypes and CustomTypesUnity. The latter is part of the Realtime API and registers automatically for Unity projects (in LoadBalancingClient constructor). This only changes internals for PUN. The Player class is only a de/serializable type in PUN.
 Changed: DebugLog info in case an RPC was not found. Making it clear that RPCs should return null or an IEnumerator (if you enable RunRpcCoroutines).
-Changed: Creation of the locally used EventData instance. The Parameters are now readonly and non-null.
+Changed: Creation of the locally used EventData Instance. The Parameters are now readonly and non-null.
 Updated: Registration wizard to avoid multiple registration calls.
 Fixed: Callback registration updates when the owner changes (PhotonView.SetOwnerInternal()).
 Changed: PhotonServerSettings label for Appid of PUN. Was labelled as "Realtime" but there is a "PUN" type of appids which should be used.
@@ -349,7 +349,7 @@ v2.15 (19. September 2019)
 Fixed: NullReferenceException when trying to log an error for a received RPC with a non existing method and zero arguments.
 Changed: Calling an RPC method with a null or empty method name will not be executed and error will be logged.
 Fixed: Callbacks deregistration and PlayersPerTeam clearing in PunTeams which caused KeyNotFoundException in some cases.
-Fixed: NullReferenceException in SupportLogger.TrackValues in Unity Editor after compilation by making sure only one instance of SupportLogger is in the scene and SupportLogger.TrackValues is properly stopped when the application stops or client disconnects.
+Fixed: NullReferenceException in SupportLogger.TrackValues in Unity Editor after compilation by making sure only one Instance of SupportLogger is in the scene and SupportLogger.TrackValues is properly stopped when the application stops or client disconnects.
 Changed: TypedLobby refactored to reflect the proper definition of the default lobby: a lobby that has a null or empty name, the provided type is ignored in this case and will be considered default type.
 Changed: RPC methods not found error logs explictily state that RPC methods search does not include static methods which are not supported as RPC methods.
 Updated: SceneSettings Inspector improved and SceneAsset field added to make reference to scenes easier.
@@ -414,7 +414,7 @@ Fixed: ClientState.ConnectedToMasterserver did not have the same value as Connec
 Changed: Account registration scripts to use Unity's built-in JSON parsing. Now, PUN no longer incldues the NewtonSoft Json dll (which should avoid the occasional clash of dlls).
 Updated: To new library version 4.1.2.13 (3. May 2019 - rev5086).
     Changed: EventData was changed in the Photon3Unity3d.dll again. Now it does not have a Sender or CustomData property anymore as those were not workign for Chat (and misleading). Instead, those are fetched from the Parameters of an event (each API provides accessor extensions).
-    Added: PhotonPeer.ReuseEventInstance as option to use a single EventData instance for all incoming events. This reduces memory garbage. The drawback is: An event provided via OnEvent(EventData photonEvent) is invalidated right after the callback finished. That event's content will get modified. Typically this is not a problem as events are rarely cached.
+    Added: PhotonPeer.ReuseEventInstance as option to use a single EventData Instance for all incoming events. This reduces memory garbage. The drawback is: An event provided via OnEvent(EventData photonEvent) is invalidated right after the callback finished. That event's content will get modified. Typically this is not a problem as events are rarely cached.
 Chat
     Fixed: Properly add local client's UserId to public channels' Subscribers list when applicable.
 
@@ -492,7 +492,7 @@ Added: ServerSettings now let you open the dashboard directly for each types of 
 Fixed: PhotonEditorUtils.IsPrefab() is fixed for 2018.3 onwards, it now takes in consideration both assets and prefab editing stage when checking.
 Changed: Setting PhotonNetwork.PrefabPool to null now logs a warning and default to the DefaultPool class.
 Fixed: Problems with "Best Region" selection on Nintendo Switch. Best Region now works, even if all available Photon Cloud regions need to be pinged.
-Internal: PingMono class now keeps one Socket instance until discarded.
+Internal: PingMono class now keeps one Socket Instance until discarded.
 Internal: PingMono uses Socket.Poll() now, instead of .Available (which might also be the cause why this is Switch compatible now).
 Internal: PUN now sends PhotonView-updates via a re-used List<object>. A second list was added to the PhotonView, so they can be used alternating and without copying values before sending them.
 Changed: ExecuteRpc() to not always create argument- and argument-type-list. This is a minor optimization.

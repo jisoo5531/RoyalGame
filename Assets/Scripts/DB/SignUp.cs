@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon.StructWrapping;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -52,8 +53,8 @@ public class SignUp : MonoBehaviour
             InsertUserData(nickname.text, password.text);
             isClick = true;
             loginBtn.interactable = false;
-            PhotonConnManager.instance.userName = nickname.text;
-            PhotonConnManager.instance.Connection();
+            PhotonConnManager.Instance.userName = nickname.text;
+            PhotonConnManager.Instance.Connection();
         }
         else
         {
@@ -85,18 +86,16 @@ public class SignUp : MonoBehaviour
                     cmd.Parameters.AddWithValue("@defeatCount", 0);
                     cmd.Parameters.AddWithValue("@maxTrophy", 0);
                     cmd.Parameters.AddWithValue("@currentTrophy", 0);
-                    cmd.Parameters.AddWithValue("@gold", 0);
+                    cmd.Parameters.AddWithValue("@gold", 1000);
                     cmd.Parameters.AddWithValue("@jewel", 1000);
                     cmd.Parameters.AddWithValue("@maxCardCount", 8);
                     cmd.Parameters.AddWithValue("@currentCardCount", 0);
 
-                    using (var reader = cmd.ExecuteReader())
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
                     {
-                        if (reader.Read())
-                        {
-                            DatabaseManager.Instance.userId = reader.GetInt32(0);
-                            Debug.Log("데이터 삽입 성공");
-                        }
+                        DatabaseManager.Instance.userId = Convert.ToInt32(result);
+                        Debug.Log("데이터 삽입 성공");
                     }
                 }
                 else
@@ -121,23 +120,19 @@ public class SignUp : MonoBehaviour
             }
 
             string nameSelect = $"SELECT count(*) FROM USER WHERE userName = '{name}'";
+            int count = 0;
 
             using (MySqlCommand cmd = new MySqlCommand(nameSelect, DatabaseManager.Instance.conn))
             {
-                if (cmd != null)
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    int count = 0;
-
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    if(reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            count = reader.GetInt32(0);
-                        }
+                        count = reader.GetInt32(0);
                     }
-                    return count > 0;
                 }
             }
+            return count > 0;
         }
         catch (Exception ex)
         {

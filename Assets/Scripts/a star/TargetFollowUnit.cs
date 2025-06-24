@@ -27,6 +27,11 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     private void Awake()
     {
         unitInfoCanvas = GetComponent<UnitCanvasInfo>();
+
+        if (unitInfoCanvas != null && photonView.IsMine)
+        {
+            unitInfoCanvas.unitCanvas.transform.localEulerAngles = Vector3.zero;
+        }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -95,12 +100,18 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
 
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
+                    if (photonView != null)
+                    {
+                        photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y);
+                    }
                     unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y, 0);
                 }
                 else
                 {
-                    photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
+                    if (photonView != null)
+                    {
+                        photonView.RPC("CanvasRotate", RpcTarget.Others, transform.localEulerAngles.y - 180);
+                    }
                     unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -transform.localEulerAngles.y + 180, 0);
                 }
             }
@@ -112,7 +123,10 @@ public class TargetFollowUnit : MonoBehaviourPunCallbacks
     [PunRPC]
     private void CanvasRotate(float rotateY)
     {
-        unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+        if (this.gameObject != null && photonView != null)
+        {
+            unitInfoCanvas.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+        }
     }
 
     public void OnDrawGizmos()

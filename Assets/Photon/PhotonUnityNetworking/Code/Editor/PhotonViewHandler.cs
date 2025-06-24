@@ -41,7 +41,7 @@ namespace Photon.Pun
             // check if only one view had the viewId earlier
             // apply a new viewID to the others
 
-            // update the cached list of instances and their viewID
+            // update the cached list of Instances and their viewID
 
 
             //Debug.LogWarning("OnHierarchyChanged(). isPlaying: " + Application.isPlaying);
@@ -161,30 +161,30 @@ namespace Photon.Pun
 	}
 
     /// <summary>
-    /// Stores a PhotonView instances per viewId (key). Instance is used as cache storage in-Editor.
+    /// Stores a PhotonView Instances per viewId (key). Instance is used as cache storage in-Editor.
     /// </summary>
     public class PunSceneViews : ScriptableObject
     {
         [SerializeField]
         public Dictionary<int, PhotonView> Views = new Dictionary<int, PhotonView>();
 
-        private static PunSceneViews instanceField;
+        private static PunSceneViews InstanceField;
         public static PunSceneViews Instance
         {
             get
             {
-                if (instanceField != null)
+                if (InstanceField != null)
                 {
-                    return instanceField;
+                    return InstanceField;
                 }
 
-                instanceField = GameObject.FindObjectOfType<PunSceneViews>();
-                if (instanceField == null)
+                InstanceField = GameObject.FindObjectOfType<PunSceneViews>();
+                if (InstanceField == null)
                 {
-                    instanceField = ScriptableObject.CreateInstance<PunSceneViews>();
+                    InstanceField = ScriptableObject.CreateInstance<PunSceneViews>();
                 }
 
-                return instanceField;
+                return InstanceField;
             }
         }
     }

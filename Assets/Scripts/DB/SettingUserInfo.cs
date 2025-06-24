@@ -34,7 +34,7 @@ public class SettingUserInfo : MonoBehaviour
         StartManager.m_Instance.jewel = int.Parse(jewelAmount.text);
     }
 
-    private void SelectUser(int userId)
+    public void SelectUser(int userId)
     {
         try
         {

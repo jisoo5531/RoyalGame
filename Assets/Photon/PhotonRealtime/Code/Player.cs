@@ -140,7 +140,7 @@ namespace Photon.Realtime
 
 
         /// <summary>
-        /// Creates a player instance.
+        /// Creates a player Instance.
         /// To extend and replace this Player, override LoadBalancingPeer.CreatePlayer().
         /// </summary>
         /// <param name="nickName">NickName of the player (a "well known property").</param>
@@ -151,7 +151,7 @@ namespace Photon.Realtime
         }
 
         /// <summary>
-        /// Creates a player instance.
+        /// Creates a player Instance.
         /// To extend and replace this Player, override LoadBalancingPeer.CreatePlayer().
         /// </summary>
         /// <param name="nickName">NickName of the player (a "well known property").</param>
@@ -251,7 +251,7 @@ namespace Photon.Realtime
                 return;
             }
             
-            // only remote player instances update their NickName from the properties
+            // only remote player Instances update their NickName from the properties
             if (!this.IsLocal && properties.ContainsKey(ActorProperties.PlayerName))
             {
                 string nameInServersProperties = (string)properties[ActorProperties.PlayerName];

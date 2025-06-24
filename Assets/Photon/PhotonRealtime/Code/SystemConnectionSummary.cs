@@ -30,7 +30,7 @@ namespace Photon.Realtime
     /// The SBS can then be turned into an integer (ToInt()) or string to debug the situation or use in analytics.
     /// Both, ToString and ToInt summarize the network-relevant conditions of the client at and before the connection fail, including the PhotonPeer.SocketErrorCode.
     ///
-    /// Important: To correctly create the SBS instance, a ConnectionHandler component must be present and enabled in the
+    /// Important: To correctly create the SBS Instance, a ConnectionHandler component must be present and enabled in the
     /// Unity scene hierarchy. In best case, keep the ConnectionHandler on a GameObject which is flagged as
     /// DontDestroyOnLoad.
     /// </remarks>
@@ -124,7 +124,7 @@ namespace Photon.Realtime
         }
 
         /// <summary>
-        /// Creates a SystemConnectionSummary instance from an int (reversing ToInt()). This can then be turned into a string again.
+        /// Creates a SystemConnectionSummary Instance from an int (reversing ToInt()). This can then be turned into a string again.
         /// </summary>
         /// <param name="summary">An int, as provided by ToInt(). No error checks yet.</param>
         public SystemConnectionSummary(int summary)

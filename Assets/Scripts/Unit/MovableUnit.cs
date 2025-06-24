@@ -36,7 +36,7 @@ public class MovableUnit : Unit, IAttackable
         damaging = GetComponentInChildren<Damaging>();
         canvasInfo = GetComponent<UnitCanvasInfo>();
 
-        InitializeUnitData(UnitSpawner.instance.selectedUnit);
+        InitializeUnitData(UnitSpawner.Instance.selectedUnit);
 
     }
     private void Start()
@@ -112,7 +112,7 @@ public class MovableUnit : Unit, IAttackable
         }
         else
         {
-            DetectEnemyManager.instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, attackTarget);
+            DetectEnemyManager.Instance.CheckDetectEnemy(detectionRange, this.transform, targetFollowUnit, attackTarget);
 
             if (targetFollowUnit.target != null)
             {
@@ -123,16 +123,22 @@ public class MovableUnit : Unit, IAttackable
                 }
                 else
                 {
-                    if(isAttackEnter)
+                    if (isAttackEnter)
                     {
-                        DetectEnemyManager.instance.MovePath(transform, targetFollowUnit);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            DetectEnemyManager.Instance.MovePath(transform, targetFollowUnit);
+                        }
                         isAttackEnter = false;
                     }
                 }
 
                 if (!isTimer && !isMovePath)
                 {
-                    DetectEnemyManager.instance.MovePath(transform, targetFollowUnit);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        DetectEnemyManager.Instance.MovePath(transform, targetFollowUnit);
+                    }
                     isMovePath = true;
                 }
             }
@@ -142,12 +148,15 @@ public class MovableUnit : Unit, IAttackable
     [PunRPC]
     private void CanvasRotate(float rotateY)
     {
-        canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+        if (this.gameObject != null && photonView != null)
+        {
+            canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotateY + 180, 0);
+        }
     }
 
     private void StateTransition(Transform target)
     {
-        if (target == null || isTimer || DetectEnemyManager.instance == null) return;
+        if (target == null || isTimer || DetectEnemyManager.Instance == null) return;
 
         if (CheckDis())
         {
@@ -210,11 +219,11 @@ public class MovableUnit : Unit, IAttackable
 
         float rotationY = transform.localEulerAngles.y;
 
-        if(photonView != null)
+        if (photonView != null)
         {
             photonView.RPC("CanvasRotate", RpcTarget.Others, PhotonNetwork.IsMasterClient ? rotationY : rotationY - 180);
         }
-        
+
         canvasInfo.unitCanvas.transform.localEulerAngles = new Vector3(0, -rotationY + (PhotonNetwork.IsMasterClient ? 0 : 180), 0);
     }
 

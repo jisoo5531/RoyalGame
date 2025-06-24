@@ -424,7 +424,7 @@ namespace Leopotam.Ecs {
     }
 
     /// <summary>
-    /// Stats of EcsWorld instance.
+    /// Stats of EcsWorld Instance.
     /// </summary>
     public struct EcsWorldStats {
         /// <summary>

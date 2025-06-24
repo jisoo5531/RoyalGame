@@ -65,7 +65,7 @@ namespace Photon.Pun.UtilityScripts
 
         protected void OnValidate()
         {
-            /// Check the prefab to make sure it is the actual resource, and not a scene object or other instance.
+            /// Check the prefab to make sure it is the actual resource, and not a scene object or other Instance.
             if (PrefabsToInstantiate != null)
                 for (int i = 0; i < PrefabsToInstantiate.Count; ++i)
                 {
@@ -112,7 +112,7 @@ namespace Photon.Pun.UtilityScripts
         }
 
         /// <summary>
-        /// Determines if the supplied GameObject is an instance of a prefab, or the actual source Asset, 
+        /// Determines if the supplied GameObject is an Instance of a prefab, or the actual source Asset, 
         /// and returns a best guess at the actual resource the dev intended to use.
         /// </summary>
         /// <returns></returns>

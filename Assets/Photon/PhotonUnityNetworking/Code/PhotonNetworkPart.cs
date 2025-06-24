@@ -162,7 +162,7 @@ namespace Photon.Pun
 
 
         /// <summary>
-        /// An Object Pool can be used to keep and reuse instantiated object instances. Replaces Unity's default Instantiate and Destroy methods.
+        /// An Object Pool can be used to keep and reuse instantiated object Instances. Replaces Unity's default Instantiate and Destroy methods.
         /// </summary>
         /// <remarks>
         /// Defaults to the DefaultPool type.

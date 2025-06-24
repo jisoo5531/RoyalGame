@@ -20,7 +20,7 @@ namespace Photon.Pun.Demo.SlotRacer
     /// <summary>
     /// Player control. 
     /// Interface the User Inputs and PUN
-    /// Handle the Car instance 
+    /// Handle the Car Instance 
     /// </summary>
     [RequireComponent(typeof(SplineWalker))]
     public class PlayerControl : MonoBehaviourPun, IPunObservable
@@ -53,7 +53,7 @@ namespace Photon.Pun.Demo.SlotRacer
         private float CurrentDistance;
 
         /// <summary>
-        /// The car instance.
+        /// The car Instance.
         /// </summary>
         private GameObject CarInstance;
 
@@ -128,7 +128,7 @@ namespace Photon.Pun.Demo.SlotRacer
                 this.CarInstance.SetActive(false);
             }
 
-            // depending on wether we control this instance locally, we force the car to become active ( because when you are alone in the room, serialization doesn't happen, but still we want to allow the user to race around)
+            // depending on wether we control this Instance locally, we force the car to become active ( because when you are alone in the room, serialization doesn't happen, but still we want to allow the user to race around)
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
                 this.m_firstTake = false;
@@ -152,7 +152,7 @@ namespace Photon.Pun.Demo.SlotRacer
         }
 
         /// <summary>
-        /// Start this instance as a coroutine
+        /// Start this Instance as a coroutine
         /// Waits for a Playernumber to be assigned and only then setup the car and put it on the right starting position on the lane.
         /// </summary>
         private IEnumerator Start()
@@ -166,7 +166,7 @@ namespace Photon.Pun.Demo.SlotRacer
         }
 
         /// <summary>
-        /// Make sure we delete instances linked to this component, else when user is leaving the room, its car instance would remain 
+        /// Make sure we delete Instances linked to this component, else when user is leaving the room, its car Instance would remain 
         /// </summary>
         private void OnDestroy()
         {

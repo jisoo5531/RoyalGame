@@ -36,7 +36,7 @@ namespace Photon.Pun
         private bool m_IsWriting;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PhotonStreamQueue"/> class.
+        /// Initializes a new Instance of the <see cref="PhotonStreamQueue"/> class.
         /// </summary>
         /// <param name="sampleRate">How many times per second should the object states be sampled</param>
         public PhotonStreamQueue(int sampleRate)

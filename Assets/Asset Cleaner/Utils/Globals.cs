@@ -1,15 +1,15 @@
 ﻿namespace Asset_Cleaner {
     static class Globals<T> where T : class {
-        static T _instance;
+        static T _Instance;
 
         public static T Value {
             get {
-                Asr.IsFalse(_instance == null);
-                return _instance;
+                Asr.IsFalse(_Instance == null);
+                return _Instance;
             }
             set {
                 var was = HasValue();
-                _instance = value;
+                _Instance = value;
 
                 // keep counter to check during deinitialization if all Globals are cleared     
                 if (was && !HasValue())
@@ -17,7 +17,7 @@
                 if (!was && HasValue())
                     __GlobalsCounter.Counter += 1;
 
-                bool HasValue() => _instance != null;
+                bool HasValue() => _Instance != null;
             }
         }
     }

@@ -98,9 +98,9 @@ namespace Leopotam.Ecs {
 #endif
 
         /// <summary>
-        /// Creates new instance of EcsSystems group.
+        /// Creates new Instance of EcsSystems group.
         /// </summary>
-        /// <param name="world">EcsWorld instance.</param>
+        /// <param name="world">EcsWorld Instance.</param>
         /// <param name="name">Custom name for this group.</param>
         public EcsSystems (EcsWorld world, string name = null) {
             World = world;
@@ -110,7 +110,7 @@ namespace Leopotam.Ecs {
         /// <summary>
         /// Adds new system to processing.
         /// </summary>
-        /// <param name="system">System instance.</param>
+        /// <param name="system">System Instance.</param>
         /// <param name="namedRunSystem">Optional name of system.</param>
         public EcsSystems Add (IEcsSystem system, string namedRunSystem = null) {
 #if DEBUG
@@ -171,7 +171,7 @@ namespace Leopotam.Ecs {
         }
 
         /// <summary>
-        /// Injects instance of object type to all compatible fields of added systems.
+        /// Injects Instance of object type to all compatible fields of added systems.
         /// </summary>
         /// <param name="obj">Instance.</param>
         public EcsSystems Inject<T> (T obj) {
@@ -307,11 +307,11 @@ namespace Leopotam.Ecs {
         }
 
         /// <summary>
-        /// Injects custom data to fields of ISystem instance.
+        /// Injects custom data to fields of ISystem Instance.
         /// </summary>
-        /// <param name="system">ISystem instance.</param>
-        /// <param name="world">EcsWorld instance.</param>
-        /// <param name="injections">Additional instances for injection.</param>
+        /// <param name="system">ISystem Instance.</param>
+        /// <param name="world">EcsWorld Instance.</param>
+        /// <param name="injections">Additional Instances for injection.</param>
         public static void InjectDataToSystem (IEcsSystem system, EcsWorld world, Dictionary<Type, object> injections) {
             var systemType = system.GetType ();
             var worldType = world.GetType ();
@@ -364,7 +364,7 @@ namespace Leopotam.Ecs {
     }
 
     /// <summary>
-    /// IEcsRunSystem instance with active state.
+    /// IEcsRunSystem Instance with active state.
     /// </summary>
     public sealed class EcsSystemsRunItem {
         public bool Active;
